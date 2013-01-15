@@ -1,7 +1,30 @@
 doctype 5
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+		title=title
+		meta(name='viewport', content="width=device-width, intial-scale=1.0")
+		link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+		link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.css')
+		link(rel='stylesheet', href='/stylesheets/darkstrap.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+
+		block scripts
+
+	body
+
+		block header
+			.masthead
+				ul.nav.nav-pills.pull-right
+					pages  = ["Home", "Profile", "About", "FAQ", "Contact"]
+					each page in pages
+						li
+							a('href'=#{page} + ".html") #{page}
+				h3.muted
+					logo-goes-here
+
+		block content
+
+		block footer
+			.container
+				p.muted.credit
+					| Copyright &copy; 2013
