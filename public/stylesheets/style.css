@@ -1,105 +1,112 @@
 body {
-        padding-top: 20px;
-        padding-bottom: 40px;
-      }
 
-      /* Custom container */
-      .container-narrow {
-        margin: 0 auto;
-        max-width: 700px;
-      }
-      .container-narrow > hr {
-        margin: 30px 0;
-      }
+padding-top:20px;
+padding-bottom:40px;
+}
 
-      .container-narrow {
-        margin: 0 auto;
-        max-width: 1000px;
-      }
-      .container-narrow > hr {
-        margin: 30px 0;
-      }
+.container-narrow {
+max-width:1000px;
+margin:0 auto;
+}
 
-      /* Main marketing message and sign up button */
-      .jumbotron {
-        margin: 60px 0;
-        text-align: center;
-      }
-      .jumbotron h1 {
-        font-size: 72px;
-        line-height: 1;
-      }
-      .jumbotron .btn {
-        font-size: 21px;
-        padding: 14px 24px;
-      }
+.container-narrow > hr {
+margin:30px 0;
+}
 
-      /* Supporting marketing content */
-      .marketing {
-        margin: 60px 0;
-      }
-      .marketing p + h4 {
-        margin-top: 28px;
-      }
+.jumbotron {
+text-align:center;
+margin:60px 0;
+}
 
-      #chatarea{
-        margin-top: 30px;
-        padding-bottom: 20px;
-        width: 70%;
-        height: 510px;
-        -moz-box-shadow: rgba(255, 255, 255, 0.07) 1px 0 0;
-        -webkit-box-shadow: rgba(255, 255, 255, 0.07) 1px 0 0;
-        -o-box-shadow: rgba(255, 255, 255, 0.07) 1px 0 0;
-        box-shadow: rgba(255, 255, 255, 0.07) 1px 0 0;
-        border-right: 1px solid #121212;
-        border-left: none;
-        float: left;
-      }
-      
-      #chatmsg{
-        width: 80%;
-        height: 300px;
-        overflow: auto;
-      }
+.jumbotron h1 {
+font-size:72px;
+line-height:1;
+}
 
-      #msg{
-        width: 80%;
-        
-      }
+.jumbotron .btn {
+font-size:21px;
+padding:14px 24px;
+}
 
-      #userlist h5, #chatTxt{
-        font-variant: small-caps;
-      }
+.marketing {
+margin:60px 0;
+}
 
-      #editorspace{
-        height: 600px;
-      }
+.marketing p + h4 {
+margin-top:28px;
+}
 
-      #code{
-        width: 98%;
-        height: 88%;
-        resize: none;
-      }
+#chatarea {
+margin-top:30px;
+padding-bottom:20px;
+width:70%;
+height:510px;
+-moz-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
+-webkit-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
+-o-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
+box-shadow:rgba(255,255,255,0.07) 1px 0 0;
+border-right:1px solid #121212;
+border-left:none;
+float:left;
+}
 
-      .clear{
-        clear: both;
-      }
+.right-seperator{
+-moz-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
+-webkit-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
+-o-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
+box-shadow:rgba(255,255,255,0.07) 1px 0 0;
+border-right:1px solid #121212;
+border-left:none;
+}
 
-      .errorLine{
-        text-decoration: none;
-        color:red !important;
-      }
+#chatmsg {
+width:80%;
+height:300px;
+overflow:auto;
+}
 
-      .errorLine:hover{
-        text-decoration: none;
-       }
+#msg {
+width:80%;
+}
 
-       .error {
-        float: left;
-       } 
+#userlist h5,#chatTxt {
+font-variant:small-caps;
+}
 
-       label {
-        font-variant: small-caps;
-        width: 25%;
-        float: left;
-       }
+#editorspace {
+height:600px;
+}
+
+#code {
+width:98%;
+height:88%;
+resize:none;
+}
+
+.clear {
+clear:both;
+}
+
+.errorLine {
+text-decoration:none;
+color:red!important;
+}
+
+.errorLine:hover {
+text-decoration:none;
+}
+
+label {
+font-variant:small-caps;
+width:25%;
+float:left;
+}
+
+.justify{
+  text-align: justify;
+}
+
+#myModal{
+  width: 700px;
+  margin: -320px 0 0 -350px;;
+}

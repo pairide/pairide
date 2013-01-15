@@ -49,6 +49,42 @@ block content
 
 	div(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true").modal.hide.fade#myModal
 		.modal-header
-			h3 wuuuut
+			h4 Session
 		.modal-body
-			| One fine body
+
+			.row-fluid
+				.span6
+					.right-seperator 
+
+						h5.pagination-centered Express
+						
+						small.justify
+							| Don't want to log in? You can quickly set-up a session and invite your peer. This feature is suited if you're looking for
+							| a quick session but provides limited features.
+
+						br
+						br
+
+						.pagination-centered
+							a(href="#", role="button").btn.btn-medium.btn-success Start express session
+
+				.span6
+					h5.pagination-centered Log In
+
+						form.form-horizontal
+
+						.control-group
+							label.control-label
+								| Username:
+							.controls
+								input(name='user', type='text', size='15', required, placeholder="Username").input-medium
+
+						.control-group
+							label.control-label
+								| Password:
+							.controls
+								input(name='password', type='password', required, placeholder="Password").input-medium							
+
+						.control-group
+							.controls
+								input(type='submit', value='Log In').btn.btn-medium.btn-success
