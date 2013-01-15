@@ -1,5 +1,10 @@
 extends layout
 
+block append scripts
+
+	script(src='/js/bootstrap-modal.js')
+	script(src='/js/index.js')
+
 block content
 
 	.jumbotron.well
@@ -9,6 +14,8 @@ block content
 		p.lead
 			| Initiate a hassle-free, live pair programming session. You don't have to be in the same room.
 
+		br
+		a(href="#myModal", role="button", data-toggle="modal").btn.btn-large.btn-success Launch
 	hr
 
 	.row-fluid.marketing
@@ -39,3 +46,11 @@ block content
 			h4="Share."
 			p
 				|When you're done, share the code on gist/github.
+
+	div(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true").modal.hide.fade#myModal
+		.modal-header
+			h3 wuuuut
+		.modal-body
+			| One fine body
+		.modal-footer
+			| Save changes
