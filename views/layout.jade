@@ -12,19 +12,25 @@ html
 
 	body
 
-		block header
-			.masthead
-				ul.nav.nav-pills.pull-right
-					pages  = ["Home", "Profile", "About", "FAQ", "Contact"]
-					each page in pages
-						li
-							a('href'=#{page} + ".html") #{page}
-				h3.muted
-					logo-goes-here
+		.container-narrow
 
-		block content
+			block header
+				.masthead
+					ul.nav.nav-pills.pull-right
+						pages  = ["Home", "Profile", "About", "FAQ", "Contact"]
+						each page in pages
+							if current == page
+								li.active
+									a('href'=page.toLowerCase()) #{page}
+							else
+								li
+									a('href'=page.toLowerCase()) #{page}
+					h3.muted
+						| logo-goes-here
 
-		block footer
-			.container
-				p.muted.credit
-					| Copyright &copy; 2013
+			block content
+
+			block footer
+				.container
+					p.muted.credit
+						| Copyright &copy; 2013
