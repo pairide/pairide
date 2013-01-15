@@ -70,3 +70,21 @@ block content
 
 				.span6
 					h5.pagination-centered Log In
+
+						form.form-horizontal
+
+						.control-group
+							label.control-label
+								| Username:
+							.controls
+								input(name='user', type='text', size='15', required, placeholder="Username").input-medium
+
+						.control-group
+							label.control-label
+								| Password:
+							.controls
+								input(name='password', type='password', required, placeholder="Password").input-medium							
+
+						.control-group
+							.controls
+								input(type='submit', value='Log In').btn.btn-medium.btn-success
