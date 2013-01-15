@@ -1,0 +1,25 @@
+extends layout
+
+block content
+	h1= title
+	form.well
+		legend Basic Form
+		.field
+			label First Name
+			input(name="first", placeholder="First Name", type="text")
+		.field
+			label Last Name
+			input(name="last", placeholder="Last Name", type="text")
+		.field	
+			label Username
+			input(name="username", placeholder="Username", type="text", required)
+		.field
+			label Email
+			input(name="email", placeholder="Email", type="text", required)
+		.field
+			label Password
+			input(name="pass", placeholder="Password", type="text", required, min="4")
+		.field
+			label Confirm Password
+			input(name="confirm_pass", placeholder="Confirm Password", type="text", required, min="4")
+		button.btn(type="submit") Submit
