@@ -31,6 +31,7 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
+app.get('/register', routes.register);
 app.get('/about', routes.about);
 app.get('/users', user.list);
 
