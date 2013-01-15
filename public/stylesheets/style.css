@@ -49,6 +49,15 @@ border-left:none;
 float:left;
 }
 
+.right-seperator{
+-moz-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
+-webkit-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
+-o-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
+box-shadow:rgba(255,255,255,0.07) 1px 0 0;
+border-right:1px solid #121212;
+border-left:none;
+}
+
 #chatmsg {
 width:80%;
 height:300px;
@@ -94,4 +103,9 @@ float:left;
 
 .justify{
   text-align: justify;
+}
+
+#myModal{
+  width: 700px;
+  margin: -320px 0 0 -350px;;
 }
