@@ -32,4 +32,8 @@ exports.register = function(req, res){
 	res.render('register', { title: 'Register', current : "None"});
 };
 
+exports.tos = function(req, res){
+	res.render('tos', { title: 'Terms of Service', current : "None"});
+};
+
 
