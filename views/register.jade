@@ -5,9 +5,8 @@ append scripts
 	script(src="js/jquery.validate.min.js")
 
 block content
-	h1= title
 	form.well#registration_form
-		legend Basic Form
+		legend #{title}
 		.field#first
 			label First Name
 			input(name="first", placeholder="First Name", type="text")
@@ -26,4 +25,6 @@ block content
 		.field#confirm_pass
 			label Confirm Password
 			input(name="confirm_pass", placeholder="Confirm Password", type="password")
-		button.btn(type="submit") Register
+		.field
+			label
+			button.btn(type="submit").btn-success Register
