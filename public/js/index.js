@@ -4,15 +4,7 @@ $(document).ready(function(){
 		errorElement: "p",
 		rules: {
 			user: "required",
-			password: "required",
-			user: {
-				minlength: 4,
-				maxlength: 20,
-			},
-			password: {
-				minlength: 4,
-				maxlength: 64,
-			}
+			password: "required"
 		}
 	});
 });
