@@ -5,7 +5,20 @@ $(document).ready(function(){
 		rules: {
 			first: "required",
 			last: "required",
-			pass: "required",
+			username: { 
+				required: true,
+				minlength: 4,
+				maxlength: 20,
+			},
+			email: { 
+				required: true, 
+				email: true 
+			},
+			pass: {
+				required: true,
+				minlength: 4,
+				maxlength: 64
+			},
 			confirm_pass: {
       			equalTo: "#password"
     		}
