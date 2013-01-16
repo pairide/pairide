@@ -2,10 +2,11 @@ extends layout
 
 append scripts
 	script(src="js/register.js")
+	script(src="js/jquery.validate.min.js")
 
 block content
 	h1= title
-	form.well
+	form.well#registration_form
 		legend Basic Form
 		.field#first
 			label First Name
@@ -15,16 +16,14 @@ block content
 			input(name="last", placeholder="Last Name", type="text")
 		.field#username	
 			label Username
-			input(name="username", placeholder="Username", type="text", required)
+			input(name="username", placeholder="Username", type="text")
 		.field#email
 			label Email
-			input(name="email", placeholder="Email", type="text", required)
+			input(name="email", placeholder="Email", type="text")
 		.field#pass
 			label Password
-			input(name="pass", placeholder="Password", type="password", required, min="4")
-			.error
+			input(name="pass", placeholder="Password", type="password")#password
 		.field#confirm_pass
 			label Confirm Password
-			input(name="confirm_pass", placeholder="Confirm Password", type="password", required, min="4")
-			.error
-		button.btn(type="submit")#register Register
+			input(name="confirm_pass", placeholder="Confirm Password", type="password")
+		button.btn(type="submit") Register
