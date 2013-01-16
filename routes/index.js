@@ -21,6 +21,12 @@ exports.faq = function(req, res){
   res.render('faq', { title: 'FAQ', current : 'FAQ' });
 };
 
+/*
+ * Route the user and render the Contact page.
+ */
+exports.contact = function(req, res){
+  res.render('contact', { title: 'Contact', current : 'Contact' });
+};
 
 exports.register = function(req, res){
 	res.render('register', { title: 'Register', current : "None"});
