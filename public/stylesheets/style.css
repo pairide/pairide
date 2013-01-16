@@ -117,7 +117,7 @@ float:left;
 .bugReportBox{
   width: 50%;
 }
-span.error{
+span.error, p.error{
   font-variant:small-caps;
   margin-left: 10px;
   color: red;
