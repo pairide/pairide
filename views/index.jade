@@ -3,6 +3,7 @@ extends layout
 block append scripts
 
 	script(src="/js/bootstrap.js")
+	script(src="/js/jquery.validate.min.js")
 	script(src='/js/index.js')
 
 block content
@@ -73,23 +74,23 @@ block content
 
 						h5 Log In
 
-						form.form-horizontal
+						form#login_form
 
-						.control-group
-							label.control-label
-								| Username:
-							.controls
-								input(name='user', type='text', size='15', required, placeholder="Username").input-medium
+							.control-group
+								label.control-label
+									| Username:
+								.controls
+									input(name='user', type='text', maxlength='20', required, placeholder="Username").input-medium
 
-						.control-group
-							label.control-label
-								| Password:
-							.controls
-								input(name='password', type='password', required, placeholder="Password").input-medium							
+							.control-group
+								label.control-label
+									| Password:
+								.controls
+									input(name='password', type='password', maxlength='64', required, placeholder="Password").input-medium							
 
-						.control-group
-							.controls
-								input(type='submit', value='Log In').btn.btn-medium.btn-success
+							.control-group
+								.controls
+									input(type='submit', value='Log In').btn.btn-medium.btn-success
 
 			.pagination-centered
 				br
@@ -98,4 +99,4 @@ block content
 
 				br
 				br
-				a(href="#", role="button").btn.btn-small.btn-success Register
+				a(href="/register", role="button").btn.btn-small.btn-success Register
