@@ -113,3 +113,9 @@ float:left;
   width: 700px;
   margin: -320px 0 0 -350px;;
 }
+
+span.error{
+  font-variant:small-caps;
+  margin-left: 10px;
+  color: red;
+}
