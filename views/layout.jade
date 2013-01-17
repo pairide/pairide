@@ -1,4 +1,8 @@
 doctype 5
+
+pages  = ["Home", "Profile", "About", "FAQ", "Contact"]
+logo = "logo-goes-here"
+
 html
 	head
 		title= "PairIDE - " + title
@@ -17,7 +21,6 @@ html
 				block header
 					.masthead
 						ul.nav.nav-pills.pull-right
-							pages  = ["Home", "Profile", "About", "FAQ", "Contact"]
 							each page in pages
 								if current == page
 									li.active
