@@ -36,27 +36,22 @@ margin-top:28px;
 }
 
 #chatarea {
-margin-top:30px;
-padding-bottom:20px;
-width:70%;
-height:510px;
--moz-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
--webkit-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
--o-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
-box-shadow:rgba(255,255,255,0.07) 1px 0 0;
-border-right:1px solid #121212;
-border-left:none;
+width:100%;
 float:left;
 }
 
+#chatarea button {
+float:right;
+}
+
 #chatmsg {
-width:80%;
-height:300px;
+width:86%;
+min-height: 300px;
 overflow:auto;
 }
 
 #msg {
-width:80%;
+width:95%;
 }
 
 #userlist h5,#chatTxt {
