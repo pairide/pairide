@@ -16,9 +16,9 @@ block content
 	br
 	br
 	form(method="post")#reportBugForm.form-horizontal
-		Textarea(rows=5, name="bugReportBox")#reportBugBox.bugReportBox
+		Textarea(rows=5, name="bugReportBox", maxlength=1024)#reportBugBox.bugReportBox
 		br
 		br
-		button("type=submit") Report Bug
+		button("type=submit").btn-success.btn-medium Report Bug
 
 	
