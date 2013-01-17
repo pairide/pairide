@@ -112,7 +112,7 @@ float:left;
 span.error, p.error{
   font-variant:small-caps;
   margin-left: 10px;
-  color: red;
+  color: #FAA732;
 }
 
 .right-seperator{
