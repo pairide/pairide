@@ -5,11 +5,12 @@ append scripts
 
 block wrapper
 	.container-fluid
+
+		include workspace-header
+
+		include header-options
+
 		.row-fluid
-
-			include workspace-header
-
-			include header-options
 
 			.span2.well#file_browser
 				include file-browser
