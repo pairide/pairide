@@ -1,11 +1,29 @@
 extends layout
 
+append scripts
+	script(src='/js/workspace-main.js')
+
 block wrapper
 	.container-fluid
 		.row-fluid
-			.span2.well
-				|ASLASAS
-			.span8.well
-				|SECOND STUFF
-			.span2.well
-				|THIRD STUFF
+
+			include workspace-header
+
+			include header-options
+
+			.span2.well#file_browser
+				include file-browser
+			
+			.span8.well#code_area
+				include code-area
+
+			.span2.well#chat_area
+				include chat-area
+
+		.row-fluid
+			.span12.well
+				include console
+
+		include footer-options
+
+		include footer
