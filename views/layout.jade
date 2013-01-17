@@ -13,28 +13,29 @@ html
 
 	body
 
-		.container-narrow
+		block wrapper
+			.container-narrow
 
-			block header
-				.masthead
-					ul.nav.nav-pills.pull-right
-						pages  = ["Home", "Profile", "About", "FAQ", "Contact"]
-						each page in pages
-							if current == page
-								li.active
-									a('href'=page.toLowerCase()) #{page}
-							else
-								li
-									a('href'=page.toLowerCase()) #{page}
-					h3.muted
-						| logo-goes-here
+				block header
+					.masthead
+						ul.nav.nav-pills.pull-right
+							pages  = ["Home", "Profile", "About", "FAQ", "Contact"]
+							each page in pages
+								if current == page
+									li.active
+										a('href'=page.toLowerCase()) #{page}
+								else
+									li
+										a('href'=page.toLowerCase()) #{page}
+						h3.muted
+							| logo-goes-here
+					hr
+				block content
 				hr
-			block content
-			hr
-			block footer
-				.container
-					p.muted.credit
-						| Copyright &copy; 2013 
-						a('href="tos"') ToS / Privacy Policy
-						| &nbsp;&nbsp;
-						a('href="bug"') Report a Bug
+				block footer
+					.container
+						p.muted.credit
+							| Copyright &copy; 2013 
+							a('href="tos"') ToS / Privacy Policy
+							| &nbsp;&nbsp;
+							a('href="bug"') Report a Bug

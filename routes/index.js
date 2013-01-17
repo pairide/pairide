@@ -36,4 +36,8 @@ exports.tos = function(req, res){
 	res.render('tos', { title: 'Terms of Service', current : "None"});
 };
 
+exports.workspace = function(req, res){
+	res.render('workspace', {title: 'Workspace', current: "None"});
+};
+
 
