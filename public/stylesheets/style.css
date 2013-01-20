@@ -46,7 +46,7 @@ float:right;
 
 #chatmsg {
 width:86%;
-min-height: 300px;
+min-height: 207px;
 overflow:auto;
 }
 
@@ -58,13 +58,15 @@ width:95%;
 font-variant:small-caps;
 }
 
-#editorspace {
-height:600px;
+#code_area {
+  height: 450px;
+  padding: 10px 0px;
+  background: none repeat scroll 0 0 rgba(0, 136, 204, 0.2);
 }
 
 #code {
 width:98%;
-height:88%;
+height:100%;
 resize:none;
 }
 

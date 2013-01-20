@@ -1,8 +1,14 @@
 extends layout
 
+append links
+	link(rel='stylesheet', href='/codemirror/lib/codemirror.css')
+	link(rel='stylesheet', href='/codemirror/theme/monokai.css')
+
 append scripts
-	script(src='/js/workspace-main.js')
+	script(src="/js/workspace-main.js")
 	script(src="/js/bootstrap.js")
+	script(src="/codemirror/lib/codemirror.js")
+	script(src="/codemirror/mode/python/python.js")
 
 block wrapper
 	.container-fluid
