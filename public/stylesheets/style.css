@@ -35,17 +35,11 @@ margin:60px 0;
 margin-top:28px;
 }
 
-#chatarea {
-width:100%;
-float:left;
-}
-
-#chatarea button {
-float:right;
+#chat_area{
+  padding: 0% 1%;
 }
 
 #chatmsg {
-width:86%;
 min-height: 207px;
 overflow:auto;
 }
