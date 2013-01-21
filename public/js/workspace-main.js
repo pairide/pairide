@@ -1,12 +1,12 @@
-language = "python";
+var language = "python";
 
 $(document).ready(function(){
-	setUpEditor();
+	setUpEditor();	
 });
 
 
-/* Set up editor space with syntax highlight,
-*  auto-indent and bracket matching
+/* Set up editor space with syntax highlighting,
+*  auto-indent and bracket matching.
 */
 function setUpEditor() {
 

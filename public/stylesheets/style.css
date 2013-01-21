@@ -114,3 +114,16 @@ box-shadow:rgba(255,255,255,0.07) 1px 0 0;
 border-right:1px solid #121212;
 border-left:none;
 }
+
+#file_browser{
+  padding:4px;
+}
+
+.fileBrowserBox {
+  width: 95%;
+  height: 433px;
+  background: rgba(125,125,125,0.5);
+  overflow: auto;
+  padding: 5px;
+  border-radius: 4px 4px 4px 4px;
+}
