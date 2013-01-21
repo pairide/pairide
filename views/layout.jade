@@ -1,7 +1,6 @@
 doctype 5
 
 pages  = ["Home", "Profile", "About", "FAQ", "Contact"]
-logo = "logo-goes-here"
 
 html
 	head
@@ -29,7 +28,8 @@ html
 									li
 										a('href'=page.toLowerCase()) #{page}
 						h3.muted
-							| logo-goes-here
+							| Pair
+							span(style="color: #f92672") IDE
 					hr
 				block content
 				hr
