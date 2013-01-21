@@ -1,8 +1,18 @@
 extends layout
 
+append links
+	link(rel='stylesheet', href='/codemirror/lib/codemirror.css')
+	link(rel='stylesheet', href='/codemirror/theme/monokai.css')
+	link(href="/jqueryfiletree/jqueryFileTree.css", rel="stylesheet", type="text/css", media="screen")
+	
 append scripts
-	script(src='/js/workspace-main.js')
+	script(src="/js/workspace-main.js")
 	script(src="/js/bootstrap.js")
+	script(src="/codemirror/lib/codemirror.js")
+	script(src="/codemirror/mode/python/python.js")
+	script(src="/jqueryfiletree/jquery.easing.js")
+	script(src="/jqueryfiletree/jqueryFileTree.js", type="text/javascript")
+
 
 block wrapper
 	.container-fluid

@@ -35,18 +35,12 @@ margin:60px 0;
 margin-top:28px;
 }
 
-#chatarea {
-width:100%;
-float:left;
-}
-
-#chatarea button {
-float:right;
+#chat_area{
+  padding: 0% 1%;
 }
 
 #chatmsg {
-width:86%;
-min-height: 300px;
+min-height: 207px;
 overflow:auto;
 }
 
@@ -58,13 +52,15 @@ width:95%;
 font-variant:small-caps;
 }
 
-#editorspace {
-height:600px;
+#code_area {
+  height: 450px;
+  padding: 10px 0px;
+  background: none repeat scroll 0 0 rgba(0, 136, 204, 0.2);
 }
 
 #code {
 width:98%;
-height:88%;
+height:100%;
 resize:none;
 }
 
@@ -117,4 +113,17 @@ span.error, p.error{
 box-shadow:rgba(255,255,255,0.07) 1px 0 0;
 border-right:1px solid #121212;
 border-left:none;
+}
+
+#file_browser{
+  padding:4px;
+}
+
+.fileBrowserBox {
+  width: 95%;
+  height: 433px;
+  background: rgba(125,125,125,0.5);
+  overflow: auto;
+  padding: 5px;
+  border-radius: 4px 4px 4px 4px;
 }
