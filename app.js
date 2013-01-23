@@ -34,6 +34,7 @@ app.get('/about', routes.about);
 app.get('/faq', routes.faq);
 app.get('/tos', routes.tos);
 app.get('/workspace', routes.workspace);
+app.post('/fileconnector', routes.fileConnector);
 
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

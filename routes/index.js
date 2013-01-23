@@ -40,4 +40,13 @@ exports.workspace = function(req, res){
 	res.render('workspace', {title: 'Workspace', current: "None"});
 };
 
+/*
+ * Handle the ajax POST request for the file browser.
+ */
+exports.fileConnector = function(req, res){
+  res.render("filedemo"); //currently always rendering fake files
+  console.log("Handling post to file manager")
+}
+
+
 
