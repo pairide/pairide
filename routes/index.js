@@ -46,6 +46,22 @@ exports.workspace = function(req, res){
 exports.fileConnector = function(req, res){
   res.render("filedemo"); //currently always rendering fake files
   console.log("Handling post to file manager")
+
+  fs = require('fs');
+  var directory = process.cwd() + "/users"; 
+  var username = "alex"; //this needs to be based on the current user
+  var path = directory + "/" + username;
+  console.log(path);
+  fs.readdir(path, function (err, files) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    var html = "<ul class=\"jqueryFileTree\">";
+
+    html += "</ul>"
+    console.log(html);
+  });
 }
 
 
