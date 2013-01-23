@@ -1,7 +1,17 @@
 var language = "python";
 
 $(document).ready(function(){
-	setUpEditor();	
+	setUpEditor();
+
+	$('#fileTree').fileTree({
+        root: '/',
+        script: 'fileconnector',
+        expandSpeed: 1000,
+        collapseSpeed: 1000,
+        multiFolder: false
+    }, function(file) {
+        alert(file);
+    });	
 });
 
 
