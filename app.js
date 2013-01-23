@@ -5,7 +5,8 @@ var express = require('express'),
   routes = require('./routes'),
   http = require('http'),
   path = require('path'),
-  socket_handler = require('./sockets');
+  socket_handler = require('./sockets'),
+  db = require('./database.js');
 
 app.configure(function(){
   app.set('port', process.argv[2] | 8000);
@@ -35,6 +36,7 @@ app.get('/faq', routes.faq);
 app.get('/tos', routes.tos);
 app.get('/workspace', routes.workspace);
 app.post('/fileconnector', routes.fileConnector);
+app.get('/dbtest', routes.dbtest);
 
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
