@@ -3,6 +3,8 @@
  * GET home page.
  */
 
+ var db = require('../database.js');
+
 exports.index = function(req, res){
   res.render('index', { title: 'Home', current : 'Home' });
 };
@@ -39,5 +41,10 @@ exports.tos = function(req, res){
 exports.workspace = function(req, res){
 	res.render('workspace', {title: 'Workspace', current: "None"});
 };
+
+exports.dbtest = function(req, res){
+	db.getUsers();
+	res.send('wut');
+}
 
 
