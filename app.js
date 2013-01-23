@@ -1,15 +1,11 @@
-
-/**
- * Module dependencies.
- */
-
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path');
-
-var app = express();
+var express = require('express'),
+  app = express(),
+  server = require('http').createServer(app),
+  io = require('socket.io').listen(server),
+  routes = require('./routes'),
+  http = require('http'),
+  path = require('path'),
+  socket_handler = require('./sockets');
 
 app.configure(function(){
   app.set('port', process.argv[2] | 8000);
@@ -40,6 +36,12 @@ app.get('/tos', routes.tos);
 app.get('/workspace', routes.workspace);
 app.post('/fileconnector', routes.fileConnector);
 
-http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
+//var comm = io.
+
+io.set('log level', 3);
+
+socket_handler.communicate(io)
