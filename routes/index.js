@@ -43,27 +43,63 @@ exports.workspace = function(req, res){
 };
 
 /*
- * Handle the ajax POST request for the file browser.
+ * Handle the ajax POST request for the file browser. A request is given
+ * everytime a user loads the workspace or when they click to open a directory.
+ * The directory of files is fetched and rendered into html.
  */
 exports.fileConnector = function(req, res){
-  res.render("filedemo"); //currently always rendering fake files
-  console.log("Handling post to file manager")
 
   fs = require('fs');
   var directory = process.cwd() + "/users"; 
-  var username = "alex"; //this needs to be based on the current user
-  var path = directory + "/" + username;
-  console.log(path);
-  fs.readdir(path, function (err, files) {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    var html = "<ul class=\"jqueryFileTree\">";
+  //this needs to be based on the current user and not hard-coded
+  var username = "alex"; 
+  var relPath = unescape(req.body.dir);
+  var path = directory + "/" + username + relPath;
+  console.log("Path: " + path);
+  try {
+    //raises an error if the path does not exist
+    stats = fs.lstatSync(path);
 
-    html += "</ul>"
-    console.log(html);
-  });
+    if (stats.isDirectory()) {
+        fs.readdir(path, function (err, files) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          //html for start of the file list
+          var html = "<ul style=\"display: none;\" class=\"jqueryFileTree\">";
+          for (var i=0; i < files.length; i++){
+            try{
+              var fileName = unescape(files[i]);
+              var filePath = path + fileName;
+              var fileStats = fs.lstatSync(filePath);
+             
+              //check if file is a nested directory
+              if (fileStats.isDirectory()){
+                html +=  "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" 
+                + relPath + fileName + "/\">" + fileName + "</a></li>";
+              }
+              else if (fileStats.isFile()){
+                var re = /(?:\.([^.]+))?$/; //regex for a file ext
+                var ext = re.exec(fileName)[1];
+                console.log(ext);
+                //add html tag for a file
+                html += "<li class=\"file ext_" + ext + "\"><a href=\"#\" rel=\"" 
+                + relPath + fileName + "\">" + fileName + "</a></li>";
+              }
+            }catch(e){
+              console.log(e);
+            }
+          }
+        html += "</ul>"; //end file list
+        res.send(html);
+      });
+    }
+  }
+  catch (e) {
+    console.log("File directory does not exist");
+  }
+
 }
 
 //testing page for the database -- to be removed later
