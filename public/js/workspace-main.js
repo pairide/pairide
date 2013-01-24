@@ -20,16 +20,8 @@ $(document).ready(function(){
 */
 function setUpEditor() {
 
-	editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-		mode : {
-			name : language
-		},
-		lineNumbers : true,
-		indentUnit : 4,
-		tabMode : "shift",
-		theme : "monokai",
-		matchBrackets : true
-		//onChange : sendCode
-	});
+	var editor = ace.edit("code");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");
 
 }

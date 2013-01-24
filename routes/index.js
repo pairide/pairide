@@ -2,9 +2,6 @@
 /*
  * GET home page.
  */
-
- var db = require('../database.js');
-
 exports.index = function(req, res){
   res.render('index', { title: 'Home', current : 'Home' });
 };
@@ -65,10 +62,3 @@ exports.fileConnector = function(req, res){
     console.log(html);
   });
 }
-
-//testing page for the database -- to be removed later
-exports.dbtest = function(req, res){
-	db.getUsers();
-	res.send('wut');
-}
-

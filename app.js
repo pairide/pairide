@@ -44,7 +44,6 @@ app.get('/about', routes.about);
 app.get('/faq', routes.faq);
 app.get('/tos', routes.tos);
 app.get('/workspace', routes.workspace);
-app.get('/dbtest', routes.dbtest);
 
 /* POST Methods */
 app.post('/fileconnector', routes.fileConnector);
