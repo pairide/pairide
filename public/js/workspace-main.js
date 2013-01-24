@@ -13,8 +13,8 @@ function requestWorkspace(){
 	$('#fileTree').fileTree({
         root: '/',
         script: 'fileconnector',
-        expandSpeed: 1000,
-        collapseSpeed: 1000,
+        expandSpeed: 350,
+        collapseSpeed: 350,
         multiFolder: false
     }, function(file) {
         alert(file);
