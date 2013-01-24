@@ -31,7 +31,7 @@ exports.contact = function(req, res){
 };
 
 exports.register = function(req, res){
-	res.render('register', { title: 'Register', current : "None"});
+	res.render('register', { title: 'Register', current : "None", error : false, errorSet: false});
 };
 
 exports.tos = function(req, res){

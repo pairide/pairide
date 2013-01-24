@@ -5,7 +5,16 @@ append scripts
 	script(src="js/jquery.validate.min.js")
 
 block content
-	form.well#registration_form
+
+	if errorSet
+		| An error occured:
+		br
+		br
+		ul
+		each val, key in error
+			li #{val}
+
+	form(action="register", method="POST").well#registration_form
 		legend #{title}
 		.field#first
 			label First Name
