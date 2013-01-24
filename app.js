@@ -2,6 +2,7 @@ var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
   io = require('socket.io').listen(server),
+  MongoStore = require('connect-mongo')(express),
   routes = require('./routes'),
   http = require('http'),
   path = require('path'),
@@ -17,7 +18,12 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
-  app.use(express.session());
+  app.use(express.session({
+    secret: app.cookie_secret,
+    store: new MongoStore({
+      db: "global_sessions"
+    })
+  }));
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
