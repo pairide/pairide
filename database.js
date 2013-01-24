@@ -80,7 +80,7 @@ u.save(function(err){
 	if(err) console.log(err);
 });*/
 
-exports.usersDB = User;
+exports.users = User;
 
 /*
 exports.ifUserExists = function(username) {
