@@ -36,8 +36,23 @@ exports.tos = function(req, res){
 };
 
 exports.workspace = function(req, res){
-	res.render('workspace', {title: 'Workspace', current: "None"});
+	res.render('workspace', {title: 'Workspace', current: "None", logged_in: true});
 };
+
+/* Create a random session redirect  
+* client to it
+*/
+exports.createRandomSession = function(req, res){
+  var md5h = require('MD5');
+  hash = md5h(new Date().getTime());
+  res.redirect('/workspace/' + hash);
+}
+
+/* Make client join specific session*/
+exports.joinSession = function(req, res){
+  res.render('workspace', {title: 'Workspace', current: "None", logged_in: false})
+}
+
 
 /*
  * Handle the ajax POST request for the file browser. A request is given
