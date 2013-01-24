@@ -1,11 +1,15 @@
+/* Core node module imports */
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
   io = require('socket.io').listen(server),
   MongoStore = require('connect-mongo')(express),
-  routes = require('./routes'),
   http = require('http'),
-  path = require('path'),
+  path = require('path');
+  
+/* Relative node imports */
+var routes = require('./routes'),
+  auth = require('./routes/auth'),
   socket_handler = require('./sockets'),
   db = require('./database.js');
 
@@ -44,10 +48,12 @@ app.get('/about', routes.about);
 app.get('/faq', routes.faq);
 app.get('/tos', routes.tos);
 app.get('/workspace', routes.workspace);
-app.get('/dbtest', routes.dbtest);
 
 /* POST Methods */
 app.post('/fileconnector', routes.fileConnector);
+app.post('/login', auth.login);
+app.post('/register', auth.register);
+
 
 /* Listen for requests */
 server.listen(app.get('port'), function(){

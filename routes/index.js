@@ -2,9 +2,6 @@
 /*
  * GET home page.
  */
-
- var db = require('../database.js');
-
 exports.index = function(req, res){
   res.render('index', { title: 'Home', current : 'Home' });
 };
@@ -31,7 +28,7 @@ exports.contact = function(req, res){
 };
 
 exports.register = function(req, res){
-	res.render('register', { title: 'Register', current : "None"});
+	res.render('register', { title: 'Register', current : "None", error : false, errorSet: false});
 };
 
 exports.tos = function(req, res){
@@ -101,10 +98,3 @@ exports.fileConnector = function(req, res){
   }
 
 }
-
-//testing page for the database -- to be removed later
-exports.dbtest = function(req, res){
-	db.getUsers();
-	res.send('wut');
-}
-
