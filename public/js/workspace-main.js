@@ -28,5 +28,6 @@ function setUpEditor() {
 	var editor = ace.edit("code");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/javascript");
+    document.getElementById('code').style.fontSize='14px';
 
 }
