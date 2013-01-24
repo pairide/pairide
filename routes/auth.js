@@ -1,3 +1,4 @@
+var db = require('../database.js');
 
 exports.login = function(req, res){
 
@@ -63,8 +64,10 @@ exports.register = function(req, res){
 		res.render('register', { title: 'Register', current : "None", error: err, errorSet: errorSet});
 
 	}else{
+
+		db.users.count({username: data.username},function(err, count){ console.log(count); });
 		
-		res.send("Validation success");
+		db.users.count({email: data.email}, function(err, count){ console.log(count); });
 
 	}
 }

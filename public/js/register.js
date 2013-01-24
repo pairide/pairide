@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	/*$('#registration_form').validate({
+	$('#registration_form').validate({
 		errorElement: "span",
 		rules: {
 			first: "required",
@@ -23,5 +23,5 @@ $(document).ready(function(){
       			equalTo: "#password"
     		}
 		}
-	});*/
+	});
 });
