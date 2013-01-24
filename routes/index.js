@@ -52,7 +52,7 @@ exports.fileConnector = function(req, res){
   fs = require('fs');
   var directory = process.cwd() + "/users"; 
   //this needs to be based on the current user and not hard-coded
-  var username = "alex"; 
+  var username = "alex";
   var relPath = unescape(req.body.dir);
   var path = directory + "/" + username + relPath;
   console.log("Path: " + path);
