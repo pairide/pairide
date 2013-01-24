@@ -5,13 +5,15 @@ var express = require('express'),
   io = require('socket.io').listen(server),
   MongoStore = require('connect-mongo')(express),
   http = require('http'),
-  path = require('path');
+  path = require('path'),
+  md5h = require('MD5');
   
 /* Relative node imports */
 var routes = require('./routes'),
   auth = require('./routes/auth'),
   socket_handler = require('./sockets'),
-  db = require('./database.js');
+  db = require('./database.js'),
+  random = require('./routes/random')
 
 app.configure(function(){
   app.set('port', process.argv[2] | 8000);
@@ -48,6 +50,8 @@ app.get('/about', routes.about);
 app.get('/faq', routes.faq);
 app.get('/tos', routes.tos);
 app.get('/workspace', routes.workspace);
+app.get('/create_session', random.create);
+app.get(/^\/workspace\/.*$/, random.join);
 
 /* POST Methods */
 app.post('/fileconnector', routes.fileConnector);
