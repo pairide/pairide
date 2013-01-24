@@ -53,7 +53,8 @@ exports.fileConnector = function(req, res){
   var directory = process.cwd() + "/users"; 
   //this needs to be based on the current user and not hard-coded
   var username = "alex"; 
-  var path = directory + "/" + username + req.body.dir;
+  var relPath = unescape(req.body.dir);
+  var path = directory + "/" + username + relPath;
   console.log("Path: " + path);
   try {
     //raises an error if the path does not exist
@@ -69,20 +70,22 @@ exports.fileConnector = function(req, res){
           var html = "<ul style=\"display: none;\" class=\"jqueryFileTree\">";
           for (var i=0; i < files.length; i++){
             try{
-              var filePath = path + files[i];
+              var fileName = unescape(files[i]);
+              var filePath = path + fileName;
               var fileStats = fs.lstatSync(filePath);
+             
               //check if file is a nested directory
               if (fileStats.isDirectory()){
                 html +=  "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" 
-                + req.body.dir + files[i] + "/\">" + files[i] + "</a></li>";
+                + relPath + fileName + "/\">" + fileName + "</a></li>";
               }
               else if (fileStats.isFile()){
                 var re = /(?:\.([^.]+))?$/; //regex for a file ext
-                var ext = re.exec(files[i])[1];
+                var ext = re.exec(fileName)[1];
                 console.log(ext);
                 //add html tag for a file
                 html += "<li class=\"file ext_" + ext + "\"><a href=\"#\" rel=\"" 
-                + req.body.dir + files[i] + "\">" + files[i] + "</a></li>";
+                + relPath + fileName + "\">" + fileName + "</a></li>";
               }
             }catch(e){
               console.log(e);

@@ -2,7 +2,14 @@ var language = "python";
 
 $(document).ready(function(){
 	setUpEditor();
+	requestWorkspace();
 
+});
+
+/*
+ * Make an ajax request for the users files.
+ */
+function requestWorkspace(){
 	$('#fileTree').fileTree({
         root: '/',
         script: 'fileconnector',
@@ -12,9 +19,7 @@ $(document).ready(function(){
     }, function(file) {
         alert(file);
     });	
-});
-
-
+}
 /* Set up editor space with syntax highlighting,
 *  auto-indent and bracket matching.
 */
