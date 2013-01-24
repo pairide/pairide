@@ -13,11 +13,13 @@ app.configure(function(){
   app.set('port', process.argv[2] | 8000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
+  /**** TODO: Add a favicon *****/
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
+  // Use MongoDB for sessions.
   app.use(express.session({
     secret: app.cookie_secret,
     store: new MongoStore({
@@ -33,6 +35,7 @@ app.configure('development', function(){
   app.locals.pretty = true;
 });
 
+/* GET Methods */
 app.get('/', routes.index);
 app.get('/home', routes.index);
 app.get('/contact', routes.contact)
@@ -41,15 +44,17 @@ app.get('/about', routes.about);
 app.get('/faq', routes.faq);
 app.get('/tos', routes.tos);
 app.get('/workspace', routes.workspace);
-app.post('/fileconnector', routes.fileConnector);
 app.get('/dbtest', routes.dbtest);
 
+/* POST Methods */
+app.post('/fileconnector', routes.fileConnector);
+
+/* Listen for requests */
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
-//var comm = io.
-
+// Sockets debug level.
 io.set('log level', 3);
-
+// Set up connection and listen/send for events.
 socket_handler.communicate(io)
