@@ -43,15 +43,16 @@ exports.workspace = function(req, res){
 };
 
 /*
- * Handle the ajax POST request for the file browser.
+ * Handle the ajax POST request for the file browser. A request is given
+ * everytime a user loads the workspace or when they click to open a directory.
+ * The directory of files is fetched and rendered into html.
  */
 exports.fileConnector = function(req, res){
-  //res.render("filedemo"); //currently always rendering fake files
-  console.log("Handling post to file manager")
 
   fs = require('fs');
   var directory = process.cwd() + "/users"; 
-  var username = "alex"; //this needs to be based on the current user
+  //this needs to be based on the current user and not hard-coded
+  var username = "alex"; 
   var path = directory + "/" + username + req.body.dir;
   console.log("Path: " + path);
   try {
@@ -64,6 +65,7 @@ exports.fileConnector = function(req, res){
             console.log(err);
             return;
           }
+          //html for start of the file list
           var html = "<ul style=\"display: none;\" class=\"jqueryFileTree\">";
           for (var i=0; i < files.length; i++){
             try{
@@ -71,25 +73,28 @@ exports.fileConnector = function(req, res){
               var fileStats = fs.lstatSync(filePath);
               //check if file is a nested directory
               if (fileStats.isDirectory()){
-              //might want to decode the html entities for filename
                 html +=  "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" 
                 + req.body.dir + files[i] + "/\">" + files[i] + "</a></li>";
               }
               else if (fileStats.isFile()){
-                html +=  "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" 
-                + req.body.dir + files[i] + "/\">" + files[i] + "</a></li>";
+                var re = /(?:\.([^.]+))?$/; //regex for a file ext
+                var ext = re.exec(files[i])[1];
+                console.log(ext);
+                //add html tag for a file
+                html += "<li class=\"file ext_" + ext + "\"><a href=\"#\" rel=\"" 
+                + req.body.dir + files[i] + "\">" + files[i] + "</a></li>";
               }
             }catch(e){
               console.log(e);
             }
           }
-        html += "</ul>";
+        html += "</ul>"; //end file list
         res.send(html);
       });
     }
   }
   catch (e) {
-    console.log("Path to user workspace does not exist");
+    console.log("File directory does not exist");
   }
 
 }
