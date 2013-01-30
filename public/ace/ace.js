@@ -3078,6 +3078,7 @@ var lang = require("../lib/lang");
 
 var TextInput = function(parentNode, host) {
     var text = dom.createElement("textarea");
+    text.setAttribute("id", "aceTextarea");
     text.className = "ace_text-input";
     if (useragent.isTouchPad)
         text.setAttribute("x-palm-disable-auto-cap", true);
