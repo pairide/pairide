@@ -49,9 +49,9 @@ app.get('/register', routes.register);
 app.get('/about', routes.about);
 app.get('/faq', routes.faq);
 app.get('/tos', routes.tos);
-app.get('/workspace', routes.workspace);
+app.get(/^\/workspace\/.*$/, routes.workspace);
 app.get('/create_session', random.create);
-app.get(/^\/workspace\/.*$/, random.join);
+app.get(/^\/express\/.*$/, random.join);
 
 /* POST Methods */
 app.post('/fileconnector', routes.fileConnector);

@@ -3,10 +3,10 @@
 		each page in pages
 			if current == page
 				li.active
-					a('href'=page.toLowerCase()) #{page}
+					a('href'='/'+page.toLowerCase()) #{page}
 			else
 				li
-					a('href'=page.toLowerCase()) #{page}
+					a('href'='/'+page.toLowerCase()) #{page}
 	h3.muted
 		| Pair
 		span(style="color: #f92672") IDE
