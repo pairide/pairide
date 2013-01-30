@@ -6,13 +6,20 @@ append scripts
 
 block content
 
-	if errorSet
+	if (errorSet == 1)
 		| An error occured:
 		br
 		br
 		ul
 		each val, key in error
 			li #{val}
+
+	if (errorSet == 2)
+		| An error occured: 
+		if (userExists)
+			| Username already exists.
+		if (emailExists)
+			| Email already exists.
 
 	form(action="register", method="POST").well#registration_form
 		legend #{title}

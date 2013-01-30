@@ -56,18 +56,82 @@ exports.register = function(req, res){
 		err['email_pat'] = "Enter a valid email address";
 	}
 
-	console.log(data);
-
-	var errorSet = ((Object.keys(err)).length) ? true : false;
+	var errorSet = ((Object.keys(err)).length) ? 1 : false;
 
 	if(errorSet){
+
 		res.render('register', { title: 'Register', current : "None", error: err, errorSet: errorSet});
 
 	}else{
 
-		db.users.count({username: data.username},function(err, count){ console.log(count); });
-		
-		db.users.count({email: data.email}, function(err, count){ console.log(count); });
+		var userExists = false;
+		var emailExists = false;
+		var errorSet = false;
 
+		db.users.count({username: data.username},function(err, count){ 
+
+			if(count) userExists = true;
+
+			db.users.count({email: data.email}, function(err, count){
+
+				if(count) emailExists = true;
+
+				if(userExists || emailExists){
+					
+					errorSet = 2;
+
+					res.render('register', { title: 'Register', current : "None", userExists: userExists, emailExists: emailExists, errorSet: errorSet});
+
+				}else{
+
+					var bcrypt = require('bcrypt'),
+					salt = bcrypt.genSaltSync(10),
+					hash = bcrypt.hashSync(data.pass, salt),
+					validation_hash = bcrypt.genSaltSync(10);
+				
+					var newUser = new db.users({
+						username: data.username,
+						password_hash: hash,
+						salt: salt, 
+						email: data.email,
+						first_name: data.first,
+						last_name: data.last,
+						validated: false,
+						validation_hash: validation_hash,
+					});
+
+					// Save the new user.
+					newUser.save();
+
+					// Setup and fire the validation email.
+					var mailer = require('../email.js');
+
+					var validation_url = mailer.callbackURL + validation_hash;
+
+					var mailOptions = {
+                    	from: "PairIDE <pairit3@gmail.com>",
+                    	to: data.email,
+                    	subject: "Activate your account at PairIDE",
+                    	text: data.first + " activate your new account at PairIDE at " + validation_url,
+                    	html: data.first + ' activate your new account at PairIDE at <a href="' + validation_url + '">' + validation_url + '</a>'
+                	};
+
+                	mailer.transport.sendMail(mailOptions, function(error, response){
+                		if(error){
+                			//TODO: Handle.
+                			console.log(error);
+                		}
+
+                	});
+
+                	var successMessage = "Username " + data.username + " has been registered. An activation email has been sent to " + data.email;
+
+                	res.render('messages', {title: 'Registration Successful!', type: "success", message: successMessage})
+
+				}
+
+			});
+		});
+	
 	}
 }
