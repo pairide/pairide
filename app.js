@@ -52,6 +52,7 @@ app.get('/tos', routes.tos);
 app.get('/workspace', routes.workspace);
 app.get('/create_session', random.create);
 app.get(/^\/workspace\/.*$/, random.join);
+app.get('/validate', auth.validate);
 
 /* POST Methods */
 app.post('/fileconnector', routes.fileConnector);

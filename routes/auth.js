@@ -126,7 +126,7 @@ exports.register = function(req, res){
 
                 	var successMessage = "Username " + data.username + " has been registered. An activation email has been sent to " + data.email;
 
-                	res.render('messages', {title: 'Registration Successful!', type: "success", message: successMessage})
+                	res.render('notify', {current: false, title: 'Registration Successful!', type: "success", notification: successMessage});
 
 				}
 
@@ -134,4 +134,54 @@ exports.register = function(req, res){
 		});
 	
 	}
+}
+
+exports.validate = function(req, res){
+
+	var data = req.query,
+	type = "error",
+	title = "Error",
+	notification;
+
+	if(data.i){
+
+		db.users.findOne({validation_hash: data.i}, function(error, user){
+
+			if(error){
+
+				notification = error;
+
+				res.render('notify', {current: false, title: title, type: type, notification: notification});
+
+			}else if(!user){
+
+				notification = "No such user with the given hash.";
+
+				res.render('notify', {current: false, title: title, type: type, notification: notification});
+
+			}else{
+
+				db.users.update({validation_hash: data.i}, {validated: true}, function(err, num, raw){
+					
+					if(error){
+						notification = error;
+					
+					}else{
+						notification = "Account activated. You may now log in."
+						type = "success";
+					}
+
+					res.render('notify', {current: false, title: title, type: type, notification: notification});					
+				});
+
+
+			}
+		});
+
+	}else{
+
+		res.render('notify', {current: false, title: title, type: type, notification: "Malformed input."});
+	}
+
+	
 }
