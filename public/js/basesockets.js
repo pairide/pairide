@@ -9,6 +9,17 @@ function load(socket, type, username){
 	//a driver or navigator
 	socket.on('is_driver', function(data){
 		setDriver(data.driver);
+		if (!isDriver){
+			//Some one is already editing when the user joined.
+			//Editor should be updated with the current text.
+			//editor.setValue(currentEditor);
+		}
+	});
+
+	socket.on("editor_update", function(data){
+		if (!isDriver){
+			editor.setValue(data.text);
+		}
 	});
 
 	//listens for changes in the editor and notifies the server

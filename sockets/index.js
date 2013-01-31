@@ -10,8 +10,7 @@ exports.communicate = function(io){
 
 		  console.log("Client connect.");
 
-      //Handles a socket disconnecting. This will do garbage collection
-      //if the socket disconnecting is the only socket in the room.
+      //Handles a socket disconnecting.
       socket.on("disconnect", function(){
         workspace.disconnect(socket, roomDrivers);
       });
@@ -20,8 +19,13 @@ exports.communicate = function(io){
       socket.on('join_room', function(data) {
           workspace.join(socket, data, roomDrivers);
       });
-
+      //relay the message that the editor changed
       socket.on("editor_changed", function(data){
+          var room = socket.store.data.room;
+          if (roomDrivers[room] == socket.store.data.nickname){
+            io.sockets.in(socket.store.data.room).emit('editor_update', data);
+            console.log (data.text);
+          }
       });
 	});
 };
