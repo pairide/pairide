@@ -1,7 +1,15 @@
-/*Socket handling for express sessions */
 var socket = connect();
+var username = "";
 
-/*Socket logic for client*/
 $(document).ready(function(){
-    load(socket, "express", "model_name");
+
+	/*Get user's name and load the session */
+	$('#nameform').submit(function(){
+		username = $("#username").val();
+
+		/*Username's validation is needed*/
+		load(socket, "express", username);
+		$('#userModal').modal('hide');
+		return false;
+	});
 });

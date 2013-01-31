@@ -6,10 +6,19 @@ var isDriver;
 function load(socket, type, username){
 	socket.on('is_driver', function(data){
 		isDriver = data.driver;
-		alert(isDriver);
 	});
 	var rID = roomID(type);
 	socket.emit('join_room', { room: rID, user:username});
+
+	//Set the client's role appropriately
+	socket.on('is_driver', function(data){
+		if(data.driver){
+			$('#driver').html('Driver');
+		}
+		else{
+			$('#driver').html('Navigator');
+		}
+	});
 }
 
 /*Set up a socket connection

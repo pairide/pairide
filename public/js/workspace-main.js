@@ -6,6 +6,7 @@ $(document).ready(function(){
 	requestWorkspace();
     $('#code').on('dragover', handleDragOver);
     $('#code').on('drop', handleDragOn);
+    $('#userModal').modal({show: true});
 });
 
 /*
