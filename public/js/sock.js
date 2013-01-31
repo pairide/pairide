@@ -1,6 +1,14 @@
 var host = window.location.hostname;
 var port = 8000;
 var url = "http://"+host+":"+port;
+var isDriver; 
+
+function load(socket){
+	socket.on('is_driver', function(data){
+		isDriver = data.driver;
+		alert(isDriver);
+	});
+}
 
 /*Set up a socket connection
 * for the user */
