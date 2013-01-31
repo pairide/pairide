@@ -39,6 +39,11 @@ exports.workspace = function(req, res){
 	res.render('workspace', {title: 'Workspace', current: "None", logged_in: true});
 };
 
+exports.profile = function(req, res){
+
+  res.send("Implement wut wut");  
+}
+
 /*
  * Handle the ajax POST request for the file browser. A request is given
  * everytime a user loads the workspace or when they click to open a directory.

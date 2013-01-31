@@ -15,6 +15,8 @@ block content
 	| co-operation.
 	br
 	br
+	if auth
+		|Authenticated!
 	form(method="post")#reportBugForm.form-horizontal
 		Textarea(rows=5, name="bugReportBox", maxlength=1024)#reportBugBox.bugReportBox
 		br

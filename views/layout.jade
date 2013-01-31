@@ -1,6 +1,10 @@
 doctype 5
 
-pages  = ["Home", "Profile", "About", "FAQ", "Contact"]
+pages  = ["Home", "About", "FAQ", "Contact"]
+
+if auth
+	- pages.splice(1, 0, "Profile");
+	- pages.splice(5, 0, "Logout")
 
 html
 	head

@@ -2,16 +2,52 @@ var db = require('../database.js');
 
 exports.login = function(req, res){
 
-	var data = req.body;
+	var data = req.body,
+	title = "Error",
+	type = "error",
+	notification;
 
-	if(data.user == "john" && data.password == "smith" ){
+	db.users.findOne({username: data.user}, '_id password_hash salt validated', function(error, user){
 
-		res.send('Success')
+		if(error){
 
-	}else{
+			notification = error;
 
-		res.send('Fatal: Auth Error.');
-	}
+		}else if(!user){
+
+			notification = "No such user registered. Please re-check your credentials again.";
+
+		}else{
+
+			//Check if user is validated
+			if(!user.validated){
+
+				notification = "Your account has not been activated it. Please activate it first.";
+
+			}else{
+
+				var bcrypt = require('bcrypt');
+				if(bcrypt.compareSync(data.password, user.password_hash)){
+
+					req.session.user_id = data.user;
+					res.redirect('/workspace');	
+
+				}else{
+
+					notification = "Passwords don't match; please re-check your credentials again.";
+				}
+
+
+			}
+
+		}
+
+		//TODO: Render a new login box.
+		res.render('notify', {current: "Login", title: title, type: type, notification: notification});
+
+	});
+
+
 }
 
 exports.register = function(req, res){
@@ -122,11 +158,11 @@ exports.register = function(req, res){
                 			console.log(error);
                 		}
 
+
+                		var successMessage = "Username " + data.username + " has been registered. An activation email has been sent to " + data.email;
+
+                		res.render('notify', {current: false, title: 'Registration Successful!', type: "success", notification: successMessage});
                 	});
-
-                	var successMessage = "Username " + data.username + " has been registered. An activation email has been sent to " + data.email;
-
-                	res.render('notify', {current: false, title: 'Registration Successful!', type: "success", notification: successMessage});
 
 				}
 
@@ -169,6 +205,7 @@ exports.validate = function(req, res){
 					}else{
 						notification = "Account activated. You may now log in."
 						type = "success";
+						title = "Activated!";
 					}
 
 					res.render('notify', {current: false, title: title, type: type, notification: notification});					
@@ -184,4 +221,11 @@ exports.validate = function(req, res){
 	}
 
 	
+}
+
+exports.logout = function(req, res){
+
+	delete req.session.user_id;
+
+	res.redirect('/home');
 }

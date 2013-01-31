@@ -13,7 +13,9 @@ var routes = require('./routes'),
   auth = require('./routes/auth'),
   socket_handler = require('./sockets'),
   db = require('./database.js'),
-  random = require('./routes/random')
+  random = require('./routes/random'),
+  middleware = require('./middleware'),
+  checkAuth = middleware.checkAuth;
 
 app.configure(function(){
   app.set('port', process.argv[2] | 8000);
@@ -41,23 +43,28 @@ app.configure('development', function(){
   app.locals.pretty = true;
 });
 
+app.locals.auth = false;
+
 /* GET Methods */
-app.get('/', routes.index);
-app.get('/home', routes.index);
-app.get('/contact', routes.contact)
-app.get('/register', routes.register);
-app.get('/about', routes.about);
-app.get('/faq', routes.faq);
-app.get('/tos', routes.tos);
-app.get(/^\/workspace\/.*$/, routes.workspace);
-app.get('/create_session', random.create);
-app.get('/validate', auth.validate);
+
+app.get('/', checkAuth, routes.index);
+app.get('/home', checkAuth, routes.index);
+app.get('/contact', checkAuth, routes.contact);
+app.get('/register', checkAuth, routes.register);
+app.get('/about', checkAuth, routes.about);
+app.get('/faq', checkAuth, routes.faq);
+app.get('/tos', checkAuth, routes.tos);
+app.get('/profile', middleware.isAuthenticated, routes.profile);
+app.get('/logout', middleware.isAuthenticated, auth.logout);
+app.get('/workspace', middleware.isAuthenticated, checkAuth, routes.workspace);
+app.get('/create_session', checkAuth, random.create);
+app.get('/validate', checkAuth, auth.validate);
 app.get(/^\/express\/.*$/, random.join);
 
 /* POST Methods */
 app.post('/fileconnector', routes.fileConnector);
-app.post('/login', auth.login);
-app.post('/register', auth.register);
+app.post('/login', checkAuth, auth.login);
+app.post('/register', checkAuth, auth.register);
 
 
 /* Listen for requests */
