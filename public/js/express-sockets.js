@@ -3,6 +3,5 @@ var socket = connect();
 
 /*Socket logic for client*/
 $(document).ready(function(){
-	roomID = roomID('express');
-	socket.emit('join_random_room', { room: roomID });
+    load(socket, "express", "model_name");
 });

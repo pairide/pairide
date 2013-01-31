@@ -3,11 +3,13 @@ var port = 8000;
 var url = "http://"+host+":"+port;
 var isDriver; 
 
-function load(socket){
+function load(socket, type, username){
 	socket.on('is_driver', function(data){
 		isDriver = data.driver;
 		alert(isDriver);
 	});
+	var rID = roomID(type);
+	socket.emit('join_room', { room: rID, user:username});
 }
 
 /*Set up a socket connection
@@ -23,7 +25,7 @@ function roomID(type){
 	//urls for express sessions and normal sessions 
 	//are not the same 
 	if(type=="workspace"){
-		matchRoomRequest = /.*\/workspace\/(.{32})/;
+		matchRoomRequest = /.*\/workspace\/(.{3,})/;
 	}
 	else{
 		matchRoomRequest = /.*\/express\/(.{32})/;
