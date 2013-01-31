@@ -23,7 +23,7 @@ function roomID(type){
 	//urls for express sessions and normal sessions 
 	//are not the same 
 	if(type=="workspace"){
-		matchRoomRequest = /.*\/workspace\/(.{32})/;
+		matchRoomRequest = /.*\/workspace\/(.{3,})/;
 	}
 	else{
 		matchRoomRequest = /.*\/express\/(.{32})/;
