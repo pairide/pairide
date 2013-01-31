@@ -62,9 +62,9 @@ app.get('/validate', checkAuth, auth.validate);
 app.get(/^\/express\/.*$/, random.join);
 
 /* POST Methods */
-app.post('/fileconnector', routes.fileConnector);
-app.post('/login', checkAuth, auth.login);
-app.post('/register', checkAuth, auth.register);
+app.post('/workspace/fileconnector', routes.fileConnector);
+app.post('/login', auth.login);
+app.post('/register', auth.register);
 
 
 /* Listen for requests */
