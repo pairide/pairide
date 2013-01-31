@@ -6,6 +6,7 @@ $(document).ready(function(){
 	requestWorkspace();
     $('#code').on('dragover', handleDragOver);
     $('#code').on('drop', handleDragOn);
+    $('#userModal').modal({show: true});
 });
 
 /*
@@ -19,6 +20,7 @@ function requestWorkspace(){
         collapseSpeed: 350,
         multiFolder: false
     }, function(file) {
+        //event for when a file is clicked
         alert(file);
     });	
 }

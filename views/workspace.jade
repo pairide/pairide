@@ -11,13 +11,24 @@ append scripts
 	script(src="/socket.io/socket.io.js", type="text/javascript")
 	script(src="/ace/ace.js", type="text/javascript")
 	script(src="/js/basesockets.js", type="text/javascript")
-	if logged_in
+	if workspace
 		script(src="/js/workspace-sockets.js", type="text/javascript")
 	else
 		script(src="/js/express-sockets.js", type="text/javascript")
 
 
 block wrapper
+	if !auth
+		div(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true").modal.hide.fade#userModal
+			.modal-header
+				h4 Username
+			.modal-body
+				form(id="nameform", action="name_send", method="POST")
+					input(name="username", class="well", id="username", placeholder="Your name goes here")
+					input(type="submit", class="btn btn-large btn-primary", value="Start")
+			.modal-footer
+
+
 	.container-fluid
 
 		include workspace-header
