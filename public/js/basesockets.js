@@ -3,6 +3,7 @@ var port = 8000;
 var url = "http://"+host+":"+port;
 var isDriver; 
 
+//base load function for the workspace
 function load(socket, type, username){
 
 	//listen for the server to notify the client if they are
