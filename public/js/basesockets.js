@@ -11,10 +11,13 @@ function load(socket, type, username){
 		setDriver(data.driver);
 	});
 
-	//listen for
+	//listens for changes in the editor and notifies the server
 	editor.getSession().on('change', function(e) {
-		socket.emit("editor_changed");
+		if (isDriver){
+			socket.emit("editor_changed", {text: editor.getValue()});
+		}
 	});
+
 	var rID = roomID(type);
 	socket.emit('join_room', { room: rID, user:username});
 }
@@ -36,11 +39,10 @@ function connect(){
 /* Get the room's id */
 function roomID(type){
 	var matchRoomRequest;
-
 	//urls for express sessions and normal sessions 
 	//are not the same 
 	if(type=="workspace"){
-		matchRoomRequest = /.*\/workspace\/(.{32})/;
+		matchRoomRequest = /.*\/workspace\/(.{3,})/;
 	}
 	else{
 		matchRoomRequest = /.*\/express\/(.{32})/;

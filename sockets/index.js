@@ -20,5 +20,8 @@ exports.communicate = function(io){
       socket.on('join_room', function(data) {
           workspace.join(socket, data, roomDrivers);
       });
+
+      socket.on("editor_changed", function(data){
+      });
 	});
 };

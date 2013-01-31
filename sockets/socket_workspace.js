@@ -25,3 +25,7 @@ exports.disconnect = function(socket, roomDrivers){
       delete roomDrivers[room];
     }
 }
+
+exports.broadcast = function(socket, text){
+  socket.emit()
+}
