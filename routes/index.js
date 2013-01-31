@@ -46,6 +46,7 @@ exports.workspace = function(req, res){
  */
 exports.fileConnector = function(req, res){
 
+
   fs = require('fs');
   //the directory path for all user files
   var directory = process.cwd() + "/users"; 
@@ -55,7 +56,7 @@ exports.fileConnector = function(req, res){
   var relPath = unescape(req.body.dir);
   //the true path to the files being requested
   var path = directory + "/" + username + relPath;
-  console.log("Path: " + path);
+  console.log("Files requested at: " + path);
   try {
     //raises an error if the path does not exist
     stats = fs.lstatSync(path);

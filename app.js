@@ -54,7 +54,7 @@ app.get('/create_session', random.create);
 app.get(/^\/express\/.*$/, random.join);
 
 /* POST Methods */
-app.post('/fileconnector', routes.fileConnector);
+app.post('/workspace/fileconnector', routes.fileConnector);
 app.post('/login', auth.login);
 app.post('/register', auth.register);
 
