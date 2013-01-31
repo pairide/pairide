@@ -13,9 +13,9 @@ exports.communicate = function(io){
     		console.log(data);
   		});
 
-  		socket.on('join_random_room', function(data) {
+  	socket.on('join_random_room', function(data) {
   			random.join(socket, data);
-  		});
+  	});
   		
 	});
 
