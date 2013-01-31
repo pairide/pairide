@@ -4,12 +4,27 @@ var url = "http://"+host+":"+port;
 var isDriver; 
 
 function load(socket, type, username){
+
+	//listen for the server to notify the client if they are
+	//a driver or navigator
 	socket.on('is_driver', function(data){
-		isDriver = data.driver;
-		alert(isDriver);
+		setDriver(data.driver);
+	});
+
+	//listen for
+	editor.getSession().on('change', function(e) {
+		socket.emit("editor_changed");
 	});
 	var rID = roomID(type);
 	socket.emit('join_room', { room: rID, user:username});
+}
+
+/*
+ * Change the users state to be a driver or a navigator.
+ */
+function setDriver(driver){
+ 	isDriver = driver;
+ 	editor.setReadOnly(!isDriver);
 }
 
 /*Set up a socket connection
