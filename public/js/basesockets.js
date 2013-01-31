@@ -14,6 +14,10 @@ function load(socket, type, username){
 			//Some one is already editing when the user joined.
 			//Editor should be updated with the current text.
 			//editor.setValue(currentEditor);
+			$('#driver').html('Navigator');
+		}
+		else{
+			$('#driver').html('Driver');
 		}
 	});
 

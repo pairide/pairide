@@ -36,7 +36,7 @@ exports.tos = function(req, res){
 };
 
 exports.workspace = function(req, res){
-	res.render('workspace', {title: 'Workspace', current: "None", logged_in: true});
+	res.render('workspace', {title: 'Workspace', current: "None", workspace: true});
 };
 
 exports.profile = function(req, res){

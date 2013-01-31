@@ -9,5 +9,5 @@ exports.create = function(req, res){
 
 /* Make client join specific session*/
 exports.join = function(req, res){
-  res.render('workspace', {title: 'Express Workspace', current: "None", logged_in: false});
+  res.render('workspace', {title: 'Express Workspace', current: "None", workspace: false});
 }
