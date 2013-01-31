@@ -56,7 +56,8 @@ app.get('/faq', checkAuth, routes.faq);
 app.get('/tos', checkAuth, routes.tos);
 app.get('/profile', middleware.isAuthenticated, routes.profile);
 app.get('/logout', middleware.isAuthenticated, auth.logout);
-app.get('/workspace', middleware.isAuthenticated, checkAuth, routes.workspace);
+//app.get(/^\/workspace\/.+$/, middleware.isAuthenticated, checkAuth, routes.workspace);
+app.get(/^\/workspace\/.+$/,routes.workspace); //swap with above if live
 app.get('/create_session', checkAuth, random.create);
 app.get('/validate', checkAuth, auth.validate);
 app.get(/^\/express\/.*$/, random.join);

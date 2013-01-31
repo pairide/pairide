@@ -5,7 +5,7 @@ $(document).ready(function(){
     editor.getSession().on('change', function(e) {
     	socket.emit("user_edit", {room: roomID});
     });
-
+    load(socket);
 	var matchRoomRequest = /.*\/workspace\/(.{3,})/;
 	var roomID = matchRoomRequest.exec(document.URL)[1];
 	//notify the server that the user wishes to join the room
