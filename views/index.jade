@@ -70,27 +70,7 @@ block content
 							a(href="/create_session", role="button").btn.btn-medium.btn-success Start express session
 
 				.span6
-					.pagination-centered
-
-						h5 Log In
-
-						form(action="login", method="POST")#login_form
-
-							.control-group
-								label.control-label
-									| Username:
-								.controls
-									input(name='user', type='text', maxlength='20', placeholder="Username").input-medium
-
-							.control-group
-								label.control-label
-									| Password:
-								.controls
-									input(name='password', type='password', maxlength='64', placeholder="Password").input-medium							
-
-							.control-group
-								.controls
-									input(type='submit', value='Log In').btn.btn-medium.btn-success
+					include login
 
 			.pagination-centered
 				br
