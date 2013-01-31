@@ -6,8 +6,6 @@ $(document).ready(function(){
 	requestWorkspace();
     $('#code').on('dragover', handleDragOver);
     $('#code').on('drop', handleDragOn);
-
-
 });
 
 /*
