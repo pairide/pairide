@@ -24,7 +24,7 @@ exports.communicate = function(io){
           var room = socket.store.data.room;
           if (roomDrivers[room] == socket.store.data.nickname){
             io.sockets.in(socket.store.data.room).emit('editor_update', data);
-            console.log (data.text);
+            console.log ("Incoming changes to the editor: " + data.text);
           }
       });
 	});

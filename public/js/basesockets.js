@@ -16,6 +16,8 @@ function load(socket, type, username){
 		}
 	});
 
+	//listens for incoming updates to the editor caused by the driver
+	//making changes.
 	socket.on("editor_update", function(data){
 		if (!isDriver){
 			editor.setValue(data.text);
