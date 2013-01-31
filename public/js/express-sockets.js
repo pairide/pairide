@@ -1,10 +1,10 @@
-var socket = io.connect('http://localhost:8000');
+/*Socket handling for express sessions */
+
+var sock = require(./sock.js)
+var socket = sock.connect();
 
 /*Socket logic for client*/
 $(document).ready(function(){
-	var matchRoomRequest = /.*\/workspace\/(.{32})/;
-	var roomID = matchRoomRequest.exec(document.URL)[1];
-
-	//Express session
+	roomID = sock.roomID('express');
 	socket.emit('join_random_room', { room: roomID });
 });

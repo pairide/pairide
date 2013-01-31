@@ -51,6 +51,7 @@ app.get('/faq', routes.faq);
 app.get('/tos', routes.tos);
 app.get(/^\/workspace\/.*$/, routes.workspace);
 app.get('/create_session', random.create);
+app.get('/validate', auth.validate);
 app.get(/^\/express\/.*$/, random.join);
 
 /* POST Methods */

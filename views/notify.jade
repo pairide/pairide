@@ -1,0 +1,10 @@
+extends layout
+
+block content
+
+	if (type == "success")
+		.alert.alert-success
+			| #{notification}
+	else
+		.alert.alert-error
+			| Error: #{notification}
