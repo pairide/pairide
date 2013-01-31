@@ -4,14 +4,16 @@ var url = "http://"+host+":"+port;
 
 /*Set up a socket connection
 * for the user */
-extends.connect = function(){
+function connect(){
 	return io.connect(url);
 }
 
 /* Get the room's id */
-extends.roomID = function(type){
+function roomID(type){
 	var matchRoomRequest;
 
+	//urls for express sessions and normal sessions 
+	//are not the same 
 	if(type=="workspace"){
 		matchRoomRequest = /.*\/workspace\/(.{32})/;
 	}
@@ -24,4 +26,3 @@ extends.roomID = function(type){
 		return match[1];
 	}
 }
-
