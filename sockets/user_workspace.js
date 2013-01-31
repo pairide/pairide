@@ -10,6 +10,10 @@ exports.join = function(socket, data, roomDrivers){
   if (!roomExistsBefore && roomExistsAfter){
     roomDrivers[data.room] = data.user;
     console.log("New room created by " + data.user + ": " + data.room);
+    socket.emit("is_driver",{driver:true});
+  }
+  else{
+    socket.emit("is_driver",{driver:false});
   }
 }
 //Handles a socket disconnecting. This will do garbage collection
