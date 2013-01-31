@@ -4,21 +4,47 @@ var url = "http://"+host+":"+port;
 var isDriver; 
 
 function load(socket, type, username){
-	socket.on('is_driver', function(data){
-		isDriver = data.driver;
-	});
-	var rID = roomID(type);
-	socket.emit('join_room', { room: rID, user:username});
 
-	//Set the client's role appropriately
+	//listen for the server to notify the client if they are
+	//a driver or navigator
 	socket.on('is_driver', function(data){
-		if(data.driver){
-			$('#driver').html('Driver');
-		}
-		else{
+		setDriver(data.driver);
+		if (!isDriver){
+			//Some one is already editing when the user joined.
+			//Editor should be updated with the current text.
+			//editor.setValue(currentEditor);
 			$('#driver').html('Navigator');
 		}
+		else{
+			$('#driver').html('Driver');
+		}
 	});
+
+	//listens for incoming updates to the editor caused by the driver
+	//making changes.
+	socket.on("editor_update", function(data){
+		if (!isDriver){
+			editor.setValue(data.text);
+		}
+	});
+
+	//listens for changes in the editor and notifies the server
+	editor.getSession().on('change', function(e) {
+		if (isDriver){
+			socket.emit("editor_changed", {text: editor.getValue()});
+		}
+	});
+
+	var rID = roomID(type);
+	socket.emit('join_room', { room: rID, user:username});
+}
+
+/*
+ * Change the users state to be a driver or a navigator.
+ */
+function setDriver(driver){
+ 	isDriver = driver;
+ 	editor.setReadOnly(!isDriver);
 }
 
 /*Set up a socket connection
@@ -30,7 +56,6 @@ function connect(){
 /* Get the room's id */
 function roomID(type){
 	var matchRoomRequest;
-
 	//urls for express sessions and normal sessions 
 	//are not the same 
 	if(type=="workspace"){

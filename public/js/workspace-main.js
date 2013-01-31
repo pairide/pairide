@@ -20,6 +20,7 @@ function requestWorkspace(){
         collapseSpeed: 350,
         multiFolder: false
     }, function(file) {
+        //event for when a file is clicked
         alert(file);
     });	
 }
