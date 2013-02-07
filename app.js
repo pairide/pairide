@@ -17,6 +17,7 @@ var routes = require('./routes'),
   middleware = require('./middleware'),
   checkAuth = middleware.checkAuth;
 
+/*Configuring presets for express framework.*/
 app.configure(function(){
   app.set('port', process.argv[2] | 8000);
   app.set('views', __dirname + '/views');
@@ -74,6 +75,6 @@ server.listen(app.get('port'), function(){
 });
 
 // Sockets debug level.
-io.set('log level', 3);
+io.set('log level', 2);
 // Set up connection and listen/send for events.
 socket_handler.communicate(io)
