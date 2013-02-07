@@ -3,6 +3,7 @@
  */
 
 var roomDrivers = {};
+var roomMembers = new Array();
 var workspace =  require('./socket_workspace');
 exports.communicate = function(io){
 
@@ -17,7 +18,8 @@ exports.communicate = function(io){
 
       //socket handler for users requesting to join a room
       socket.on('join_room', function(data) {
-          workspace.join(socket, data, roomDrivers);
+          //needs checking for username
+          workspace.join(socket, data, roomDrivers, roomMembers);
       });
       //relay the message that the editor changed
       socket.on("editor_changed", function(data){

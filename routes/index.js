@@ -27,21 +27,32 @@ exports.contact = function(req, res){
   res.render('contact', { title: 'Contact', current : 'Contact' });
 };
 
+/*
+ * Route the user and render the registration page.
+ */
 exports.register = function(req, res){
 	res.render('register', { title: 'Register', current : "None", error : false, errorSet: false});
 };
 
+/*
+ * Route the user and render the terms of service page.
+ */
 exports.tos = function(req, res){
 	res.render('tos', { title: 'Terms of Service', current : "None"});
 };
 
+/*
+ * Route the user and render the workspace.
+ */
 exports.workspace = function(req, res){
 	res.render('workspace', {title: 'Workspace', current: "None", workspace: true});
 };
 
+/*
+ * Route the user to it's profile page if he is logged in.
+ */
 exports.profile = function(req, res){
-
-  res.send("Implement wut wut");  
+  res.render('layout', {title: 'Profile', current: "None"});  
 }
 
 /*
