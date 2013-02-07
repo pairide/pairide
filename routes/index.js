@@ -3,7 +3,13 @@
  * GET home page.
  */
 exports.index = function(req, res){
-  res.render('index', { title: 'Home', current : 'Home' });
+
+  var show_modal = false;
+  if(req.query.l == '1'){
+    show_modal = true;
+  }
+  
+  res.render('index', { title: 'Home', current : 'Home', show_modal: show_modal });
 };
 
 /*
