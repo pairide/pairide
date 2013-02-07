@@ -4,6 +4,7 @@ exports.join = function(socket, data, roomDrivers){
   console.log('client request to join user room ' + data.room);
   socket.join(data.room);
   var roomExistsAfter = "/" + data.room in socket.manager.rooms
+  console.log(socket);
   socket.set("nickname", data.user);
   socket.set("room", data.room);
   //check if the room was newly created
