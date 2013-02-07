@@ -1,11 +1,15 @@
-/* All functions related to db operations 
-* will be here
-*/
+/*
+ * All models will be defined here.
+ */
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/users');  
 
 var db = mongoose.connection;
 
+/*
+ * Users model used throughout the website.
+ */
 var Users = new mongoose.Schema({
     username: { 
         type: String, 

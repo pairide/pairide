@@ -1,6 +1,7 @@
-/* Create a random session redirect  
-* client to it
-*/
+/* 
+ * Create a random session redirect  
+ * client to it
+ */
 exports.create = function(req, res){
   var md5h = require('MD5');
   hash = md5h(new Date().getTime());
