@@ -1,3 +1,5 @@
+//Handle event from socket to join
+//a certain room
 exports.join = function(socket, data, roomDrivers){
 
   var roomExistsBefore = "/" + data.room in socket.manager.rooms; 
@@ -17,6 +19,7 @@ exports.join = function(socket, data, roomDrivers){
     socket.emit("is_driver",{driver:false});
   }
 }
+
 //Handles a socket disconnecting. This will do garbage collection
 //if the socket disconnecting is the only socket in the room.
 exports.disconnect = function(socket, roomDrivers){
