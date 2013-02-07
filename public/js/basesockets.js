@@ -29,6 +29,7 @@ function load(socket, type, username, rID){
 		}
 	});
 
+
 	//listens for changes in the editor and notifies the server
 	editor.getSession().on('change', function(e) {
 		if (isDriver){
@@ -40,6 +41,8 @@ function load(socket, type, username, rID){
 		rID = roomID(type);
 	}
 	socket.emit('join_room', { room: rID, user:username});
+
+	socket.emit('get_members', {room: rID, user:username});
 }
 
 /*

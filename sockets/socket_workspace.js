@@ -15,6 +15,7 @@ exports.join = function(socket, data, roomDrivers, roomUsers){
     roomUsers[data.room] = {};
     console.log("New room created by " + data.user + ": " + data.room);
     socket.emit("is_driver",{driver:true});
+    roomMembers[data.room] = new Array();
   }
   else{
     socket.emit("is_driver",{driver:false});
