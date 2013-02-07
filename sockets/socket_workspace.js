@@ -1,6 +1,7 @@
 //Handles the event of a user joinging a room. This will create
 //a room if needed.
 exports.join = function(socket, data, roomDrivers, roomUsers){
+  
   var roomExistsBefore = "/" + data.room in socket.manager.rooms; 
   console.log('client request to join user room ' + data.room);
   socket.join(data.room);

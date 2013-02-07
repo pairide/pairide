@@ -1,9 +1,9 @@
 var socket = connect();
-var username = "alex";
+var username, roomname;
 
 $(document).ready(function(){
 	$('#nameform').submit(function(){
-		load(socket, "workspace", username + Math.floor(Math.random()*11).toString());
+		load(socket, "workspace", username, roomname);
 		$('#userModal').modal('hide');
 		return false;
 	});
