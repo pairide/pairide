@@ -1,5 +1,5 @@
 var socket = connect();
-var username, roomname;
+var username;
 
 $(document).ready(function(){
 	load(socket, "workspace", username);

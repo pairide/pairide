@@ -2,6 +2,7 @@ h5 Chat
 
 div#chat
 	div#chatmsg.breadcrumb
+		p
 	form#chatsend(action="chat_send", method="POST") 
 		input(name="msg", placeholder="Type message here", type="text")#msg
 		button.btn(type="submit").btn-success.btn-small.pull-right Send
@@ -11,5 +12,4 @@ hr
 
 div#user_list
 	h5 Users 
-	p John Smith
 

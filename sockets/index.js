@@ -22,9 +22,15 @@ exports.communicate = function(io){
         workspace.disconnect(io, socket, roomDrivers, roomUsers, roomAdmins);
       });
 
+      //Handle request to get members in a room
+      socket.on("get_users", function(data){
+        workspace.get_users(socket, data, roomUsers);
+      });
+
       //socket handler for users requesting to join a room
       socket.on('join_room', function(data) {
           workspace.join(socket, data, roomDrivers, roomUsers, roomAdmins);
+          io.sockets.in(socket.store.data.room).emit('new_user', data);
       });
 
       //relay the message that the has changed
@@ -34,6 +40,10 @@ exports.communicate = function(io){
             io.sockets.in(socket.store.data.room).emit('editor_update', data);
             console.log ("Change to the editor in room " + room + ": " + data.text);
           }
+      });
+
+      socket.on('send_message', function(data){
+        io.sockets.in(socket.store.data.room).emit('new_message', data);
       });
 	});
 };

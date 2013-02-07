@@ -57,3 +57,13 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins){
     console.log("room Admins");
     console.log(roomAdmins);
 }
+
+exports.get_users = function(socket, data, roomUsers){
+	var users = new Array();
+
+	for(user_id in roomUsers[data.room]){
+		users.push(roomUsers[data.room][user_id]);
+	}
+
+	socket.emit('send_users', {usernames: users});
+}
