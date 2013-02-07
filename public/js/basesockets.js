@@ -29,9 +29,6 @@ function load(socket, type, username){
 		}
 	});
 
-	socket.on('new_member', function(data)){
-		
-	}
 
 	//listens for changes in the editor and notifies the server
 	editor.getSession().on('change', function(e) {
