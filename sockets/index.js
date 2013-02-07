@@ -5,7 +5,11 @@ var roomDrivers = {};
 //Contains users of each room and their socket id mappings to their username
 //To get a username roomUsers[roomname][socket id]
 var roomUsers = {}; 
+//The initial users who created the room.
+var roomAdmins = {};
+
 var workspace =  require('./socket_workspace');
+
 exports.communicate = function(io){
 
 	io.sockets.on('connection', function (socket) {
@@ -15,13 +19,14 @@ exports.communicate = function(io){
       //Handles a socket disconnecting.
       socket.on("disconnect", function(){
         console.log("disconnect detected");
-        workspace.disconnect(socket, roomDrivers, roomUsers);
+        workspace.disconnect(io, socket, roomDrivers, roomUsers, roomAdmins);
       });
 
       //socket handler for users requesting to join a room
       socket.on('join_room', function(data) {
-          workspace.join(socket, data, roomDrivers, roomUsers);
+          workspace.join(socket, data, roomDrivers, roomUsers, roomAdmins);
       });
+
       //relay the message that the has changed
       socket.on("editor_changed", function(data){
           var room = socket.store.data.room;

@@ -73,10 +73,14 @@ exports.fileConnector = function(req, res){
   //the directory path for all user files
   var directory = process.cwd() + "/users"; 
 
-  //this needs to be based on the current user and not hard-coded
-  var username = "alex"; //swap with line below
-  //var username = req.session.user_id;
-  
+  //the name of the user requesting files
+  var username; 
+  if (req.session && req.session.user_id){
+    username = req.session.user_id;
+  }
+  else{
+    return;
+  }
   //the relative path from the users folder
   var relPath = unescape(req.body.dir);
   //the true path to the files being requested
