@@ -1,4 +1,4 @@
-//Handles the event of a user joinging a room. This will create
+//Handles the event of a user joining a room. This will create
 //a room if needed.
 exports.join = function(socket, data, roomDrivers, roomUsers){
 

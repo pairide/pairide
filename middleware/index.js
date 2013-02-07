@@ -1,5 +1,12 @@
+/*
+ * Middlewares.
+ */
 
-
+/*
+ * Check if user is authenticated.
+ * If so, coontinue loading as is.
+ * Else, raise an error.
+ */
 exports.isAuthenticated = function (req, res, next) {
 
   if (!req.session.user_id) {
@@ -15,14 +22,19 @@ exports.isAuthenticated = function (req, res, next) {
   }
 }
 
+/*
+ * Check if user is authenticated and pass in the
+ * the information to the template engine.
+ */
 exports.checkAuth = function(req, res, next){
 
 	if (req.session.user_id) {
-
 		res.locals.auth = true;
+    res.locals.auth_user = req.session.user_id;
 
 	}
 
+  // Continue loading as is.
 	next();
 
 }
