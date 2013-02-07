@@ -37,7 +37,7 @@ exports.login = function(req, res){
 				if(bcrypt.compareSync(data.password, user.password_hash)){
 
 					req.session.user_id = data.user;
-					res.redirect('/home');	
+					res.redirect('/home?l=1');	
 
 				}else{
 
