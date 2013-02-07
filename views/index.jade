@@ -99,9 +99,30 @@ block content
 			.modal-header
 				h4 Create Session
 			.modal-body
-				|Test
+				
+				.pagination-centered
+
+					.span5
+
+						form(action="create_session", method="POST")
+
+							.control-group
+								label.control-label
+									| Room Name:
+								.controls
+									input(name='room_name', type='text', maxlength='20', placeholder="Room Name").input-medium		
+
+								br			
+
+								.control-group
+									.controls
+										input(type='submit', value='Create').btn.btn-medium.btn-success
 
 		script
 			$('#mainCreateSession').on('show', function () {
 				$('#myModal').modal('hide');
 			});
+
+		if show_modal
+			script
+				$('#mainCreateSession').modal('show');

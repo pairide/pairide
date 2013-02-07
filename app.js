@@ -13,10 +13,11 @@ var routes = require('./routes'),
   auth = require('./routes/auth'),
   socket_handler = require('./sockets'),
   db = require('./database.js'),
-  random = require('./routes/random'),
+  room = require('./routes/room'),
   middleware = require('./middleware'),
   checkAuth = middleware.checkAuth;
 
+/*Configuring presets for express framework.*/
 app.configure(function(){
   app.set('port', process.argv[2] | 8000);
   app.set('views', __dirname + '/views');
@@ -57,15 +58,16 @@ app.get('/tos', checkAuth, routes.tos);
 app.get('/profile', middleware.isAuthenticated, routes.profile);
 app.get('/logout', middleware.isAuthenticated, auth.logout);
 //app.get(/^\/workspace\/.+$/, middleware.isAuthenticated, checkAuth, routes.workspace);
-app.get(/^\/workspace\/.+$/,routes.workspace); //swap with above if live
-app.get('/create_session', checkAuth, random.create);
+app.get(/^\/workspace\/.+$/, checkAuth, routes.workspace); //swap with above if live
+app.get('/create_session', checkAuth, room.create);
 app.get('/validate', checkAuth, auth.validate);
-app.get(/^\/express\/.*$/, random.join);
+app.get(/^\/express\/.*$/, room.express_join);
 
 /* POST Methods */
 app.post('/workspace/fileconnector', routes.fileConnector);
 app.post('/login', auth.login);
 app.post('/register', auth.register);
+app.post('/create_session', checkAuth, room.create);
 
 
 /* Listen for requests */
@@ -74,6 +76,6 @@ server.listen(app.get('port'), function(){
 });
 
 // Sockets debug level.
-io.set('log level', 3);
+io.set('log level', 2);
 // Set up connection and listen/send for events.
 socket_handler.communicate(io)
