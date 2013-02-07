@@ -6,6 +6,8 @@ exports.create = function(req, res){
 
 	if(req.session.user_id && req.body.room_name){
 		// User is logged in and wants to create a custom room.
+		
+		res.locals.room_name = req.body.room_name;
 		res.redirect('/workspace/' + req.body.room_name);
 
 	}else{
