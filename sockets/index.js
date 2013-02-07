@@ -22,12 +22,12 @@ exports.communicate = function(io){
       socket.on('join_room', function(data) {
           workspace.join(socket, data, roomDrivers, roomUsers);
       });
-      //relay the message that the editor changed
+      //relay the message that the has changed
       socket.on("editor_changed", function(data){
           var room = socket.store.data.room;
           if (roomDrivers[room] == socket.id){
             io.sockets.in(socket.store.data.room).emit('editor_update', data);
-            console.log ("Incoming changes to the editor: " + data.text);
+            console.log ("Change to the editor in room " + room + ": " + data.text);
           }
       });
 	});

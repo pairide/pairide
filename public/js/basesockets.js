@@ -4,7 +4,7 @@ var url = "http://"+host+":"+port;
 var isDriver; 
 
 //base load function for the workspace
-function load(socket, type, username, rID){
+function load(socket, type, username){
 
 	//listen for the server to notify the client if they are
 	//a driver or navigator
@@ -37,9 +37,9 @@ function load(socket, type, username, rID){
 		}
 	});
 
-	if (rID == null){
-		rID = roomID(type);
-	}
+
+
+	var rID = roomID(type);
 	socket.emit('join_room', { room: rID, user:username});
 
 	socket.emit('get_members', {room: rID, user:username});
