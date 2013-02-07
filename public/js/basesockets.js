@@ -40,7 +40,33 @@ function load(socket, type, username){
 	var rID = roomID(type);
 	socket.emit('join_room', { room: rID, user:username});
 
-	socket.emit('get_members', {room: rID, user:username});
+	/* set up chat room */
+	socket.emit('get_users', {room: rID, user:username});
+
+	socket.on('send_users', function(data){
+		var users = data.usernames;
+		for(user in users){
+			$('#user_list').append("<p>" + users[user] + "</p>");
+		}
+	});
+
+	socket.on('new_user', function(data){
+		if(data.user != username){
+			$('#user_list').append("<p>" + data.user + "</p>");
+		}
+	});
+
+	//Handle event: user sends a new message
+	$("#chatsend").submit(function(){
+		var message = $("#msg").val();
+		socket.emit('send_message', {user: username, msg: message});
+		$("#msg").val("");
+		return false;
+	});
+	//Handle event: getting a new message from another user
+	socket.on('new_message', function(data){
+		$('#chatmsg p').append(data.user + ": " + data.msg + "</br>");
+	});
 }
 
 /*
