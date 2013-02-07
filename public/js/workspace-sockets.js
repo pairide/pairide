@@ -4,8 +4,7 @@ var username = "alex";
 $(document).ready(function(){
 	$('#nameform').submit(function(){
 		load(socket, "workspace", username);
-		$('#userModal').modal({show: false});
-		alert('wut');
+		$('#userModal').modal('hide');
 		return false;
 	});
 });

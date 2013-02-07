@@ -3,6 +3,8 @@
  */
 
 var roomDrivers = {};
+var userMappings = {};
+
 var workspace =  require('./socket_workspace');
 exports.communicate = function(io){
 
