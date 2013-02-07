@@ -3,7 +3,7 @@ var port = 8000;
 var url = "http://"+host+":"+port;
 var isDriver; 
 
-//base load function for the workspace
+/*base load function for the workspace*/
 function load(socket, type, username){
 
 	//listen for the server to notify the client if they are
@@ -29,6 +29,7 @@ function load(socket, type, username){
 		}
 	});
 
+
 	//listens for changes in the editor and notifies the server
 	editor.getSession().on('change', function(e) {
 		if (isDriver){
@@ -38,6 +39,8 @@ function load(socket, type, username){
 
 	var rID = roomID(type);
 	socket.emit('join_room', { room: rID, user:username});
+
+	socket.emit('get_members', {room: rID, user:username});
 }
 
 /*
