@@ -46,5 +46,10 @@ exports.communicate = function(io){
       socket.on('send_message', function(data){
         io.sockets.in(socket.store.data.room).emit('new_message', data);
       });
+
+      socket.on("post_selection", function(data){
+        io.sockets.in(socket.store.data.room).emit('get_selection', data);
+        console.log("SELECTION-> " + data.user);
+      });
 	});
 };
