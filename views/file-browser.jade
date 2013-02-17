@@ -1,2 +1,25 @@
+div.modal#projectCreatorModal.hide.fade
+	div.modal-header
+		a(data-dismiss='modal', href='#').close
+			| &times;
+		h3
+			| Project Manager
+	div.modal-body
+		form(action="new_project", method="post").well#createProjectForm
+			legend
+				| Create project
+			label
+				| Project Name
+			input(placeholder='My Project', type='text', name="name")
+				span.help-inline
+					| Choose a name for your project
+			button(type='submit').btn.btn-primary
+				| Save
+			a(href='#').btn
+				| Close
+span.projectLabel
+	| Projects 
+div#addProjectButton
+
 div
 	div#fileTree.fileBrowserBox

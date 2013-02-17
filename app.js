@@ -68,6 +68,7 @@ app.post('/workspace/fileconnector', routes.fileConnector);
 app.post('/login', auth.login);
 app.post('/register', auth.register);
 app.post('/create_session', checkAuth, room.create);
+app.post('/workspace/new_project', routes.createProject);
 
 
 /* Listen for requests */

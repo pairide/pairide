@@ -1,7 +1,13 @@
+/* This is client side socket code for both express 
+ *and user workspaces. 
+ */
+
 var host = window.location.hostname;
 var port = 8000;
 var url = "http://"+host+":"+port;
 var isDriver; 
+var buffering = false;
+var bufferWait = 250; //in ms
 
 //base load function for the workspace
 function load(socket, type, username){
@@ -32,12 +38,11 @@ function load(socket, type, username){
 
 	//listens for changes in the editor and notifies the server
 	editor.getSession().on('change', function(e) {
-		if (isDriver){
-			socket.emit("editor_changed", {text: editor.getValue()});
+		if (isDriver && !buffering){
+			buffering = true;
+			setTimeout(sendChanges,bufferWait);
 		}
 	});
-
-
 
 	var rID = roomID(type);
 	socket.emit('join_room', { room: rID, user:username});
@@ -71,6 +76,13 @@ function load(socket, type, username){
 	});
 }
 
+
+function sendChanges(){
+	if (isDriver){
+		socket.emit("editor_changed", {text: editor.getValue()});
+		buffering = false;
+	}
+}
 /*
  * Change the users state to be a driver or a navigator.
  */
