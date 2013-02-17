@@ -7,7 +7,7 @@ $(document).ready(function(){
 	$('#nameform').submit(function(){
 		username = $("#username").val();
 
-		//check if username is not already taken 
+		//Check if username is not already taken 
 		//before assigning it.
 		$.when(check_username(socket, "express", username)).
 			then(function(duplicate){

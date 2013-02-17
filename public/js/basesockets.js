@@ -15,9 +15,11 @@ function load(socket, type, username){
 			//Editor should be updated with the current text.
 			//editor.setValue(currentEditor);
 			$('#driver').html('Navigator');
+			$('#driver').addClass('label-warning');
 		}
 		else{
 			$('#driver').html('Driver');
+			$('#driver').addClass('label-success');
 		}
 	});
 
@@ -43,7 +45,7 @@ function load(socket, type, username){
 	socket.emit('join_room', { room: rID, user:username});
 
 	/* set up chat room */
-	socket.emit('get_users', {room: rID, user:username});
+	socket.emit('get_users', {room: rID});
 
 	socket.once('send_users', function(data){
 		var users = data.usernames;
@@ -116,6 +118,9 @@ function  check_username(socket, type, username){
 	var rID = roomID(type);
 	var dfd = new $.Deferred();
 
+	//Get the list of users in the room
+	//and check if any of them conflict
+	//with username
 	socket.emit('get_users', {room: rID});
 	socket.once('send_users', function(data){
 		var	users = data.usernames;
@@ -127,5 +132,4 @@ function  check_username(socket, type, username){
 		dfd.resolve( false );
 	});
 	return dfd.promise();
-
 }
