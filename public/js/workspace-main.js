@@ -1,9 +1,10 @@
 var language = "python";
 var editor;
 var uploadClipBoard = "";
+var Range;
+
 $(document).ready(function(){
 	setUpEditor();
-	requestWorkspace();
     $('#code').on('dragover', handleDragOver);
     $('#code').on('drop', handleDragOn);
     $('#userModal').modal({show: true});
@@ -12,23 +13,19 @@ $(document).ready(function(){
         handleSelection(editor.getSession().selection.getRange());
     });
 
+    Range = require("ace/range").Range;
+
+    $("#debug").html("DDDDDD");
+
+    $("#debug").on("click", function(){
+        var r = new Range(0, 3, 0, 7);
+        //editor.session.selection.addRange(r);
+        editor.addSelectionMarker(r);
+        //editor.getSession().addMarker(r, "test", "sup", true);
+    });
+
 });
 
-/*
- * Make an ajax request for the users files.
- */
-function requestWorkspace(){
-	$('#fileTree').fileTree({
-        root: '/',
-        script: 'fileconnector',
-        expandSpeed: 350,
-        collapseSpeed: 350,
-        multiFolder: false
-    }, function(file) {
-        //event for when a file is clicked
-        alert(file);
-    });	
-}
 /* Set up editor space with syntax highlighting,
 *  auto-indent and bracket matching.
 */
