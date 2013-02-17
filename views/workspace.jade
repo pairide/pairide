@@ -7,14 +7,15 @@ append scripts
 	script(src="/js/workspace-main.js")
 	script(src="/js/bootstrap.js")
 	script(src="/js/jquery.easing.js",  type="text/javascript")
+	script(src="http://malsup.github.com/jquery.form.js")
 	script(src="/js/jqueryFileTree.js", type="text/javascript")
 	script(src="/socket.io/socket.io.js", type="text/javascript")
 	script(src="/ace/ace.js", type="text/javascript")
 	script(src="/js/basesockets.js", type="text/javascript")
 	if workspace
-		script(src="/js/workspace-sockets.js", type="text/javascript")
+		script(src="/js/user-workspace.js", type="text/javascript")
 	else
-		script(src="/js/express-sockets.js", type="text/javascript")
+		script(src="/js/express-workspace.js", type="text/javascript")
 
 
 block wrapper
@@ -26,6 +27,7 @@ block wrapper
 				form(id="nameform", action="name_send", method="POST")
 					input(name="username", class="well", id="username", placeholder="Your name goes here")
 					input(type="submit", class="btn btn-large btn-primary", value="Start")
+					p.error
 			.modal-footer
 
 

@@ -61,6 +61,35 @@ exports.profile = function(req, res){
   res.render('layout', {title: 'Profile', current: "None"});  
 }
 
+exports.createProject = function(req, res){
+
+  fs = require('fs');
+  //the directory path for all user files
+  var directory = process.cwd() + "/users"; 
+
+  //the name of the user requesting files
+  var username; 
+  if (req.session && req.session.user_id){
+    username = req.session.user_id;
+  }
+  else{
+      res.send({result:false, error:"You must be logged in to do that."});
+  }
+  var path = directory + "/" + username + "/" + req.body.name;
+  console.log(path);
+  try {
+    //raises an error if the project does not exist
+    stats = fs.lstatSync(path);
+    res.send({result:false, error:"A project with that name already exists."});
+  }catch (e) {
+    //create the directory for the project
+    fs.mkdir(path);
+    res.send({result:true});
+  }
+
+}
+
+
 /*
  * Handle the ajax POST request for the file browser. A request is given
  * everytime a user loads the workspace or when they click to open a directory.
