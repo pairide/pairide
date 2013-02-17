@@ -45,7 +45,7 @@ function load(socket, type, username){
 	/* set up chat room */
 	socket.emit('get_users', {room: rID, user:username});
 
-	socket.on('send_users', function(data){
+	socket.once('send_users', function(data){
 		var users = data.usernames;
 		for(user in users){
 			$('#user_list').append("<p>" + users[user] + "</p>");
@@ -101,4 +101,26 @@ function roomID(type){
 	if(match){
 		return match[1];
 	}
+}
+
+/*Return true if username is available for the roomID,
+false otherwise*/
+function  check_username(socket, type, username){
+
+	var rID = roomID(type);
+	var dfd = new $.Deferred();
+
+	socket.emit('get_users', {room: rID});
+	socket.once('send_users', function(data){
+		var	users = data.usernames;
+		for(user in users){
+			if(users[user] == username){
+				alert('duplicate');
+				dfd.resolve( true );
+			}
+		}
+		dfd.resolve( false );
+	});
+	return dfd.promise();
+
 }

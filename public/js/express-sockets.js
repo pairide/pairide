@@ -7,9 +7,19 @@ $(document).ready(function(){
 	$('#nameform').submit(function(){
 		username = $("#username").val();
 
-		/*Username's validation is needed*/
-		load(socket, "express", username);
-		$('#userModal').modal('hide');
+		//check if username is not already taken 
+		//before assigning it.
+		$.when(check_username(socket, "express", username)).
+			then(function(duplicate){
+				if(duplicate){
+					$("#username").val('');
+					$("#nameform .error").text('Sorry, this name is already taken.');
+				}
+				else{
+					load(socket, "express", username);
+					$('#userModal').modal('hide');	
+				}
+			});
 		return false;
 	});
 });
