@@ -69,6 +69,12 @@ function load(socket, type, username){
 	socket.on('new_message', function(data){
 		$('#chatmsg p').append(data.user + ": " + data.msg + "</br>");
 	});
+
+	//Handle event: a user disconnected from the room
+	socket.on('user_disconnect', function(data){
+		var username = data.username;
+		$("#user_list p").remove(":contains('" + username + "')");
+	});
 }
 
 /*
@@ -115,7 +121,6 @@ function  check_username(socket, type, username){
 		var	users = data.usernames;
 		for(user in users){
 			if(users[user] == username){
-				alert('duplicate');
 				dfd.resolve( true );
 			}
 		}
