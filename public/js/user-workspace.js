@@ -26,6 +26,7 @@ $(document).ready(function(){
 
     	if (data.result){
 		    $('#projectCreatorModal').modal('hide');
+		    requestWorkspace();
     	}
     	else{
     		alert(data.error);
@@ -33,6 +34,22 @@ $(document).ready(function(){
     });
 
 });
+
+/*
+ * Make an ajax request for the users files.
+ */
+function requestWorkspace(){
+	$('#fileTree').fileTree({
+        root: '/',
+        script: 'fileconnector',
+        expandSpeed: 350,
+        collapseSpeed: 350,
+        multiFolder: false
+    }, function(file) {
+        //event for when a file is clicked
+        alert(file);
+    });	
+}
 
 function handleSelection(range){
 
