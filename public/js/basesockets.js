@@ -21,9 +21,11 @@ function load(socket, type, username){
 			//Editor should be updated with the current text.
 			//editor.setValue(currentEditor);
 			$('#driver').html('Navigator');
+			$('#driver').addClass('label-warning');
 		}
 		else{
 			$('#driver').html('Driver');
+			$('#driver').addClass('label-success');
 		}
 	});
 
@@ -48,9 +50,9 @@ function load(socket, type, username){
 	socket.emit('join_room', { room: rID, user:username});
 
 	/* set up chat room */
-	socket.emit('get_users', {room: rID, user:username});
+	socket.emit('get_users', {room: rID});
 
-	socket.on('send_users', function(data){
+	socket.once('send_users', function(data){
 		var users = data.usernames;
 		for(user in users){
 			$('#user_list').append("<p>" + users[user] + "</p>");
@@ -73,6 +75,12 @@ function load(socket, type, username){
 	//Handle event: getting a new message from another user
 	socket.on('new_message', function(data){
 		$('#chatmsg p').append(data.user + ": " + data.msg + "</br>");
+	});
+
+	//Handle event: a user disconnected from the room
+	socket.on('user_disconnect', function(data){
+		var username = data.username;
+		$("#user_list p").remove(":contains('" + username + "')");
 	});
 }
 
@@ -113,4 +121,27 @@ function roomID(type){
 	if(match){
 		return match[1];
 	}
+}
+
+/*Return true if username is available for the roomID,
+false otherwise*/
+function  check_username(socket, type, username){
+
+	var rID = roomID(type);
+	var dfd = new $.Deferred();
+
+	//Get the list of users in the room
+	//and check if any of them conflict
+	//with username
+	socket.emit('get_users', {room: rID});
+	socket.once('send_users', function(data){
+		var	users = data.usernames;
+		for(user in users){
+			if(users[user] == username){
+				dfd.resolve( true );
+			}
+		}
+		dfd.resolve( false );
+	});
+	return dfd.promise();
 }

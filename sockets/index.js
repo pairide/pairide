@@ -33,7 +33,7 @@ exports.communicate = function(io){
           io.sockets.in(socket.store.data.room).emit('new_user', data);
       });
 
-      //relay the message that the has changed
+      //relay the message that the editor has changed
       socket.on("editor_changed", function(data){
           var room = socket.store.data.room;
           if (roomDrivers[room] == socket.id){
@@ -42,6 +42,7 @@ exports.communicate = function(io){
           }
       });
 
+      //Emit new message to all members in the room
       socket.on('send_message', function(data){
         io.sockets.in(socket.store.data.room).emit('new_message', data);
       });

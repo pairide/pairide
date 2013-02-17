@@ -56,6 +56,9 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins){
     console.log(roomUsers);
     console.log("room Admins");
     console.log(roomAdmins);
+
+    //Notify other room members that user left
+    io.sockets.in(room).emit('user_disconnect', {username: socket.store.data["nickname"]});
 }
 
 exports.get_users = function(socket, data, roomUsers){
