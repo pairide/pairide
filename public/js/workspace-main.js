@@ -1,6 +1,8 @@
 var language = "python";
 var editor;
 var uploadClipBoard = "";
+var Range;
+
 $(document).ready(function(){
 	setUpEditor();
     $('#code').on('dragover', handleDragOver);
@@ -9,6 +11,17 @@ $(document).ready(function(){
     editor.getSession().selection.on('changeSelection', function(e) {
 
         handleSelection(editor.getSession().selection.getRange());
+    });
+
+    Range = require("ace/range").Range;
+
+    $("#debug").html("DDDDDD");
+
+    $("#debug").on("click", function(){
+        var r = new Range(0, 3, 0, 7);
+        //editor.session.selection.addRange(r);
+        editor.addSelectionMarker(r);
+        //editor.getSession().addMarker(r, "test", "sup", true);
     });
 
 });

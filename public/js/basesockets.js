@@ -145,3 +145,31 @@ function  check_username(socket, type, username){
 	});
 	return dfd.promise();
 }
+
+
+function handleSelection(range){
+
+	if(!range.isEmpty()){
+		//$("#debug").html(range.toString());
+
+		//socket.emit("post_selection", { user: username, range: range });
+	}
+}
+
+function applySelection(data){
+
+	if(data.user != username){
+		$("#debug").html(data.range.end.row + " -> " + data.range.end.column);
+
+		var start = data.range.start;
+		var end = data.range.end;
+		//var r = new Range(start.row, start.column, end.row, end.column);
+		//editor.session.selection.addRange(data.range, true);
+	}
+	
+}
+
+
+	/*socket.on("get_selection", function(data){
+		applySelection(data);
+	});*/
