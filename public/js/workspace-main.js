@@ -3,7 +3,6 @@ var editor;
 var uploadClipBoard = "";
 $(document).ready(function(){
 	setUpEditor();
-	requestWorkspace();
     $('#code').on('dragover', handleDragOver);
     $('#code').on('drop', handleDragOn);
     $('#userModal').modal({show: true});

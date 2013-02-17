@@ -4,6 +4,7 @@ var username;
 $(document).ready(function(){
 
 	load(socket, "workspace", username);
+	requestWorkspace();
 	$('#nameform').submit(function(){
 
 		$('#userModal').modal('hide');
