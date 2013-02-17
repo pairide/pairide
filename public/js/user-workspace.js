@@ -4,12 +4,30 @@ var Range
 
 $(document).ready(function(){
 
-	load(socket, "workspace", username);
-	$('#nameform').submit(function(){
+	if(!auth){
+		/*Get user's name and load the session */
+		$('#nameform').submit(function(){
+			username = $("#username").val();
 
-		$('#userModal').modal('hide');
-		return false;
-	});
+			//Check if username is not already taken 
+			//before assigning it.
+			$.when(check_username(socket, "workspace", username)).
+				then(function(duplicate){
+					if(duplicate){
+						$("#username").val('');
+						$("#nameform .error").text('Sorry, this name is already taken.');
+					}
+					else{
+						load(socket, "workspace", username);
+						$('#userModal').modal('hide');	
+					}
+				});
+			return false;
+		});
+	}
+	else{
+		load(socket, "workspace", username);
+	}
 
 	socket.on("get_selection", function(data){
 		applySelection(data);
