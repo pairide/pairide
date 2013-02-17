@@ -9,3 +9,12 @@ $(document).ready(function(){
 		return false;
 	});
 });
+
+function handleSelection(range){
+
+	if(!range.isEmpty()){
+		$("#debug").html(range.toString());
+
+		socket.emit("user_selection", { user: username, range: range });
+	}
+}
