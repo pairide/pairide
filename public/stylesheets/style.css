@@ -151,3 +151,7 @@ border-left:none;
   z-index: 5;
   background: #C2731F;
 }
+
+#username{
+  color: white;
+}
