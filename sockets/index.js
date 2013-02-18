@@ -69,5 +69,10 @@ exports.communicate = function(io){
       socket.on("switch_request", function(data){
         console.log("switch request performed by " + socket.store.data.nickname + " in room " + socket.store.data.room);
       });
+
+      socket.on("post_remove_annotation", function(data){
+        console.log("Remove Annotation: " + data.target)
+        io.sockets.in(socket.store.data.room).emit("get_remove_annotation", data);
+      });
   });
 };

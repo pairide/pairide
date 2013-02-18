@@ -10,6 +10,7 @@ var buffering = false;
 var bufferWait = 250; //in ms
 var roomname;
 var currentHighlight;
+var annotationID = 0;
 var users = {};
 
 //base load function for the workspace
@@ -124,6 +125,10 @@ function load(socket, type, username){
 	// Handle: A user added an annotation.
 	socket.on("get_annotation", function(data){
 		applyAnnotation(data);
+	});
+
+	socket.on("get_remove_annotation", function(data){
+		purgeAnnotation(data);
 	});
 }
 
@@ -277,6 +282,7 @@ function applyAnnotation(data){
 
 
 	var annot = $("<div/>");
+	annot.attr("id", "annotation" + annotationID++);
 	annot.attr("class", "annotation");
 	annot.css("background", annotation_color);
 	annot.css("top", margin_top + "px");
@@ -310,4 +316,16 @@ function highlightAnnotation(range, role){
 
 function destroyHighlightAnnotation(){
 	editor.getSession().removeMarker(currentHighlight);
+}
+
+function removeAnnotationSend(target){
+	socket.emit("post_remove_annotation", {target: target});
+}
+
+function purgeAnnotation(data){
+	annotationID--;
+	destroyHighlightAnnotation();
+	$("#" + data.target)
+		.popover('destroy')
+		.remove();
 }

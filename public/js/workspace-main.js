@@ -38,6 +38,10 @@ $(document).ready(function(){
         addAnnotation();
     });
 
+    $(".annotation").live("dblclick", function(e){
+        removeAnnotationSend(e.target.id);
+    })
+
     Range = require("ace/range").Range;
 
   /*  $("#debug").on("click", function(){
