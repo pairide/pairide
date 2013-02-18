@@ -33,6 +33,11 @@ exports.communicate = function(io){
           io.sockets.in(socket.store.data.room).emit('new_user', data);
       });
 
+      socket.on("context_menu_dir_clicked", function(data){
+        console.log(data);
+        workspace.menuDirectoryClicked(socket, data, roomDrivers, roomUsers, roomAdmins);
+      });
+
       //relay the message that the editor has changed
       socket.on("editor_changed", function(data){
           var room = socket.store.data.room;

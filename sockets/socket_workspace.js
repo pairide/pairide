@@ -70,3 +70,24 @@ exports.get_users = function(socket, data, roomUsers){
 
 	socket.emit('send_users', {usernames: users});
 }
+exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, roomAdmins){
+
+  var room = data.room;
+    //just some sanity checks to make sure the user is who we think they are
+  if (room && roomAdmins[room] && roomAdmins[room] == socket.id 
+    && roomUsers[room] && socket.id in roomUsers[room] 
+    && roomUsers[room][socket.id] == data.user
+    && socket.store && socket.store.data 
+    && socket.store.data.nickname == data.user){
+      //TODO also match username with session data
+          console.log(data.key + " " + data.relPath);
+    switch(data.key){
+      case 'create':
+        break;
+      case 'upload':
+        break;
+      case 'delete':
+        break;
+    }
+  }
+}

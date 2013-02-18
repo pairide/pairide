@@ -8,6 +8,7 @@ var url = "http://"+host+":"+port;
 var isDriver; 
 var buffering = false;
 var bufferWait = 250; //in ms
+var roomname;
 
 //base load function for the workspace
 function load(socket, type, username){
@@ -46,11 +47,11 @@ function load(socket, type, username){
 		}
 	});
 
-	var rID = roomID(type);
-	socket.emit('join_room', { room: rID, user:username});
+	roomname = roomID(type);
+	socket.emit('join_room', { room: roomname, user:username});
 
 	/* set up chat room */
-	socket.emit('get_users', {room: rID});
+	socket.emit('get_users', {room: roomname});
 
 	socket.once('send_users', function(data){
 		var users = data.usernames;
