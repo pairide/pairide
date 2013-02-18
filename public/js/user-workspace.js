@@ -25,6 +25,7 @@ $(document).ready(function(){
 		});
 	}
 	else{
+        requestWorkspace();
 		load(socket, "workspace", username);
 	}
 
@@ -32,7 +33,7 @@ $(document).ready(function(){
     $.contextMenu({
         selector: '.context-menu-one', 
         callback: function(key, options) {
-        var relMatch = /^<a href="#" rel="(.*)">/;
+        var relMatch = /^<a href="#" rel="([^"]+)/;
         var match = relMatch.exec(this.html());
         if (match){
             socket.emit('context_menu_dir_clicked', 

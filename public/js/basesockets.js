@@ -10,8 +10,6 @@ var buffering = false;
 var bufferWait = 250; //in ms
 var roomname;
 
-
-
 //base load function for the workspace
 function load(socket, type, username){
 
@@ -46,7 +44,6 @@ function load(socket, type, username){
 			editor.getSession().getDocument().applyDeltas(data.deltas);
 		}
 	});
-
 
 	//listens for changes in the editor and notifies the server
 	editor.getSession().getDocument().on('change', function(e) {
@@ -104,7 +101,6 @@ function load(socket, type, username){
 		applySelection(data);
 	});
 }
-
 
 function sendChanges(){
 	if (isDriver){

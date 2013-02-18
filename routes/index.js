@@ -1,5 +1,5 @@
 var fs = require('fs'),
-md5h = require('MD5')
+md5h = require('MD5');
 /*
  * GET home page.
  */
@@ -104,7 +104,7 @@ exports.createProject = function(req, res){
 /*
  * Return true iff the directory path exists.
  */
-function pathExists(){
+function pathExists(path){
   try{
     fs.lstatSync(path);
     return true;
@@ -119,7 +119,7 @@ function pathExists(){
  * The directory of files is fetched and rendered into html.
  */
 exports.fileConnector = function(req, res){
-
+  console.log("................................");
   //the directory path for all user files
   var directory = process.cwd() + "/users"; 
   //the name of the user requesting files
@@ -129,6 +129,7 @@ exports.fileConnector = function(req, res){
   var path; 
   //the relative path from the users folder
   var relPath
+
   if (req.session && req.session.user_id){
     username = md5h(req.session.user_id);
     relPath = unescape(req.body.dir);
@@ -169,7 +170,6 @@ exports.fileConnector = function(req, res){
               else if (fileStats.isFile()){
                 var re = /(?:\.([^.]+))?$/; //regex for a file ext
                 var ext = re.exec(fileName)[1];
-                console.log(ext);
                 //add html tag for a file
                 html += "<li class=\"file ext_" + ext + "\"><a href=\"#\" rel=\"" 
                 + relPath + fileName + "\">" + fileName + "</a></li>";

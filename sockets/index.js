@@ -34,7 +34,6 @@ exports.communicate = function(io){
       });
 
       socket.on("context_menu_dir_clicked", function(data){
-        console.log(data);
         workspace.menuDirectoryClicked(socket, data, roomDrivers, roomUsers, roomAdmins);
       });
 
