@@ -62,3 +62,13 @@ block wrapper
 	else
 		script
 			auth = false
+	div(tabindex="-1", role="dialog", data-keyboard="false", data-backdrop="static", aria-labelledby="Annotation", aria-hidden="true").modal.hide#annotModal
+			.modal-header
+				h4 Add Annotation
+			.modal-body
+				input(name="annot_text", class="well", id="annot_text", placeholder="Annotation Text")
+			.modal-footer
+				a(href="#")#annotBtn.btn.btn-primary
+					|Add Annotation
+				a(href="#", data-dismiss="modal").btn
+					|Close 

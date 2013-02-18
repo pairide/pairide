@@ -102,6 +102,11 @@ function load(socket, type, username){
 	socket.on("get_selection", function(data){
 		applySelection(data);
 	});
+
+	// Handle: A user added an annotation.
+	socket.on("get_annotation", function(data){
+		applyAnnotation(data);
+	});
 }
 
 
@@ -194,5 +199,38 @@ function applySelection(data){
 		
 		editorSession.addMarker(r, "line-style-" + lineStyle, "text", false);
 	}
+	
+}
+
+function handleAnnotation(){
+
+    var sel = editor.getSession().selection.getRange();
+
+    if(!sel.isEmpty()){
+    	//Sanitize.
+    	$("#annotModal").modal({show: true, backdrop: false});
+
+    }else{	
+    	//Handle Error.
+    }
+}
+
+function addAnnotation(){
+
+	var sel = editor.getSession().selection.getRange();
+	var annot = $("#annot_text").val();
+
+	socket.emit("post_annotation", {
+		user: username,
+		range: sel,
+		annot: annot,
+	});
+
+
+	$("#annotModal").modal('hide');
+}
+
+function applyAnnotation(){
+
 	
 }
