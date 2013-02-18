@@ -17,12 +17,16 @@ $(document).ready(function(){
 
     $("#debug").html("DDDDDD");
 
-    $("#debug").on("click", function(){
+  /*  $("#debug").on("click", function(){
         var r = new Range(0, 3, 0, 7);
         //editor.session.selection.addRange(r);
-        editor.addSelectionMarker(r);
-        //editor.getSession().addMarker(r, "test", "sup", true);
-    });
+
+        //editor.addSelectionMarker(r);
+        //editor.getSession().addMarker(r,"wutwut","text", false);
+        //
+        
+        editor.setValue("sup");
+    });*/
 
 });
 

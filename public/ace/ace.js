@@ -1742,9 +1742,10 @@ var Editor = function(renderer, session) {
     this.setValue = function(val, cursorPos) {
         this.session.doc.setValue(val);
 
-        if (!cursorPos)
-            this.selectAll();
-        else if (cursorPos == 1)
+        //if (!cursorPos)
+            //this.selectAll();
+        //else 
+        if (cursorPos == 1)
             this.navigateFileEnd();
         else if (cursorPos == -1)
             this.navigateFileStart();

@@ -9,6 +9,8 @@ var isDriver;
 var buffering = false;
 var bufferWait = 250; //in ms
 
+
+
 //base load function for the workspace
 function load(socket, type, username){
 
@@ -82,6 +84,11 @@ function load(socket, type, username){
 		var username = data.username;
 		$("#user_list p").remove(":contains('" + username + "')");
 	});
+
+	// Handle event: A user makes a selection.
+	socket.on("get_selection", function(data){
+		applySelection(data);
+	});
 }
 
 
@@ -152,24 +159,27 @@ function handleSelection(range){
 	if(!range.isEmpty()){
 		//$("#debug").html(range.toString());
 
-		//socket.emit("post_selection", { user: username, range: range });
+		socket.emit("post_selection", { user: username, range: range });
 	}
 }
 
 function applySelection(data){
 
 	if(data.user != username){
-		$("#debug").html(data.range.end.row + " -> " + data.range.end.column);
 
+		$("#debug").html(data.user + " -> " + username + " -> " + isDriver);
+
+		var editorSession = editor.getSession();
 		var start = data.range.start;
 		var end = data.range.end;
-		//var r = new Range(start.row, start.column, end.row, end.column);
-		//editor.session.selection.addRange(data.range, true);
+		var r = new Range(start.row, start.column, end.row, end.column);
+		var lineStyle = isDriver ? "navigator" : "driver";
+
+		for(var i in editorSession.getMarkers(false)){
+			editorSession.removeMarker(i);
+		}
+		
+		editorSession.addMarker(r, "line-style-" + lineStyle, "text", false);
 	}
 	
 }
-
-
-	/*socket.on("get_selection", function(data){
-		applySelection(data);
-	});*/
