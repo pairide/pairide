@@ -55,6 +55,7 @@ function load(socket, type, username){
 			//setTimeout(sendChanges,bufferWait);
 			var deltas = new Array();
 			deltas.push(e.data);
+			console.log(e.data);
 			socket.emit("editor_changed", {deltas: deltas});
 			//alert(e.data);
 		}
@@ -168,11 +169,11 @@ function  check_username(socket, type, username){
 
 function handleSelection(range){
 
-	if(!range.isEmpty()){
+	//if(range.isEmpty()){
 		//$("#debug").html(range.toString());
 
 		socket.emit("post_selection", { user: username, range: range });
-	}
+	//}
 }
 
 function applySelection(data){
