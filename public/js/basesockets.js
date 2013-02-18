@@ -102,6 +102,9 @@ function load(socket, type, username){
 	socket.on("get_selection", function(data){
 		applySelection(data);
 	});
+
+	//Handle switch request
+	$("#switch").click(requestSwitch());
 }
 
 
@@ -195,4 +198,14 @@ function applySelection(data){
 		editorSession.addMarker(r, "line-style-" + lineStyle, "text", false);
 	}
 	
+}
+
+/*Handle switch button click*/
+function requestSwitch(){
+	if(isDriver){
+		socket.emit('switch_request');
+	}
+	else{
+		$("#code_area").append("<p>Only the driver can switch.</p>");
+	}
 }

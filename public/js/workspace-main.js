@@ -6,7 +6,7 @@ var annotBoxLeft;
 var languages = {"Python" : "python",
                  "Javascript" : "javascript",
                  "Java" : "java",
-                 "C" : "c_cpp",
+                 "C/C++" : "c_cpp",
                  "SQL" : "sql"};
 
 $(document).ready(function(){
