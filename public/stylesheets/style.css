@@ -151,3 +151,8 @@ border-left:none;
   z-index: 5;
   background: #C2731F;
 }
+
+/*.ace_gutter-cell.ace_breakpoint{
+  border-radius: 20px 0px 0px 20px;
+  box-shadow: 0px 0px 1px 1px #FA9025 inset;
+} */

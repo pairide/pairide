@@ -2,6 +2,7 @@ var language = "Python";
 var editor;
 var uploadClipBoard = "";
 var Range;
+var annotBoxLeft;
 var languages = {"Python" : "python",
                  "Javascript" : "javascript",
                  "Java" : "java",
@@ -55,6 +56,16 @@ function setUpEditor(lang) {
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/"+lang.toLowerCase());
     document.getElementById('code').style.fontSize='14px';
+    editor.getSession().setUseWrapMode(true);
+    editor.getSession().setWrapLimitRange(80, 80);
+
+    var annotBoxLeft = parseInt($(".ace_print-margin").css("left")) +  50 + "px"
+
+   /* var annotBox = $("<div/>");
+    annotBox.css("position", "relative");
+    annotBox.css("left", annotBoxLeft);
+    annotBox.css("width", "20px");
+    $("#code").append(annotBox);*/
 }
 
 
