@@ -9,11 +9,8 @@ var isDriver;
 var buffering = false;
 var bufferWait = 250; //in ms
 var roomname;
-<<<<<<< HEAD
 var currentHighlight;
-=======
 var users = {};
->>>>>>> d388a7c53e70021c164a17690bb16dbba06c2daa
 
 //base load function for the workspace
 function load(socket, type, username){
