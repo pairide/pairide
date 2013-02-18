@@ -10860,6 +10860,8 @@ var VirtualRenderer = function(container, theme) {
         this.$printMarginColumn = showPrintMargin;
         this.$updatePrintMargin();
     };
+
+
     this.getPrintMarginColumn = function() {
         return this.$printMarginColumn;
     };
@@ -10928,7 +10930,14 @@ var VirtualRenderer = function(container, theme) {
         var style = this.$printMarginEl.style;
         style.left = ((this.characterWidth * this.$printMarginColumn) + this.$padding) + "px";
         style.visibility = this.$showPrintMargin ? "visible" : "hidden";
+
     };
+
+    this.getPrintMarginValue = function(){
+        alert(((this.characterWidth * this.$printMarginColumn) + this.$padding) + "px");
+        return ((this.characterWidth * this.$printMarginColumn) + this.$padding) + "px";
+    }
+
     this.getContainerElement = function() {
         return this.container;
     };
