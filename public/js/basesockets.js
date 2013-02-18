@@ -8,8 +8,7 @@ var url = "http://"+host+":"+port;
 var isDriver; 
 var buffering = false;
 var bufferWait = 250; //in ms
-
-
+var roomname;
 
 //base load function for the workspace
 function load(socket, type, username){
@@ -46,7 +45,6 @@ function load(socket, type, username){
 		}
 	});
 
-
 	//listens for changes in the editor and notifies the server
 	editor.getSession().getDocument().on('change', function(e) {
 		if (isDriver){
@@ -61,11 +59,11 @@ function load(socket, type, username){
 		}
 	});
 
-	var rID = roomID(type);
-	socket.emit('join_room', { room: rID, user:username});
+	roomname = roomID(type);
+	socket.emit('join_room', { room: roomname, user:username});
 
 	/* set up chat room */
-	socket.emit('get_users', {room: rID});
+	socket.emit('get_users', {room: roomname});
 
 	socket.once('send_users', function(data){
 		var users = data.usernames;
@@ -105,8 +103,13 @@ function load(socket, type, username){
 
 	//Handle switch request
 	$("#switch").click(requestSwitch());
-}
 
+
+	// Handle: A user added an annotation.
+	socket.on("get_annotation", function(data){
+		applyAnnotation(data);
+	});
+}
 
 function sendChanges(){
 	if (isDriver){
@@ -200,6 +203,7 @@ function applySelection(data){
 	
 }
 
+
 /*Handle switch button click*/
 function requestSwitch(){
 	if(isDriver){
@@ -208,4 +212,37 @@ function requestSwitch(){
 	else{
 		$("#code_area").append("<p>Only the driver can switch.</p>");
 	}
+
+function handleAnnotation(){
+
+    var sel = editor.getSession().selection.getRange();
+
+    if(!sel.isEmpty()){
+    	//Sanitize.
+    	$("#annotModal").modal({show: true, backdrop: false});
+
+    }else{	
+    	//Handle Error.
+    }
+}
+
+function addAnnotation(){
+
+	var sel = editor.getSession().selection.getRange();
+	var annot = $("#annot_text").val();
+
+	socket.emit("post_annotation", {
+		user: username,
+		range: sel,
+		annot: annot,
+	});
+
+
+	$("#annotModal").modal('hide');
+}
+
+function applyAnnotation(){
+
+	
+
 }
