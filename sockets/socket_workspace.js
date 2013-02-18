@@ -1,3 +1,6 @@
+var fs = require('fs'),
+md5h = require('MD5');
+
 //Handles the event of a user joining a room. This will create
 //a room if needed.
 exports.join = function(socket, data, roomDrivers, roomUsers, roomAdmins){
@@ -69,4 +72,51 @@ exports.get_users = function(socket, data, roomUsers){
 	}
 
 	socket.emit('send_users', {usernames: users});
+}
+/*
+ * Return true iff the directory path exists.
+ */
+function pathExists(path){
+  try{
+    fs.lstatSync(path);
+    return true;
+  }
+  catch (e) {
+    console.log(e);
+    return false;
+  }
+}
+
+exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, roomAdmins){
+
+  var room = data.room;
+    //just some sanity checks to make sure the user is who we think they are
+  if (room && roomAdmins[room] && roomAdmins[room] == socket.id 
+    && roomUsers[room] && socket.id in roomUsers[room] 
+    && roomUsers[room][socket.id] == data.user
+    && socket.store && socket.store.data 
+    && socket.store.data.nickname == data.user){
+      //TODO also match username with session data
+      console.log(data.key + " " + data.relPath);
+    var username = md5h(data.user);
+    var relPath = unescape(data.relPath);
+    var directory = process.cwd() + "/users"; 
+    var path = directory + "/" + username + relPath;
+    console.log(path);
+    switch(data.key){
+      //cases correspond to each menu option
+      case 'create':
+        //create new directory
+        break;
+      case 'upload':
+        //upload file to directory
+        break;
+      case 'delete':
+        //delete entire directory
+        break;
+      case 'directory':
+        //add new directory
+        break;
+    }
+  }
 }

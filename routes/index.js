@@ -1,4 +1,5 @@
-
+var fs = require('fs'),
+md5h = require('MD5');
 /*
  * GET home page.
  */
@@ -61,22 +62,34 @@ exports.profile = function(req, res){
   res.render('layout', {title: 'Profile', current: "None"});  
 }
 
+/*
+ * Creates a new project in the users workspace folder.
+ */
 exports.createProject = function(req, res){
-
-  fs = require('fs');
   //the directory path for all user files
   var directory = process.cwd() + "/users"; 
 
   //the name of the user requesting files
   var username; 
   if (req.session && req.session.user_id){
-    username = req.session.user_id;
+    username = md5h(req.session.user_id);
   }
   else{
       res.send({result:false, error:"You must be logged in to do that."});
+      return;
+  }
+
+  var sanityReg = /^[a-zA-Z_ -]+$/;
+  //check for potential path traversal attacks
+  if (!sanityReg.exec(req.body.name)){
+    res.send(
+      {
+        result:false, 
+        error:"Project name must not contain any special characters."
+      });
+    return;
   }
   var path = directory + "/" + username + "/" + req.body.name;
-  console.log(path);
   try {
     //raises an error if the project does not exist
     stats = fs.lstatSync(path);
@@ -86,39 +99,55 @@ exports.createProject = function(req, res){
     fs.mkdir(path);
     res.send({result:true});
   }
-
 }
 
-
+/*
+ * Return true iff the directory path exists.
+ */
+function pathExists(path){
+  try{
+    fs.lstatSync(path);
+    return true;
+  }
+  catch (e) {
+    return false;
+  }
+}
 /*
  * Handle the ajax POST request for the file browser. A request is given
  * everytime a user loads the workspace or when they click to open a directory.
  * The directory of files is fetched and rendered into html.
  */
 exports.fileConnector = function(req, res){
-
-
-  fs = require('fs');
+  console.log("................................");
   //the directory path for all user files
   var directory = process.cwd() + "/users"; 
-
   //the name of the user requesting files
   var username; 
+  var stats
+  //the true path to the files being requested
+  var path; 
+  //the relative path from the users folder
+  var relPath
+
   if (req.session && req.session.user_id){
-    username = req.session.user_id;
+    username = md5h(req.session.user_id);
+    relPath = unescape(req.body.dir);
+    path = directory + "/" + username + relPath;
+    if (!pathExists(directory + "/" + username)){
+      //create their user directory if it does not exist
+      fs.mkdir(directory + "/" + username);
+    }
   }
   else{
+    //user not logged in
     return;
   }
-  //the relative path from the users folder
-  var relPath = unescape(req.body.dir);
-  //the true path to the files being requested
-  var path = directory + "/" + username + relPath;
+  
   console.log("Files requested at: " + path);
   try {
     //raises an error if the path does not exist
     stats = fs.lstatSync(path);
-
     if (stats.isDirectory()) {
         fs.readdir(path, function (err, files) {
           if (err) {
@@ -135,13 +164,12 @@ exports.fileConnector = function(req, res){
              
               //check if file is a nested directory
               if (fileStats.isDirectory()){
-                html +=  "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" 
+                html +=  "<li class=\"directory collapsed context-menu-one\"><a href=\"#\" rel=\"" 
                 + relPath + fileName + "/\">" + fileName + "</a></li>";
               }
               else if (fileStats.isFile()){
                 var re = /(?:\.([^.]+))?$/; //regex for a file ext
                 var ext = re.exec(fileName)[1];
-                console.log(ext);
                 //add html tag for a file
                 html += "<li class=\"file ext_" + ext + "\"><a href=\"#\" rel=\"" 
                 + relPath + fileName + "\">" + fileName + "</a></li>";
@@ -158,5 +186,4 @@ exports.fileConnector = function(req, res){
   catch (e) {
     console.log("File directory does not exist");
   }
-
 }
