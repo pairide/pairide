@@ -167,3 +167,7 @@ border-left:none;
 #username{
   color: white;
 }
+
+#switcherror{
+  margin-top: 2%;
+}

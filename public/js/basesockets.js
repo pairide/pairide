@@ -9,6 +9,7 @@ var isDriver;
 var buffering = false;
 var bufferWait = 250; //in ms
 var roomname;
+var users = {};
 
 //base load function for the workspace
 function load(socket, type, username){
@@ -66,15 +67,22 @@ function load(socket, type, username){
 	socket.emit('get_users', {room: roomname});
 
 	socket.once('send_users', function(data){
-		var users = data.usernames;
-		for(user in users){
-			$('#user_list').append("<p>" + users[user] + "</p>");
+		var usernames = data.usernames;
+		for(u in usernames){
+			var elem = $(document.createElement('p'));
+			elem.text(usernames[u]);
+			users[usernames[u]] = elem;
+			$('#user_list').append(elem);
 		}
 	});
 
 	socket.on('new_user', function(data){
 		if(data.user != username){
-			$('#user_list').append("<p>" + data.user + "</p>");
+			var elem = $(document.createElement('p'));
+			elem.text(data.user);
+			users[data.user] = elem;
+			$('#user_list').append(elem);
+
 		}
 	});
 
@@ -93,7 +101,12 @@ function load(socket, type, username){
 	//Handle event: a user disconnected from the room
 	socket.on('user_disconnect', function(data){
 		var username = data.username;
-		$("#user_list p").remove(":contains('" + username + "')");
+		for (user in users){
+			if (user == username){
+				users[user].remove();
+				delete users[user];
+			}
+		}
 	});
 
 	// Handle event: A user makes a selection.
@@ -102,7 +115,9 @@ function load(socket, type, username){
 	});
 
 	//Handle switch request
-	$("#switch").click(requestSwitch());
+	$("#switch").click(function(){
+		requestSwitch();
+	});
 
 
 	// Handle: A user added an annotation.
@@ -210,8 +225,16 @@ function requestSwitch(){
 		socket.emit('switch_request');
 	}
 	else{
-		$("#code_area").append("<p>Only the driver can switch.</p>");
+		var alert_html = 
+		'<div id="switcherror" class="alert">\
+  			<button type="button" class="close" data-dismiss="alert">&times;</button>\
+  			Only the driver can switch.\
+		</div>';
+		if($("#switcherror").length == 0){
+			$("#code_area").append(alert_html);
+		}
 	}
+}
 
 function handleAnnotation(){
 

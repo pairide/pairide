@@ -61,5 +61,9 @@ exports.communicate = function(io){
         io.sockets.in(socket.store.data.room).emit('get_annotation', data);
   	  });
 
+      //Handle switch request made by potential driver
+      socket.on("switch_request", function(data){
+        console.log("switch request performed by " + socket.store.data.nickname + " in room " + socket.store.data.room);
+      });
   });
 };
