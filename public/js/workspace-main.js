@@ -6,7 +6,7 @@ var annotBoxLeft;
 var languages = {"Python" : "python",
                  "Javascript" : "javascript",
                  "Java" : "java",
-                 "C" : "c_cpp",
+                 "C/C++" : "c_cpp",
                  "SQL" : "sql"};
 
 $(document).ready(function(){
@@ -25,13 +25,20 @@ $(document).ready(function(){
     $('#code').on('dragover', handleDragOver);
     $('#code').on('drop', handleDragOn);
     $('#userModal').modal({show: true});
+
     editor.getSession().selection.on('changeSelection', function(e) {
         handleSelection(editor.getSession().selection.getRange());
     });
 
-    Range = require("ace/range").Range;
+    $("#anoLink").on("click", function(){
+        handleAnnotation();
+    });
 
-    $("#debug").html("DDDDDD");
+    $("#annotBtn").on("click", function(){
+        addAnnotation();
+    });
+
+    Range = require("ace/range").Range;
 
   /*  $("#debug").on("click", function(){
         var r = new Range(0, 3, 0, 7);
@@ -43,6 +50,8 @@ $(document).ready(function(){
         
         editor.setValue("sup");
     });*/
+
+    //editor.getSession().setBreakpoint(0);
 
 });
 
@@ -60,11 +69,13 @@ function setUpEditor(lang) {
 
     var annotBoxLeft = parseInt($(".ace_print-margin").css("left")) +  50 + "px"
 
-   /* var annotBox = $("<div/>");
+    //$(".ace_gutter-cell.ace_breakpoint").css("left", annotBoxLeft);
+
+    var annotBox = $("<div/>");
     annotBox.css("position", "relative");
     annotBox.css("left", annotBoxLeft);
     annotBox.css("width", "20px");
-    $("#code").append(annotBox);*/
+    $("#code").append(annotBox);
 }
 
 
@@ -131,3 +142,4 @@ function changeLanguage(e){
     $("#current_language").html(lang);
     editor.getSession().setMode("ace/mode/"+language);
 }
+

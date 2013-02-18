@@ -9,7 +9,7 @@ append scripts
 	script(src="/js/workspace-main.js")
 	script(src="/js/bootstrap.js")
 	script(src="/js/jquery.easing.js",  type="text/javascript")
-	script(src="http://malsup.github.com/jquery.form.js")
+	script(src="/js/jquery.form.js")
 	script(src="/js/jqueryFileTree.js", type="text/javascript")
 	script(src="/socket.io/socket.io.js", type="text/javascript")
 	script(src="/ace/ace.js", type="text/javascript")
@@ -66,3 +66,14 @@ block wrapper
 	else
 		script
 			auth = false
+
+	div(tabindex="-1", role="dialog", data-keyboard="false", data-backdrop="static", aria-labelledby="Annotation", aria-hidden="true").modal.hide#annotModal
+			.modal-header
+				h4 Add Annotation
+			.modal-body
+				input(name="annot_text", class="well", id="annot_text", placeholder="Annotation Text")
+			.modal-footer
+				a(href="#")#annotBtn.btn.btn-primary
+					|Add Annotation
+				a(href="#", data-dismiss="modal").btn
+					|Close 

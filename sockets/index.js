@@ -53,7 +53,13 @@ exports.communicate = function(io){
 
       socket.on("post_selection", function(data){
         io.sockets.in(socket.store.data.room).emit('get_selection', data);
-        console.log("SELECTION-> " + data.user);
+        //console.log("SELECTION-> " + data.user);
       });
-	});
+
+      socket.on("post_annotation", function(data){
+        console.log("ANNOT: " + data);
+        io.sockets.in(socket.store.data.room).emit('get_annotation', data);
+  	  });
+
+  });
 };
