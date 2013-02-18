@@ -61,4 +61,8 @@ block wrapper
 		include global-footer.jade
 	if auth && auth_user
 		script
+			auth = true;
 			username = "#{auth_user}"
+	else
+		script
+			auth = false

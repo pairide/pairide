@@ -139,3 +139,19 @@ border-left:none;
   padding: 5px;
   border-radius: 4px 4px 4px 4px;
 }
+
+.line-style-driver{
+  position: absolute;
+  z-index: 5;
+  background: #8EC21F;
+}
+
+.line-style-navigator{
+  position: absolute;
+  z-index: 5;
+  background: #C2731F;
+}
+
+#username{
+  color: white;
+}

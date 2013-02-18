@@ -1,15 +1,31 @@
-var language = "python";
+var language = "Python";
 var editor;
 var uploadClipBoard = "";
 var Range;
+var annotBoxLeft;
+var languages = {"Python" : "python",
+                 "Javascript" : "javascript",
+                 "Java" : "java",
+                 "C" : "c_cpp",
+                 "SQL" : "sql"};
 
 $(document).ready(function(){
-	setUpEditor();
+	setUpEditor(language);
+
+    //Set up language label and selection
+    $("#current_language").html(language);
+    for (language  in languages){
+        var str_link = "<li><a href='#'>" + language + "</a></li>";
+        $("#languageList").append(str_link);
+    }
+    //Listener for language change
+    $("#languageList li").click(function(e){
+        changeLanguage(e);
+    });
     $('#code').on('dragover', handleDragOver);
     $('#code').on('drop', handleDragOn);
     $('#userModal').modal({show: true});
     editor.getSession().selection.on('changeSelection', function(e) {
-
         handleSelection(editor.getSession().selection.getRange());
     });
 
@@ -17,24 +33,38 @@ $(document).ready(function(){
 
     $("#debug").html("DDDDDD");
 
-    $("#debug").on("click", function(){
+  /*  $("#debug").on("click", function(){
         var r = new Range(0, 3, 0, 7);
         //editor.session.selection.addRange(r);
-        editor.addSelectionMarker(r);
-        //editor.getSession().addMarker(r, "test", "sup", true);
-    });
+
+        //editor.addSelectionMarker(r);
+        //editor.getSession().addMarker(r,"wutwut","text", false);
+        //
+        
+        editor.setValue("sup");
+    });*/
 
 });
 
 /* Set up editor space with syntax highlighting,
 *  auto-indent and bracket matching.
 */
-function setUpEditor() {
+function setUpEditor(lang) {
 
 	editor = ace.edit("code");
     editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/javascript");
+    editor.getSession().setMode("ace/mode/"+lang.toLowerCase());
     document.getElementById('code').style.fontSize='14px';
+    editor.getSession().setUseWrapMode(true);
+    editor.getSession().setWrapLimitRange(80, 80);
+
+    var annotBoxLeft = parseInt($(".ace_print-margin").css("left")) +  50 + "px"
+
+   /* var annotBox = $("<div/>");
+    annotBox.css("position", "relative");
+    annotBox.css("left", annotBoxLeft);
+    annotBox.css("width", "20px");
+    $("#code").append(annotBox);*/
 }
 
 
@@ -92,4 +122,12 @@ function handleFileSelect(f) {
         };
     })(f);
     reader.readAsText(f);
+}
+
+/*Handle language change request by the user*/
+function changeLanguage(e){
+    var lang = e.target.text;
+    language = languages[lang];
+    $("#current_language").html(lang);
+    editor.getSession().setMode("ace/mode/"+language);
 }

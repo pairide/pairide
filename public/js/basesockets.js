@@ -10,6 +10,8 @@ var buffering = false;
 var bufferWait = 250; //in ms
 var roomname;
 
+
+
 //base load function for the workspace
 function load(socket, type, username){
 
@@ -34,16 +36,29 @@ function load(socket, type, username){
 	//making changes.
 	socket.on("editor_update", function(data){
 		if (!isDriver){
-			editor.setValue(data.text);
+			//editor.setValue(data.text);
+			//alert(data.deltas);
+			var deltas = data.deltas;
+			//alert(deltas.length);
+			//for(var i=0; i<deltas.length; i++){
+			//	alert(deltas[i]);
+			//}
+			editor.getSession().getDocument().applyDeltas(data.deltas);
 		}
 	});
 
 
 	//listens for changes in the editor and notifies the server
-	editor.getSession().on('change', function(e) {
-		if (isDriver && !buffering){
-			buffering = true;
-			setTimeout(sendChanges,bufferWait);
+	editor.getSession().getDocument().on('change', function(e) {
+		if (isDriver){
+			//buffering = true;
+			//alert('change');
+			//setTimeout(sendChanges,bufferWait);
+			var deltas = new Array();
+			deltas.push(e.data);
+			console.log(e.data);
+			socket.emit("editor_changed", {deltas: deltas});
+			//alert(e.data);
 		}
 	});
 
@@ -82,6 +97,11 @@ function load(socket, type, username){
 	socket.on('user_disconnect', function(data){
 		var username = data.username;
 		$("#user_list p").remove(":contains('" + username + "')");
+	});
+
+	// Handle event: A user makes a selection.
+	socket.on("get_selection", function(data){
+		applySelection(data);
 	});
 }
 
@@ -150,27 +170,30 @@ function  check_username(socket, type, username){
 
 function handleSelection(range){
 
-	if(!range.isEmpty()){
+	//if(range.isEmpty()){
 		//$("#debug").html(range.toString());
 
-		//socket.emit("post_selection", { user: username, range: range });
-	}
+		socket.emit("post_selection", { user: username, range: range });
+	//}
 }
 
 function applySelection(data){
 
 	if(data.user != username){
-		$("#debug").html(data.range.end.row + " -> " + data.range.end.column);
 
+		$("#debug").html(data.user + " -> " + username + " -> " + isDriver);
+
+		var editorSession = editor.getSession();
 		var start = data.range.start;
 		var end = data.range.end;
-		//var r = new Range(start.row, start.column, end.row, end.column);
-		//editor.session.selection.addRange(data.range, true);
+		var r = new Range(start.row, start.column, end.row, end.column);
+		var lineStyle = isDriver ? "navigator" : "driver";
+
+		for(var i in editorSession.getMarkers(false)){
+			editorSession.removeMarker(i);
+		}
+		
+		editorSession.addMarker(r, "line-style-" + lineStyle, "text", false);
 	}
 	
 }
-
-
-	/*socket.on("get_selection", function(data){
-		applySelection(data);
-	});*/
