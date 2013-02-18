@@ -35,16 +35,28 @@ function load(socket, type, username){
 	//making changes.
 	socket.on("editor_update", function(data){
 		if (!isDriver){
-			editor.setValue(data.text);
+			//editor.setValue(data.text);
+			//alert(data.deltas);
+			var deltas = data.deltas;
+			//alert(deltas.length);
+			//for(var i=0; i<deltas.length; i++){
+			//	alert(deltas[i]);
+			//}
+			editor.getSession().getDocument().applyDeltas(data.deltas);
 		}
 	});
 
 
 	//listens for changes in the editor and notifies the server
-	editor.getSession().on('change', function(e) {
-		if (isDriver && !buffering){
-			buffering = true;
-			setTimeout(sendChanges,bufferWait);
+	editor.getSession().getDocument().on('change', function(e) {
+		if (isDriver){
+			//buffering = true;
+			//alert('change');
+			//setTimeout(sendChanges,bufferWait);
+			var deltas = new Array();
+			deltas.push(e.data);
+			socket.emit("editor_changed", {deltas: deltas});
+			//alert(e.data);
 		}
 	});
 
