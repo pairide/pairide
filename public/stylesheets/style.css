@@ -168,6 +168,7 @@ border-left:none;
   color: white;
 }
 
+<<<<<<< HEAD
 .annotation{
   width: 10px;
   box-sizing:border-box;
@@ -203,4 +204,8 @@ border-left:none;
   position: absolute;
   z-index: 5;
   background: #C2731F;
+}
+
+#switcherror{
+  margin-top: 2%;
 }

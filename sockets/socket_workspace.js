@@ -87,6 +87,10 @@ function pathExists(path){
   }
 }
 
+/*
+ * Handles all the options of the context menu for directories and 
+ * projects.
+ */
 exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, roomAdmins){
 
   var room = data.room;
@@ -96,8 +100,8 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
     && roomUsers[room][socket.id] == data.user
     && socket.store && socket.store.data 
     && socket.store.data.nickname == data.user){
-      //TODO also match username with session data
-      console.log(data.key + " " + data.relPath);
+    
+    console.log(data.key + " " + data.relPath);
     var username = md5h(data.user);
     var relPath = unescape(data.relPath);
     var directory = process.cwd() + "/users"; 
@@ -105,8 +109,8 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
     console.log(path);
     switch(data.key){
       //cases correspond to each menu option
-      case 'create':
-        //create new directory
+      case 'file':
+        console.log("file");
         break;
       case 'upload':
         //upload file to directory
@@ -115,7 +119,9 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
         //delete entire directory
         break;
       case 'directory':
-        //add new directory
+        //create new directory
+        fs.mkdir(path + data.name); //use real input from data.dirname
+        socket.emit("context_menu_click_result", {key:data.key, result:true});
         break;
     }
   }
