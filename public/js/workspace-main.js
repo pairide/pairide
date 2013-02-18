@@ -25,7 +25,6 @@ $(document).ready(function(){
     $('#code').on('drop', handleDragOn);
     $('#userModal').modal({show: true});
     editor.getSession().selection.on('changeSelection', function(e) {
-
         handleSelection(editor.getSession().selection.getRange());
     });
 
