@@ -154,7 +154,6 @@ function setupContextMenu(){
                 }
                 break;      
         }
-        
     });
     // $('.context-menu-one').on('click', function(e){
          

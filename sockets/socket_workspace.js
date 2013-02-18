@@ -110,7 +110,20 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
     switch(data.key){
       //cases correspond to each menu option
       case 'file':
-        console.log("file");
+        fs.exists(path + data.name, function(exists){
+          if (exists){
+              sendErrorCM(socket,data, "This file already exists.");
+          }
+          else{
+            fs.writeFile(path + data.name, "", function(err) {
+              if(err) {
+                sendErrorCM(socket,data,err);
+              } else {
+                sendSuccessCM(socket, data);
+              }
+            }); 
+          }
+        });
         break;
       case 'upload':
         //upload file to directory
@@ -120,9 +133,34 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
         break;
       case 'directory':
         //create new directory
-        fs.mkdir(path + data.name); //use real input from data.dirname
-        socket.emit("context_menu_click_result", {key:data.key, result:true});
+        var mode = 0755;
+        fs.mkdir(path + data.name, mode, function(err){
+          if (err) {
+            sendErrorCM(socket,data, "Folder already exists, or has invalid name.");
+          }
+          else{
+            sendSuccessCM(socket, data);
+          }
+        });
         break;
     }
   }
+}
+
+/*
+ * Notify the socket that the context menu action failed.
+ */
+function sendErrorCM(socket, data, errorMsg){
+  socket.emit("context_menu_click_result", 
+    {
+      key:data.key, 
+      result:false, 
+      error:errorMsg
+    });
+}
+/*
+ * Notify the socket that the context menu action succeeded.
+ */
+function sendSuccessCM(socket, data){
+  socket.emit("context_menu_click_result", {key:data.key, result:true});
 }
