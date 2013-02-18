@@ -9,6 +9,7 @@ var isDriver;
 var buffering = false;
 var bufferWait = 250; //in ms
 var roomname;
+var currentHighlight;
 
 //base load function for the workspace
 function load(socket, type, username){
@@ -225,9 +226,51 @@ function addAnnotation(){
 
 
 	$("#annotModal").modal('hide');
+
+	editor.getSession().selection.clearSelection();
 }
 
-function applyAnnotation(){
+function applyAnnotation(data){
 
+	var range = data.range;
+	var margin_top = parseInt(range.start.row) * 20;
+	var annot_height = ((range.end.row - range.start.row) + 1) * 20;
+	var annotation_color = data.driver == data.user ? "#8EC21F" : "#C2731F";
+	var annotation_role = data.driver == data.user ? "driver" : "navigator";
+
+
+	var annot = $("<div/>");
+	annot.attr("class", "annotation");
+	annot.css("background", annotation_color);
+	annot.css("top", margin_top + "px");
+	annot.css("height", annot_height + "px");
+
+	$("#annotBox").append(annot);
+
+	annot.popover({
+		"trigger": "hover",
+		content: data.annot,
+	})
+
+	annot.hover(
+		function(){
+			highlightAnnotation(range, annotation_role);
+		},
+		function(){
+			destroyHighlightAnnotation();
+		}
+	);
+}
+
+function highlightAnnotation(range, role){
 	
+	var s = range.start;
+	var e = range.end;
+	var r = new Range(s.row, s.column, e.row, e.column);
+	//console.log(range);
+	currentHighlight = editor.getSession().addMarker(r,"line-style-" + role, "text");
+}
+
+function destroyHighlightAnnotation(){
+	editor.getSession().removeMarker(currentHighlight);
 }

@@ -51,8 +51,6 @@ $(document).ready(function(){
         editor.setValue("sup");
     });*/
 
-    //editor.getSession().setBreakpoint(0);
-
 });
 
 /* Set up editor space with syntax highlighting,
@@ -72,10 +70,30 @@ function setUpEditor(lang) {
     //$(".ace_gutter-cell.ace_breakpoint").css("left", annotBoxLeft);
 
     var annotBox = $("<div/>");
+    annotBox.attr("id", "annotBox");
     annotBox.css("position", "relative");
     annotBox.css("left", annotBoxLeft);
     annotBox.css("width", "20px");
     $("#code").append(annotBox);
+
+
+
+        //var range = data.range;
+   /* var margin_top = 1 * 20;
+    var annot_height = ((4) + 1) * 20;
+
+    var annot = $("<div/>");
+    annot.css("margin-top", margin_top + "px");
+    annot.css("height", annot_height + "px");
+    annot.css("width", "10px")
+    annot.css("background", "#8EC21F");
+
+    $("#annotBox").append(annot);
+
+    annot.popover({
+        "trigger": "hover",
+        "content": "Hey what's up?",
+    })*/
 }
 
 

@@ -57,7 +57,11 @@ exports.communicate = function(io){
       });
 
       socket.on("post_annotation", function(data){
-        console.log("ANNOT: " + data);
+        //console.log("ANNOT: " + data);
+        //console.log(roomDrivers[socket.store.data.room]);
+        //console.log(roomUsers[socket.store.data.room][]);
+        var driverID = roomDrivers[socket.store.data.room];
+        data["driver"] = roomUsers[socket.store.data.room][driverID];
         io.sockets.in(socket.store.data.room).emit('get_annotation', data);
   	  });
 
