@@ -1,6 +1,10 @@
 var socket = connect();
 var username;
 
+/*
+ * Relative path to the last item selected in the context menu.
+ */
+var cmRelPath;
 $(document).ready(function(){
 
 	if(!auth){
@@ -29,38 +33,7 @@ $(document).ready(function(){
 		load(socket, "workspace", username);
 	}
 
-
-    $.contextMenu({
-        selector: '.context-menu-one', 
-        callback: function(key, options) {
-        var relMatch = /^<a href="#" rel="([^"]+)/;
-        var match = relMatch.exec(this.html());
-        if (match){
-            socket.emit('context_menu_dir_clicked', 
-                {
-                    key: key, 
-                    relPath: match[1],
-                    user: username,
-                    room: roomname
-                });
-        }
-        },
-        items: {
-            "create": {name: "Create File", icon: "edit"},
-            "sep1": "---------",
-            "upload": {name: "Upload File", icon: "cut"},
-            "sep2": "---------",
-            "directory": {name: "Add directory", icon: "cut"},
-            "sep2": "---------",
-            "delete": {name: "Delete", icon: "delete"},
-            "sep5": "---------",
-        }
-    });
-    
-    $('.context-menu-one').on('click', function(e){
-         
-    })
-
+    setupContextMenu();
 
 	$("#addProjectButton").click(function(){
 		$('#projectCreatorModal').modal('show');
@@ -91,4 +64,99 @@ function requestWorkspace(){
         //event for when a file is clicked
         alert(file);
     });	
+}
+
+function setupContextMenu(){
+    //handling context menu for directories and projects
+    $.contextMenu({
+        selector: '.context-menu-one', 
+        callback: function(key, options) {
+        var relMatch = /^<a href="#" rel="([^"]+)/;
+        var match = relMatch.exec(this.html());
+        if (match){
+
+            cmRelPath = match[1];
+            if (key == "directory"){
+                $('#contextMenuAddDirModal').modal('show');
+            }
+            else if (key == "file"){
+                $('#contextMenuAddFileModal').modal('show');
+            }
+            else if (key == "delete"){
+                $('#contextMenuDeleteModal').modal('show');
+            }
+            // socket.emit('context_menu_dir_clicked', 
+            //     {
+            //         key: key, 
+            //         relPath: match[1],
+            //         user: username,
+            //         room: roomname,
+            //         name: objName
+            //     });
+            }
+        },
+        //the list of items on the menu
+        items: {
+            "file": {name: "Create File", icon: "edit"},
+            "sep1": "---------",
+            "upload": {name: "Upload File", icon: "cut"},
+            "sep2": "---------",
+            "directory": {name: "Add directory", icon: "cut"},
+            "sep2": "---------",
+            "delete": {name: "Delete", icon: "delete"},
+            "sep5": "---------",
+        }
+    });
+    
+    //user submits a new directory
+    $('#cmAddDirButton').on('click', function(e){
+        socket.emit('context_menu_dir_clicked', 
+            {
+                    key: "directory", 
+                    relPath: cmRelPath,
+                    user: username,
+                    room: roomname,
+                    name: $("#cmInputAddDir").val()
+                });
+    });
+    //user submits a new file
+    $('#cmAddFileButton').on('click', function(e){
+        socket.emit('context_menu_dir_clicked', 
+            {
+                    key: "file", 
+                    relPath: cmRelPath,
+                    user: username,
+                    room: roomname,
+                    name: $("#cmInputAddFile").val()
+                });
+
+    });
+    //listens for a result of a context menu action.
+    socket.on("context_menu_click_result", function(data){
+
+        switch(data.key){
+            case "directory":
+                if (data.result){
+                    $('#contextMenuAddDirModal').modal('hide');
+                    requestWorkspace();
+                }
+                else{
+                    alert(data.error);
+                }
+                break;    
+            case "file":
+                if (data.result){
+                    $('#contextMenuAddFileModal').modal('hide');
+                    requestWorkspace();
+                }
+                else{
+                    alert(data.error);
+                }
+                break;      
+        }
+        
+    });
+    // $('.context-menu-one').on('click', function(e){
+         
+    // })
 }

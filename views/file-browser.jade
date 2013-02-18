@@ -15,6 +15,58 @@ div.modal#projectCreatorModal.hide.fade
 					| Choose a name for your project
 			button(type='submit').btn.btn-primary
 				| Save
+div.modal#contextMenuDeleteModal.hide.fade
+	div.modal-header
+		a(data-dismiss='modal', href='#').close
+			| &times;
+		h3
+			| Project Manager
+	div.modal-body
+		div.well#contextMenuDelete
+			legend
+				| Create project
+			label
+				| Project Name
+			input(placeholder='My Project', type='text', name="name")
+				span.help-inline
+					| Choose a name for your project
+			button(type='submit')#cmDelButton.btn.btn-primary
+				| Save
+div.modal#contextMenuAddDirModal.hide.fade
+	div.modal-header
+		a(data-dismiss='modal', href='#').close
+			| &times;
+		h3
+			| Project Manager
+	div.modal-body
+		div.well#contextMenuAddDirDiv
+			legend
+				| Create Directory
+			label
+				| Directory Name
+			input(placeholder='My Folder', type='text', name="name")#cmInputAddDir
+				span.help-inline
+					| Choose a name for your new folder
+			button(type='submit')#cmAddDirButton.btn.btn-primary
+				| Save
+div.modal#contextMenuAddFileModal.hide.fade
+	div.modal-header
+		a(data-dismiss='modal', href='#').close
+			| &times;
+		h3
+			| Project Manager
+	div.modal-body
+		div.well#contextMenuAddFileDiv
+			legend
+				| Create File
+			label
+				| File Name
+			input(placeholder='helloworld.js', type='text', name="name")#cmInputAddFile
+				span.help-inline
+					| Choose a name for your File, make sure to include the extension.
+			button(type='submit')#cmAddFileButton.btn.btn-primary
+				| Save
+
 span.projectLabel
 	| Projects 
 div#addProjectButton
