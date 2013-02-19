@@ -24,7 +24,8 @@ exports.communicate = function(io){
 
       //Handle request to get members in a room
       socket.on("get_users", function(data){
-        workspace.get_users(socket, data, roomUsers);
+        room_users = roomUsers[data.room];
+        workspace.get_users(socket, data, room_users);
       });
 
       //socket handler for users requesting to join a room
