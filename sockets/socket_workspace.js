@@ -134,8 +134,9 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
         //upload file to directory
         break;
       case 'delete':
+        //delete entire directory or file
         try{
-          console.log("Delete" + path);
+          console.log("Deleting: " + path);
             fs.removeRecursive(path,function(err,status){
               if (err){
                 sendErrorCM(socket, data, "Failed to delete.");
@@ -146,8 +147,6 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
             });
         }catch(ignore){
         }
-
-        //delete entire directory
         break;
       case 'directory':
         //create new directory

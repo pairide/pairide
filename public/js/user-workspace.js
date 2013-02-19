@@ -33,7 +33,7 @@ $(document).ready(function(){
 		load(socket, "workspace", username);
 	}
 
-    setupContextMenu();
+    setupContextMenuOne();
 
 	$("#addProjectButton").click(function(){
 		$('#projectCreatorModal').modal('show');
@@ -66,25 +66,26 @@ function requestWorkspace(){
     });	
 }
 
-function setupContextMenu(){
+
+function setupContextMenuOne(){
+
     //handling context menu for directories and projects
     $.contextMenu({
         selector: '.context-menu-one', 
         callback: function(key, options) {
+            var m = "clicked: " + key + " on " + $(this).text();
+            window.console && console.log(m) || alert(m); 
             var relMatch = /^<a href="#" rel="([^"]+)/;
             var match = relMatch.exec(this.html());
             if (match){
 
                 cmRelPath = match[1];
-                if (key == "directory"){
-                    $('#contextMenuAddDirModal').modal('show');
-                }
-                else if (key == "file"){
-                    $('#contextMenuAddFileModal').modal('show');
+                if (key == "directory" || key == "file"){
+                    $('#contextMenuModal' + key).modal('show');
                 }
                 else if (key == "delete"){
                     $('#cmDelLegend').html( "Delete " + this.text());
-                    $('#contextMenuDeleteModal').modal('show');
+                    $('#contextMenuModaldelete').modal('show');
                 }
                 //else if ...upload
 
@@ -114,7 +115,7 @@ function setupContextMenu(){
     });  
     //user declines deletion
     $('#cmDelButtonNo').on('click', function(e){
-        $('#contextMenuDeleteModal').modal('hide');
+        $('#contextMenuModaldelete').modal('hide');
     });  
 
     //user submits a new directory
@@ -142,38 +143,21 @@ function setupContextMenu(){
     });
     //listens for a result of a context menu action.
     socket.on("context_menu_click_result", function(data){
-
-        switch(data.key){
-            case "directory":
-                if (data.result){
-                    $('#contextMenuAddDirModal').modal('hide');
-                    requestWorkspace();
-                }
-                else{
-                    alert(data.error);
-                }
-                break;    
-            case "file":
-                if (data.result){
-                    $('#contextMenuAddFileModal').modal('hide');
-                    requestWorkspace();
-                }
-                else{
-                    alert(data.error);
-                }
-                break;  
-            case "delete":
-                if (data.result){
-                    $('#contextMenuDeleteModal').modal('hide');
-                    requestWorkspace();
-                }
-                else{
-                    alert(data.error);
-                }
-                break; 
+        if (data.key != "upload"){ //upload currently not implemented
+            handleCMResult(data);
         }
     });
-    // $('.context-menu-one').on('click', function(e){
-         
-    // })
+}
+
+/*
+ * Handles the servers response to a context menu action.
+ */
+function handleCMResult(data){
+   if (data.result){
+        $('#contextMenuModal' + data.key).modal('hide');
+        requestWorkspace();
+    }
+    else{
+        alert(data.error);
+    }
 }
