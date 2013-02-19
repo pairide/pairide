@@ -231,7 +231,7 @@ function requestSwitch(){
 		socket.emit('switch_request');
 	}
 	else{
-		
+
 		showMessage("Only the driver can switch.", true);
 	}
 }
@@ -245,7 +245,7 @@ function handleAnnotation(){
     	$("#annotModal").modal({show: true, backdrop: false});
 
     }else{	
-    	//Handle Error.
+    	showMessage("No selection found.", true);
     }
 }
 

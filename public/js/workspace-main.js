@@ -166,9 +166,8 @@ function changeLanguage(e){
 }
 
 function showMessage(message, hide){
-    $("#error_alert")
-        .append(message)
-        .fadeIn();
+    $("#error_alert_msg").html(message);
+    $("#error_alert").fadeIn();
 
     if(hide){
         setTimeout(
