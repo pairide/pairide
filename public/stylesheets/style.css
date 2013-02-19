@@ -103,7 +103,7 @@ float:left;
   text-align: justify;
 }
 
-#myModal{
+#start{
   width: 700px;
   margin: -320px 0 0 -350px;;
 }
@@ -214,4 +214,16 @@ border-left:none;
   color: #DB6300;
   font-weight: bold;
   margin-top: 10px;
+}
+
+#left_nav{
+  margin-left:17.2%;
+  width: 250px;
+  float: left;
+}
+
+#right_nav{
+  margin-left:19%;
+  width: 400px;
+  float: left;
 }

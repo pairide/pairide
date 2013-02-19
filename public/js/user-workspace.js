@@ -18,7 +18,7 @@ $(document).ready(function(){
 				then(function(duplicate){
 					if(duplicate){
 						$("#username").val('');
-						$("#nameform .error").text('Sorry, this name is already taken.');
+						$("#userModal .error").text('Sorry, this name is already taken.');
 					}
 					else{
 						load(socket, "workspace", username);

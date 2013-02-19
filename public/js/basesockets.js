@@ -25,11 +25,11 @@ function load(socket, type, username){
 			//Editor should be updated with the current text.
 			//editor.setValue(currentEditor);
 			$('#driver').html('Navigator');
-			$('#driver').addClass('label-warning');
+			$('#driver').show();
 		}
 		else{
 			$('#driver').html('Driver');
-			$('#driver').addClass('label-success');
+			$('#driver').show();
 		}
 	});
 
@@ -135,15 +135,11 @@ function load(socket, type, username){
 		if(isDriver){
 			setDriver(false);
 			$('#driver').html('Navigator');
-			$('#driver').removeClass('label-success');
-			$('#driver').addClass('label-warning');
 		}
 		else if(data.new_driver == username){
 			//setting up the new driver
 			setDriver(true);
 			$('#driver').html('Driver');
-			$('#driver').removeClass('label-warning');
-			$('#driver').addClass('label-success');
 		}
 		else{
 			//username coloring 
@@ -249,25 +245,30 @@ function applySelection(data){
 /*Handle switch button click*/
 function requestSwitch(){
 	if(isDriver){
-		var modal_list = $("#modal_user_list");
 
-		//empty modal list before reconstructing list of 
-		//connected users
-		modal_list.empty();
-		for(user in users){
-			if(user != username){
-				var elem = $(document.createElement('li'));
-				var a = $(document.createElement('a'));
-				$(a).attr('title', user);
-				a.text(user);
-				a.click(function(e){
-					send_switch_request(e);
-				})
-				elem.append(a);
-				modal_list.append(elem);
+		if(users.length > 1){
+			var modal_list = $("#modal_user_list");
+
+			//empty modal list before reconstructing list of 
+			//connected users
+			modal_list.empty();
+			for(user in users){
+				if(user != username){
+					var elem = $(document.createElement('li'));
+					var a = $(document.createElement('a'));
+					$(a).attr('title', user);
+					a.text(user);
+					a.click(function(e){
+						send_switch_request(e);
+					})
+					elem.append(a);
+					modal_list.append(elem);
+				}
 			}
+			$('#switchmodal').modal('show');
+		}else{
+			showMessage("You are alone in the room.", true);			
 		}
-		$('#switchmodal').modal('show');
 	}
 	else{
 

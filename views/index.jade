@@ -16,7 +16,7 @@ block content
 			| Initiate a hassle-free, live pair programming session. You don't have to be in the same room.
 
 		br
-		a(href="#myModal", role="button", data-toggle="modal").btn.btn-large.btn-success Start a session
+		a(href="#start", role="button", data-toggle="modal").btn.btn-large.btn-success Start a session
 	hr
 
 	.row-fluid.marketing
@@ -48,7 +48,7 @@ block content
 			p
 				|When you're done, share the code on gist/github.
 
-	div(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true").modal.hide.fade#myModal
+	div(tabindex="-1", role="dialog", aria-labelledby="startLabel", aria-hidden="true").modal.hide.fade#start
 		.modal-header
 			h4 Session
 		.modal-body
@@ -84,6 +84,7 @@ block content
 					else
 						include login
 
+		.modal-footer
 			.pagination-centered
 				br
 				medium
@@ -120,7 +121,7 @@ block content
 
 		script
 			$('#mainCreateSession').on('show', function () {
-				$('#myModal').modal('hide');
+				$('#start').modal('hide');
 			});
 
 		if show_modal

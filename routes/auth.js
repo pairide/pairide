@@ -132,7 +132,6 @@ exports.register = function(req, res){
 					var newUser = new db.users({
 						username: data.username,
 						password_hash: hash,
-						salt: salt, 
 						email: data.email,
 						first_name: data.first,
 						last_name: data.last,
