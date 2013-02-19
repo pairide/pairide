@@ -108,8 +108,9 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
     var directory = process.cwd() + "/users"; 
 
     var path = directory + "/" + username + relPath;
-    var relPathReg = /(.*\.\..*)|(.*\/.*)/;
-    if (relPathReg.exec(relPath) || relPathReg.exec(data.name)){
+    var pathReg1 = /.*\.\..*/;
+    var pathReg2 = /(.*\/.*)/;
+    if (pathReg1.exec(relPath) || pathReg2.exec(data.name)){
       sendErrorCM(socket, data, 
         "Name contains path traversal exploit.\n"
         + "Avoid using special characters such as \"/\".");
