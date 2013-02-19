@@ -245,25 +245,30 @@ function applySelection(data){
 /*Handle switch button click*/
 function requestSwitch(){
 	if(isDriver){
-		var modal_list = $("#modal_user_list");
 
-		//empty modal list before reconstructing list of 
-		//connected users
-		modal_list.empty();
-		for(user in users){
-			if(user != username){
-				var elem = $(document.createElement('li'));
-				var a = $(document.createElement('a'));
-				$(a).attr('title', user);
-				a.text(user);
-				a.click(function(e){
-					send_switch_request(e);
-				})
-				elem.append(a);
-				modal_list.append(elem);
+		if(users.length > 1){
+			var modal_list = $("#modal_user_list");
+
+			//empty modal list before reconstructing list of 
+			//connected users
+			modal_list.empty();
+			for(user in users){
+				if(user != username){
+					var elem = $(document.createElement('li'));
+					var a = $(document.createElement('a'));
+					$(a).attr('title', user);
+					a.text(user);
+					a.click(function(e){
+						send_switch_request(e);
+					})
+					elem.append(a);
+					modal_list.append(elem);
+				}
 			}
+			$('#switchmodal').modal('show');
+		}else{
+			showMessage("You are alone in the room.", true);			
 		}
-		$('#switchmodal').modal('show');
 	}
 	else{
 
