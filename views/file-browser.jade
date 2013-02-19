@@ -23,15 +23,14 @@ div.modal#contextMenuDeleteModal.hide.fade
 			| Project Manager
 	div.modal-body
 		div.well#contextMenuDelete
-			legend
-				| Create project
+			legend#cmDelLegend
+				| Delete
 			label
-				| Project Name
-			input(placeholder='My Project', type='text', name="name")
-				span.help-inline
-					| Choose a name for your project
-			button(type='submit')#cmDelButton.btn.btn-primary
-				| Save
+				| Are you sure you want to do this?
+			button(type='submit')#cmDelButtonYes.btn.btn-primary
+				| Yes
+			button(type='submit')#cmDelButtonNo.btn.btn-primary
+				| No
 div.modal#contextMenuAddDirModal.hide.fade
 	div.modal-header
 		a(data-dismiss='modal', href='#').close

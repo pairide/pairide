@@ -71,28 +71,23 @@ function setupContextMenu(){
     $.contextMenu({
         selector: '.context-menu-one', 
         callback: function(key, options) {
-        var relMatch = /^<a href="#" rel="([^"]+)/;
-        var match = relMatch.exec(this.html());
-        if (match){
+            var relMatch = /^<a href="#" rel="([^"]+)/;
+            var match = relMatch.exec(this.html());
+            if (match){
 
-            cmRelPath = match[1];
-            if (key == "directory"){
-                $('#contextMenuAddDirModal').modal('show');
-            }
-            else if (key == "file"){
-                $('#contextMenuAddFileModal').modal('show');
-            }
-            else if (key == "delete"){
-                $('#contextMenuDeleteModal').modal('show');
-            }
-            // socket.emit('context_menu_dir_clicked', 
-            //     {
-            //         key: key, 
-            //         relPath: match[1],
-            //         user: username,
-            //         room: roomname,
-            //         name: objName
-            //     });
+                cmRelPath = match[1];
+                if (key == "directory"){
+                    $('#contextMenuAddDirModal').modal('show');
+                }
+                else if (key == "file"){
+                    $('#contextMenuAddFileModal').modal('show');
+                }
+                else if (key == "delete"){
+                    $('#cmDelLegend').html( "Delete " + this.text());
+                    $('#contextMenuDeleteModal').modal('show');
+                }
+                //else if ...upload
+
             }
         },
         //the list of items on the menu
@@ -107,7 +102,21 @@ function setupContextMenu(){
             "sep5": "---------",
         }
     });
-    
+    //user confirms deletion
+    $('#cmDelButtonYes').on('click', function(e){
+        socket.emit('context_menu_dir_clicked', 
+            {
+                    key: "delete", 
+                    relPath: cmRelPath,
+                    user: username,
+                    room: roomname,
+                });
+    });  
+    //user declines deletion
+    $('#cmDelButtonNo').on('click', function(e){
+        $('#contextMenuDeleteModal').modal('hide');
+    });  
+
     //user submits a new directory
     $('#cmAddDirButton').on('click', function(e){
         socket.emit('context_menu_dir_clicked', 
@@ -152,7 +161,16 @@ function setupContextMenu(){
                 else{
                     alert(data.error);
                 }
-                break;      
+                break;  
+            case "delete":
+                if (data.result){
+                    $('#contextMenuDeleteModal').modal('hide');
+                    requestWorkspace();
+                }
+                else{
+                    alert(data.error);
+                }
+                break; 
         }
     });
     // $('.context-menu-one').on('click', function(e){
