@@ -144,9 +144,10 @@ exports.register = function(req, res){
 
 					// Setup and fire the validation email.
 					var mailer = require('../email.js');
-					var validation_url = mailer.callbackURL + validation_hash;
+					var config = require('../config.js');
+					var validation_url = config.callbackURL + validation_hash;
 					var mailOptions = {
-                    	from: "PairIDE <pairit3@gmail.com>",
+                    	from: config.email_from_address,
                     	to: data.email,
                     	subject: "Activate your account at PairIDE",
                     	text: data.first + " activate your new account at PairIDE at " + validation_url,

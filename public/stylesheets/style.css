@@ -227,3 +227,7 @@ border-left:none;
   width: 400px;
   float: left;
 }
+
+#recaptcha_response_field{
+  left: 0 !important;
+}
