@@ -148,6 +148,7 @@ function load(socket, type, username){
 		else{
 			//username coloring 
 		}
+	});
 
 	socket.on("get_remove_annotation", function(data){
 		purgeAnnotation(data);

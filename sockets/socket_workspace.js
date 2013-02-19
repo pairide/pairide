@@ -292,5 +292,4 @@ fs.removeRecursive = function(path,cb){
         });
       }
     });
-  };
->>>>>>> 4ed83aba7f7bc81950078ac235a5f49f1e806d63
+};
