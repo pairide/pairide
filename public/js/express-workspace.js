@@ -5,7 +5,7 @@ $(document).ready(function(){
 
 	if(!auth){
 		/*Get user's name and load the session */
-		$('#nameform').submit(function(){
+		$('#nameFormBtn').on("click", function(){
 			username = $("#username").val();
 
 			//Check if username is not already taken 
