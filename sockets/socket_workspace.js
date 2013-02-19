@@ -110,11 +110,10 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
     var path = directory + "/" + username + relPath;
     var pathReg1 = /.*\.\..*/;
     var pathReg2 = /(.*\/.*)/;
-    if (pathReg1.exec(relPath) || pathReg2.exec(data.name)){
-      sendErrorCM(socket, data, 
-        "Name contains path traversal exploit.\n"
-        + "Avoid using special characters such as \"/\".");
-      return
+    var pathReg3 = /^[a-zA-Z_ .]+$/;
+    if (pathReg1.exec(relPath) || pathReg2.exec(data.name) || !pathReg3.exec(data.name)){
+      sendErrorCM(socket, data, "Name should avoid special characters.");
+      return;
     }
     if (!pathExists(path)){
       sendErrorCM(socket,data, "User folder does not exist.");
