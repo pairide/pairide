@@ -19,10 +19,11 @@ exports.join = function(socket, data, roomDrivers, roomUsers, roomAdmins){
     roomAdmins[data.room] = socket.id;
     roomUsers[data.room] = {};
     console.log("New room created by " + data.user + ": " + data.room);
-    socket.emit("is_driver",{driver:true, admin: true});
+    socket.emit("is_driver",{driver:true, admin: true, name: data.user});
   }
   else{
-    socket.emit("is_driver",{driver:false, admin:false});
+    var driverID = roomDrivers[data.room];
+    socket.emit("is_driver",{driver:false, admin:false, name: roomUsers[data.room][driverID]});
   }
   roomUsers[data.room][socket.id] = data.user;
   console.log(roomUsers);
@@ -65,11 +66,11 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins){
     io.sockets.in(room).emit('user_disconnect', {username: socket.store.data["nickname"]});
 }
 
-exports.get_users = function(socket, data, roomUsers){
+exports.get_users = function(socket, data, room_users){
 	var users = new Array();
 
-	for(user_id in roomUsers[data.room]){
-		users.push(roomUsers[data.room][user_id]);
+	for(user_id in room_users){
+		users.push(room_users[user_id]);
 	}
 
 	socket.emit('send_users', {usernames: users});

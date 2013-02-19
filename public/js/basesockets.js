@@ -6,6 +6,7 @@ var host = window.location.hostname;
 var port = 8000;
 var url = "http://"+host+":"+port;
 var isDriver; 
+var driver;
 var buffering = false;
 var bufferWait = 250; //in ms
 var roomname;
@@ -31,6 +32,7 @@ function load(socket, type, username){
 			$('#driver').html('Driver');
 			$('#driver').show();
 		}
+		driver = data.name;
 	});
 
 	//listens for incoming updates to the editor caused by the driver
@@ -75,6 +77,12 @@ function load(socket, type, username){
 			elem.text(usernames[u]);
 			users[usernames[u]] = elem;
 			$('#user_list').append(elem);
+			if(driver == usernames[u]){
+				elem.addClass('driver');
+			}
+			else{
+				elem.addClass('navi');
+			}
 		}
 	});
 
@@ -83,6 +91,7 @@ function load(socket, type, username){
 			var elem = $(document.createElement('p'));
 			elem.text(data.user);
 			users[data.user] = elem;
+			elem.addClass('navi');
 			$('#user_list').append(elem);
 
 		}
@@ -141,9 +150,13 @@ function load(socket, type, username){
 			setDriver(true);
 			$('#driver').html('Driver');
 		}
-		else{
-			//username coloring 
-		}
+		driver = data.new_driver;
+		users[data.new_driver]
+			.removeClass('navi')
+			.addClass('driver');
+		users[data.new_nav]
+			.removeClass('driver')
+			.addClass('navi');
 	});
 
 	socket.on("get_remove_annotation", function(data){
@@ -245,8 +258,7 @@ function applySelection(data){
 /*Handle switch button click*/
 function requestSwitch(){
 	if(isDriver){
-
-		if(users.length > 1){
+		if(Object.keys(users).length > 1){
 			var modal_list = $("#modal_user_list");
 
 			//empty modal list before reconstructing list of 
