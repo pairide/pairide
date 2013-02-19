@@ -76,5 +76,10 @@ exports.communicate = function(io){
         console.log("Remove Annotation: " + data.target)
         io.sockets.in(socket.store.data.room).emit("get_remove_annotation", data);
       });
+
+      //File requests handlers
+      socket.on('get_file', function(data){
+        console.log("user " + data.user + "requested file " + data.file);
+      })
   });
 };
