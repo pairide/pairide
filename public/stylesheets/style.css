@@ -205,6 +205,8 @@ border-left:none;
   background: #C2731F;
 }
 
-#switcherror{
-  margin-top: 2%;
+#error_alert{
+  color: #DB6300;
+  font-weight: bold;
+  margin-top: 10px;
 }

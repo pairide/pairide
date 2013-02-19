@@ -231,14 +231,8 @@ function requestSwitch(){
 		socket.emit('switch_request');
 	}
 	else{
-		var alert_html = 
-		'<div id="switcherror" class="alert">\
-  			<button type="button" class="close" data-dismiss="alert">&times;</button>\
-  			Only the driver can switch.\
-		</div>';
-		if($("#switcherror").length == 0){
-			$("#code_area").append(alert_html);
-		}
+		
+		showMessage("Only the driver can switch.", true);
 	}
 }
 

@@ -165,3 +165,17 @@ function changeLanguage(e){
     editor.getSession().setMode("ace/mode/"+language);
 }
 
+function showMessage(message, hide){
+    $("#error_alert")
+        .append(message)
+        .fadeIn();
+
+    if(hide){
+        setTimeout(
+            function(){
+                $("#error_alert").fadeOut();
+            },
+            10000
+        )
+    }
+}
