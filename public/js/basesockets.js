@@ -25,11 +25,11 @@ function load(socket, type, username){
 			//Editor should be updated with the current text.
 			//editor.setValue(currentEditor);
 			$('#driver').html('Navigator');
-			$('#driver').addClass('label-warning');
+			$('#driver').show();
 		}
 		else{
 			$('#driver').html('Driver');
-			$('#driver').addClass('label-success');
+			$('#driver').show();
 		}
 	});
 

@@ -27,10 +27,6 @@ var Users = new mongoose.Schema({
     	type: String,
     	required: true,
 	},
-    salt: {
-        type: String,
-        required: true,
-    },
     first_name: {
         type: String,
         required: true,
