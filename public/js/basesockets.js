@@ -135,15 +135,11 @@ function load(socket, type, username){
 		if(isDriver){
 			setDriver(false);
 			$('#driver').html('Navigator');
-			$('#driver').removeClass('label-success');
-			$('#driver').addClass('label-warning');
 		}
 		else if(data.new_driver == username){
 			//setting up the new driver
 			setDriver(true);
 			$('#driver').html('Driver');
-			$('#driver').removeClass('label-warning');
-			$('#driver').addClass('label-success');
 		}
 		else{
 			//username coloring 
