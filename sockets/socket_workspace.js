@@ -92,7 +92,7 @@ function pathExists(path){
  * Handles all the options of the context menu for directories and 
  * projects.
  */
-exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, roomAdmins){
+exports.menuClicked = function(socket, data, roomDrivers, roomUsers, roomAdmins){
 
   var room = data.room;
     //just some sanity checks to make sure the user is who we think they are
@@ -110,7 +110,7 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
     var path = directory + "/" + username + relPath;
     var pathReg1 = /.*\.\..*/;
     var pathReg2 = /(.*\/.*)/;
-    var pathReg3 = /^[a-zA-Z_ .]+$/;
+    var pathReg3 = /^([a-zA-Z0-9_ .]|-)+$/;
     if (pathReg1.exec(relPath) || pathReg2.exec(data.name) || !pathReg3.exec(data.name)){
       sendErrorCM(socket, data, "Name should avoid special characters.");
       return;

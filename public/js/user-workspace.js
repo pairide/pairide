@@ -33,7 +33,7 @@ $(document).ready(function(){
 		load(socket, "workspace", username);
 	}
 
-    setupContextMenuOne();
+    setupContextMenu();
 
 	$("#addProjectButton").click(function(){
 		$('#projectCreatorModal').modal('show');
@@ -53,9 +53,12 @@ $(document).ready(function(){
 /*
  * Make an ajax request for the users files.
  */
-function requestWorkspace(){
+function requestWorkspace(path){
+    if (!path){
+        path = "/";
+    }
 	$('#fileTree').fileTree({
-        root: '/',
+        root: path,
         script: 'fileconnector',
         expandSpeed: 350,
         collapseSpeed: 350,
@@ -67,7 +70,7 @@ function requestWorkspace(){
 }
 
 
-function setupContextMenuOne(){
+function setupContextMenu(){
 
 
     //capture the DOM element that was right clicked

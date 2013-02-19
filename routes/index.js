@@ -79,7 +79,7 @@ exports.createProject = function(req, res){
       return;
   }
 
-  var sanityReg = /^[a-zA-Z_ -]+$/;
+  var sanityReg = /^[a-zA-Z0-9_ -]+$/;
   //check for potential path traversal attacks
   if (!sanityReg.exec(req.body.name)){
     res.send(

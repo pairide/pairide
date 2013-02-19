@@ -34,7 +34,7 @@ exports.communicate = function(io){
       });
 
       socket.on("context_menu_dir_clicked", function(data){
-        workspace.menuDirectoryClicked(socket, data, roomDrivers, roomUsers, roomAdmins);
+        workspace.menuClicked(socket, data, roomDrivers, roomUsers, roomAdmins);
       });
 
       //relay the message that the editor has changed
