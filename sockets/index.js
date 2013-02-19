@@ -57,7 +57,11 @@ exports.communicate = function(io){
       });
 
       socket.on("post_annotation", function(data){
-        console.log("ANNOT: " + data);
+        //console.log("ANNOT: " + data);
+        //console.log(roomDrivers[socket.store.data.room]);
+        //console.log(roomUsers[socket.store.data.room][]);
+        var driverID = roomDrivers[socket.store.data.room];
+        data["driver"] = roomUsers[socket.store.data.room][driverID];
         io.sockets.in(socket.store.data.room).emit('get_annotation', data);
   	  });
 
@@ -65,6 +69,11 @@ exports.communicate = function(io){
       socket.on("switch_request", function(data){
         console.log("switch request performed by " + socket.store.data.nickname + " in room " + socket.store.data.room);
         workspace.make_switch(io, socket, data, roomDrivers, roomUsers);
+      });
+
+      socket.on("post_remove_annotation", function(data){
+        console.log("Remove Annotation: " + data.target)
+        io.sockets.in(socket.store.data.room).emit("get_remove_annotation", data);
       });
   });
 };

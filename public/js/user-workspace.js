@@ -9,7 +9,7 @@ $(document).ready(function(){
 
 	if(!auth){
 		/*Get user's name and load the session */
-		$('#nameform').submit(function(){
+		$('#nameFormBtn').on("click", function(){
 			username = $("#username").val();
 
 			//Check if username is not already taken 
@@ -33,7 +33,7 @@ $(document).ready(function(){
 		load(socket, "workspace", username);
 	}
 
-    setupContextMenu();
+    setupContextMenuOne();
 
 	$("#addProjectButton").click(function(){
 		$('#projectCreatorModal').modal('show');
@@ -66,33 +66,29 @@ function requestWorkspace(){
     });	
 }
 
-function setupContextMenu(){
+
+function setupContextMenuOne(){
+
     //handling context menu for directories and projects
     $.contextMenu({
         selector: '.context-menu-one', 
         callback: function(key, options) {
-        var relMatch = /^<a href="#" rel="([^"]+)/;
-        var match = relMatch.exec(this.html());
-        if (match){
+            var m = "clicked: " + key + " on " + $(this).text();
+            window.console && console.log(m) || alert(m); 
+            var relMatch = /^<a href="#" rel="([^"]+)/;
+            var match = relMatch.exec(this.html());
+            if (match){
 
-            cmRelPath = match[1];
-            if (key == "directory"){
-                $('#contextMenuAddDirModal').modal('show');
-            }
-            else if (key == "file"){
-                $('#contextMenuAddFileModal').modal('show');
-            }
-            else if (key == "delete"){
-                $('#contextMenuDeleteModal').modal('show');
-            }
-            // socket.emit('context_menu_dir_clicked', 
-            //     {
-            //         key: key, 
-            //         relPath: match[1],
-            //         user: username,
-            //         room: roomname,
-            //         name: objName
-            //     });
+                cmRelPath = match[1];
+                if (key == "directory" || key == "file"){
+                    $('#contextMenuModal' + key).modal('show');
+                }
+                else if (key == "delete"){
+                    $('#cmDelLegend').html( "Delete " + this.text());
+                    $('#contextMenuModaldelete').modal('show');
+                }
+                //else if ...upload
+
             }
         },
         //the list of items on the menu
@@ -107,7 +103,21 @@ function setupContextMenu(){
             "sep5": "---------",
         }
     });
-    
+    //user confirms deletion
+    $('#cmDelButtonYes').on('click', function(e){
+        socket.emit('context_menu_dir_clicked', 
+            {
+                    key: "delete", 
+                    relPath: cmRelPath,
+                    user: username,
+                    room: roomname,
+                });
+    });  
+    //user declines deletion
+    $('#cmDelButtonNo').on('click', function(e){
+        $('#contextMenuModaldelete').modal('hide');
+    });  
+
     //user submits a new directory
     $('#cmAddDirButton').on('click', function(e){
         socket.emit('context_menu_dir_clicked', 
@@ -133,30 +143,21 @@ function setupContextMenu(){
     });
     //listens for a result of a context menu action.
     socket.on("context_menu_click_result", function(data){
-
-        switch(data.key){
-            case "directory":
-                if (data.result){
-                    $('#contextMenuAddDirModal').modal('hide');
-                    requestWorkspace();
-                }
-                else{
-                    alert(data.error);
-                }
-                break;    
-            case "file":
-                if (data.result){
-                    $('#contextMenuAddFileModal').modal('hide');
-                    requestWorkspace();
-                }
-                else{
-                    alert(data.error);
-                }
-                break;      
+        if (data.key != "upload"){ //upload currently not implemented
+            handleCMResult(data);
         }
-        
     });
-    // $('.context-menu-one').on('click', function(e){
-         
-    // })
+}
+
+/*
+ * Handles the servers response to a context menu action.
+ */
+function handleCMResult(data){
+   if (data.result){
+        $('#contextMenuModal' + data.key).modal('hide');
+        requestWorkspace();
+    }
+    else{
+        alert(data.error);
+    }
 }
