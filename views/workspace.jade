@@ -24,16 +24,15 @@ append scripts
 
 block wrapper
 	if !auth
-		div(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true").modal.hide.fade#userModal
+		div(tabindex="-1", role="dialog", data-keyboard="false", data-backdrop="static", aria-labelledby="myModalLabel", aria-hidden="true").modal.hide.fade#userModal
 			.modal-header
 				h4 Username
 			.modal-body
-				form(id="nameform", action="name_send", method="POST")
-					input(name="username", class="well", id="username", placeholder="Your name goes here")
-					input(type="submit", class="btn btn-large btn-primary", value="Start")
-					p.error
+				input(name="username", class="well", id="username", placeholder="Your name goes here")
+				p.error
 			.modal-footer
-
+				a(href="#")#nameFormBtn.btn.btn-primary
+					|Start
 
 	.container-fluid
 

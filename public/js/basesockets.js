@@ -207,8 +207,6 @@ function applySelection(data){
 
 	if(data.user != username){
 
-		$("#debug").html(data.user + " -> " + username + " -> " + isDriver);
-
 		var editorSession = editor.getSession();
 		var start = data.range.start;
 		var end = data.range.end;
