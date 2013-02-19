@@ -19,10 +19,11 @@ exports.join = function(socket, data, roomDrivers, roomUsers, roomAdmins){
     roomAdmins[data.room] = socket.id;
     roomUsers[data.room] = {};
     console.log("New room created by " + data.user + ": " + data.room);
-    socket.emit("is_driver",{driver:true, admin: true});
+    socket.emit("is_driver",{driver:true, admin: true, name: data.user});
   }
   else{
-    socket.emit("is_driver",{driver:false, admin:false});
+    var driverID = roomDrivers[data.room];
+    socket.emit("is_driver",{driver:false, admin:false, name: roomUsers[data.room][driverID]});
   }
   roomUsers[data.room][socket.id] = data.user;
   console.log(roomUsers);
@@ -65,11 +66,11 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins){
     io.sockets.in(room).emit('user_disconnect', {username: socket.store.data["nickname"]});
 }
 
-exports.get_users = function(socket, data, roomUsers){
+exports.get_users = function(socket, data, room_users){
 	var users = new Array();
 
-	for(user_id in roomUsers[data.room]){
-		users.push(roomUsers[data.room][user_id]);
+	for(user_id in room_users){
+		users.push(room_users[user_id]);
 	}
 
 	socket.emit('send_users', {usernames: users});
@@ -92,7 +93,7 @@ function pathExists(path){
  * Handles all the options of the context menu for directories and 
  * projects.
  */
-exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, roomAdmins){
+exports.menuClicked = function(socket, data, roomDrivers, roomUsers, roomAdmins){
 
   var room = data.room;
     //just some sanity checks to make sure the user is who we think they are
@@ -104,14 +105,22 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
     
     var username = md5h(data.user);
     var relPath = unescape(data.relPath);
-    var directory = process.cwd() + "/users"; 
-    var path = directory + "/" + username + relPath;
 
+    var directory = process.cwd() + "/users"; 
+
+    var path = directory + "/" + username + relPath;
+    var pathReg1 = /.*\.\..*/;
+    var pathReg2 = /(.*\/.*)/;
+    var pathReg3 = /^([a-zA-Z0-9_ .]|-)+$/;
+    if (pathReg1.exec(relPath) || pathReg2.exec(data.name) || !pathReg3.exec(data.name)){
+      sendErrorCM(socket, data, "Name should avoid special characters.");
+      return;
+    }
     if (!pathExists(path)){
       sendErrorCM(socket,data, "User folder does not exist.");
       return;
     }
-    console.log("Context menu action " + data.key + " at \n" + path);
+    console.log("Context menu action " + data.key + " at \n" + path + (data.name? data.name : ""));
     switch(data.key){
       //cases correspond to each menu option
       case 'file':
@@ -136,7 +145,6 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
       case 'delete':
         //delete entire directory or file
         try{
-          console.log("Deleting: " + path);
             fs.removeRecursive(path,function(err,status){
               if (err){
                 sendErrorCM(socket, data, "Failed to delete.");

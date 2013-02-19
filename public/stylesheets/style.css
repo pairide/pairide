@@ -231,3 +231,11 @@ border-left:none;
 #recaptcha_response_field{
   left: 0 !important;
 }
+
+.driver{
+  color: #8EC21F;
+}
+
+.navi{
+  color: #C2731F;
+}
