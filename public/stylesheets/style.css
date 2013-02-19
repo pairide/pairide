@@ -171,3 +171,8 @@ border-left:none;
 #switcherror{
   margin-top: 2%;
 }
+
+#modal_user_list li:hover{
+  background: black;
+  cursor:pointer;
+}

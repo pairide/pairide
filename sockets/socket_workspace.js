@@ -126,3 +126,36 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
     }
   }
 }
+
+/*Handle the switch request made by socket*/
+exports.make_switch = function(io, socket, data, roomDrivers, roomUsers){
+  var old_driver = socket.store.data.nickname;
+  var room = socket.store.data.room;
+
+  //socket needs to be in driver mode
+  //for switch to be legal
+  if(roomDrivers[room] == socket.id){
+
+    var room_users = roomUsers[room];
+    var success = false;
+    for(user_id in room_users){
+      if(room_users[user_id] == data.switch_target){
+          roomDrivers[room] = user_id;
+          console.log("driver changed to: " + user_id);
+          success = true;
+      }
+    }
+
+    if(success){
+        //tell all others that a switch happened
+        io.sockets.in(room).emit('switch_success', 
+        {new_driver: data.switch_target, new_nav: old_driver});
+    }
+    else{
+        socket.emit('switch_failure', {});
+    }
+  }
+  else{
+    socket.emit('switch_failure', {});
+  }
+}

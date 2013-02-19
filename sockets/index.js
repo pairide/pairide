@@ -64,6 +64,7 @@ exports.communicate = function(io){
       //Handle switch request made by potential driver
       socket.on("switch_request", function(data){
         console.log("switch request performed by " + socket.store.data.nickname + " in room " + socket.store.data.room);
+        workspace.make_switch(io, socket, data, roomDrivers, roomUsers);
       });
   });
 };

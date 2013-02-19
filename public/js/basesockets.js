@@ -124,6 +124,30 @@ function load(socket, type, username){
 	socket.on("get_annotation", function(data){
 		applyAnnotation(data);
 	});
+
+	//Handle switch event
+	socket.on('switch_success', function(data){
+		//Do anything that needs to be done to change
+		//user's status
+		$('#switchmodal').modal('hide');
+		if(isDriver){
+			setDriver(false);
+			$('#driver').html('Navigator');
+			$('#driver').removeClass('label-success');
+			$('#driver').addClass('label-warning');
+		}
+		else if(data.new_driver == username){
+			//setting up the new driver
+			setDriver(true);
+			$('#driver').html('Driver');
+			$('#driver').removeClass('label-warning');
+			$('#driver').addClass('label-success');
+		}
+		else{
+			//username coloring 
+		}
+
+	});
 }
 
 function sendChanges(){
@@ -222,7 +246,25 @@ function applySelection(data){
 /*Handle switch button click*/
 function requestSwitch(){
 	if(isDriver){
-		socket.emit('switch_request');
+		var modal_list = $("#modal_user_list");
+
+		//empty modal list before reconstructing list of 
+		//connected users
+		modal_list.empty();
+		for(user in users){
+			if(user != username){
+				var elem = $(document.createElement('li'));
+				var a = $(document.createElement('a'));
+				$(a).attr('title', user);
+				a.text(user);
+				a.click(function(e){
+					send_switch_request(e);
+				})
+				elem.append(a);
+				modal_list.append(elem);
+			}
+		}
+		$('#switchmodal').modal('show');
 	}
 	else{
 		var alert_html = 
@@ -234,6 +276,17 @@ function requestSwitch(){
 			$("#code_area").append(alert_html);
 		}
 	}
+}
+
+/* Send a switch request to the server
+containing the name of the user to 
+switch with */
+function send_switch_request(e){
+	var name = e.target.title;
+	socket.emit('switch_request', {switch_target: name});
+	socket.on('switch_failure', function(){
+		alert('switch did not work');
+	})
 }
 
 function handleAnnotation(){
