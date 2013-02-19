@@ -38,6 +38,10 @@ $(document).ready(function(){
         addAnnotation();
     });
 
+    $(".annotation").live("dblclick", function(e){
+        removeAnnotationSend(e.target.id);
+    })
+
     Range = require("ace/range").Range;
 
   /*  $("#debug").on("click", function(){
@@ -161,3 +165,16 @@ function changeLanguage(e){
     editor.getSession().setMode("ace/mode/"+language);
 }
 
+function showMessage(message, hide){
+    $("#error_alert_msg").html(message);
+    $("#error_alert").fadeIn();
+
+    if(hide){
+        setTimeout(
+            function(){
+                $("#error_alert").fadeOut();
+            },
+            10000
+        )
+    }
+}
