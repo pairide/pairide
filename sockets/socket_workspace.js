@@ -104,14 +104,22 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
     
     var username = md5h(data.user);
     var relPath = unescape(data.relPath);
-    var directory = process.cwd() + "/users"; 
-    var path = directory + "/" + username + relPath;
 
+    var directory = process.cwd() + "/users"; 
+
+    var path = directory + "/" + username + relPath;
+    var relPathReg = /(.*\.\..*)|(.*\/.*)/;
+    if (relPathReg.exec(relPath) || relPathReg.exec(data.name)){
+      sendErrorCM(socket, data, 
+        "Name contains path traversal exploit.\n"
+        + "Avoid using special characters such as \"/\".");
+      return
+    }
     if (!pathExists(path)){
       sendErrorCM(socket,data, "User folder does not exist.");
       return;
     }
-    console.log("Context menu action " + data.key + " at \n" + path);
+    console.log("Context menu action " + data.key + " at \n" + path + (data.name? data.name : ""));
     switch(data.key){
       //cases correspond to each menu option
       case 'file':
@@ -136,7 +144,6 @@ exports.menuDirectoryClicked = function(socket, data, roomDrivers, roomUsers, ro
       case 'delete':
         //delete entire directory or file
         try{
-          console.log("Deleting: " + path);
             fs.removeRecursive(path,function(err,status){
               if (err){
                 sendErrorCM(socket, data, "Failed to delete.");
