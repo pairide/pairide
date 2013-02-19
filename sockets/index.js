@@ -84,5 +84,11 @@ exports.communicate = function(io){
       socket.on("post_driver_state", function(data){
         io.sockets.in(socket.store.data.room).emit("get_acquire_current_state", data)
       });
+
+      //File requests handlers
+      socket.on('get_file', function(data){
+        console.log("user " + data.user + "requested file " + data.file);
+      })
+
   });
 };

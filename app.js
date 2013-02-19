@@ -63,7 +63,7 @@ app.get('/logout', middleware.isAuthenticated, auth.logout);
 app.get(/^\/workspace\/.+$/, checkAuth, routes.workspace); //swap with above if live
 app.get('/create_session', checkAuth, room.create);
 app.get('/validate', checkAuth, auth.validate);
-app.get(/^\/express\/.*$/, room.express_join);
+app.get(/^\/express\/.*$/, checkAuth, room.express_join);
 
 /* POST Methods */
 app.post('/workspace/fileconnector', routes.fileConnector);
