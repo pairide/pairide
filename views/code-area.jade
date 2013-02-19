@@ -1,4 +1,11 @@
 div#code
+div(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true").modal.hide.fade#switchmodal
+			.modal-header
+				h4 Switch
+			.modal-body
+				p Choose the navigator you would like to switch with:
+				ul#modal_user_list
+			.modal-footer
 #error_alert.alert.hide
 	button(data-dismiss="alert").close
 		|&times;

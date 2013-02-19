@@ -199,6 +199,11 @@ border-left:none;
   display: none;
 }
 
+#modal_user_list li:hover{
+  background: black;
+  cursor:pointer;
+}
+
 .ace_selected_word{
   position: absolute;
   z-index: 5;

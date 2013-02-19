@@ -18,7 +18,7 @@ $(document).ready(function(){
 				then(function(duplicate){
 					if(duplicate){
 						$("#username").val('');
-						$("#nameform .error").text('Sorry, this name is already taken.');
+						$("#userModal .error").text('Sorry, this name is already taken.');
 					}
 					else{
 						load(socket, "workspace", username);
@@ -69,27 +69,35 @@ function requestWorkspace(){
 
 function setupContextMenuOne(){
 
+
+    //capture the DOM element that was right clicked
+    if (document.addEventListener) {
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.getAttribute('rel')){
+                cmRelPath = e.target.getAttribute('rel');
+            } 
+            e.preventDefault();
+        }, false);
+    } else {
+        document.attachEvent('oncontextmenu', function(e) {
+            if (window.event.srcElement.getAttribute('rel')){
+                cmRelPath = e.target.getAttribute('rel');
+            }
+            window.event.returnValue = false;
+        });
+    }
     //handling context menu for directories and projects
     $.contextMenu({
         selector: '.context-menu-one', 
         callback: function(key, options) {
-            var m = "clicked: " + key + " on " + $(this).text();
-            window.console && console.log(m) || alert(m); 
-            var relMatch = /^<a href="#" rel="([^"]+)/;
-            var match = relMatch.exec(this.html());
-            if (match){
-
-                cmRelPath = match[1];
-                if (key == "directory" || key == "file"){
-                    $('#contextMenuModal' + key).modal('show');
-                }
-                else if (key == "delete"){
-                    $('#cmDelLegend').html( "Delete " + this.text());
-                    $('#contextMenuModaldelete').modal('show');
-                }
-                //else if ...upload
-
+            if (key == "directory" || key == "file"){
+                $('#contextMenuModal' + key).modal('show');
             }
+            else if (key == "delete"){
+                $('#cmDelLegend').html( "Delete " + cmRelPath);
+                $('#contextMenuModaldelete').modal('show');
+            }
+            //else if ...upload
         },
         //the list of items on the menu
         items: {
