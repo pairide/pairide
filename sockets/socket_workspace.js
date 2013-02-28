@@ -301,3 +301,15 @@ fs.removeRecursive = function(path,cb){
       }
     });
 };
+
+exports.get_file = function(socket, user, file){
+    var directory = process.cwd() + "/users/";
+    var path = directory + md5h(user)+file;
+    console.log(path);
+    fs.readFile(path, 'utf8', function(err, data){
+        if (err) {
+            return console.log(err);
+        }
+        socket.emit('receive_file', {file_content: data});
+    });
+}

@@ -79,7 +79,8 @@ exports.communicate = function(io){
 
       //File requests handlers
       socket.on('get_file', function(data){
-        console.log("user " + data.user + "requested file " + data.file);
+        console.log("user " + data.user + " requested file " + data.file);
+        workspace.get_file(socket, data.user, data.file);
       })
   });
 };

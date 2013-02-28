@@ -1,5 +1,6 @@
 var socket = connect();
 var username;
+var current_file;
 
 /*
  * Relative path to the last item selected in the context menu.
@@ -62,16 +63,19 @@ function requestWorkspace(){
         multiFolder: false
     }, function(file) {
         //event for when a file is clicked
-        alert(file);
+        //alert(file);
+        current_file = file;
         socket.emit("get_file", {user: username, file: file});
         socket.on("receive_file", function(data){
-            load_file();
+            var file_content = data.file_content;
+            load_file(file_content);
         });
     });	
 }
 
-function load_file(data){
-    alert('file loaded');
+function load_file(file_content){
+    //alert('file loaded');
+    editor.getSession().setValue(file_content);
 }
 
 
