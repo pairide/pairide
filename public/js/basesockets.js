@@ -13,6 +13,7 @@ var roomname;
 var currentHighlight;
 var annotationID = 0;
 var users = {};
+var refreshed = false;
 
 //base load function for the workspace
 function load(socket, type, username){
@@ -24,6 +25,7 @@ function load(socket, type, username){
 		if (!isDriver){
 			//Some one is already editing when the user joined.
 			//Editor should be updated with the current text.
+			socket.emit("post_acquire_current_state");
 			//editor.setValue(currentEditor);
 			$('#driver').html('Navigator');
 			$('#driver').show();
@@ -33,6 +35,19 @@ function load(socket, type, username){
 			$('#driver').show();
 		}
 		driver = data.name;
+	});
+
+	socket.on("get_driver_state", function(){
+		if(isDriver){
+			socket.emit("post_driver_state", {content: editor.getSession().getValue()})
+		}
+	});
+
+	socket.on("get_acquire_current_state", function(data){
+		if(!refreshed){
+			refreshed = true;
+			editor.getSession().setValue(data.content);
+		}
 	});
 
 	//listens for incoming updates to the editor caused by the driver
