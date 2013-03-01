@@ -15,12 +15,41 @@ block content
 	| co-operation.
 	br
 	br
-	if auth
-		|Authenticated!
-	form(method="post")#reportBugForm.form-horizontal
-		Textarea(rows=5, name="bugReportBox", maxlength=1024)#reportBugBox.bugReportBox
-		br
-		br
-		button("type=submit").btn-success.btn-medium Report Bug
+
+	script
+		var RecaptchaOptions = {
+			theme : 'blackglass',
+			lang  : 'en'
+		};
+
+	if formError
+		.alert
+			button(data-dismiss="alert").close
+				|&times;
+			if formError == 1
+				|Error: Malformed Input. 
+			else
+				|Error: Invalid captcha input. 
+			| Please try again.
+
+
+	form(method="post", action="contact")#reportBugForm.form-horizontal
+
+		.control-group
+			label.control-label
+				|Email:
+			.controls
+				input(type="text", name="bugReportEmail")#reportBugEmail
+		.control-group
+			label.control-label
+				|Message:
+			.controls
+				Textarea(rows=5, name="bugReportBox", maxlength=1024)#reportBugBox.bugReportBox
+		.control-group
+			.controls
+				!= captcha
+		.control-group
+			.controls
+				button("type=submit").btn-success.btn-medium Report Bug
 
 	

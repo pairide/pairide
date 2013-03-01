@@ -1,5 +1,9 @@
 var fs = require('fs'),
-md5h = require('MD5');
+md5h = require('MD5'),
+Recaptcha = require('recaptcha').Recaptcha;
+
+var config = require('../config');
+
 /*
  * GET home page.
  */
@@ -31,8 +35,61 @@ exports.faq = function(req, res){
  * Route the user and render the Contact page.
  */
 exports.contact = function(req, res){
+  var recaptcha = new Recaptcha(config.PUBLIC_KEY, config.PRIVATE_KEY);
+
+  res.locals.captcha = recaptcha.toHTML();
+  res.locals.formError = false;
+
+  if(req.query.e){
+    res.locals.formError = req.query.e;
+  }
+
   res.render('contact', { title: 'Contact', current : 'Contact' });
 };
+
+
+exports.processContact = function(req, res){
+  var data = {
+        remoteip:  req.connection.remoteAddress,
+        challenge: req.body.recaptcha_challenge_field,
+        response:  req.body.recaptcha_response_field
+  };
+
+  if(!req.body.bugReportBox || !req.body.bugReportEmail){
+    res.redirect('/contact?e=1');
+  }
+
+  var recaptcha = new Recaptcha(config.PUBLIC_KEY, config.PRIVATE_KEY, data);
+
+  recaptcha.verify(function(success, error_code) {
+
+        if (success) {
+          var mailer = require('../email.js');
+          var config = require('../config.js');
+          var mailOptions = {
+                      from: req.body.bugReportEmail,
+                      to: config.email_from_address,
+                      subject: "Contact Form",
+                      text: req.body.bugReportBox + " <-----> " + req.body.bugReportEmail,
+                      html: req.body.bugReportBox + "<br/><br/><br/>" + req.body.bugReportEmail
+                  };
+                  
+          mailer.transport.sendMail(mailOptions, function(error, response){
+                    
+                    if(error){
+                      console.log(error);
+                    }
+
+                    // Redirect and show user a success message.
+                    var successMessage = "Thank you for contacting us. We'll be in touch if need be."
+                    res.render('notify', {current: false, title: 'Contact - Message Sent', type: "success", notification: successMessage});
+          });
+        } else {
+          res.redirect('/contact?e=2');
+        }
+
+    });
+}
 
 /*
  * Route the user and render the registration page.

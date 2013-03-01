@@ -15,11 +15,12 @@ var routes = require('./routes'),
   db = require('./database.js'),
   room = require('./routes/room'),
   middleware = require('./middleware'),
-  checkAuth = middleware.checkAuth;
+  checkAuth = middleware.checkAuth,
+  config = require('./config');
 
 /*Configuring presets for express framework.*/
 app.configure(function(){
-  app.set('port', process.argv[2] | 8000);
+  app.set('port', process.argv[2] | config.DEFAULT_PORT);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   /**** TODO: Add a favicon *****/
@@ -69,6 +70,7 @@ app.post('/login', auth.login);
 app.post('/register', auth.register);
 app.post('/create_session', checkAuth, room.create);
 app.post('/workspace/new_project', routes.createProject);
+app.post('/contact', routes.processContact);
 
 
 /* Listen for requests */

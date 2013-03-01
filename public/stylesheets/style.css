@@ -228,6 +228,10 @@ border-left:none;
   float: left;
 }
 
+#recaptcha_response_field{
+  left: 0 !important;
+}
+
 .driver{
   color: #8EC21F;
 }

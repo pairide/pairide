@@ -12,7 +12,9 @@ var bufferWait = 250; //in ms
 var roomname;
 var currentHighlight;
 var annotationID = 0;
+var annotations = new Object();
 var users = {};
+var refreshed = false;
 
 //base load function for the workspace
 function load(socket, type, username){
@@ -24,6 +26,7 @@ function load(socket, type, username){
 		if (!isDriver){
 			//Some one is already editing when the user joined.
 			//Editor should be updated with the current text.
+			socket.emit("post_acquire_current_state");
 			//editor.setValue(currentEditor);
 			$('#driver').html('Navigator');
 			$('#driver').show();
@@ -31,8 +34,29 @@ function load(socket, type, username){
 		else{
 			$('#driver').html('Driver');
 			$('#driver').show();
+			refreshed = true;
 		}
 		driver = data.name;
+	});
+
+	socket.on("get_driver_state", function(){
+		if(isDriver){
+			socket.emit("post_driver_state", {
+				content: editor.getSession().getValue(),
+				annotations: annotations,
+			});
+		}
+	});
+
+	socket.on("get_acquire_current_state", function(data){
+		if(!refreshed){
+			refreshed = true;
+			editor.getSession().setValue(data.content);
+
+			for(var aID in data.annotations){
+				applyAnnotation(data.annotations[aID]);
+			}
+		}
 	});
 
 	//listens for incoming updates to the editor caused by the driver
@@ -336,16 +360,19 @@ function applyAnnotation(data){
 	var annot_height = ((range.end.row - range.start.row) + 1) * 20;
 	var annotation_color = data.driver == data.user ? "#8EC21F" : "#C2731F";
 	var annotation_role = data.driver == data.user ? "driver" : "navigator";
+	var annotation_id = annotationID++;
 
 
 	var annot = $("<div/>");
-	annot.attr("id", "annotation" + annotationID++);
+	annot.attr("id", "an" + annotation_id);
 	annot.attr("class", "annotation");
 	annot.css("background", annotation_color);
 	annot.css("top", margin_top + "px");
 	annot.css("height", annot_height + "px");
 
 	$("#annotBox").append(annot);
+
+	annotations[annotation_id] = data;
 
 	annot.popover({
 		"trigger": "hover",
@@ -380,7 +407,11 @@ function removeAnnotationSend(target){
 }
 
 function purgeAnnotation(data){
-	annotationID--;
+	
+	var target_id = parseInt(data.target.slice(2));
+
+	delete annotations[target_id];
+
 	destroyHighlightAnnotation();
 	$("#" + data.target)
 		.popover('destroy')

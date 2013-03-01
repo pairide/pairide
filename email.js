@@ -2,16 +2,14 @@
  * EMail module for the app.
  */
 var nodemailer = require("nodemailer"),
+config = require("./config");
 					
 	smtp_transport = nodemailer.createTransport("SMTP",{
     				service: "Gmail",
     				auth: {
-        					user: "pairit3@gmail.com",
-        					pass: "pairitpairit"
+        					user: config.email_user,
+        					pass: config.email_pass
     					}
 					});
 
 exports.transport = smtp_transport;
-
-// Validation callback URL.
-exports.callbackURL = "http://localhost:8000/validate?i="

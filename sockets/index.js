@@ -78,5 +78,19 @@ exports.communicate = function(io){
         console.log("Remove Annotation: " + data.target)
         io.sockets.in(socket.store.data.room).emit("get_remove_annotation", data);
       });
+
+      socket.on("post_acquire_current_state", function(){
+        io.sockets.in(socket.store.data.room).emit("get_driver_state");
+      });
+
+      socket.on("post_driver_state", function(data){
+        io.sockets.in(socket.store.data.room).emit("get_acquire_current_state", data)
+      });
+
+      //File requests handlers
+      socket.on('get_file', function(data){
+        console.log("user " + data.user + "requested file " + data.file);
+      })
+
   });
 };
