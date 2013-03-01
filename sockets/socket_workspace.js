@@ -89,6 +89,60 @@ function pathExists(path){
   }
 }
 
+//Handles a request to change file in the workspace
+exports.changeFile = function(socket, data, roomDrivers, roomUsers, roomAdmins){
+  console.log("CHANGING FILE REQUESTED");
+  console.log(data);
+}
+//Validates a relative path for common path traversal attacks.
+function validatePath(relativePath, fileName){
+
+    relativePath = unescape(relativePath);
+    fileName = unescape(fileName);
+    //Check for .. in relative path
+    var pathReg1 = /.*\.\..*/; 
+    //Check that the fileName doesn't contain /
+    var pathReg2 = /(.*\/.*)/;
+    //Further validation on the name mostly ensures characters are alphanumeric 
+    var pathReg3 = /^([a-zA-Z0-9_ .]|-)+$/;
+
+    return pathReg1.exec(relativePath) 
+          || pathReg2.exec(fileName) 
+          || !pathReg3.exec(fileName);
+}
+
+//Validate if the user is a driver for the room.
+function validateDriver(socket, room, username, roomDrivers, roomUsers){
+
+   return validateUser(socket, room, username, roomUsers) 
+          && roomDrivers[room] && roomDrivers[room] == socket.id;
+}
+
+//Validate if the user is an admin for the room.
+function validateAdmin(socket, room, username, roomAdmins, roomUsers){
+   return validateUser(socket, room, username, roomUsers) 
+          && roomAdmins[room] && roomAdmins[room] == socket.id;
+}
+
+//Validate if the user is both an admin and the current driver.
+function validateDrivingAdmin(socket, room, username, roomDrivers, 
+  roomAdmins, roomUsers){
+  
+  return validateDriver(socket,room,username,roomDrivers,roomUsers)
+      && validateAdmin(socket, room, username, roomAdmins, roomUsers);
+}
+//Validate if the user matches our socket information, 
+//and room information. This will prevent spoofing a username
+//on the client side.
+function validateUser(socket, room, username, roomUsers){
+
+   return (room 
+    && roomUsers[room] && socket.id in roomUsers[room] 
+    && roomUsers[room][socket.id] == username
+    && socket.store && socket.store.data 
+    && socket.store.data.nickname == username
+    && socket.store.data.room == room);
+}
 /*
  * Handles all the options of the context menu for directories and 
  * projects.
@@ -96,23 +150,13 @@ function pathExists(path){
 exports.menuClicked = function(socket, data, roomDrivers, roomUsers, roomAdmins){
 
   var room = data.room;
-    //just some sanity checks to make sure the user is who we think they are
-  if (room && roomAdmins[room] && roomAdmins[room] == socket.id 
-    && roomUsers[room] && socket.id in roomUsers[room] 
-    && roomUsers[room][socket.id] == data.user
-    && socket.store && socket.store.data 
-    && socket.store.data.nickname == data.user){
-    
+  if (validateDrivingAdmin(socket, room, data.user, 
+    roomDrivers, roomAdmins, roomUsers)){
     var username = md5h(data.user);
     var relPath = unescape(data.relPath);
-
     var directory = process.cwd() + "/users"; 
-
     var path = directory + "/" + username + relPath;
-    var pathReg1 = /.*\.\..*/;
-    var pathReg2 = /(.*\/.*)/;
-    var pathReg3 = /^([a-zA-Z0-9_ .]|-)+$/;
-    if (pathReg1.exec(relPath) || pathReg2.exec(data.name) || !pathReg3.exec(data.name)){
+    if (validatePath(relPath, data.name)){
       sendErrorCM(socket, data, "Name should avoid special characters.");
       return;
     }

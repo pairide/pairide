@@ -45,7 +45,6 @@ exports.communicate = function(io){
           var room = socket.store.data.room;
           if (roomDrivers[room] == socket.id){
             io.sockets.in(socket.store.data.room).emit('editor_update', data);
-            console.log ("Change to the editor in room " + room + ": " + data.text);
           }
       });
 
@@ -89,8 +88,8 @@ exports.communicate = function(io){
 
       //File requests handlers
       socket.on('get_file', function(data){
-        console.log("user " + data.user + "requested file " + data.file);
+        console.log("user " + data.user + " requested file " + data.file);
+        workspace.changeFile(socket, data, roomDrivers, roomUsers, roomAdmins);
       })
-
   });
 };
