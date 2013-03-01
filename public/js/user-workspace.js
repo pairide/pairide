@@ -1,7 +1,6 @@
 var socket = connect();
 var username;
-var current_file;
-
+var autoSaveInterval = 1000*60;
 /*
  * Relative path to the last item selected in the context menu.
  */
@@ -35,7 +34,7 @@ $(document).ready(function(){
 	}
 
 	setupContextMenu();
-
+    setInterval(autoSave, autoSaveInterval);
 	$("#addProjectButton").click(function(){
 		$('#projectCreatorModal').modal('show');
 	});
@@ -96,7 +95,6 @@ function requestWorkspace(){
 				text:editor.getSession().getValue(),
 				room:roomname
 			});
-
 			socket.on("receive_file", function(fileContent){
 				load_file(fileContent);
 			});
