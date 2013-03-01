@@ -329,6 +329,7 @@ function handleAnnotation(){
 
     if(!sel.isEmpty()){
     	//Sanitize.
+    	$("#annot_text").val("");
     	$("#annotModal").modal({show: true, backdrop: false});
 
     }else{	
