@@ -1,6 +1,7 @@
 var socket = connect();
 var username;
 var autoSaveInterval = 1000*60;
+var fileSelected = "";
 /*
  * Relative path to the last item selected in the context menu.
  */
@@ -29,12 +30,13 @@ $(document).ready(function(){
 		});
 	}
 	else{
+        load(socket, "workspace", username);
 		requestWorkspace();
-		load(socket, "workspace", username);
+		
 	}
 
 	setupContextMenu();
-    setInterval(autoSave, autoSaveInterval);
+
 	$("#addProjectButton").click(function(){
 		$('#projectCreatorModal').modal('show');
 	});
@@ -57,6 +59,7 @@ $(document).ready(function(){
 			showMessage("Only the driver can save.", true);
 		}
 	});
+    setInterval(autoSave, autoSaveInterval);
 });
 
 //Send a request to the current file.
@@ -95,11 +98,16 @@ function requestWorkspace(){
 				text:editor.getSession().getValue(),
 				room:roomname
 			});
-			socket.on("receive_file", function(fileContent){
-				load_file(fileContent);
-			});
 		}
+
+        socket.on("receive_file", function(data){
+            setFileSelected(data.fileName);
+            load_file(data.text);
+        });
 	});	
+}
+function setFileSelected(file){
+    fileSelected = file;
 }
 
 function load_file(file_content){
@@ -185,7 +193,8 @@ function setupContextMenu(){
 					relPath: cmRelPath,
 					user: username,
 					room: roomname,
-					name: $("#cmInputAddFile").val()
+					name: $("#cmInputAddFile").val(),
+                    text: editor.getSession().getValue()
 				});
 
 	});

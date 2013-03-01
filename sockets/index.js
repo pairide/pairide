@@ -52,7 +52,7 @@ exports.communicate = function(io){
       });
 
       socket.on("context_menu_clicked", function(data){
-        workspace.menuClicked(socket, data, roomDrivers, roomUsers);
+        workspace.menuClicked(socket, data, roomDrivers, roomUsers, roomFile, io);
       });
 
       //relay the message that the editor has changed
