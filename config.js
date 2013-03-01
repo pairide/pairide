@@ -5,7 +5,7 @@ exports.PUBLIC_KEY = PUBLIC_KEY;
 exports.PRIVATE_KEY = PRIVATE_KEY;
 
 // Validation callback URL.
-exports.callbackURL = "http://localhost:8000/validate?i=";
+exports.callbackURL = "http://localhost:8000/";
 
 exports.email_user = "pairit3@gmail.com";
 

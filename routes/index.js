@@ -47,6 +47,19 @@ exports.contact = function(req, res){
   res.render('contact', { title: 'Contact', current : 'Contact' });
 };
 
+exports.forgot_password = function(req, res){
+
+  var recaptcha = new Recaptcha(config.PUBLIC_KEY, config.PRIVATE_KEY);
+
+  res.locals.captcha = recaptcha.toHTML();
+  res.locals.formError = false;
+
+  if(req.query.e){
+    res.locals.formError = req.query.e;
+  }
+
+  res.render('forgot_password', {title: "Forgot Password", current: false});
+};
 
 exports.processContact = function(req, res){
   var data = {
@@ -153,8 +166,15 @@ exports.createProject = function(req, res){
     res.send({result:false, error:"A project with that name already exists."});
   }catch (e) {
     //create the directory for the project
-    fs.mkdir(path);
-    res.send({result:true});
+    var mode = 0755;
+    fs.mkdir(path, mode, function(err){
+      if (err){
+        res.send({result:false});
+      }
+      else{
+        res.send({result:true});
+      }
+    });
   }
 }
 
@@ -241,6 +261,6 @@ exports.fileConnector = function(req, res){
     }
   }
   catch (e) {
-    console.log("File directory does not exist");
+    console.log("File directory for user does not exist. This should not happen.");
   }
 }

@@ -5,11 +5,13 @@ var roomDrivers = {};
 //Contains users of each room and their socket id mappings to their username
 //To get a username roomUsers[roomname][socket id]
 var roomUsers = {}; 
+
 //The initial users who created the room.
 var roomAdmins = {};
 
 var workspace =  require('./socket_workspace');
 
+exports.roomAdmins = roomAdmins;
 exports.communicate = function(io){
 
 	io.sockets.on('connection', function (socket) {
@@ -34,7 +36,7 @@ exports.communicate = function(io){
           io.sockets.in(socket.store.data.room).emit('new_user', data);
       });
 
-      socket.on("context_menu_dir_clicked", function(data){
+      socket.on("context_menu_clicked", function(data){
         workspace.menuClicked(socket, data, roomDrivers, roomUsers, roomAdmins);
       });
 
@@ -43,7 +45,6 @@ exports.communicate = function(io){
           var room = socket.store.data.room;
           if (roomDrivers[room] == socket.id){
             io.sockets.in(socket.store.data.room).emit('editor_update', data);
-            console.log ("Change to the editor in room " + room + ": " + data.text);
           }
       });
 
@@ -89,7 +90,7 @@ exports.communicate = function(io){
       socket.on('get_file', function(data){
         console.log("user " + data.user + " requested file " + data.file);
         workspace.get_file(socket, data.user, data.file);
+        workspace.changeFile(socket, data, roomDrivers, roomUsers, roomAdmins);
       })
-
   });
 };

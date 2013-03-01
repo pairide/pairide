@@ -42,7 +42,15 @@ var Users = new mongoose.Schema({
 	validation_hash: {
 		type: String,
 		required: true,
-	}
+	},
+    reset_hash: {
+        type: String,
+        required: true,
+    },
+    reset_request_alive:{
+        type: Boolean,
+        required: true,
+    }
 });
 
 var User = mongoose.model('User', Users)
