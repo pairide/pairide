@@ -52,6 +52,7 @@ $(document).ready(function(){
 
 	$('#saveFile').on("click", function(){
 		if(isDriver){
+			show_loader("Saving...");
 			save_file();
 		}else{
 			showMessage("Only the driver can save.", true);

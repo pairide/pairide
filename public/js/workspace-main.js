@@ -178,3 +178,8 @@ function showMessage(message, hide){
         )
     }
 }
+
+function show_loader(message){
+    $("#loader_msg").html(message);
+    $("#loader").fadeIn();
+}
