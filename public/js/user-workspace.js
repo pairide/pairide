@@ -8,6 +8,8 @@ var fileSelected = "";
 var cmRelPath;
 $(document).ready(function(){
 
+	lock_editor("Please select a file.");
+
 	if(!auth){
 		/*Get user's name and load the session */
 		$('#nameFormBtn').on("click", function(){
@@ -116,12 +118,12 @@ function requestWorkspace(){
 				text:editor.getSession().getValue(),
 				room:roomname
 			});
+			socket.on("receive_file", function(data){
+				setFileSelected(data.fileName);
+				load_file(data.text);
+				unlock_editor();
+			});
 		}
-
-        socket.on("receive_file", function(data){
-            setFileSelected(data.fileName);
-            load_file(data.text);
-        });
 	});	
 }
 function setFileSelected(file){
@@ -238,16 +240,14 @@ function handleCMResult(data){
 }
 
 function lock_editor(message){
-	if(isDriver){
-		editor.setReadOnly(true);
-		$("#overlay_message").html(message);
-		$("#code_overlay").fadeIn();
-	}
+	editor.setReadOnly(true);
+	$("#overlay_message").html(message);
+	$("#code_overlay").fadeIn();
 }
 
 function unlock_editor(){
 	if(isDriver){
 		editor.setReadOnly(false);
-		$("#code_overlay").fadeOut();
 	}
+	$("#code_overlay").fadeOut();
 }
