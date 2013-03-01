@@ -169,6 +169,7 @@ function saveFile(socket, path, content){
       }); 
     }
     else{
+      socket.emit("save_response", {errmsg:"File does not exist."});
       console.log("Could not find file to save: " + path);
     }
   });
