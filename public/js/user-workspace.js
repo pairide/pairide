@@ -58,6 +58,17 @@ $(document).ready(function(){
 			showMessage("Only the driver can save.", true);
 		}
 	});
+
+	socket.on("save_response", function(data){
+		if(!data.errmsg){
+			$("#loader_img").hide();
+			$("#loader_msg").html("Saved.");
+		}else{
+			showMessage("An error occurred: " + data.errmsg.toString(), true);
+		}
+
+		hide_loader();
+	});
 });
 
 /*
@@ -75,6 +86,9 @@ function requestWorkspace(){
 		//event for when a file is clicked
 
 		if (isDriver){
+
+			
+
 			socket.emit("get_file", {
 				user: username, 
 				fileName: file, 

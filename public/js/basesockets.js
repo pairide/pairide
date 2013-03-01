@@ -186,6 +186,7 @@ function load(socket, type, username){
 	socket.on("get_remove_annotation", function(data){
 		purgeAnnotation(data);
 	});
+
 }
 
 function sendChanges(){

@@ -46,7 +46,7 @@ margin:60px 0;
 margin-top:28px;
 }
 
-.home_link, .home_link:hover{
+.home_link, .home_link:hover, #loader_msg{
   color: #999999;
   text-decoration: none;
 }
@@ -56,11 +56,11 @@ margin-top:28px;
   text-decoration: none;
 }
 
-.loader{
+#loader{
   margin-left: 20px;
 }
 
-.loader_img{
+#loader_img{
   margin-right: 5px;
 }
 
