@@ -23,6 +23,7 @@ $(document).ready(function(){
 				});
 			return false;
 		});
+		
 	}
 	else{
 		load(socket, "express", username);

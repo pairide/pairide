@@ -58,7 +58,7 @@ app.get('/faq', checkAuth, routes.faq);
 app.get('/tos', checkAuth, routes.tos);
 app.get('/forgot_password', routes.forgot_password);
 app.get('/reset', auth.reset_password_form);
-app.get('/profile', middleware.isAuthenticated, routes.profile);
+app.get('/profile', checkAuth, middleware.isAuthenticated, routes.profile);
 app.get('/logout', middleware.isAuthenticated, auth.logout);
 //app.get(/^\/workspace\/.+$/, middleware.isAuthenticated, checkAuth, routes.workspace);
 app.get(/^\/workspace\/.+$/, checkAuth, routes.workspace); //swap with above if live

@@ -46,6 +46,16 @@ margin:60px 0;
 margin-top:28px;
 }
 
+.home_link, .home_link:hover{
+  color: #999999;
+  text-decoration: none;
+}
+
+.home_link_highlight, .home_link_highlight:hover{
+  color: #f92672;
+  text-decoration: none;
+}
+
 #chat_area{
   padding: 0% 1%;
 }

@@ -42,11 +42,15 @@ block wrapper
 
 		.row-fluid
 
-			.span2.well#file_browser
-				include file-browser
+			if workspace
+				.span2.well#file_browser
+					include file-browser
 			
-			.span8.well#code_area
-				include code-area
+				.span8.well#code_area
+					include code-area
+			else
+				.span10.well#code_area
+					include code-area
 
 			.span2.well#chat_area
 				include chat-area
