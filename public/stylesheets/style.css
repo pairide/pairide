@@ -56,6 +56,14 @@ margin-top:28px;
   text-decoration: none;
 }
 
+.loader{
+  margin-left: 20px;
+}
+
+.loader_img{
+  margin-right: 5px;
+}
+
 #chat_area{
   padding: 0% 1%;
 }
