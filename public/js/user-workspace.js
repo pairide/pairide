@@ -1,12 +1,7 @@
 var socket = connect();
 var username;
-<<<<<<< HEAD
-var current_file;
-
-=======
 var autoSaveInterval = 1000*60;
 var fileSelected = "";
->>>>>>> 3361c6af74c82269367ad7aed5ff6a4775351f80
 /*
  * Relative path to the last item selected in the context menu.
  */
@@ -123,9 +118,9 @@ function requestWorkspace(){
 				text:editor.getSession().getValue(),
 				room:roomname
 			});
-			socket.on("receive_file", function(fileContent){
+			socket.on("receive_file", function(data){
 				setFileSelected(data.fileName);
-				load_file(fileContent);
+				load_file(data.text);
 				unlock_editor();
 			});
 		}
@@ -245,12 +240,14 @@ function handleCMResult(data){
 }
 
 function lock_editor(message){
-		editor.setReadOnly(true);
-		$("#overlay_message").html(message);
-		$("#code_overlay").fadeIn();
+	editor.setReadOnly(true);
+	$("#overlay_message").html(message);
+	$("#code_overlay").fadeIn();
 }
 
 function unlock_editor(){
+	if(isDriver){
 		editor.setReadOnly(false);
-		$("#code_overlay").fadeOut();
+	}
+	$("#code_overlay").fadeOut();
 }
