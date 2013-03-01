@@ -166,8 +166,15 @@ exports.createProject = function(req, res){
     res.send({result:false, error:"A project with that name already exists."});
   }catch (e) {
     //create the directory for the project
-    fs.mkdir(path);
-    res.send({result:true});
+    var mode = 0755;
+    fs.mkdir(path, mode, function(err){
+      if (err){
+        res.send({result:false});
+      }
+      else{
+        res.send({result:true});
+      }
+    });
   }
 }
 
@@ -254,6 +261,6 @@ exports.fileConnector = function(req, res){
     }
   }
   catch (e) {
-    console.log("File directory does not exist");
+    console.log("File directory for user does not exist. This should not happen.");
   }
 }

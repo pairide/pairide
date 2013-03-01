@@ -33,7 +33,7 @@ $(document).ready(function(){
 		load(socket, "workspace", username);
 	}
 
-    setupContextMenuOne();
+    setupContextMenu();
 
 	$("#addProjectButton").click(function(){
 		$('#projectCreatorModal').modal('show');
@@ -54,6 +54,7 @@ $(document).ready(function(){
  * Make an ajax request for the users files.
  */
 function requestWorkspace(){
+
 	$('#fileTree').fileTree({
         root: '/',
         script: 'fileconnector',
@@ -75,7 +76,7 @@ function load_file(data){
 }
 
 
-function setupContextMenuOne(){
+function setupContextMenu(){
 
 
     //capture the DOM element that was right clicked
@@ -121,7 +122,7 @@ function setupContextMenuOne(){
     });
     //user confirms deletion
     $('#cmDelButtonYes').on('click', function(e){
-        socket.emit('context_menu_dir_clicked', 
+        socket.emit('context_menu_clicked', 
             {
                     key: "delete", 
                     relPath: cmRelPath,
@@ -136,7 +137,7 @@ function setupContextMenuOne(){
 
     //user submits a new directory
     $('#cmAddDirButton').on('click', function(e){
-        socket.emit('context_menu_dir_clicked', 
+        socket.emit('context_menu_clicked', 
             {
                     key: "directory", 
                     relPath: cmRelPath,
@@ -147,7 +148,7 @@ function setupContextMenuOne(){
     });
     //user submits a new file
     $('#cmAddFileButton').on('click', function(e){
-        socket.emit('context_menu_dir_clicked', 
+        socket.emit('context_menu_clicked', 
             {
                     key: "file", 
                     relPath: cmRelPath,

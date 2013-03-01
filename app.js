@@ -8,7 +8,6 @@ var express = require('express'),
   path = require('path'),
   md5h = require('MD5');
 
-  
 /* Relative node imports */
 var routes = require('./routes'),
   auth = require('./routes/auth'),
