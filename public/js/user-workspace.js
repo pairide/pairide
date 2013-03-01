@@ -35,6 +35,12 @@ $(document).ready(function(){
 		
 	}
 
+	$("#code_overlay")
+		.css("width", $("#code").css("width"))
+		.css("position", "absolute")
+		.css("top", $("#code_area").position().top + "px")
+		.css("left", $("#code").position().left + "px");
+
 	setupContextMenu();
 
 	$("#addProjectButton").click(function(){
@@ -59,7 +65,18 @@ $(document).ready(function(){
 			showMessage("Only the driver can save.", true);
 		}
 	});
+
     setInterval(autoSave, autoSaveInterval);
+	socket.on("save_response", function(data){
+		if(!data.errmsg){
+			$("#loader_img").hide();
+			$("#loader_msg").html("Saved.");
+		}else{
+			showMessage("An error occurred: " + data.errmsg.toString(), true);
+		}
+		hide_loader();
+	});
+
 });
 
 //Send a request to the current file.
@@ -92,6 +109,7 @@ function requestWorkspace(){
 		//event for when a file is clicked
 
 		if (isDriver){
+
 			socket.emit("get_file", {
 				user: username, 
 				fileName: file, 
@@ -216,5 +234,20 @@ function handleCMResult(data){
 	}
 	else{
 		alert(data.error);
+	}
+}
+
+function lock_editor(message){
+	if(isDriver){
+		editor.setReadOnly(true);
+		$("#overlay_message").html(message);
+		$("#code_overlay").fadeIn();
+	}
+}
+
+function unlock_editor(){
+	if(isDriver){
+		editor.setReadOnly(false);
+		$("#code_overlay").fadeOut();
 	}
 }

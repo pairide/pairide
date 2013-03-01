@@ -46,7 +46,7 @@ margin:60px 0;
 margin-top:28px;
 }
 
-.home_link, .home_link:hover{
+.home_link, .home_link:hover, #loader_msg{
   color: #999999;
   text-decoration: none;
 }
@@ -56,16 +56,31 @@ margin-top:28px;
   text-decoration: none;
 }
 
-.loader{
+#loader{
   margin-left: 20px;
 }
 
-.loader_img{
+#loader_img{
   margin-right: 5px;
 }
 
 #chat_area{
   padding: 0% 1%;
+}
+
+#code_overlay{
+  background: #000;
+  height: 450px;
+  z-index: 100;
+  opacity: 0.7;
+  text-align: center;
+}
+
+#overlay_message{
+  color: #fff;
+  line-height: 450px;
+  font-size: 16px;
+  z-index: 150;
 }
 
 #chatmsg {
@@ -86,6 +101,7 @@ font-variant:small-caps;
   height: 450px;
   padding: 10px 0px;
   background: none repeat scroll 0 0 rgba(0, 136, 204, 0.2);
+  z-index: 3;
 }
 
 #code {

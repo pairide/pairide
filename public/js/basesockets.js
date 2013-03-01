@@ -15,6 +15,7 @@ var annotationID = 0;
 var annotations = new Object();
 var users = {};
 var refreshed = false;
+
 //base load function for the workspace
 function load(socket, type, username){
 
@@ -185,6 +186,7 @@ function load(socket, type, username){
 	socket.on("get_remove_annotation", function(data){
 		purgeAnnotation(data);
 	});
+
 }
 
 function sendChanges(){
@@ -225,7 +227,15 @@ function roomID(type){
 	}
 }
 
-
+//Send a request to the current file.
+function saveFile(){
+	socket.emit("save_file", 
+		{
+			room:roomname, 
+			user:username,
+			text:editor.getSession().getValue()
+		});
+}
 /*Return true if username is available for the roomID,
 false otherwise*/
 function  check_username(socket, type, username){

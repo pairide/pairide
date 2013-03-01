@@ -181,5 +181,10 @@ function showMessage(message, hide){
 
 function show_loader(message){
     $("#loader_msg").html(message);
+    $("#loader_img").show();
     $("#loader").fadeIn();
+}
+
+function hide_loader(){
+    $("#loader").delay(3000).fadeOut();
 }
