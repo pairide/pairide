@@ -135,12 +135,12 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers,
 
     //no previous file had been selected
     if (roomFile[room] == null){
-        loadFile(path, room, roomFile, io);
+        loadFile(path, room, roomFile, io, data.fileName);
     }
     //previous file must be saved before switching
     else if (roomFile[room] != path){
         saveFile(socket, roomFile[room], data.text);
-        loadFile(path, room, roomFile, io);
+        loadFile(path, room, roomFile, io, data.fileName);
     }
 
   }
@@ -175,13 +175,17 @@ function saveFile(socket, path, content){
   });
 }
 //Loads a file to a room.
-function loadFile(path, room, roomFile, io){
+function loadFile(path, room, roomFile, io, fileName){
   roomFile[room] = path;
   fs.exists(path, function(exists){
       if (exists){
         fs.readFile(path, function(err, data) {
           if (!err){
-            io.sockets.in(room).emit("receive_file", unescape(data));
+            io.sockets.in(room).emit("receive_file", 
+              {
+                text:unescape(data),
+                fileName:fileName
+              });
           }
           else{
             console.log("Error reading file! This shouldn't happen.");
@@ -249,7 +253,7 @@ function validateUser(socket, room, username, roomUsers){
  * projects.
  */
 exports.menuClicked = function(socket, data, roomDrivers, 
-  roomUsers){
+  roomUsers, roomFile, io){
 
   var room = data.room;
   if (validateDriver(socket, room, data.user, 
@@ -282,6 +286,8 @@ exports.menuClicked = function(socket, data, roomDrivers,
               if(err) {
                 sendErrorCM(socket,data,err);
               } else {
+                saveFile(socket, roomFile[room], data.text);
+                loadFile(path + data.name, room, roomFile, io, data.name);
                 sendSuccessCM(socket, data);
               }
             }); 

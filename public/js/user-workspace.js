@@ -1,7 +1,12 @@
 var socket = connect();
 var username;
+<<<<<<< HEAD
 var current_file;
 
+=======
+var autoSaveInterval = 1000*60;
+var fileSelected = "";
+>>>>>>> 3361c6af74c82269367ad7aed5ff6a4775351f80
 /*
  * Relative path to the last item selected in the context menu.
  */
@@ -32,8 +37,9 @@ $(document).ready(function(){
 		});
 	}
 	else{
+        load(socket, "workspace", username);
 		requestWorkspace();
-		load(socket, "workspace", username);
+		
 	}
 
 	$("#code_overlay")
@@ -67,6 +73,7 @@ $(document).ready(function(){
 		}
 	});
 
+    setInterval(autoSave, autoSaveInterval);
 	socket.on("save_response", function(data){
 		if(!data.errmsg){
 			$("#loader_img").hide();
@@ -74,9 +81,9 @@ $(document).ready(function(){
 		}else{
 			showMessage("An error occurred: " + data.errmsg.toString(), true);
 		}
-
 		hide_loader();
 	});
+
 });
 
 //Send a request to the current file.
@@ -116,13 +123,16 @@ function requestWorkspace(){
 				text:editor.getSession().getValue(),
 				room:roomname
 			});
-
 			socket.on("receive_file", function(fileContent){
+				setFileSelected(data.fileName);
 				load_file(fileContent);
 				unlock_editor();
 			});
 		}
 	});	
+}
+function setFileSelected(file){
+    fileSelected = file;
 }
 
 function load_file(file_content){
@@ -208,7 +218,8 @@ function setupContextMenu(){
 					relPath: cmRelPath,
 					user: username,
 					room: roomname,
-					name: $("#cmInputAddFile").val()
+					name: $("#cmInputAddFile").val(),
+                    text: editor.getSession().getValue()
 				});
 
 	});
