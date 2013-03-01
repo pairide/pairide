@@ -156,23 +156,25 @@ exports.handleSaveRequest = function(socket, data, roomDrivers, roomUsers,
 }
 //Save content a file at the given path
 function saveFile(socket, path, content){
-  fs.exists(path, function(exists){
-    if (exists){
-      fs.writeFile(path, content, function(err) {
-        socket.emit("save_response", {errmsg:err});
-        if (err){
-          console.log("Failed to save file: " + path);
-        }
-        else{
-          console.log("File saved: " + path);
-        }
-      }); 
-    }
-    else{
-      socket.emit("save_response", {errmsg:"File does not exist."});
-      console.log("Could not find file to save: " + path);
-    }
-  });
+  if (path){
+    fs.exists(path, function(exists){
+      if (exists){
+        fs.writeFile(path, content, function(err) {
+          socket.emit("save_response", {errmsg:err});
+          if (err){
+            console.log("Failed to save file: " + path);
+          }
+          else{
+            console.log("File saved: " + path);
+          }
+        }); 
+      }
+      else{
+        socket.emit("save_response", {errmsg:"File does not exist."});
+        console.log("Could not find file to save: " + path);
+      }
+    });
+  }
 }
 //Loads a file to a room.
 function loadFile(path, room, roomFile, io, fileName){
