@@ -1,13 +1,22 @@
 /*
  * Client connect and post connect event handlers:
  */
+
+
+//Contains the drivers socket id for each room.
 var roomDrivers = {};
+
 //Contains users of each room and their socket id mappings to their username
 //To get a username roomUsers[roomname][socket id]
 var roomUsers = {}; 
 
 //The initial users who created the room.
+//Maps room name to the socket id of the admin.
 var roomAdmins = {};
+
+//Maps room name to the file that room is working on. File is 
+//stored as an absolute path.
+var roomFile = {};
 
 var workspace =  require('./socket_workspace');
 
@@ -32,7 +41,7 @@ exports.communicate = function(io){
 
       //socket handler for users requesting to join a room
       socket.on('join_room', function(data) {
-          workspace.join(socket, data, roomDrivers, roomUsers, roomAdmins);
+          workspace.join(socket, data, roomDrivers, roomUsers, roomAdmins, roomFile);
           io.sockets.in(socket.store.data.room).emit('new_user', data);
       });
 
@@ -88,8 +97,9 @@ exports.communicate = function(io){
 
       //File requests handlers
       socket.on('get_file', function(data){
-        console.log("user " + data.user + " requested file " + data.file);
-        workspace.changeFile(socket, data, roomDrivers, roomUsers, roomAdmins);
+        console.log("user " + data.user + " requested file " + data.fileName);
+        workspace.changeFile(socket, data, roomDrivers, roomUsers, 
+          roomAdmins, roomFile, io);
       })
   });
 };
