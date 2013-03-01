@@ -60,6 +60,21 @@ $(document).ready(function(){
 	});
 });
 
+//Send a request to the current file.
+function saveFile(){
+    socket.emit("save_file", 
+        {
+            room:roomname, 
+            user:username,
+            text:editor.getSession().getValue()
+        });
+}
+//Automatically save the current state of the file periodically.
+function autoSave(){
+    if (driver){
+        saveFile();
+    }
+}
 /*
  * Make an ajax request for the users files.
  */
