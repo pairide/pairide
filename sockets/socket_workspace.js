@@ -112,15 +112,12 @@ function pathExists(path){
 }
 
 //Handles a request to change file in the workspace
-exports.changeFile = function(socket, data, roomDrivers, roomUsers, 
-  roomAdmins, roomFile, roomSockets, io){
+exports.changeFile = function(socket, data, roomDrivers, roomUsers,
+ roomFile, io){
 
-  console.log("CHANGING FILE REQUESTED");
-  console.log(data);
   var room = data.room;
   var user = data.user;
   if (validateDriver(socket, room, user, roomDrivers, roomUsers)){
-    console.log("DRIVER");
     if (!validatePath(data.fileName, "")){
       //path has probably been manipulated on client side
       console.log("Path attack: " + data.fileName);
@@ -142,18 +139,27 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers,
     }
     //previous file must be saved before switching
     else if (roomFile[room] != path){
-        saveFile(roomFile[room], data.text);
+        saveFile(socket, roomFile[room], data.text);
         loadFile(path, room, roomFile, io);
     }
 
   }
 }
-
-//Saves the file at the path
-function saveFile(path, content){
+exports.handleSaveRequest = function(socket, data, roomDrivers, roomUsers,
+ roomFile){
+  var room = data.room;
+  var user = data.user;
+  if (validateDriver(socket, room, user, roomDrivers, roomUsers)
+    && roomFile[room]){
+      saveFile(socket, roomFile[room], data.text);
+  }
+}
+//Save content a file at the given path
+function saveFile(socket, path, content){
   fs.exists(path, function(exists){
     if (exists){
       fs.writeFile(path, content, function(err) {
+        socket.emit("save_response", {errmsg:err});
         if (err){
           console.log("Failed to save file: " + path);
         }
@@ -242,11 +248,11 @@ function validateUser(socket, room, username, roomUsers){
  * projects.
  */
 exports.menuClicked = function(socket, data, roomDrivers, 
-  roomUsers, roomAdmins){
+  roomUsers){
 
   var room = data.room;
-  if (validateDrivingAdmin(socket, room, data.user, 
-    roomDrivers, roomAdmins, roomUsers)){
+  if (validateDriver(socket, room, data.user, 
+    roomDrivers, roomUsers)){
     var username = md5h(data.user);
     var relPath = unescape(data.relPath);
     var directory = process.cwd() + "/users"; 

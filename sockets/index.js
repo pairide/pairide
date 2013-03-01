@@ -52,8 +52,7 @@ exports.communicate = function(io){
       });
 
       socket.on("context_menu_clicked", function(data){
-        workspace.menuClicked(socket, data, roomDrivers, roomUsers,
-         roomAdmins);
+        workspace.menuClicked(socket, data, roomDrivers, roomUsers);
       });
 
       //relay the message that the editor has changed
@@ -107,8 +106,12 @@ exports.communicate = function(io){
       //File requests handlers
       socket.on('get_file', function(data){
         console.log("user " + data.user + " requested file " + data.fileName);
-        workspace.changeFile(socket, data, roomDrivers, roomUsers, 
-          roomAdmins, roomFile, roomSockets, io);
-      })
+        workspace.changeFile(socket, data, roomDrivers, roomUsers, roomFile, io);
+      });
+
+      socket.on('save_file', function(data){
+        workspace.handleSaveRequest(socket, data, roomDrivers, roomUsers,
+         roomFile, roomSockets, io);
+      });
   });
 };
