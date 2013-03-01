@@ -179,6 +179,7 @@ function saveFile(socket, path, content){
 //Loads a file to a room.
 function loadFile(path, room, roomFile, io, fileName){
   roomFile[room] = path;
+  console.log("Loading file at: " + path);
   fs.exists(path, function(exists){
       if (exists){
         fs.readFile(path, function(err, data) {
