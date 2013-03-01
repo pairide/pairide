@@ -4,7 +4,7 @@ md5h = require('MD5');
 
 //Handles the event of a user joining a room. This will create
 //a room if needed.
-exports.join = function(socket, data, roomDrivers, roomUsers, roomAdmins){
+exports.join = function(socket, data, roomDrivers, roomUsers, roomAdmins, roomFile){
 
   var roomExistsBefore = "/" + data.room in socket.manager.rooms; 
   console.log('client request to join user room ' + data.room);
@@ -18,12 +18,17 @@ exports.join = function(socket, data, roomDrivers, roomUsers, roomAdmins){
     roomDrivers[data.room] = socket.id;
     roomAdmins[data.room] = socket.id;
     roomUsers[data.room] = {};
+    roomFile[data.room] = null;
     console.log("New room created by " + data.user + ": " + data.room);
     socket.emit("is_driver",{driver:true, admin: true, name: data.user});
   }
   else{
     var driverID = roomDrivers[data.room];
-    socket.emit("is_driver",{driver:false, admin:false, name: roomUsers[data.room][driverID]});
+    socket.emit("is_driver", {
+      driver:false, 
+      admin:false, 
+      name: roomUsers[data.room][driverID]
+    });
   }
   roomUsers[data.room][socket.id] = data.user;
   console.log(roomUsers);
@@ -63,7 +68,8 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins){
     console.log(roomAdmins);
 
     //Notify other room members that user left
-    io.sockets.in(room).emit('user_disconnect', {username: socket.store.data["nickname"]});
+    io.sockets.in(room).emit('user_disconnect', 
+      {username: socket.store.data["nickname"]});
 }
 
 exports.get_users = function(socket, data, room_users){
@@ -79,6 +85,7 @@ exports.get_users = function(socket, data, room_users){
  * Return true iff the directory path exists.
  */
 function pathExists(path){
+  path = unescape(path);
   try{
     fs.lstatSync(path);
     return true;
@@ -90,25 +97,71 @@ function pathExists(path){
 }
 
 //Handles a request to change file in the workspace
-exports.changeFile = function(socket, data, roomDrivers, roomUsers, roomAdmins){
+exports.changeFile = function(socket, data, roomDrivers, roomUsers, 
+  roomAdmins, roomFile, io){
+
   console.log("CHANGING FILE REQUESTED");
   console.log(data);
+  var room = data.room;
+  var user = data.user;
+  if (validateDriver(socket, room, user, roomDrivers, roomUsers)){
+    console.log("DRIVER");
+    if (!validatePath(data.fileName, "")){
+      //path has probably been manipulated on client side
+      console.log("Path attack: " + data.fileName);
+      return;
+    }
+    console.log("Path is valid");
+    var directory = process.cwd() + "/users"; 
+    var path = unescape(directory + "/" + md5h(user) + data.fileName);
+    console.log("check if path exists " + path);
+    if (!pathExists(path)){
+      console.log("Can't find file requested: " + path);
+      return;
+    }
+    console.log("Found file requested: " + path);
+
+    //no previous file had been selected
+    if (roomFile[room] == null){
+        roomFile[room] = path;
+        fs.exists(path, function(exists){
+            fs.readFile(path, function(err, data) {
+              if (!err){
+              io.sockets.in(room).emit("receive_file", unescape(data));
+
+              }
+              else{
+              console.log("Error reading file! This shouldn't happen.");
+              }
+            });
+          });  
+    }
+    else if (roomFile[room] != path){
+      console.log("Switch file: " + path);
+      //save previous file
+      //and switch
+    }
+
+  }
 }
 //Validates a relative path for common path traversal attacks.
 function validatePath(relativePath, fileName){
 
     relativePath = unescape(relativePath);
     fileName = unescape(fileName);
+
+    var fullPath = relativePath + fileName;
     //Check for .. in relative path
     var pathReg1 = /.*\.\..*/; 
-    //Check that the fileName doesn't contain /
-    var pathReg2 = /(.*\/.*)/;
+    //Check that the fileName doesn't contain / or \
+    var pathReg2 = /(.*(\/|\\).*)/;
     //Further validation on the name mostly ensures characters are alphanumeric 
-    var pathReg3 = /^([a-zA-Z0-9_ .]|-)+$/;
+    var pathReg3 = /^([a-zA-Z0-9_ .]|-)*$/;
 
-    return pathReg1.exec(relativePath) 
+    return !(pathReg1.exec(relativePath) 
           || pathReg2.exec(fileName) 
-          || !pathReg3.exec(fileName);
+          || !pathReg3.exec(fileName)
+          || pathReg1.exec(fullPath));
 }
 
 //Validate if the user is a driver for the room.
@@ -127,7 +180,7 @@ function validateAdmin(socket, room, username, roomAdmins, roomUsers){
 //Validate if the user is both an admin and the current driver.
 function validateDrivingAdmin(socket, room, username, roomDrivers, 
   roomAdmins, roomUsers){
-  
+
   return validateDriver(socket,room,username,roomDrivers,roomUsers)
       && validateAdmin(socket, room, username, roomAdmins, roomUsers);
 }
@@ -147,7 +200,8 @@ function validateUser(socket, room, username, roomUsers){
  * Handles all the options of the context menu for directories and 
  * projects.
  */
-exports.menuClicked = function(socket, data, roomDrivers, roomUsers, roomAdmins){
+exports.menuClicked = function(socket, data, roomDrivers, 
+  roomUsers, roomAdmins){
 
   var room = data.room;
   if (validateDrivingAdmin(socket, room, data.user, 
@@ -155,8 +209,8 @@ exports.menuClicked = function(socket, data, roomDrivers, roomUsers, roomAdmins)
     var username = md5h(data.user);
     var relPath = unescape(data.relPath);
     var directory = process.cwd() + "/users"; 
-    var path = directory + "/" + username + relPath;
-    if (validatePath(relPath, data.name)){
+    var path = unescape(directory + "/" + username + relPath);
+    if (!validatePath(relPath, data.name)){
       sendErrorCM(socket, data, "Name should avoid special characters.");
       return;
     }
@@ -266,8 +320,6 @@ function sendErrorCM(socket, data, errorMsg){
 function sendSuccessCM(socket, data){
   socket.emit("context_menu_click_result", {key:data.key, result:true});
 }
-
-
 /*
  * Recursively deletes a directory but also works for a single file. 
  * This is very powerful, and the path should be validated extensively
