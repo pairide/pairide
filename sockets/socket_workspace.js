@@ -225,7 +225,9 @@ function sendSuccessCM(socket, data){
 
 
 /*
- * Recursively deletes a directory but will also work on a file.
+ * Recursively deletes a directory but also works for a single file. 
+ * This is very powerful, and the path should be validated extensively
+ * before executing it.
  */
 fs.removeRecursive = function(path,cb){
     var self = this;

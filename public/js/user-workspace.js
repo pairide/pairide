@@ -53,12 +53,10 @@ $(document).ready(function(){
 /*
  * Make an ajax request for the users files.
  */
-function requestWorkspace(path){
-    if (!path){
-        path = "/";
-    }
+function requestWorkspace(){
+
 	$('#fileTree').fileTree({
-        root: path,
+        root: '/',
         script: 'fileconnector',
         expandSpeed: 350,
         collapseSpeed: 350,
@@ -116,7 +114,7 @@ function setupContextMenu(){
     });
     //user confirms deletion
     $('#cmDelButtonYes').on('click', function(e){
-        socket.emit('context_menu_dir_clicked', 
+        socket.emit('context_menu_clicked', 
             {
                     key: "delete", 
                     relPath: cmRelPath,
@@ -131,7 +129,7 @@ function setupContextMenu(){
 
     //user submits a new directory
     $('#cmAddDirButton').on('click', function(e){
-        socket.emit('context_menu_dir_clicked', 
+        socket.emit('context_menu_clicked', 
             {
                     key: "directory", 
                     relPath: cmRelPath,
@@ -142,7 +140,7 @@ function setupContextMenu(){
     });
     //user submits a new file
     $('#cmAddFileButton').on('click', function(e){
-        socket.emit('context_menu_dir_clicked', 
+        socket.emit('context_menu_clicked', 
             {
                     key: "file", 
                     relPath: cmRelPath,

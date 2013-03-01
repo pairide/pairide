@@ -5,11 +5,13 @@ var roomDrivers = {};
 //Contains users of each room and their socket id mappings to their username
 //To get a username roomUsers[roomname][socket id]
 var roomUsers = {}; 
+
 //The initial users who created the room.
 var roomAdmins = {};
 
 var workspace =  require('./socket_workspace');
 
+exports.roomAdmins = roomAdmins;
 exports.communicate = function(io){
 
 	io.sockets.on('connection', function (socket) {
@@ -34,7 +36,7 @@ exports.communicate = function(io){
           io.sockets.in(socket.store.data.room).emit('new_user', data);
       });
 
-      socket.on("context_menu_dir_clicked", function(data){
+      socket.on("context_menu_clicked", function(data){
         workspace.menuClicked(socket, data, roomDrivers, roomUsers, roomAdmins);
       });
 
