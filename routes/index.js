@@ -47,6 +47,19 @@ exports.contact = function(req, res){
   res.render('contact', { title: 'Contact', current : 'Contact' });
 };
 
+exports.forgot_password = function(req, res){
+
+  var recaptcha = new Recaptcha(config.PUBLIC_KEY, config.PRIVATE_KEY);
+
+  res.locals.captcha = recaptcha.toHTML();
+  res.locals.formError = false;
+
+  if(req.query.e){
+    res.locals.formError = req.query.e;
+  }
+
+  res.render('forgot_password', {title: "Forgot Password", current: false});
+};
 
 exports.processContact = function(req, res){
   var data = {

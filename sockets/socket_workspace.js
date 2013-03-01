@@ -127,11 +127,10 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers,
         fs.exists(path, function(exists){
             fs.readFile(path, function(err, data) {
               if (!err){
-              io.sockets.in(room).emit("receive_file", unescape(data));
-
+                io.sockets.in(room).emit("receive_file", unescape(data));
               }
               else{
-              console.log("Error reading file! This shouldn't happen.");
+                console.log("Error reading file! This shouldn't happen.");
               }
             });
           });  
@@ -399,3 +398,15 @@ fs.removeRecursive = function(path,cb){
       }
     });
 };
+
+exports.get_file = function(socket, user, file){
+    var directory = process.cwd() + "/users/";
+    var path = directory + md5h(user)+file;
+    console.log(path);
+    fs.readFile(path, 'utf8', function(err, data){
+        if (err) {
+            return console.log(err);
+        }
+        socket.emit('receive_file', {file_content: data});
+    });
+}
