@@ -4,7 +4,8 @@ md5h = require('MD5');
 
 //Handles the event of a user joining a room. This will create
 //a room if needed.
-exports.join = function(socket, data, roomDrivers, roomUsers, roomAdmins, roomFile){
+exports.join = function(socket, data, roomDrivers, roomUsers, 
+  roomAdmins, roomFile, roomSockets){
 
   var roomExistsBefore = "/" + data.room in socket.manager.rooms; 
   console.log('client request to join user room ' + data.room);
@@ -19,11 +20,14 @@ exports.join = function(socket, data, roomDrivers, roomUsers, roomAdmins, roomFi
     roomAdmins[data.room] = socket.id;
     roomUsers[data.room] = {};
     roomFile[data.room] = null;
+    roomSockets[data.room] = {};
+    roomSockets[data.room][socket.id] = socket;
     console.log("New room created by " + data.user + ": " + data.room);
     socket.emit("is_driver",{driver:true, admin: true, name: data.user});
   }
   else{
     var driverID = roomDrivers[data.room];
+    roomSockets[data.room] = socket;
     socket.emit("is_driver", {
       driver:false, 
       admin:false, 
@@ -36,13 +40,18 @@ exports.join = function(socket, data, roomDrivers, roomUsers, roomAdmins, roomFi
 
 //Handles a socket disconnecting. This will do garbage collection
 //if the socket disconnecting is the only socket in the room.
-exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins){
+exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins, 
+  roomFile, roomSockets){
     var room = socket.store.data["room"];
     //garbage collect the user mappings for each room
     if (roomUsers[room] && socket.id in roomUsers[room]){
         console.log("deleting user from room "+ room +"..." 
           + roomUsers[room][socket.id]);
         delete roomUsers[room][socket.id];
+    }
+
+    if (roomSockets[room] && roomSockets[room][socket.id]){
+      delete roomSockets[room][socket.id];
     }
 
     //check if admin is leaving room
@@ -53,11 +62,13 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins){
       delete roomDrivers[room];
       delete roomAdmins[room];
       delete roomUsers[room];
+      //TODO save file?
+      delete roomFile[room];
+      delete roomSockets[room];
     }
     else if (roomDrivers[room] && roomDrivers[room] == socket.id){
       //current driver left; default driver to the admin
       roomDrivers[room] = roomAdmins[room];
-
       //TODO notify admin he has become the driver
     }
     console.log("Known drivers: ");
@@ -66,6 +77,10 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins){
     console.log(roomUsers);
     console.log("room Admins");
     console.log(roomAdmins);
+    console.log("room files");
+    console.log(roomFile);
+    console.log("room sockets");
+    console.log(roomSockets);
 
     //Notify other room members that user left
     io.sockets.in(room).emit('user_disconnect', 
@@ -98,7 +113,7 @@ function pathExists(path){
 
 //Handles a request to change file in the workspace
 exports.changeFile = function(socket, data, roomDrivers, roomUsers, 
-  roomAdmins, roomFile, io){
+  roomAdmins, roomFile, roomSockets, io){
 
   console.log("CHANGING FILE REQUESTED");
   console.log(data);
@@ -123,25 +138,52 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers,
 
     //no previous file had been selected
     if (roomFile[room] == null){
-        roomFile[room] = path;
-        fs.exists(path, function(exists){
-            fs.readFile(path, function(err, data) {
-              if (!err){
-                io.sockets.in(room).emit("receive_file", unescape(data));
-              }
-              else{
-                console.log("Error reading file! This shouldn't happen.");
-              }
-            });
-          });  
+        loadFile(path, room, roomFile, io);
     }
+    //previous file must be saved before switching
     else if (roomFile[room] != path){
-      console.log("Switch file: " + path);
-      //save previous file
-      //and switch
+        saveFile(roomFile[room], data.text);
+        loadFile(path, room, roomFile, io);
     }
 
   }
+}
+
+//Saves the file at the path
+function saveFile(path, content){
+  fs.exists(path, function(exists){
+    if (exists){
+      fs.writeFile(path, content, function(err) {
+        if (err){
+          console.log("Failed to save file: " + path);
+        }
+        else{
+          console.log("File saved: " + path);
+        }
+      }); 
+    }
+    else{
+      console.log("Could not find file to save: " + path);
+    }
+  });
+}
+//Loads a file to a room.
+function loadFile(path, room, roomFile, io){
+  roomFile[room] = path;
+  fs.exists(path, function(exists){
+      if (exists){
+        fs.readFile(path, function(err, data) {
+          if (!err){
+            io.sockets.in(room).emit("receive_file", unescape(data));
+          }
+          else{
+            console.log("Error reading file! This shouldn't happen.");
+          }
+        });
+      }else{
+        console.log("File to load does not exist: " + path);
+      }
+    }); 
 }
 //Validates a relative path for common path traversal attacks.
 function validatePath(relativePath, fileName){
@@ -217,7 +259,10 @@ exports.menuClicked = function(socket, data, roomDrivers,
       sendErrorCM(socket,data, "User folder does not exist.");
       return;
     }
-    console.log("Context menu action " + data.key + " at \n" + path + (data.name? data.name : ""));
+    console.log("Context menu action " + data.key 
+      + " at \n" + path 
+      + (data.name? data.name : ""));
+
     switch(data.key){
       //cases correspond to each menu option
       case 'file':
@@ -398,15 +443,3 @@ fs.removeRecursive = function(path,cb){
       }
     });
 };
-
-exports.get_file = function(socket, user, file){
-    var directory = process.cwd() + "/users/";
-    var path = directory + md5h(user)+file;
-    console.log(path);
-    fs.readFile(path, 'utf8', function(err, data){
-        if (err) {
-            return console.log(err);
-        }
-        socket.emit('receive_file', {file_content: data});
-    });
-}

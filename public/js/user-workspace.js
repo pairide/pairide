@@ -64,11 +64,19 @@ function requestWorkspace(){
         multiFolder: false
     }, function(file) {
         //event for when a file is clicked
-        alert(file);
-        socket.emit("get_file", {user: username, fileName: file, room:roomname});
-        socket.on("receive_file", function(fileContent){
-            load_file(fileContent);
-        });
+
+        if (isDriver){
+            socket.emit("get_file", {
+                user: username, 
+                fileName: file, 
+                text:editor.getSession().getValue(),
+                room:roomname
+            });
+
+            socket.on("receive_file", function(fileContent){
+                load_file(fileContent);
+            });
+        }
     });	
 }
 
