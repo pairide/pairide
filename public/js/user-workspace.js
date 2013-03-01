@@ -23,32 +23,40 @@ $(document).ready(function(){
 					}
 					else{
 						load(socket, "workspace", username);
-						$('#userModal').modal('hide');	
+						$('#userModal').modal('hide');
 					}
 				});
 			return false;
 		});
 	}
 	else{
-        requestWorkspace();
+		requestWorkspace();
 		load(socket, "workspace", username);
 	}
 
-    setupContextMenu();
+	setupContextMenu();
 
 	$("#addProjectButton").click(function(){
 		$('#projectCreatorModal').modal('show');
 	});
-    $('#createProjectForm').ajaxForm(function(data) { 
+	$('#createProjectForm').ajaxForm(function(data) {
 
-    	if (data.result){
-		    $('#projectCreatorModal').modal('hide');
-		    requestWorkspace();
-    	}
-    	else{
-    		alert(data.error);
-    	}
-    });
+		if (data.result){
+			$('#projectCreatorModal').modal('hide');
+			requestWorkspace();
+		}
+		else{
+			alert(data.error);
+		}
+	});
+
+	$('#saveFile').on("click", function(){
+		if(isDriver){
+			save_file();
+		}else{
+			showMessage("Only the driver can save.", true);
+		}
+	});
 });
 
 /*
@@ -57,122 +65,122 @@ $(document).ready(function(){
 function requestWorkspace(){
 
 	$('#fileTree').fileTree({
-        root: '/',
-        script: 'fileconnector',
-        expandSpeed: 350,
-        collapseSpeed: 350,
-        multiFolder: false
-    }, function(file) {
-        //event for when a file is clicked
+		root: '/',
+		script: 'fileconnector',
+		expandSpeed: 350,
+		collapseSpeed: 350,
+		multiFolder: false
+	}, function(file) {
+		//event for when a file is clicked
 
-        if (isDriver){
-            socket.emit("get_file", {
-                user: username, 
-                fileName: file, 
-                text:editor.getSession().getValue(),
-                room:roomname
-            });
+		if (isDriver){
+			socket.emit("get_file", {
+				user: username, 
+				fileName: file, 
+				text:editor.getSession().getValue(),
+				room:roomname
+			});
 
-            socket.on("receive_file", function(fileContent){
-                load_file(fileContent);
-            });
-        }
-    });	
+			socket.on("receive_file", function(fileContent){
+				load_file(fileContent);
+			});
+		}
+	});	
 }
 
 function load_file(file_content){
-    editor.getSession().setValue(file_content);
+	editor.getSession().setValue(file_content);
 }
 
 
 function setupContextMenu(){
 
 
-    //capture the DOM element that was right clicked
-    if (document.addEventListener) {
-        document.addEventListener('contextmenu', function(e) {
-            if (e.target.getAttribute('rel')){
-                cmRelPath = e.target.getAttribute('rel');
-            } 
-            e.preventDefault();
-        }, false);
-    } else {
-        document.attachEvent('oncontextmenu', function(e) {
-            if (window.event.srcElement.getAttribute('rel')){
-                cmRelPath = e.target.getAttribute('rel');
-            }
-            window.event.returnValue = false;
-        });
-    }
-    //handling context menu for directories and projects
-    $.contextMenu({
-        selector: '.context-menu-one', 
-        callback: function(key, options) {
-            if (key == "directory" || key == "file"){
-                $('#contextMenuModal' + key).modal('show');
-            }
-            else if (key == "delete"){
-                $('#cmDelLegend').html( "Delete " + cmRelPath);
-                $('#contextMenuModaldelete').modal('show');
-            }
-            //else if ...upload
-        },
-        //the list of items on the menu
-        items: {
-            "file": {name: "Create File", icon: "edit"},
-            "sep1": "---------",
-            "upload": {name: "Upload File", icon: "cut"},
-            "sep2": "---------",
-            "directory": {name: "Add directory", icon: "cut"},
-            "sep2": "---------",
-            "delete": {name: "Delete", icon: "delete"},
-            "sep5": "---------",
-        }
-    });
-    //user confirms deletion
-    $('#cmDelButtonYes').on('click', function(e){
-        socket.emit('context_menu_clicked', 
-            {
-                    key: "delete", 
-                    relPath: cmRelPath,
-                    user: username,
-                    room: roomname,
-                });
-    });  
-    //user declines deletion
-    $('#cmDelButtonNo').on('click', function(e){
-        $('#contextMenuModaldelete').modal('hide');
-    });  
+	//capture the DOM element that was right clicked
+	if (document.addEventListener) {
+		document.addEventListener('contextmenu', function(e) {
+			if (e.target.getAttribute('rel')){
+				cmRelPath = e.target.getAttribute('rel');
+			} 
+			e.preventDefault();
+		}, false);
+	} else {
+		document.attachEvent('oncontextmenu', function(e) {
+			if (window.event.srcElement.getAttribute('rel')){
+				cmRelPath = e.target.getAttribute('rel');
+			}
+			window.event.returnValue = false;
+		});
+	}
+	//handling context menu for directories and projects
+	$.contextMenu({
+		selector: '.context-menu-one', 
+		callback: function(key, options) {
+			if (key == "directory" || key == "file"){
+				$('#contextMenuModal' + key).modal('show');
+			}
+			else if (key == "delete"){
+				$('#cmDelLegend').html( "Delete " + cmRelPath);
+				$('#contextMenuModaldelete').modal('show');
+			}
+			//else if ...upload
+		},
+		//the list of items on the menu
+		items: {
+			"file": {name: "Create File", icon: "edit"},
+			"sep1": "---------",
+			"upload": {name: "Upload File", icon: "cut"},
+			"sep2": "---------",
+			"directory": {name: "Add directory", icon: "cut"},
+			"sep2": "---------",
+			"delete": {name: "Delete", icon: "delete"},
+			"sep5": "---------",
+		}
+	});
+	//user confirms deletion
+	$('#cmDelButtonYes').on('click', function(e){
+		socket.emit('context_menu_clicked',
+			{
+					key: "delete",
+					relPath: cmRelPath,
+					user: username,
+					room: roomname,
+				});
+	}); 
+	//user declines deletion
+	$('#cmDelButtonNo').on('click', function(e){
+		$('#contextMenuModaldelete').modal('hide');
+	});
 
-    //user submits a new directory
-    $('#cmAddDirButton').on('click', function(e){
-        socket.emit('context_menu_clicked', 
-            {
-                    key: "directory", 
-                    relPath: cmRelPath,
-                    user: username,
-                    room: roomname,
-                    name: $("#cmInputAddDir").val()
-                });
-    });
-    //user submits a new file
-    $('#cmAddFileButton').on('click', function(e){
-        socket.emit('context_menu_clicked', 
-            {
-                    key: "file", 
-                    relPath: cmRelPath,
-                    user: username,
-                    room: roomname,
-                    name: $("#cmInputAddFile").val()
-                });
+	//user submits a new directory
+	$('#cmAddDirButton').on('click', function(e){
+		socket.emit('context_menu_clicked',
+			{
+					key: "directory",
+					relPath: cmRelPath,
+					user: username,
+					room: roomname,
+					name: $("#cmInputAddDir").val()
+				});
+	});
+	//user submits a new file
+	$('#cmAddFileButton').on('click', function(e){
+		socket.emit('context_menu_clicked',
+			{
+					key: "file",
+					relPath: cmRelPath,
+					user: username,
+					room: roomname,
+					name: $("#cmInputAddFile").val()
+				});
 
-    });
-    //listens for a result of a context menu action.
-    socket.on("context_menu_click_result", function(data){
-        if (data.key != "upload"){ //upload currently not implemented
-            handleCMResult(data);
-        }
-    });
+	});
+	//listens for a result of a context menu action.
+	socket.on("context_menu_click_result", function(data){
+		if (data.key != "upload"){ //upload currently not implemented
+			handleCMResult(data);
+		}
+	});
 }
 
 /*
@@ -180,10 +188,10 @@ function setupContextMenu(){
  */
 function handleCMResult(data){
    if (data.result){
-        $('#contextMenuModal' + data.key).modal('hide');
-        requestWorkspace();
-    }
-    else{
-        alert(data.error);
-    }
+		$('#contextMenuModal' + data.key).modal('hide');
+		requestWorkspace();
+	}
+	else{
+		alert(data.error);
+	}
 }
