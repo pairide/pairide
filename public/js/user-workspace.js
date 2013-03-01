@@ -1,11 +1,14 @@
 var socket = connect();
 var username;
-var autoSaveInterval = 1000*60;
+var current_file;
+
 /*
  * Relative path to the last item selected in the context menu.
  */
 var cmRelPath;
 $(document).ready(function(){
+
+	lock_editor("Please select a file.");
 
 	if(!auth){
 		/*Get user's name and load the session */
@@ -40,7 +43,7 @@ $(document).ready(function(){
 		.css("left", $("#code").position().left + "px");
 
 	setupContextMenu();
-    setInterval(autoSave, autoSaveInterval);
+
 	$("#addProjectButton").click(function(){
 		$('#projectCreatorModal').modal('show');
 	});
@@ -113,8 +116,10 @@ function requestWorkspace(){
 				text:editor.getSession().getValue(),
 				room:roomname
 			});
+
 			socket.on("receive_file", function(fileContent){
 				load_file(fileContent);
+				unlock_editor();
 			});
 		}
 	});	
@@ -229,16 +234,12 @@ function handleCMResult(data){
 }
 
 function lock_editor(message){
-	if(isDriver){
 		editor.setReadOnly(true);
 		$("#overlay_message").html(message);
 		$("#code_overlay").fadeIn();
-	}
 }
 
 function unlock_editor(){
-	if(isDriver){
 		editor.setReadOnly(false);
 		$("#code_overlay").fadeOut();
-	}
 }
