@@ -37,6 +37,12 @@ $(document).ready(function(){
 		
 	}
 
+	socket.on("receive_file", function(data){
+		setFileSelected(data.fileName);
+		load_file(data.text);
+		unlock_editor();
+	});
+
 	$("#code_overlay")
 		.css("width", $("#code").css("width"))
 		.css("position", "absolute")
@@ -117,11 +123,6 @@ function requestWorkspace(){
 				fileName: file, 
 				text:editor.getSession().getValue(),
 				room:roomname
-			});
-			socket.on("receive_file", function(data){
-				setFileSelected(data.fileName);
-				load_file(data.text);
-				unlock_editor();
 			});
 		}
 	});	
