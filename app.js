@@ -57,6 +57,8 @@ app.get('/register', checkAuth, routes.register);
 app.get('/about', checkAuth, routes.about);
 app.get('/faq', checkAuth, routes.faq);
 app.get('/tos', checkAuth, routes.tos);
+app.get('/forgot_password', routes.forgot_password);
+app.get('/reset', auth.reset_password_form);
 app.get('/profile', middleware.isAuthenticated, routes.profile);
 app.get('/logout', middleware.isAuthenticated, auth.logout);
 //app.get(/^\/workspace\/.+$/, middleware.isAuthenticated, checkAuth, routes.workspace);
@@ -72,6 +74,8 @@ app.post('/register', auth.register);
 app.post('/create_session', checkAuth, room.create);
 app.post('/workspace/new_project', routes.createProject);
 app.post('/contact', routes.processContact);
+app.post('/forgot_password', auth.processForgotPassword);
+app.post('/reset', auth.reset_password);
 
 
 /* Listen for requests */

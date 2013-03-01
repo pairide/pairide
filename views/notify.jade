@@ -9,8 +9,10 @@ block content
 		.alert.alert-error
 			| Error: #{notification}
 
-	if (current = "Login")
+	if (current == "Login")
 
 		.row-fluid
 			.span4
-				include login
+			.span4
+				.pagination-centered
+					include login
