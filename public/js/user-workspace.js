@@ -34,6 +34,12 @@ $(document).ready(function(){
 		load(socket, "workspace", username);
 	}
 
+	$("#code_overlay")
+		.css("width", $("#code").css("width"))
+		.css("position", "absolute")
+		.css("top", $("#code_area").position().top + "px")
+		.css("left", $("#code").position().left + "px");
+
 	setupContextMenu();
 
 	$("#addProjectButton").click(function(){
@@ -101,8 +107,6 @@ function requestWorkspace(){
 		//event for when a file is clicked
 
 		if (isDriver){
-
-			
 
 			socket.emit("get_file", {
 				user: username, 
@@ -223,5 +227,20 @@ function handleCMResult(data){
 	}
 	else{
 		alert(data.error);
+	}
+}
+
+function lock_editor(message){
+	if(isDriver){
+		editor.setReadOnly(true);
+		$("#overlay_message").html(message);
+		$("#code_overlay").fadeIn();
+	}
+}
+
+function unlock_editor(){
+	if(isDriver){
+		editor.setReadOnly(false);
+		$("#code_overlay").fadeOut();
 	}
 }

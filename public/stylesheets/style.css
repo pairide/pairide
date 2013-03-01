@@ -68,6 +68,21 @@ margin-top:28px;
   padding: 0% 1%;
 }
 
+#code_overlay{
+  background: #000;
+  height: 450px;
+  z-index: 100;
+  opacity: 0.7;
+  text-align: center;
+}
+
+#overlay_message{
+  color: #fff;
+  line-height: 450px;
+  font-size: 16px;
+  z-index: 150;
+}
+
 #chatmsg {
 height: 207px;
 overflow:auto;
@@ -86,6 +101,7 @@ font-variant:small-caps;
   height: 450px;
   padding: 10px 0px;
   background: none repeat scroll 0 0 rgba(0, 136, 204, 0.2);
+  z-index: 3;
 }
 
 #code {
