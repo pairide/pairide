@@ -189,6 +189,7 @@ function load(socket, type, username){
 			//setting up the new driver
 			setDriver(true);
 			$('#driver').html('Driver');
+			showMessage('You are now the driver.', true);
 		}
 		driver = data.new_driver;
 		users[data.new_driver]
