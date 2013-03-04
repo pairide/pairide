@@ -113,7 +113,7 @@ function pathExists(path){
 
 //Handles a request to change file in the workspace
 exports.changeFile = function(socket, data, roomDrivers, roomUsers,
- roomFile, io){
+ roomFile){
 
   var room = data.room;
   var user = data.user;
@@ -135,12 +135,12 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers,
 
     //no previous file had been selected
     if (roomFile[room] == null){
-        loadFile(path, room, roomFile, io, data.fileName);
+        loadFile(socket, path, room, roomFile, data.fileName);
     }
     //previous file must be saved before switching
     else if (roomFile[room] != path){
         saveFile(socket, roomFile[room], data.text);
-        loadFile(path, room, roomFile, io, data.fileName);
+        loadFile(socket, path, room, roomFile, data.fileName);
     }
 
   }
@@ -177,13 +177,18 @@ function saveFile(socket, path, content){
   }
 }
 //Loads a file to a room.
-function loadFile(path, room, roomFile, io, fileName){
+function loadFile(socket, path, room, roomFile, fileName){
   roomFile[room] = path;
   fs.exists(path, function(exists){
       if (exists){
         fs.readFile(path, function(err, data) {
           if (!err){
-            io.sockets.in(room).emit("receive_file", 
+            // io.sockets.in(room).emit("receive_file", 
+            //   {
+            //     text:unescape(data),
+            //     fileName:fileName
+            //   });
+            socket.emit("receive_file", 
               {
                 text:unescape(data),
                 fileName:fileName
