@@ -131,6 +131,7 @@ function load(socket, type, username){
 	//Handle event: getting a new message from another user
 	socket.on('new_message', function(data){
 		$('#chatmsg p').append(data.user + ": " + data.msg + "</br>");
+		$("#chatmsg").scrollTop($("#chatmsg")[0].scrollHeight);
 	});
 
 	//Handle event: a user disconnected from the room
@@ -185,6 +186,11 @@ function load(socket, type, username){
 
 	socket.on("get_remove_annotation", function(data){
 		purgeAnnotation(data);
+	});
+
+	socket.on("admin_disconnect", function(){
+		alert("It appears the admin ended the session or was unexpectedly disconnected.");
+		window.location.replace(url);
 	});
 
 }

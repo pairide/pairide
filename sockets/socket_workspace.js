@@ -65,6 +65,8 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins,
       //TODO save file?
       delete roomFile[room];
       delete roomSockets[room];
+      //notify everyone that room doesn't exist anymore
+      io.sockets.in(room).emit('admin_disconnect', {});
     }
     else if (roomDrivers[room] && roomDrivers[room] == socket.id){
       //current driver left; default driver to the admin
