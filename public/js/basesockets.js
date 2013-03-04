@@ -130,7 +130,22 @@ function load(socket, type, username){
 	});
 	//Handle event: getting a new message from another user
 	socket.on('new_message', function(data){
-		$('#chatmsg p').append(data.user + ": " + data.msg + "</br>");
+		var new_msg = document.createElement("p");
+		var user_id = document.createElement("span");
+		var msg = document.createElement("span");
+
+		$(user_id).text(data.user);
+		$(msg).text(": " + data.msg);
+		$(new_msg).append(user_id);
+		$(new_msg).append(msg);
+		if(data.user == driver){
+			$(user_id).addClass('driver');
+		}
+		else{
+			$(user_id).addClass('navi');	
+		}
+
+		$('#chatmsg p').first().append(new_msg);
 		$("#chatmsg").scrollTop($("#chatmsg")[0].scrollHeight);
 	});
 
