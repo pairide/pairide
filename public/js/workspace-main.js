@@ -20,7 +20,7 @@ $(document).ready(function(){
     }
     //Listener for language change
     $("#languageList li").click(function(e){
-        changeLanguage(e);
+        changeLanguage(e.target.text);
     });
     $('#code').on('dragover', handleDragOver);
     $('#code').on('drop', handleDragOn);
@@ -158,11 +158,13 @@ function handleFileSelect(f) {
 }
 
 /*Handle language change request by the user*/
-function changeLanguage(e){
-    var lang = e.target.text;
+function changeLanguage(lang){
     language = languages[lang];
     $("#current_language").html(lang);
     editor.getSession().setMode("ace/mode/"+language);
+    if(isDriver){
+        socket.emit("lang_change", {language: lang});
+    }
 }
 
 function showMessage(message, hide){

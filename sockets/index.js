@@ -113,5 +113,10 @@ exports.communicate = function(io){
         workspace.handleSaveRequest(socket, data, roomDrivers, roomUsers,
          roomFile, roomSockets, io);
       });
+
+      //Driver has changed the language mode
+      socket.on("lang_change", function(data){
+        io.sockets.in(socket.store.data.room).emit("driver_change_lang", data);
+      });
   });
 };

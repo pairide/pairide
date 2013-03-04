@@ -208,6 +208,12 @@ function load(socket, type, username){
 		window.location.replace(url);
 	});
 
+	socket.on("driver_change_lang", function(data){
+		if(!isDriver){
+			changeLanguage(data.language);
+		}
+	});
+
 }
 
 function sendChanges(){
