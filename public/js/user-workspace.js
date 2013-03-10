@@ -1,7 +1,7 @@
 var socket = connect();
 var username;
 var autoSaveInterval = 1000*60;
-var fileSelected = "";
+var fileSelected = null;
 /*
  * Relative path to the last item selected in the context menu.
  */
@@ -98,7 +98,7 @@ function saveFile(){
 }
 //Automatically save the current state of the file periodically.
 function autoSave(){
-    if (driver){
+    if (driver && fileSelected){
         saveFile();
     }
 }
@@ -128,6 +128,9 @@ function requestWorkspace(){
 	});	
 }
 function setFileSelected(file){
+	if(!fileSelected){
+		unlock_editor();
+	}
     fileSelected = file;
 }
 
@@ -189,6 +192,12 @@ function setupContextMenu(){
 					user: username,
 					room: roomname,
 				});
+
+		if(cmRelPath == fileSelected){
+			fileSelected = null;
+			lock_editor("Please select a file.");
+		}
+
 	}); 
 	//user declines deletion
 	$('#cmDelButtonNo').on('click', function(e){
