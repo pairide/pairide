@@ -322,6 +322,12 @@ exports.menuClicked = function(socket, data, roomDrivers,
               }
               else{
                 sendSuccessCM(socket, data);
+                if(data.key == "delete" && data.lock){
+                  console.log("Delete request: lock: " +  data.lock);
+                  io.sockets.in(socket.store.data.room).emit("lock_editor", {
+                    lock: true,
+                  });
+                }
               }
             });
         }catch(ignore){
