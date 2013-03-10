@@ -185,18 +185,25 @@ function setupContextMenu(){
 	});
 	//user confirms deletion
 	$('#cmDelButtonYes').on('click', function(e){
+
+		var currentFileDeleted = false;
+
+		if(cmRelPath == fileSelected){
+			fileSelected = null;
+			currentFileDeleted = true;
+			lock_editor("Please select a file.");
+		}
+
 		socket.emit('context_menu_clicked',
 			{
 					key: "delete",
 					relPath: cmRelPath,
 					user: username,
 					room: roomname,
+					lock: currentFileDeleted
 				});
 
-		if(cmRelPath == fileSelected){
-			fileSelected = null;
-			lock_editor("Please select a file.");
-		}
+
 
 	}); 
 	//user declines deletion
@@ -232,6 +239,11 @@ function setupContextMenu(){
 	socket.on("context_menu_click_result", function(data){
 		if (data.key != "upload"){ //upload currently not implemented
 			handleCMResult(data);
+		}
+
+		if(data.lock){
+			fileSelected = null;
+			lock_editor();
 		}
 	});
 }
