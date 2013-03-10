@@ -14,8 +14,13 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
   socket.set("nickname", data.user);
   socket.set("room", data.room);
 
+  console.log("____DATA CHECK____");
+  console.log(data);
+  console.log(roomUsers);
+  console.log(roomAdmins);
+  console.log(roomFile);
     //check if the room was newly created
-  if (!roomExistsBefore && roomExistsAfter){
+  if ((!roomExistsBefore && roomExistsAfter) || !roomAdmins[data.room]){
     roomDrivers[data.room] = socket.id;
     roomAdmins[data.room] = socket.id;
     roomUsers[data.room] = {};
@@ -27,6 +32,8 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
   }
   else{
     var driverID = roomDrivers[data.room];
+    console.log("___DriverID___");
+    console.log(roomDrivers);
     roomSockets[data.room] = socket;
     socket.emit("is_driver", {
       driver:false, 
@@ -115,7 +122,7 @@ function pathExists(path){
 
 //Handles a request to change file in the workspace
 exports.changeFile = function(socket, data, roomDrivers, roomUsers,
- roomFile){
+ roomFile, io){
 
   var room = data.room;
   var user = data.user;
@@ -137,12 +144,12 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers,
 
     //no previous file had been selected
     if (roomFile[room] == null){
-        loadFile(socket, path, room, roomFile, data.fileName);
+        loadFile(socket, path, room, roomFile, data.fileName, io);
     }
     //previous file must be saved before switching
     else if (roomFile[room] != path){
         saveFile(socket, roomFile[room], data.text);
-        loadFile(socket, path, room, roomFile, data.fileName);
+        loadFile(socket, path, room, roomFile, data.fileName, io);
     }
 
   }
@@ -179,7 +186,7 @@ function saveFile(socket, path, content){
   }
 }
 //Loads a file to a room.
-function loadFile(socket, path, room, roomFile, fileName){
+function loadFile(socket, path, room, roomFile, fileName, io){
   roomFile[room] = path;
   fs.exists(path, function(exists){
       if (exists){
@@ -296,7 +303,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
                 sendErrorCM(socket,data,err);
               } else {
                 saveFile(socket, roomFile[room], data.text);
-                loadFile(path + data.name, room, roomFile, io, data.name);
+                loadFile(path + data.name, room, roomFile, io, data.name, io);
                 sendSuccessCM(socket, data);
               }
             }); 
