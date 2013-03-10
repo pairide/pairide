@@ -106,7 +106,7 @@ exports.communicate = function(io){
       //File requests handlers
       socket.on('get_file', function(data){
         console.log("user " + data.user + " requested file " + data.fileName);
-        workspace.changeFile(socket, data, roomDrivers, roomUsers, roomFile);
+        workspace.changeFile(socket, data, roomDrivers, roomUsers, roomFile, io);
       });
 
       socket.on('save_file', function(data){

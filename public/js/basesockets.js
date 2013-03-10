@@ -15,6 +15,7 @@ var annotationID = 0;
 var annotations = new Object();
 var users = {};
 var refreshed = false;
+var surpress = false;
 
 //base load function for the workspace
 function load(socket, type, username){
@@ -62,7 +63,7 @@ function load(socket, type, username){
 	//listens for incoming updates to the editor caused by the driver
 	//making changes.
 	socket.on("editor_update", function(data){
-		if (!isDriver){
+		if (!isDriver && !surpress){
 			//editor.setValue(data.text);
 			//alert(data.deltas);
 			var deltas = data.deltas;
@@ -72,6 +73,7 @@ function load(socket, type, username){
 			//}
 			editor.getSession().getDocument().applyDeltas(data.deltas);
 		}
+		surpress = false;
 	});
 
 	//listens for changes in the editor and notifies the server

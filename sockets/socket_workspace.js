@@ -115,7 +115,7 @@ function pathExists(path){
 
 //Handles a request to change file in the workspace
 exports.changeFile = function(socket, data, roomDrivers, roomUsers,
- roomFile){
+ roomFile, io){
 
   var room = data.room;
   var user = data.user;
@@ -137,12 +137,12 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers,
 
     //no previous file had been selected
     if (roomFile[room] == null){
-        loadFile(socket, path, room, roomFile, data.fileName);
+        loadFile(socket, path, room, roomFile, data.fileName, io);
     }
     //previous file must be saved before switching
     else if (roomFile[room] != path){
         saveFile(socket, roomFile[room], data.text);
-        loadFile(socket, path, room, roomFile, data.fileName);
+        loadFile(socket, path, room, roomFile, data.fileName, io);
     }
 
   }
@@ -179,22 +179,22 @@ function saveFile(socket, path, content){
   }
 }
 //Loads a file to a room.
-function loadFile(socket, path, room, roomFile, fileName){
+function loadFile(socket, path, room, roomFile, fileName, io){
   roomFile[room] = path;
   fs.exists(path, function(exists){
       if (exists){
         fs.readFile(path, function(err, data) {
           if (!err){
-            // io.sockets.in(room).emit("receive_file", 
-            //   {
-            //     text:unescape(data),
-            //     fileName:fileName
-            //   });
-            socket.emit("receive_file", 
+            io.sockets.in(room).emit("receive_file", 
               {
                 text:unescape(data),
                 fileName:fileName
               });
+            // socket.emit("receive_file", 
+            //   {
+            //     text:unescape(data),
+            //     fileName:fileName
+            //   });
           }
           else{
             console.log("Error reading file! This shouldn't happen.");

@@ -38,6 +38,10 @@ $(document).ready(function(){
 	}
 
 	socket.on("receive_file", function(data){
+
+		if (isDriver){
+			surpress = true;
+		}
 		setFileSelected(data.fileName);
 		load_file(data.text);
 		unlock_editor();
