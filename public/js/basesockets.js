@@ -15,6 +15,7 @@ var annotationID = 0;
 var annotations = new Object();
 var users = {};
 var refreshed = false;
+var surpress = false;
 
 //base load function for the workspace
 function load(socket, type, username){
@@ -56,6 +57,8 @@ function load(socket, type, username){
 			for(var aID in data.annotations){
 				applyAnnotation(data.annotations[aID]);
 			}
+
+			unlock_editor();
 		}
 	});
 
@@ -80,11 +83,14 @@ function load(socket, type, username){
 			//buffering = true;
 			//alert('change');
 			//setTimeout(sendChanges,bufferWait);
+			if (!surpress){
 			var deltas = new Array();
 			deltas.push(e.data);
 			console.log(e.data);
 			socket.emit("editor_changed", {deltas: deltas});
 			//alert(e.data);
+			}
+			surpress = false;
 		}
 	});
 

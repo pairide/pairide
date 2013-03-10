@@ -185,16 +185,16 @@ function loadFile(socket, path, room, roomFile, fileName){
       if (exists){
         fs.readFile(path, function(err, data) {
           if (!err){
-            // io.sockets.in(room).emit("receive_file", 
-            //   {
-            //     text:unescape(data),
-            //     fileName:fileName
-            //   });
-            socket.emit("receive_file", 
+            io.sockets.in(room).emit("receive_file", 
               {
                 text:unescape(data),
                 fileName:fileName
               });
+            // socket.emit("receive_file", 
+            //   {
+            //     text:unescape(data),
+            //     fileName:fileName
+            //   });
           }
           else{
             console.log("Error reading file! This shouldn't happen.");
@@ -315,6 +315,12 @@ exports.menuClicked = function(socket, data, roomDrivers,
               }
               else{
                 sendSuccessCM(socket, data);
+                if(data.key == "delete" && data.lock){
+                  console.log("Delete request: lock: " +  data.lock);
+                  io.sockets.in(socket.store.data.room).emit("lock_editor", {
+                    lock: true,
+                  });
+                }
               }
             });
         }catch(ignore){
