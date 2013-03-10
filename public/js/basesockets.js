@@ -41,7 +41,7 @@ function load(socket, type, username){
 	});
 
 	socket.on("get_driver_state", function(){
-		if(isDriver){
+		if(isDriver && fileSelected){
 			socket.emit("post_driver_state", {
 				content: editor.getSession().getValue(),
 				annotations: annotations,
