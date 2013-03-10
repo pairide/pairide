@@ -384,7 +384,11 @@ function sendErrorCM(socket, data, errorMsg){
  * Notify the socket that the context menu action succeeded.
  */
 function sendSuccessCM(socket, data){
-  socket.emit("context_menu_click_result", {key:data.key, result:true});
+
+  if(data.lock)
+    socket.emit("context_menu_click_result", {key:data.key, result:true, lock: true});
+  else
+    socket.emit("context_menu_click_result", {key:data.key, result:true});
 }
 /*
  * Recursively deletes a directory but also works for a single file. 
