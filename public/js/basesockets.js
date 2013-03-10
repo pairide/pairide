@@ -63,7 +63,7 @@ function load(socket, type, username){
 	//listens for incoming updates to the editor caused by the driver
 	//making changes.
 	socket.on("editor_update", function(data){
-		if (!isDriver && !surpress){
+		if (!isDriver){
 			//editor.setValue(data.text);
 			//alert(data.deltas);
 			var deltas = data.deltas;
@@ -73,7 +73,6 @@ function load(socket, type, username){
 			//}
 			editor.getSession().getDocument().applyDeltas(data.deltas);
 		}
-		surpress = false;
 	});
 
 	//listens for changes in the editor and notifies the server
@@ -82,11 +81,14 @@ function load(socket, type, username){
 			//buffering = true;
 			//alert('change');
 			//setTimeout(sendChanges,bufferWait);
+			if (!surpress){
 			var deltas = new Array();
 			deltas.push(e.data);
 			console.log(e.data);
 			socket.emit("editor_changed", {deltas: deltas});
 			//alert(e.data);
+			}
+			surpress = false;
 		}
 	});
 

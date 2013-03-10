@@ -115,7 +115,7 @@ function pathExists(path){
 
 //Handles a request to change file in the workspace
 exports.changeFile = function(socket, data, roomDrivers, roomUsers,
- roomFile, io){
+ roomFile){
 
   var room = data.room;
   var user = data.user;
@@ -137,12 +137,12 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers,
 
     //no previous file had been selected
     if (roomFile[room] == null){
-        loadFile(socket, path, room, roomFile, data.fileName, io);
+        loadFile(socket, path, room, roomFile, data.fileName);
     }
     //previous file must be saved before switching
     else if (roomFile[room] != path){
         saveFile(socket, roomFile[room], data.text);
-        loadFile(socket, path, room, roomFile, data.fileName, io);
+        loadFile(socket, path, room, roomFile, data.fileName);
     }
 
   }
@@ -179,7 +179,7 @@ function saveFile(socket, path, content){
   }
 }
 //Loads a file to a room.
-function loadFile(socket, path, room, roomFile, fileName, io){
+function loadFile(socket, path, room, roomFile, fileName){
   roomFile[room] = path;
   fs.exists(path, function(exists){
       if (exists){
@@ -384,11 +384,7 @@ function sendErrorCM(socket, data, errorMsg){
  * Notify the socket that the context menu action succeeded.
  */
 function sendSuccessCM(socket, data){
-
-  if(data.lock)
-    socket.emit("context_menu_click_result", {key:data.key, result:true, lock: true});
-  else
-    socket.emit("context_menu_click_result", {key:data.key, result:true});
+  socket.emit("context_menu_click_result", {key:data.key, result:true});
 }
 /*
  * Recursively deletes a directory but also works for a single file. 
