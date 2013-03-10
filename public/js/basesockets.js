@@ -57,6 +57,8 @@ function load(socket, type, username){
 			for(var aID in data.annotations){
 				applyAnnotation(data.annotations[aID]);
 			}
+
+			unlock_editor();
 		}
 	});
 

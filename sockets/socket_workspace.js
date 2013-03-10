@@ -315,6 +315,12 @@ exports.menuClicked = function(socket, data, roomDrivers,
               }
               else{
                 sendSuccessCM(socket, data);
+                if(data.key == "delete" && data.lock){
+                  console.log("Delete request: lock: " +  data.lock);
+                  io.sockets.in(socket.store.data.room).emit("lock_editor", {
+                    lock: true,
+                  });
+                }
               }
             });
         }catch(ignore){
@@ -385,9 +391,6 @@ function sendErrorCM(socket, data, errorMsg){
  */
 function sendSuccessCM(socket, data){
 
-  if(data.lock)
-    socket.emit("context_menu_click_result", {key:data.key, result:true, lock: true});
-  else
     socket.emit("context_menu_click_result", {key:data.key, result:true});
 }
 /*

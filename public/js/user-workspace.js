@@ -244,10 +244,12 @@ function setupContextMenu(){
 		if (data.key != "upload"){ //upload currently not implemented
 			handleCMResult(data);
 		}
+	});
 
-		if(data.lock){
+	socket.on("lock_editor", function(data){
+		if(!isDriver){
 			fileSelected = null;
-			lock_editor();
+			lock_editor("Please select a file.");
 		}
 	});
 }
