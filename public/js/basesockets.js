@@ -41,7 +41,7 @@ function load(socket, type, username){
 	});
 
 	socket.on("get_driver_state", function(){
-		if(isDriver){
+		if(isDriver && fileSelected){
 			socket.emit("post_driver_state", {
 				content: editor.getSession().getValue(),
 				annotations: annotations,
@@ -95,7 +95,7 @@ function load(socket, type, username){
 	});
 
 	roomname = roomID(type);
-	socket.emit('join_room', { room: roomname, user:username});
+	socket.emit('join_room', { room: roomname, user:username, wtf:"defined"});
 
 	/* set up chat room */
 	socket.emit('get_users', {room: roomname});
