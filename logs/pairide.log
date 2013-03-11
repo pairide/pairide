@@ -33,3 +33,9 @@
 [2013-03-11 02:12:20.615] [INFO] console - Express server listening on port 8000
 [2013-03-11 02:12:34.767] [INFO] console -    [36minfo  -[39m 'socket.io started'
 [2013-03-11 02:12:35.248] [INFO] console - Express server listening on port 8000
+[2013-03-11 02:13:16.095] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-11 02:13:16.570] [INFO] console - Express server listening on port 8000
+[2013-03-11 02:15:16.041] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-11 02:15:16.523] [INFO] console -    [33mwarn  -[39m 'error raised: Error: listen EACCES'
+[2013-03-11 02:15:23.906] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-11 02:15:24.391] [INFO] console -    [33mwarn  -[39m 'error raised: Error: listen EACCES'
