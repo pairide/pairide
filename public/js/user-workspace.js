@@ -1,6 +1,6 @@
 var socket = connect();
 var username;
-var autoSaveInterval = 1000*60;
+var autoSaveInterval = 1000*30;
 var fileSelected = null;
 /*
  * Relative path to the last item selected in the context menu.
@@ -128,7 +128,8 @@ function saveFile(){
 }
 //Automatically save the current state of the file periodically.
 function autoSave(){
-    if (driver && fileSelected){
+    if (driver && fileSelected && autoSaveToggle){
+    	autoSaveToggle = false;
         saveFile();
     }
 }

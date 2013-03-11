@@ -58,11 +58,9 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins,
     if (roomAdmins[room] && roomAdmins[room] == socket.id){
 
       console.log("deleting room..." + room);
-      //TODO notify others?
       delete roomDrivers[room];
       delete roomAdmins[room];
       delete roomUsers[room];
-      //TODO save file?
       delete roomFile[room];
       delete roomSockets[room];
       //notify everyone that room doesn't exist anymore
@@ -78,16 +76,17 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins,
       roomDrivers[room] = roomAdmins[room];
       //TODO notify admin he has become the driver
     }
-    console.log("Known drivers: ");
-    console.log(roomDrivers);
-    console.log("Known rooms & users: ");
-    console.log(roomUsers);
-    console.log("room Admins");
-    console.log(roomAdmins);
-    console.log("room files");
-    console.log(roomFile);
-    console.log("room sockets");
-    console.log(roomSockets);
+    // console.log("Post disconnect data");
+    // console.log("Known drivers: ");
+    // console.log(roomDrivers);
+    // console.log("Known rooms & users: ");
+    // console.log(roomUsers);
+    // console.log("room Admins");
+    // console.log(roomAdmins);
+    // console.log("room files");
+    // console.log(roomFile);
+    // console.log("room sockets");
+    // console.log(roomSockets);
 
     //Notify other room members that user left
     io.sockets.in(room).emit('user_disconnect', 

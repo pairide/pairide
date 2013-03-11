@@ -7,14 +7,13 @@ var port = require('../../config.js').DEFAULT_PORT;
 var url = "http://"+host+":"+port;
 var isDriver; 
 var driver;
-var buffering = false;
-var bufferWait = 250; //in ms
 var roomname;
 var currentHighlight;
 var annotationID = 0;
 var annotations = new Object();
 var users = {};
 var refreshed = false;
+var autoSaveToggle = false;
 
 //base load function for the workspace
 function load(socket, type, username){
@@ -65,13 +64,7 @@ function load(socket, type, username){
 	//making changes.
 	socket.on("editor_update", function(data){
 		if (!isDriver){
-			//editor.setValue(data.text);
-			//alert(data.deltas);
 			var deltas = data.deltas;
-			//alert(deltas.length);
-			//for(var i=0; i<deltas.length; i++){
-			//	alert(deltas[i]);
-			//}
 			editor.getSession().getDocument().applyDeltas(data.deltas);
 		}
 	});
@@ -79,6 +72,7 @@ function load(socket, type, username){
 	//listens for changes in the editor and notifies the server
 	editor.getSession().getDocument().on('change', function(e) {
 		if (isDriver){
+			autoSaveToggle = true;
 			var deltas = new Array();
 			deltas.push(e.data);
 			console.log(e.data);
@@ -234,7 +228,7 @@ function roomID(type){
 	//urls for express sessions and normal sessions 
 	//are not the same 
 	if(type=="workspace"){
-		matchRoomRequest = /.*\/workspace\/(.{3,})/;
+		matchRoomRequest = /.*\/workspace\/(.+)/;
 	}
 	else{
 		matchRoomRequest = /.*\/express\/(.{32})/;
