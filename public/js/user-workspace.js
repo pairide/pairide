@@ -198,7 +198,9 @@ function setupContextMenu(){
 				$('#cmDelLegend').html( "Delete " + cmRelPath);
 				$('#contextMenuModaldelete').modal('show');
 			}
-			//else if ...upload
+			else if (key == "upload"){
+				alert('This function has not been implemented yet.');
+			}
 		},
 		//the list of items on the menu
 		items: {
@@ -264,6 +266,7 @@ function setupContextMenu(){
 				});
 
 	});
+
 	//listens for a result of a context menu action.
 	socket.on("context_menu_click_result", function(data){
 		if (data.key != "upload"){ //upload currently not implemented
