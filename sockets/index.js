@@ -54,7 +54,8 @@ exports.communicate = function(io){
       });
 
       socket.on("context_menu_clicked", function(data){
-        workspace.menuClicked(socket, data, roomDrivers, roomUsers, roomFile, io);
+        workspace.menuClicked(socket, data, roomDrivers, roomUsers,
+        roomAdmins, roomFile, io);
       });
 
       //relay the message that the editor has changed
@@ -77,7 +78,6 @@ exports.communicate = function(io){
          data);
       });
       socket.on("unlock_navigators", function(data){
-        console.log(data);
         workspace.unlockNavigators(socket, data, roomDrivers, roomUsers, io);
       });
       socket.on("post_annotation", function(data){

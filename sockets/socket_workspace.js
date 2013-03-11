@@ -279,15 +279,25 @@ function validateUser(socket, room, username, roomUsers){
  * projects.
  */
 exports.menuClicked = function(socket, data, roomDrivers, 
-  roomUsers, roomFile, io){
+  roomUsers, roomAdmins, roomFile, io){
 
   var room = data.room;
   if (validateDriver(socket, room, data.user, 
     roomDrivers, roomUsers)){
-    var username = md5h(data.user);
+
+    var adminID = roomAdmins[room];
+    var username = md5h(roomUsers[room][adminID]);
     var relPath = unescape(data.relPath);
     var directory = process.cwd() + "/users"; 
     var path = unescape(directory + "/" + username + relPath);
+
+    console.log("Context menu action " + data.key 
+      + " at \n" + path 
+      + (data.name? data.name : ""));
+    console.log("__checking__");
+    console.log(roomUsers[room][adminID]);
+    console.log(username);
+
     if (!validatePath(relPath, data.name)){
       sendErrorCM(socket, data, "Name should avoid special characters.");
       return;
@@ -296,9 +306,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
       sendErrorCM(socket,data, "User folder does not exist.");
       return;
     }
-    console.log("Context menu action " + data.key 
-      + " at \n" + path 
-      + (data.name? data.name : ""));
+
 
     switch(data.key){
       //cases correspond to each menu option
