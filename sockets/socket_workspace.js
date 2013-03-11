@@ -35,7 +35,7 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
     });
   }
   roomUsers[data.room][socket.id] = data.user;
-  console.log(roomUsers);
+  socket.emit("socket_connected", {});
 }
 
 //Handles a socket disconnecting. This will do garbage collection
@@ -119,8 +119,8 @@ function pathExists(path){
 }
 
 //Handles a request to change file in the workspace
-exports.changeFile = function(socket, data, roomDrivers, roomUsers,
- roomFile, io){
+exports.changeFile = function(socket, data, roomDrivers, roomUsers, roomAdmins,
+ roomFile){
 
   var room = data.room;
   var user = data.user;
@@ -130,24 +130,25 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers,
       console.log("Path attack: " + data.fileName);
       return;
     }
-    console.log("Path is valid");
+
     var directory = process.cwd() + "/users"; 
-    var path = unescape(directory + "/" + md5h(user) + data.fileName);
+    var adminID = roomAdmins[room];
+    username = md5h(roomUsers[room][adminID]);
+    var path = unescape(directory + "/" + username + data.fileName);
     console.log("check if path exists " + path);
     if (!pathExists(path)){
       console.log("Can't find file requested: " + path);
       return;
     }
-    console.log("Found file requested: " + path);
 
     //no previous file had been selected
     if (roomFile[room] == null){
-        loadFile(socket, path, room, roomFile, data.fileName, io);
+        loadFile(socket, path, room, roomFile, data.fileName);
     }
     //previous file must be saved before switching
     else if (roomFile[room] != path){
         saveFile(socket, roomFile[room], data.text);
-        loadFile(socket, path, room, roomFile, data.fileName, io);
+        loadFile(socket, path, room, roomFile, data.fileName);
     }
 
   }
@@ -159,6 +160,17 @@ exports.handleSaveRequest = function(socket, data, roomDrivers, roomUsers,
   if (validateDriver(socket, room, user, roomDrivers, roomUsers)
     && roomFile[room]){
       saveFile(socket, roomFile[room], data.text);
+  }
+}
+
+//notifies the navigators to unlock their overlay
+exports.unlockNavigators = function(socket, data, roomDrivers, roomUsers, io){
+  var room = data.room;
+  var username = data.user;
+  if (validateDriver(socket, room, username, roomDrivers, roomUsers) 
+    && data.fileName){
+      io.sockets.in(room).emit("unlock_navigator", 
+        { fileName: data.fileName });
   }
 }
 //Save content a file at the given path
@@ -184,22 +196,22 @@ function saveFile(socket, path, content){
   }
 }
 //Loads a file to a room.
-function loadFile(socket, path, room, roomFile, fileName, io){
+function loadFile(socket, path, room, roomFile, fileName){
   roomFile[room] = path;
   fs.exists(path, function(exists){
       if (exists){
         fs.readFile(path, function(err, data) {
           if (!err){
-            io.sockets.in(room).emit("receive_file", 
-              {
-                text:unescape(data),
-                fileName:fileName
-              });
-            // socket.emit("receive_file", 
+            // io.sockets.in(room).emit("receive_file", 
             //   {
             //     text:unescape(data),
             //     fileName:fileName
             //   });
+            socket.emit("receive_file", 
+              {
+                text:unescape(data),
+                fileName:fileName
+              });
           }
           else{
             console.log("Error reading file! This shouldn't happen.");
@@ -267,15 +279,22 @@ function validateUser(socket, room, username, roomUsers){
  * projects.
  */
 exports.menuClicked = function(socket, data, roomDrivers, 
-  roomUsers, roomFile, io){
+  roomUsers, roomAdmins, roomFile, io){
 
   var room = data.room;
   if (validateDriver(socket, room, data.user, 
     roomDrivers, roomUsers)){
-    var username = md5h(data.user);
+
+    var adminID = roomAdmins[room];
+    var username = md5h(roomUsers[room][adminID]);
     var relPath = unescape(data.relPath);
     var directory = process.cwd() + "/users"; 
     var path = unescape(directory + "/" + username + relPath);
+
+    console.log("Context menu action " + data.key 
+      + " at \n" + path 
+      + (data.name? data.name : ""));
+
     if (!validatePath(relPath, data.name)){
       sendErrorCM(socket, data, "Name should avoid special characters.");
       return;
@@ -284,9 +303,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
       sendErrorCM(socket,data, "User folder does not exist.");
       return;
     }
-    console.log("Context menu action " + data.key 
-      + " at \n" + path 
-      + (data.name? data.name : ""));
+
 
     switch(data.key){
       //cases correspond to each menu option
@@ -301,7 +318,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
                 sendErrorCM(socket,data,err);
               } else {
                 saveFile(socket, roomFile[room], data.text);
-                loadFile(path + data.name, room, roomFile, io, data.name, io);
+                loadFile(path + data.name, room, roomFile, io, data.name);
                 sendSuccessCM(socket, data);
               }
             }); 
