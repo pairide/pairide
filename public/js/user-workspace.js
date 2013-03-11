@@ -220,9 +220,9 @@ function setupContextMenu(){
 		items: {
 			"file": {name: "Create File", icon: "edit"},
 			"sep1": "---------",
-			"upload": {name: "Upload File", icon: "cut"},
+			"upload": {name: "Upload File", icon: "upload"},
 			"sep2": "---------",
-			"directory": {name: "Add directory", icon: "cut"},
+			"directory": {name: "Add directory", icon: "add"},
 			"sep2": "---------",
 			"delete": {name: "Delete", icon: "delete"},
 			"sep5": "---------",
