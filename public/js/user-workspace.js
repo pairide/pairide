@@ -80,10 +80,14 @@ $(document).ready(function(){
 	});
 
 	$('#saveFile').on("click", function(){
-		if(isDriver){
+		if(isDriver && fileSelected){
 			show_loader("Saving...");
 			saveFile();
-		}else{
+		}
+		else if (fileSelected == null){
+			showMessage("No file selected.", true);
+		}
+		else{
 			showMessage("Only the driver can save.", true);
 		}
 	});
