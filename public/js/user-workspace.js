@@ -158,6 +158,7 @@ function setupContextMenu(){
 
 	//capture the DOM element that was right clicked
 	if (document.addEventListener) {
+
 		document.addEventListener('contextmenu', function(e) {
 			if (e.target.getAttribute('rel')){
 				cmRelPath = e.target.getAttribute('rel');

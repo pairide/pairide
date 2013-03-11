@@ -3,6 +3,7 @@ var editor;
 var uploadClipBoard = "";
 var Range;
 var annotBoxLeft;
+var currentHighlightedFile = null;
 var languages = {"Python" : "python",
                  "Javascript" : "javascript",
                  "Java" : "java",
