@@ -3,7 +3,7 @@
  */
 
 var host = window.location.hostname;
-var port = 8000;
+var port = require('../../config.js').DEFAULT_PORT;
 var url = "http://"+host+":"+port;
 var isDriver; 
 var driver;
