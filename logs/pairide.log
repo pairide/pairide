@@ -1,1 +1,268 @@
 
+[2013-03-10 23:52:49.206] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-10 23:52:49.686] [INFO] console - Express server listening on port 8000
+[2013-03-10 23:53:17.774] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-10 23:53:18.274] [INFO] console - Express server listening on port 8000
+[2013-03-10 23:55:03.485] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-10 23:55:03.980] [INFO] console -    [33mwarn  -[39m 'error raised: Error: listen EACCES'
+[2013-03-10 23:55:09.809] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-10 23:55:10.290] [INFO] console - Express server listening on port 80
+[2013-03-10 23:55:30.442] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'rC_by22pWTsDua0mlnBy'
+[2013-03-10 23:55:30.999] [INFO] console - Client connect.
+[2013-03-10 23:55:31.208] [INFO] console - client request to join user room kldsfklsdfsfdsk
+[2013-03-10 23:55:31.208] [INFO] console - New room created by alexr: kldsfklsdfsfdsk
+[2013-03-10 23:55:31.236] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-03-10 23:55:38.873] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/
+[2013-03-10 23:55:50.637] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-10 23:55:50.639] [INFO] console - disconnect detected
+[2013-03-10 23:55:50.639] [INFO] console - deleting user from room kldsfklsdfsfdsk...alexr
+[2013-03-10 23:55:50.639] [INFO] console - deleting room...kldsfklsdfsfdsk
+[2013-03-10 23:55:51.201] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'HIxhKzrwNsjE6hVAlnBz'
+[2013-03-10 23:55:51.217] [INFO] console - Client connect.
+[2013-03-10 23:55:58.089] [INFO] console - User requested files associated with another room.
+[2013-03-10 23:56:05.036] [INFO] console - User requested files associated with another room.
+[2013-03-10 23:56:08.142] [INFO] console -    [36minfo  -[39m 'handshake authorized' '72TU75sJjZtOQpdXlnB0'
+[2013-03-10 23:56:08.150] [INFO] console - Client connect.
+[2013-03-10 23:56:32.379] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-10 23:56:32.381] [INFO] console - disconnect detected
+[2013-03-10 23:56:34.608] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'UqwQOXGmFjZqHkiXlnB1'
+[2013-03-10 23:56:35.166] [INFO] console - Client connect.
+[2013-03-10 23:56:35.227] [INFO] console - client request to join user room kldsfklsdfsfdsk
+[2013-03-10 23:56:35.227] [INFO] console - New room created by alexr: kldsfklsdfsfdsk
+[2013-03-10 23:56:35.251] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-03-10 23:56:37.446] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/ffff/
+[2013-03-10 23:56:38.578] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/
+[2013-03-10 23:56:39.944] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/ffff/
+[2013-03-10 23:56:40.674] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/
+[2013-03-10 23:56:41.213] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:56:41.213] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:56:41.502] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/ffff/
+[2013-03-10 23:56:42.366] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/
+[2013-03-10 23:56:42.918] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:56:42.918] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:56:43.775] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:43.776] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:43.777] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:56:44.561] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:56:44.561] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:56:44.563] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:45.145] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/
+[2013-03-10 23:56:46.101] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:46.102] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:46.104] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:56:46.273] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:46.274] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:46.692] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:46.693] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:46.937] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:46.938] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:47.135] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:47.136] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:47.730] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/
+[2013-03-10 23:56:48.588] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:56:48.588] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:56:48.589] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfs
+[2013-03-10 23:56:49.241] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:56:49.242] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:56:49.243] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:56:49.746] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:56:49.746] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:56:49.747] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:56:50.041] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:56:50.042] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:56:50.748] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:56:50.748] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:56:50.753] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:56:50.992] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:56:50.993] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:56:51.814] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:56:51.814] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:56:52.756] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:56:52.757] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:56:52.757] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:56:53.984] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:56:53.985] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:56:53.988] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:56:55.237] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:56:55.237] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:56:55.238] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:56:56.580] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:56:56.580] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:56:56.581] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:56:57.749] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:56:57.750] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:56:57.751] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:56:59.387] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:56:59.388] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:56:59.389] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:00.564] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:00.565] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:00.566] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:04.754] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:08.447] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:57:08.448] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:08.449] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:08.625] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:57:08.626] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:25.499] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:25.500] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:25.502] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:28.485] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:57:28.485] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:28.487] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:29.147] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:57:29.147] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:29.149] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:29.658] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:29.660] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:29.661] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:30.118] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:57:30.118] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:30.119] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:30.561] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:57:30.562] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:30.562] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:31.341] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:31.341] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:31.342] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:31.855] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:57:31.856] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:31.856] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:32.375] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:57:32.376] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:32.377] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:32.891] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:32.892] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:32.893] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:33.386] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:57:33.387] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:33.388] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:34.036] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:57:34.040] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:34.041] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:34.753] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:34.946] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:57:34.947] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:34.947] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:35.442] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:57:35.443] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:35.445] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:36.156] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:36.156] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:36.157] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:36.563] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:57:36.563] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:36.564] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:37.268] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:37.269] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:37.270] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:37.597] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:57:37.597] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:37.599] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:38.370] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:38.371] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:38.372] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:38.715] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:57:38.715] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:38.718] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:39.906] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:57:39.906] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:39.908] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:40.713] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:57:40.714] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:40.715] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:41.400] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:57:41.400] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:42.479] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:42.480] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:42.480] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:57:43.747] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:57:43.748] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:43.751] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:44.706] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:44.706] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:57:44.708] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:57:46.486] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:57:46.487] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:57:46.488] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:01.352] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:01.353] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:01.355] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:58:02.412] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:58:02.413] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:02.414] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:03.105] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:03.106] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:03.107] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:03.655] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:58:03.655] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:03.657] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:04.137] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:58:04.138] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:58:04.139] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:04.558] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:58:04.558] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:04.559] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:58:04.752] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:05.914] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:58:05.915] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:06.770] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:06.771] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:06.771] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:07.301] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:58:07.302] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:07.308] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:08.251] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:08.251] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:08.253] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:08.650] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:58:08.650] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:08.651] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:10.095] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:10.095] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:10.096] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:10.553] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:58:10.553] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:10.554] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-10 23:58:11.375] [INFO] console - user alexr requested file /tester/tester2/sfkjsdl
+[2013-03-10 23:58:11.376] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:58:11.377] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:13.629] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-10 23:58:13.629] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:13.631] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sfkjsdl
+[2013-03-10 23:58:18.330] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:58:18.331] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:58:18.332] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-10 23:58:20.190] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/
+[2013-03-10 23:58:28.432] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:58:28.432] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:58:34.767] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-10 23:58:42.746] [INFO] console -    [36minfo  -[39m 'transport end (socket end)'
+[2013-03-10 23:58:42.746] [INFO] console - disconnect detected
+[2013-03-10 23:58:42.906] [INFO] console -    [36minfo  -[39m 'handshake authorized' '4NYja97fH4BWAaidlnB2'
+[2013-03-10 23:58:43.090] [INFO] console - Client connect.
+[2013-03-10 23:59:35.270] [INFO] console -    [36minfo  -[39m 'transport end (socket end)'
+[2013-03-10 23:59:35.271] [INFO] console - disconnect detected
+[2013-03-11 00:00:04.757] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-11 00:00:34.761] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-11 00:01:04.756] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-11 00:02:15.076] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-11 00:02:15.076] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-11 00:02:15.077] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-11 00:02:16.438] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfsreg
+[2013-03-11 00:02:16.439] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-11 00:02:16.440] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-11 00:02:17.507] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-11 00:02:17.508] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-11 00:02:17.509] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-11 00:02:18.637] [INFO] console - user alexr requested file /tester/tester2/sdfsdfsdfsdf
+[2013-03-11 00:02:18.638] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-11 00:02:18.639] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-11 00:02:19.922] [INFO] console - user alexr requested file /tester/tester2/nhello
+[2013-03-11 00:02:19.923] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-11 00:02:19.924] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/sdfsdfsdfsdf
+[2013-03-11 00:02:21.489] [INFO] console - user alexr requested file /tester/sdfkjsdfklskdfsreg
+[2013-03-11 00:02:21.489] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-11 00:02:21.491] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/tester2/nhello
+[2013-03-11 00:02:34.784] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
+[2013-03-11 00:03:04.922] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/tester/sdfkjsdfklskdfsreg
