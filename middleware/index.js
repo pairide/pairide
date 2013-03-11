@@ -41,6 +41,7 @@ exports.checkAuth = function(req, res, next){
 exports.checkRoom = function(req, res, next){
   var matchRoomRequest = /.*\/(express|workspace)\/(.+)/;
   var rooms = require('../routes/room.js').roomsCreated;
+  var sanitizer = /.*[\/\.].*/;
 
   if(matchRoomRequest){
     var room = matchRoomRequest.exec(req.url)[2];
@@ -51,6 +52,6 @@ exports.checkRoom = function(req, res, next){
       }
     } 
   }
-  
+
   res.render('notify', {current: false, title: 'Invalid room', type: "error", notification: "The room you have requested does not exist."});
 }

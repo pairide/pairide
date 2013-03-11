@@ -3,7 +3,7 @@
  */
 
 var host = window.location.hostname;
-var port = 80;
+var port = 8000;
 var url = "http://"+host+":"+port;
 var isDriver; 
 var driver;

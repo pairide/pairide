@@ -1,0 +1,35 @@
+[2013-03-11 02:03:31.101] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-11 02:03:34.743] [INFO] console - Express server listening on port 8000
+[2013-03-11 02:03:44.240] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-11 02:03:44.715] [INFO] console - Express server listening on port 8000
+[2013-03-11 02:05:37.336] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'MJO9ID08D6EI4b2tDCbw'
+[2013-03-11 02:05:37.599] [INFO] console - Client connect.
+[2013-03-11 02:05:37.633] [INFO] console - client request to join user room alex
+[2013-03-11 02:05:37.648] [INFO] console - New room created by alex: alex
+[2013-03-11 02:05:37.674] [INFO] console - Files requested at: /home/warren/csc494/pairide/users/534b44a19bf18d20b71ecc4eb77c572f/
+[2013-03-11 02:05:40.001] [INFO] console -    [36minfo  -[39m 'transport end (socket end)'
+[2013-03-11 02:05:40.002] [INFO] console - disconnect detected
+[2013-03-11 02:05:40.002] [INFO] console - deleting user from room alex...alex
+[2013-03-11 02:05:40.002] [INFO] console - deleting room...alex
+[2013-03-11 02:06:10.564] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-11 02:06:11.040] [INFO] console - Express server listening on port 8000
+[2013-03-11 02:10:35.524] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'znRpKMO5Km5ervXRDmKE'
+[2013-03-11 02:10:35.539] [INFO] console - Client connect.
+[2013-03-11 02:10:35.708] [INFO] console - client request to join user room csc123
+[2013-03-11 02:10:35.708] [INFO] console - New room created by alex: csc123
+[2013-03-11 02:10:35.760] [INFO] console - Files requested at: /home/warren/csc494/pairide/users/534b44a19bf18d20b71ecc4eb77c572f/
+[2013-03-11 02:10:43.800] [INFO] console -    [36minfo  -[39m 'transport end (socket end)'
+[2013-03-11 02:10:43.801] [INFO] console - disconnect detected
+[2013-03-11 02:10:43.801] [INFO] console - deleting user from room csc123...alex
+[2013-03-11 02:10:43.802] [INFO] console - deleting room...csc123
+[2013-03-11 02:10:51.007] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'fozAuh4vo57wsHF_DmKF'
+[2013-03-11 02:10:51.019] [INFO] console - Client connect.
+[2013-03-11 02:10:51.167] [INFO] console - client request to join user room 23
+[2013-03-11 02:10:51.167] [INFO] console - New room created by alex: 23
+[2013-03-11 02:10:51.214] [INFO] console - Files requested at: /home/warren/csc494/pairide/users/534b44a19bf18d20b71ecc4eb77c572f/
+[2013-03-11 02:11:13.729] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-11 02:11:14.202] [INFO] console - Express server listening on port 8000
+[2013-03-11 02:12:20.139] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-11 02:12:20.615] [INFO] console - Express server listening on port 8000
+[2013-03-11 02:12:34.767] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-11 02:12:35.248] [INFO] console - Express server listening on port 8000

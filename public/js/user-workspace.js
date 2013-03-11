@@ -78,7 +78,7 @@ $(document).ready(function(){
 	setupContextMenu();
 
 	$("#addProjectButton").click(function(){
-		$("#projectCreatorModalInput").val)();
+		$("#projectCreatorModalInput").val('');
 		$('#projectCreatorModal').modal('show');
 	});
 	$('#createProjectForm').ajaxForm(function(data) {
