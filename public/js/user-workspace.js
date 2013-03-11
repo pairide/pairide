@@ -80,7 +80,7 @@ $(document).ready(function(){
 	$("#addProjectButton").click(function(){
 		$("#projectCreatorModalInput").val)();
 		$('#projectCreatorModal').modal('show');
-	});projectCreatorModalInput
+	});
 	$('#createProjectForm').ajaxForm(function(data) {
 
 		if (data.result){
