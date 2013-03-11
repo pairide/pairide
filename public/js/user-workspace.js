@@ -42,19 +42,31 @@ $(document).ready(function(){
 			}
 			else{
 				load(socket, "workspace", username);
-				requestWorkspace();
 			}
 		});		
 	}
-
+	socket.on("socket_connected", function(data){
+		requestWorkspace();
+	});
 	socket.on("receive_file", function(data){
 
-		if (isDriver){
-			surpress = true;
+		if(isDriver){
+			setFileSelected(data.fileName);
+			unlock_editor();
+			load_file(data.text);
+			socket.emit("unlock_navigators", {
+				fileName: data.fileName, 
+				room: roomname,
+				user: username
+			});
 		}
-		setFileSelected(data.fileName);
-		load_file(data.text);
-		unlock_editor();
+	});
+
+	socket.on("unlock_navigator", function(data){
+		if (!isDriver){
+			setFileSelected(data.fileName);
+			unlock_editor();
+		}
 	});
 
 	$("#code_overlay")
@@ -80,10 +92,14 @@ $(document).ready(function(){
 	});
 
 	$('#saveFile').on("click", function(){
-		if(isDriver){
+		if(isDriver && fileSelected){
 			show_loader("Saving...");
 			saveFile();
-		}else{
+		}
+		else if (fileSelected == null){
+			showMessage("No file selected.", true);
+		}
+		else{
 			showMessage("Only the driver can save.", true);
 		}
 	});
@@ -126,7 +142,9 @@ function requestWorkspace(){
 		script: 'fileconnector',
 		expandSpeed: 350,
 		collapseSpeed: 350,
-		multiFolder: false
+		multiFolder: false,
+		sID: socket.socket['sessionid'],
+		room: roomname
 	}, function(file) {
 		//event for when a file is clicked
 
@@ -157,22 +175,31 @@ function setupContextMenu(){
 
 
 	//capture the DOM element that was right clicked
-	if (document.addEventListener) {
+	$('#fileTree').on('contextmenu', function(e) {
+		if ($(e.target).attr('rel')){
+			cmRelPath = $(e.target).attr('rel');
+		}
+		e.preventDefault();
+	});
 
-		document.addEventListener('contextmenu', function(e) {
-			if (e.target.getAttribute('rel')){
-				cmRelPath = e.target.getAttribute('rel');
-			} 
-			e.preventDefault();
-		}, false);
-	} else {
-		document.attachEvent('oncontextmenu', function(e) {
-			if (window.event.srcElement.getAttribute('rel')){
-				cmRelPath = e.target.getAttribute('rel');
-			}
-			window.event.returnValue = false;
-		});
-	}
+	// if (document.addEventListener) {
+	// 	document.addEventListener('contextmenu', function(e) {
+	// 		if (e.target.getAttribute('rel')){
+	// 			cmRelPath = e.target.getAttribute('rel');	
+	// 		} 
+			
+	// 		e.preventDefault();
+	// 	}, false);
+	// } else {
+	// 	document.attachEvent('oncontextmenu', function(e) {
+	// 		if (window.event.srcElement.getAttribute('rel')){
+	// 			cmRelPath = e.target.getAttribute('rel');
+	// 		}
+	// 				alert(window.event.srcElement.getAttribute('rel') + " !!!!!!");
+	// 		window.event.returnValue = false;
+	// 	});
+	// }
+
 	//handling context menu for directories and projects
 	$.contextMenu({
 		selector: '.context-menu-one', 
@@ -184,7 +211,9 @@ function setupContextMenu(){
 				$('#cmDelLegend').html( "Delete " + cmRelPath);
 				$('#contextMenuModaldelete').modal('show');
 			}
-			//else if ...upload
+			else if (key == "upload"){
+				alert('This function has not been implemented yet.');
+			}
 		},
 		//the list of items on the menu
 		items: {
@@ -217,9 +246,6 @@ function setupContextMenu(){
 					room: roomname,
 					lock: currentFileDeleted
 				});
-
-
-
 	}); 
 	//user declines deletion
 	$('#cmDelButtonNo').on('click', function(e){
@@ -250,6 +276,7 @@ function setupContextMenu(){
 				});
 
 	});
+
 	//listens for a result of a context menu action.
 	socket.on("context_menu_click_result", function(data){
 		if (data.key != "upload"){ //upload currently not implemented

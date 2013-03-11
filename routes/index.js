@@ -1,6 +1,8 @@
 var fs = require('fs'),
 md5h = require('MD5'),
-Recaptcha = require('recaptcha').Recaptcha;
+Recaptcha = require('recaptcha').Recaptcha,
+roomUsers = require('../sockets/index.js').roomUsers,
+roomAdmins = require('../sockets/index.js').roomAdmins;
 
 var config = require('../config');
 
@@ -190,13 +192,13 @@ function pathExists(path){
     return false;
   }
 }
+
 /*
  * Handle the ajax POST request for the file browser. A request is given
  * everytime a user loads the workspace or when they click to open a directory.
  * The directory of files is fetched and rendered into html.
  */
 exports.fileConnector = function(req, res){
-  console.log("................................");
   //the directory path for all user files
   var directory = process.cwd() + "/users"; 
   //the name of the user requesting files
@@ -207,8 +209,15 @@ exports.fileConnector = function(req, res){
   //the relative path from the users folder
   var relPath
 
-  if (req.session && req.session.user_id){
-    username = md5h(req.session.user_id);
+  var room = req.body.room;
+  var sockID = req.body.sID;
+  
+  if (room && sockID 
+    && roomUsers[room] && roomAdmins[room] 
+    && sockID in roomUsers[room]){
+
+    var adminID = roomAdmins[room];
+    username = md5h(roomUsers[room][adminID]);
     relPath = unescape(req.body.dir);
     path = directory + "/" + username + relPath;
     if (!pathExists(directory + "/" + username)){
