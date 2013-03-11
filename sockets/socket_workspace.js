@@ -294,9 +294,6 @@ exports.menuClicked = function(socket, data, roomDrivers,
     console.log("Context menu action " + data.key 
       + " at \n" + path 
       + (data.name? data.name : ""));
-    console.log("__checking__");
-    console.log(roomUsers[room][adminID]);
-    console.log(username);
 
     if (!validatePath(relPath, data.name)){
       sendErrorCM(socket, data, "Name should avoid special characters.");
