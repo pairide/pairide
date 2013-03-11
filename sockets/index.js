@@ -25,6 +25,8 @@ var roomSockets = {};
 var workspace =  require('./socket_workspace');
 
 exports.roomAdmins = roomAdmins;
+exports.roomUsers = roomUsers;
+
 exports.communicate = function(io){
 
 	io.sockets.on('connection', function (socket) {
@@ -74,7 +76,10 @@ exports.communicate = function(io){
         io.sockets.in(socket.store.data.room).emit('get_selection',
          data);
       });
-
+      socket.on("unlock_navigators", function(data){
+        console.log(data);
+        workspace.unlockNavigators(socket, data, roomDrivers, roomUsers, io);
+      });
       socket.on("post_annotation", function(data){
         //console.log("ANNOT: " + data);
         //console.log(roomDrivers[socket.store.data.room]);
@@ -106,7 +111,8 @@ exports.communicate = function(io){
       //File requests handlers
       socket.on('get_file', function(data){
         console.log("user " + data.user + " requested file " + data.fileName);
-        workspace.changeFile(socket, data, roomDrivers, roomUsers, roomFile, io);
+        workspace.changeFile(socket, data, roomDrivers, roomUsers, 
+          roomAdmins, roomFile);
       });
 
       socket.on('save_file', function(data){

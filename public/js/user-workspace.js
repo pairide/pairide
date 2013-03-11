@@ -42,19 +42,31 @@ $(document).ready(function(){
 			}
 			else{
 				load(socket, "workspace", username);
-				requestWorkspace();
 			}
 		});		
 	}
-
+	socket.on("socket_connected", function(data){
+		requestWorkspace();
+	});
 	socket.on("receive_file", function(data){
 
-		if (isDriver){
-			surpress = true;
+		if(isDriver){
+			setFileSelected(data.fileName);
+			unlock_editor();
+			load_file(data.text);
+			socket.emit("unlock_navigators", {
+				fileName: data.fileName, 
+				room: roomname,
+				user: username
+			});
 		}
-		setFileSelected(data.fileName);
-		load_file(data.text);
-		unlock_editor();
+	});
+
+	socket.on("unlock_navigator", function(data){
+		if (!isDriver){
+			setFileSelected(data.fileName);
+			unlock_editor();
+		}
 	});
 
 	$("#code_overlay")
@@ -127,7 +139,8 @@ function requestWorkspace(){
 		expandSpeed: 350,
 		collapseSpeed: 350,
 		multiFolder: false,
-		sID: "abc"
+		sID: socket.socket['sessionid'],
+		room: roomname
 	}, function(file) {
 		//event for when a file is clicked
 
@@ -227,9 +240,6 @@ function setupContextMenu(){
 					room: roomname,
 					lock: currentFileDeleted
 				});
-
-
-
 	}); 
 	//user declines deletion
 	$('#cmDelButtonNo').on('click', function(e){

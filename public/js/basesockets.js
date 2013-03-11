@@ -15,7 +15,6 @@ var annotationID = 0;
 var annotations = new Object();
 var users = {};
 var refreshed = false;
-var surpress = false;
 
 //base load function for the workspace
 function load(socket, type, username){
@@ -80,17 +79,10 @@ function load(socket, type, username){
 	//listens for changes in the editor and notifies the server
 	editor.getSession().getDocument().on('change', function(e) {
 		if (isDriver){
-			//buffering = true;
-			//alert('change');
-			//setTimeout(sendChanges,bufferWait);
-			if (!surpress){
 			var deltas = new Array();
 			deltas.push(e.data);
 			console.log(e.data);
-			socket.emit("editor_changed", {deltas: deltas});
-			//alert(e.data);
-			}
-			surpress = false;
+			socket.emit("editor_changed", {deltas: deltas, });
 		}
 	});
 
@@ -220,15 +212,8 @@ function load(socket, type, username){
 			changeLanguage(data.language);
 		}
 	});
-
 }
 
-function sendChanges(){
-	if (isDriver){
-		socket.emit("editor_changed", {text: editor.getValue()});
-		buffering = false;
-	}
-}
 /*
  * Change the users state to be a driver or a navigator.
  */
