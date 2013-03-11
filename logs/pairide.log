@@ -1,3 +1,0 @@
-
-[2013-03-11 00:59:53.320] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-11 00:59:53.795] [INFO] console -    [33mwarn  -[39m 'error raised: Error: listen EACCES'

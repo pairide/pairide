@@ -27,11 +27,13 @@ exports.login = function(req, res){
 
 		}else if(!user){
 			notification = "No such user registered. Please re-check your credentials again.";
+			res.render('notify', {current: "Login", title: title, type: type, notification: notification});
 
 		}else{
 			// Check if user email is validated
 			if(!user.validated){
 				notification = "Your account has not been activated it. Please activate it first.";
+				res.render('notify', {current: "Login", title: title, type: type, notification: notification});
 
 			}else{
 				// Compare the password. 
@@ -44,11 +46,10 @@ exports.login = function(req, res){
 				}else{
 
 					notification = "Passwords don't match; please re-check your credentials again.";
+					res.render('notify', {current: "Login", title: title, type: type, notification: notification});
 				}
 			}
 		}
-		//TODO: Render a new login box.
-		res.render('notify', {current: "Login", title: title, type: type, notification: notification});
 	});
 };
 
@@ -251,8 +252,6 @@ exports.processForgotPassword = function(req, res){
 	if(success){
 
 		db.users.findOne({email: req.body.email}, function(error, user){
-
-			console.log(req.body.email);
 
 			if(error){
 				// DB Transaction error.
