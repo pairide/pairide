@@ -1,3 +1,5 @@
+roomsCreated = new Array();
+exports.roomsCreated = roomsCreated;
 
 /* 
  * Create a random session and redirect  
@@ -13,11 +15,13 @@ exports.create = function(req, res){
 	  		{
 	  			result:!roomExists, 
 	  			room:req.body.room_name
-	  		});	
+	  		});
+	  	roomsCreated.push(req.body.room_name);	
 	}else{
 		// User may or may not be logged in.
 		var md5h = require('MD5');
 		hash = md5h(new Date().getTime());
+		roomsCreated.push(hash);
 		res.redirect('/express/' + hash);
 	}
 }

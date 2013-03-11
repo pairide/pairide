@@ -74,6 +74,11 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins,
       delete roomSockets[room];
       //notify everyone that room doesn't exist anymore
       io.sockets.in(room).emit('admin_disconnect', {});
+
+      //remove room from the roomsCreated list
+      var rooms = require('../routes/room.js').roomsCreated;
+      var index = rooms.indexOf(room);
+      rooms.splice(index, 1);
     }
     else if (roomDrivers[room] && roomDrivers[room] == socket.id){
       //current driver left; default driver to the admin

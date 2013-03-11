@@ -28,10 +28,10 @@ html
 							each page in pages
 								if current == page
 									li.active
-										a('href'=page.toLowerCase()) #{page}
+										a('href'='/' + page.toLowerCase()) #{page}
 								else
 									li
-										a('href'=page.toLowerCase()) #{page}
+										a('href'='/' + page.toLowerCase()) #{page}
 						h3.muted
 							a(href="/").home_link
 								|Pair

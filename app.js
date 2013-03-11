@@ -16,6 +16,7 @@ var routes = require('./routes'),
   room = require('./routes/room'),
   middleware = require('./middleware'),
   checkAuth = middleware.checkAuth,
+  checkRoom = middleware.checkRoom,
   config = require('./config');
 
 /*Configuring presets for express framework.*/
@@ -61,10 +62,10 @@ app.get('/reset', auth.reset_password_form);
 app.get('/profile', checkAuth, middleware.isAuthenticated, routes.profile);
 app.get('/logout', middleware.isAuthenticated, auth.logout);
 //app.get(/^\/workspace\/.+$/, middleware.isAuthenticated, checkAuth, routes.workspace);
-app.get(/^\/workspace\/.+$/, checkAuth, routes.workspace); //swap with above if live
+app.get(/^\/workspace\/.+$/, checkRoom, checkAuth, routes.workspace); //swap with above if live
 app.get('/create_session', checkAuth, room.create);
 app.get('/validate', checkAuth, auth.validate);
-app.get(/^\/express\/.{32}/, checkAuth, room.express_join);
+app.get(/^\/express\/.{32}/, checkRoom, checkAuth, room.express_join);
 
 /* POST Methods */
 app.post('/workspace/fileconnector', routes.fileConnector);
