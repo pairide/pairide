@@ -126,7 +126,8 @@ function requestWorkspace(){
 		script: 'fileconnector',
 		expandSpeed: 350,
 		collapseSpeed: 350,
-		multiFolder: false
+		multiFolder: false,
+		sID: "abc"
 	}, function(file) {
 		//event for when a file is clicked
 
@@ -157,21 +158,30 @@ function setupContextMenu(){
 
 
 	//capture the DOM element that was right clicked
-	if (document.addEventListener) {
-		document.addEventListener('contextmenu', function(e) {
-			if (e.target.getAttribute('rel')){
-				cmRelPath = e.target.getAttribute('rel');
-			} 
-			e.preventDefault();
-		}, false);
-	} else {
-		document.attachEvent('oncontextmenu', function(e) {
-			if (window.event.srcElement.getAttribute('rel')){
-				cmRelPath = e.target.getAttribute('rel');
-			}
-			window.event.returnValue = false;
-		});
-	}
+	$('#fileTree').on('contextmenu', function(e) {
+		if ($(e.target).attr('rel')){
+			cmRelPath = $(e.target).attr('rel');
+		}
+		e.preventDefault();
+	});
+
+	// if (document.addEventListener) {
+	// 	document.addEventListener('contextmenu', function(e) {
+	// 		if (e.target.getAttribute('rel')){
+	// 			cmRelPath = e.target.getAttribute('rel');	
+	// 		} 
+			
+	// 		e.preventDefault();
+	// 	}, false);
+	// } else {
+	// 	document.attachEvent('oncontextmenu', function(e) {
+	// 		if (window.event.srcElement.getAttribute('rel')){
+	// 			cmRelPath = e.target.getAttribute('rel');
+	// 		}
+	// 				alert(window.event.srcElement.getAttribute('rel') + " !!!!!!");
+	// 		window.event.returnValue = false;
+	// 	});
+	// }
 	//handling context menu for directories and projects
 	$.contextMenu({
 		selector: '.context-menu-one', 
