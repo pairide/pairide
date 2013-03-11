@@ -5,7 +5,7 @@ exports.PUBLIC_KEY = PUBLIC_KEY;
 exports.PRIVATE_KEY = PRIVATE_KEY;
 
 // Validation callback URL.
-exports.callbackURL = "http://pairide.com/";
+exports.callbackURL = "http://localhost:8000/";
 
 exports.email_user = "pairit3@gmail.com";
 
@@ -13,4 +13,4 @@ exports.email_pass = "pairitpairit";
 
 exports.email_from_address = "PairIDE <pairit3@gmail.com>";
 
-exports.DEFAULT_PORT = "80";
+exports.DEFAULT_PORT = "8000";
