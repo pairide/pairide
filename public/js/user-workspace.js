@@ -182,6 +182,7 @@ function setupContextMenu(){
 	// 		window.event.returnValue = false;
 	// 	});
 	// }
+
 	//handling context menu for directories and projects
 	$.contextMenu({
 		selector: '.context-menu-one', 

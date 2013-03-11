@@ -78,6 +78,10 @@ if(jQuery) (function($){
 								$(this).parent().removeClass('expanded').addClass('collapsed');
 							}
 						} else {
+							if(currentHighlightedFile)
+								currentHighlightedFile.removeClass("current_file");
+							currentHighlightedFile = $(this);
+							$(this).addClass("current_file");
 							h($(this).attr('rel'));
 						}
 						return false;

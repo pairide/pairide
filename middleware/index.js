@@ -31,10 +31,29 @@ exports.checkAuth = function(req, res, next){
 	if (req.session.user_id) {
 		res.locals.auth = true;
     res.locals.auth_user = req.session.user_id;
-
 	}
 
   // Continue loading as is.
 	next();
 
+}
+
+exports.checkRoom = function(req, res, next){
+  var matchRoomRequest = /.*\/(express|workspace)\/(.+)/;
+  var rooms = require('../routes/room.js').roomsCreated;
+
+  if(matchRoomRequest){
+    var room = matchRoomRequest.exec(req.url)[2];
+    console.log("checkroom " + room);
+    console.log(rooms);
+
+    for (var i = 0; i< rooms.length; i++) {
+      if (rooms[i] == room){
+        console.log("rooms already exists");
+        return next();
+      }
+    } 
+  }
+  
+  res.render('notify', {current: false, title: 'Invalid room', type: "error", notification: "The room you have requested does not exist."});
 }

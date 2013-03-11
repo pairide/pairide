@@ -67,6 +67,11 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins,
       delete roomSockets[room];
       //notify everyone that room doesn't exist anymore
       io.sockets.in(room).emit('admin_disconnect', {});
+
+      //remove room from the roomsCreated list
+      var rooms = require('../routes/room.js').roomsCreated;
+      var index = rooms.indexOf(room);
+      rooms.splice(index, 1);
     }
     else if (roomDrivers[room] && roomDrivers[room] == socket.id){
       //current driver left; default driver to the admin
@@ -315,7 +320,8 @@ exports.menuClicked = function(socket, data, roomDrivers,
               }
               else{
                 sendSuccessCM(socket, data);
-                if(data.key == "delete" && data.lock){
+                if(data.lock){
+                  roomFile[room] = null;
                   console.log("Delete request: lock: " +  data.lock);
                   io.sockets.in(socket.store.data.room).emit("lock_editor", {
                     lock: true,
