@@ -211,11 +211,10 @@ exports.fileConnector = function(req, res){
 
   var room = req.body.room;
   var sockID = req.body.sID;
-  
+
   if (room && sockID 
     && roomUsers[room] && roomAdmins[room] 
     && sockID in roomUsers[room]){
-
     var adminID = roomAdmins[room];
     username = md5h(roomUsers[room][adminID]);
     relPath = unescape(req.body.dir);
@@ -226,7 +225,7 @@ exports.fileConnector = function(req, res){
     }
   }
   else{
-    //user not logged in
+    console.log("User requested files associated with another room.");
     return;
   }
   
