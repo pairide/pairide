@@ -206,7 +206,8 @@ exports.fileConnector = function(req, res){
   var path; 
   //the relative path from the users folder
   var relPath
-
+  console.log("________CHECK_______");
+  console.log(req.body);
   if (req.session && req.session.user_id){
     username = md5h(req.session.user_id);
     relPath = unescape(req.body.dir);

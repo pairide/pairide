@@ -14,11 +14,6 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
   socket.set("nickname", data.user);
   socket.set("room", data.room);
 
-  console.log("____DATA CHECK____");
-  console.log(data);
-  console.log(roomUsers);
-  console.log(roomAdmins);
-  console.log(roomFile);
     //check if the room was newly created
   if ((!roomExistsBefore && roomExistsAfter) || !roomAdmins[data.room]){
     roomDrivers[data.room] = socket.id;
@@ -32,8 +27,6 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
   }
   else{
     var driverID = roomDrivers[data.room];
-    console.log("___DriverID___");
-    console.log(roomDrivers);
     roomSockets[data.room] = socket;
     socket.emit("is_driver", {
       driver:false, 
