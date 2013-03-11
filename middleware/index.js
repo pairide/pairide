@@ -44,12 +44,9 @@ exports.checkRoom = function(req, res, next){
 
   if(matchRoomRequest){
     var room = matchRoomRequest.exec(req.url)[2];
-    console.log("checkroom " + room);
-    console.log(rooms);
 
     for (var i = 0; i< rooms.length; i++) {
       if (rooms[i] == room){
-        console.log("rooms already exists");
         return next();
       }
     } 
