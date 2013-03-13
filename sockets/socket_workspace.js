@@ -433,10 +433,8 @@ fs.removeRecursive = function(path,cb, room, roomFile, io){
           if(err) {
             cb(err,null);
           }else{
-            console.log("!Deleting......" + path);
-            console.log(roomFile[room]);
+            console.log("Deleting file...." + path);
             if (path == roomFile[room]){
-              console.log("___ROOM FILE BEING DELETED___");
                 roomFile[room] = null;
                 io.sockets.in(room).emit("lock_editor", {
                   lock: true,
@@ -492,10 +490,6 @@ fs.removeRecursive = function(path,cb, room, roomFile, io){
                 else{
                   filePath = path + '/' + files[i];
                 }
-                
-                console.log("!Path...." + path);
-                console.log("!Filename...." +  files[i]);
-                console.log("!File path....." + filePath);
                 // Add a named function as callback
                 // just to enlighten debugging
                 fs.removeRecursive(filePath,function removeRecursiveCB(err,status){

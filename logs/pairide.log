@@ -1,1 +1,20 @@
 
+[2013-03-13 00:48:45.129] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 00:48:45.629] [INFO] console - Express server listening on port 80
+[2013-03-13 00:49:09.551] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'OPqV6HiEbi6ZF2IhFDhK'
+[2013-03-13 00:49:09.906] [INFO] console - Client connect.
+[2013-03-13 00:49:10.099] [INFO] console - client request to join user room sdfdsfsdf
+[2013-03-13 00:49:10.100] [INFO] console - New room created by alexr: sdfdsfsdf
+[2013-03-13 00:49:10.247] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-03-13 00:49:12.048] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/
+[2013-03-13 00:49:12.739] [INFO] console - user alexr requested file /as/aa
+[2013-03-13 00:49:12.740] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/aa
+[2013-03-13 00:49:16.906] [INFO] console - Context menu action delete at 
+/home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/
+[2013-03-13 00:49:16.907] [INFO] console - !Path..../home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/
+[2013-03-13 00:49:16.908] [INFO] console - !Filename....aa
+[2013-03-13 00:49:16.908] [INFO] console - !File path...../home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/aa
+[2013-03-13 00:49:16.909] [INFO] console - !Deleting....../home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/aa
+[2013-03-13 00:49:16.909] [INFO] console - /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/aa
+[2013-03-13 00:49:16.910] [INFO] console - ___ROOM FILE BEING DELETED___
+[2013-03-13 00:49:16.984] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
