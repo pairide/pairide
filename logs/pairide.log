@@ -130,3 +130,263 @@
 [2013-03-13 17:04:30.430] [INFO] console - disconnect detected
 [2013-03-13 17:04:30.430] [INFO] console - deleting user from room lol...ufowam
 [2013-03-13 17:04:30.430] [INFO] console - deleting room...lol
+[2013-03-13 17:27:07.678] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:27:08.146] [INFO] console - Express server listening on port 80
+[2013-03-13 17:27:15.571] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'HIV94NLqs3Oy9ie4pkKe'
+[2013-03-13 17:27:15.695] [INFO] console - Client connect.
+[2013-03-13 17:27:15.821] [INFO] console - client request to join user room 083a4703f1c7122542fdbd0bfaee3199
+[2013-03-13 17:27:15.822] [INFO] console - New room created by ufowam: 083a4703f1c7122542fdbd0bfaee3199
+[2013-03-13 17:28:39.791] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:28:40.286] [INFO] console - Express server listening on port 80
+[2013-03-13 17:28:41.003] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'GJS2BB0t6kX3U_sDp6pv'
+[2013-03-13 17:28:41.027] [INFO] console - Client connect.
+[2013-03-13 17:28:43.282] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:28:43.283] [INFO] console - disconnect detected
+[2013-03-13 17:28:49.954] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'cD0O_BgrwHOE02nSp6pw'
+[2013-03-13 17:28:50.229] [INFO] console - Client connect.
+[2013-03-13 17:28:50.425] [INFO] console - client request to join user room 7b4808d6ac28367395df9cb5f4f8cfde
+[2013-03-13 17:28:50.427] [INFO] console - New room created by ufowam: 7b4808d6ac28367395df9cb5f4f8cfde
+[2013-03-13 17:29:18.758] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:29:19.225] [INFO] console - Express server listening on port 80
+[2013-03-13 17:29:19.965] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'uQ7t5xji74iBX_y3qEKm'
+[2013-03-13 17:29:19.983] [INFO] console - Client connect.
+[2013-03-13 17:29:23.181] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:29:23.182] [INFO] console - disconnect detected
+[2013-03-13 17:29:32.892] [INFO] console -    [36minfo  -[39m 'handshake authorized' '4ZjtDqjWgGDxv8p0qEKn'
+[2013-03-13 17:29:33.015] [INFO] console - Client connect.
+[2013-03-13 17:29:33.111] [INFO] console - client request to join user room 97f9d29868fb5aa5a74071ab61de2806
+[2013-03-13 17:29:33.112] [INFO] console - New room created by ufowam: 97f9d29868fb5aa5a74071ab61de2806
+[2013-03-13 17:29:51.467] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:29:51.936] [INFO] console - Express server listening on port 80
+[2013-03-13 17:29:52.630] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'HQR9RKr1E7LpBeR4qMJs'
+[2013-03-13 17:29:52.635] [INFO] console - Client connect.
+[2013-03-13 17:30:02.331] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:30:02.803] [INFO] console - Express server listening on port 80
+[2013-03-13 17:30:03.502] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'LVUkpOnLZcIsBgv9qOzb'
+[2013-03-13 17:30:03.509] [INFO] console - Client connect.
+[2013-03-13 17:30:13.720] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:30:14.209] [INFO] console - Express server listening on port 80
+[2013-03-13 17:30:14.879] [INFO] console -    [36minfo  -[39m 'handshake authorized' '06sjwrl2gGBsEMaKqRlY'
+[2013-03-13 17:30:14.886] [INFO] console - Client connect.
+[2013-03-13 17:30:15.524] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:30:15.525] [INFO] console - disconnect detected
+[2013-03-13 17:30:22.359] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:30:22.838] [INFO] console - Express server listening on port 80
+[2013-03-13 17:30:44.450] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'NV9oKXgwP4Mt2C7NqTsX'
+[2013-03-13 17:30:44.587] [INFO] console - Client connect.
+[2013-03-13 17:30:44.680] [INFO] console - client request to join user room a71378d69fa4210f4c1b2774fdc1bc61
+[2013-03-13 17:30:44.680] [INFO] console - New room created by ufowam: a71378d69fa4210f4c1b2774fdc1bc61
+[2013-03-13 17:31:24.384] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:31:24.860] [INFO] console - Express server listening on port 80
+[2013-03-13 17:31:25.545] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'msGmH9AUIjMRGxiyqi1g'
+[2013-03-13 17:31:25.552] [INFO] console - Client connect.
+[2013-03-13 17:32:08.780] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:32:09.248] [INFO] console - Express server listening on port 80
+[2013-03-13 17:32:09.941] [INFO] console -    [36minfo  -[39m 'handshake authorized' '63GkQ0QvsoNpIimrqtrN'
+[2013-03-13 17:32:09.948] [INFO] console - Client connect.
+[2013-03-13 17:32:13.572] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:32:14.043] [INFO] console - Express server listening on port 80
+[2013-03-13 17:32:14.739] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'uHXXfHO3OZSysB5wqu2E'
+[2013-03-13 17:32:14.746] [INFO] console - Client connect.
+[2013-03-13 17:32:18.179] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:32:18.180] [INFO] console - disconnect detected
+[2013-03-13 17:32:22.768] [INFO] console -    [36minfo  -[39m 'handshake authorized' '0r8PRQVPjeqalFH6qu2F'
+[2013-03-13 17:32:22.885] [INFO] console - Client connect.
+[2013-03-13 17:32:22.987] [INFO] console - client request to join user room a50419686233c5c04265584bd1cc664a
+[2013-03-13 17:32:22.987] [INFO] console - New room created by ufowam: a50419686233c5c04265584bd1cc664a
+[2013-03-13 17:32:44.895] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:32:45.386] [INFO] console - Express server listening on port 80
+[2013-03-13 17:32:46.077] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'XqEcOSen73jdM6soq2fg'
+[2013-03-13 17:32:46.083] [INFO] console - Client connect.
+[2013-03-13 17:32:49.428] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:32:49.429] [INFO] console - disconnect detected
+[2013-03-13 17:32:53.471] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'pnEm-7aulylanN4tq2fh'
+[2013-03-13 17:32:53.585] [INFO] console - Client connect.
+[2013-03-13 17:32:53.613] [INFO] console - client request to join user room 42de9cef16f29a7b901280344de90026
+[2013-03-13 17:32:53.614] [INFO] console - New room created by ufowam: 42de9cef16f29a7b901280344de90026
+[2013-03-13 17:35:41.641] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:35:42.111] [INFO] console - Express server listening on port 80
+[2013-03-13 17:35:42.813] [INFO] console -    [36minfo  -[39m 'handshake authorized' '6OkOFfqp8IYXJSMzrhpK'
+[2013-03-13 17:35:42.819] [INFO] console - Client connect.
+[2013-03-13 17:35:57.807] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:35:58.286] [INFO] console - Express server listening on port 80
+[2013-03-13 17:35:58.964] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'rnI-Zid1oGGggX7prllw'
+[2013-03-13 17:35:58.971] [INFO] console - Client connect.
+[2013-03-13 17:36:16.721] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:36:16.722] [INFO] console - disconnect detected
+[2013-03-13 17:36:21.980] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'EqwZgmnR9B1cOkzhrllx'
+[2013-03-13 17:36:22.095] [INFO] console - Client connect.
+[2013-03-13 17:36:22.120] [INFO] console - client request to join user room 4ef155f1b77cd8e407ad1661cff09930
+[2013-03-13 17:36:22.121] [INFO] console - New room created by ufowam: 4ef155f1b77cd8e407ad1661cff09930
+[2013-03-13 17:37:38.267] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:37:38.761] [INFO] console - Express server listening on port 80
+[2013-03-13 17:37:39.431] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'EBrb8ySobEq8Wf6yr-Hb'
+[2013-03-13 17:37:39.435] [INFO] console - Client connect.
+[2013-03-13 17:37:45.686] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:37:46.172] [INFO] console - Express server listening on port 80
+[2013-03-13 17:37:46.859] [INFO] console -    [36minfo  -[39m 'handshake authorized' '5As0WpXUFxFZKQByr_7X'
+[2013-03-13 17:37:46.865] [INFO] console - Client connect.
+[2013-03-13 17:37:49.141] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:37:49.142] [INFO] console - disconnect detected
+[2013-03-13 17:37:53.822] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'BSBnX8jjJE3U41mZr_7Y'
+[2013-03-13 17:37:53.945] [INFO] console - Client connect.
+[2013-03-13 17:37:53.975] [INFO] console - client request to join user room f3d7bed3c19a03995d5c2fcfd04dafc1
+[2013-03-13 17:37:53.979] [INFO] console - New room created by ufowam: f3d7bed3c19a03995d5c2fcfd04dafc1
+[2013-03-13 17:38:10.709] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:38:11.181] [INFO] console - Express server listening on port 80
+[2013-03-13 17:38:11.875] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'nRMbT72JDtJwFFLjsGCW'
+[2013-03-13 17:38:11.882] [INFO] console - Client connect.
+[2013-03-13 17:38:12.913] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:38:13.397] [INFO] console - Express server listening on port 80
+[2013-03-13 17:38:14.022] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Fvt868bKffblhxf5sGkx'
+[2013-03-13 17:38:14.028] [INFO] console - Client connect.
+[2013-03-13 17:38:18.015] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:38:18.016] [INFO] console - disconnect detected
+[2013-03-13 17:38:22.889] [INFO] console -    [36minfo  -[39m 'handshake authorized' '8hgLL6qEspYHzKy4sGky'
+[2013-03-13 17:38:23.033] [INFO] console - Client connect.
+[2013-03-13 17:38:23.122] [INFO] console - client request to join user room b43f812060decbe0d439df0213a96302
+[2013-03-13 17:38:23.123] [INFO] console - New room created by ufowam: b43f812060decbe0d439df0213a96302
+[2013-03-13 17:38:41.388] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:38:41.389] [INFO] console - disconnect detected
+[2013-03-13 17:38:41.389] [INFO] console - deleting user from room b43f812060decbe0d439df0213a96302...ufowam
+[2013-03-13 17:38:41.389] [INFO] console - deleting room...b43f812060decbe0d439df0213a96302
+[2013-03-13 17:38:49.417] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:38:49.896] [INFO] console - Express server listening on port 80
+[2013-03-13 17:39:12.468] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Ctl_x9lkLS4c3RT5sPfK'
+[2013-03-13 17:39:12.587] [INFO] console - Client connect.
+[2013-03-13 17:39:12.696] [INFO] console - client request to join user room d4f294a91f188eca2bba4b263b3ddca0
+[2013-03-13 17:39:12.697] [INFO] console - New room created by ufowam: d4f294a91f188eca2bba4b263b3ddca0
+[2013-03-13 17:39:32.109] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:39:32.599] [INFO] console - Express server listening on port 80
+[2013-03-13 17:39:33.281] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'eC4G3eX5ZE_qDgRmsZ6N'
+[2013-03-13 17:39:33.290] [INFO] console - Client connect.
+[2013-03-13 17:39:34.376] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:39:34.376] [INFO] console - disconnect detected
+[2013-03-13 17:39:38.947] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'e4KPDN89hvxmOYfbsZ6O'
+[2013-03-13 17:39:39.065] [INFO] console - Client connect.
+[2013-03-13 17:39:39.170] [INFO] console - client request to join user room 55b38cecc00785070caf3d064d35c158
+[2013-03-13 17:39:39.170] [INFO] console - New room created by ufowam: 55b38cecc00785070caf3d064d35c158
+[2013-03-13 17:40:11.479] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:40:11.954] [INFO] console - Express server listening on port 80
+[2013-03-13 17:40:12.652] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'pu3oZ3rLP2lPw2hYsjhX'
+[2013-03-13 17:40:12.664] [INFO] console - Client connect.
+[2013-03-13 17:40:24.603] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:40:24.603] [INFO] console - disconnect detected
+[2013-03-13 17:40:29.173] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'N4Nk0dnrvoum_w0nsjhY'
+[2013-03-13 17:40:29.288] [INFO] console - Client connect.
+[2013-03-13 17:40:29.396] [INFO] console - client request to join user room 959d18e4474647b39912cf5f4731ea93
+[2013-03-13 17:40:29.397] [INFO] console - New room created by ufowam: 959d18e4474647b39912cf5f4731ea93
+[2013-03-13 17:40:41.205] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:40:41.683] [INFO] console - Express server listening on port 80
+[2013-03-13 17:40:42.360] [INFO] console -    [36minfo  -[39m 'handshake authorized' 's80J9YbeAm3iDkKCsqx1'
+[2013-03-13 17:40:42.368] [INFO] console - Client connect.
+[2013-03-13 17:41:08.199] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:41:08.704] [INFO] console - Express server listening on port 80
+[2013-03-13 17:41:09.352] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'QD72LZWTLut5GN5YsxXo'
+[2013-03-13 17:41:09.358] [INFO] console - Client connect.
+[2013-03-13 17:41:25.503] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:41:25.975] [INFO] console - Express server listening on port 80
+[2013-03-13 17:41:26.672] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'snAkICygnmoFMDBQs1l_'
+[2013-03-13 17:41:26.680] [INFO] console - Client connect.
+[2013-03-13 17:41:46.205] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:41:46.722] [INFO] console - Express server listening on port 80
+[2013-03-13 17:41:47.357] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'ElAhnwxs59tn6zwAs6pe'
+[2013-03-13 17:41:47.364] [INFO] console - Client connect.
+[2013-03-13 17:41:58.232] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:41:58.705] [INFO] console - Express server listening on port 80
+[2013-03-13 17:41:59.397] [INFO] console -    [36minfo  -[39m 'handshake authorized' '6A54gBl9EIoAx8RBs9lY'
+[2013-03-13 17:41:59.405] [INFO] console - Client connect.
+[2013-03-13 17:42:06.016] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:42:06.507] [INFO] console - Express server listening on port 80
+[2013-03-13 17:42:07.179] [INFO] console -    [36minfo  -[39m 'handshake authorized' '7tFme5aBSvBPb_y9s_fB'
+[2013-03-13 17:42:07.186] [INFO] console - Client connect.
+[2013-03-13 17:42:42.416] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:42:42.886] [INFO] console - Express server listening on port 80
+[2013-03-13 17:42:43.587] [INFO] console -    [36minfo  -[39m 'handshake authorized' '-uit1V-bYjzlInI0tIXx'
+[2013-03-13 17:42:43.596] [INFO] console - Client connect.
+[2013-03-13 17:42:44.702] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:42:44.704] [INFO] console - disconnect detected
+[2013-03-13 17:42:49.303] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'aWzhbsQ-n9PVIYB3tIXy'
+[2013-03-13 17:42:49.429] [INFO] console - Client connect.
+[2013-03-13 17:42:49.453] [INFO] console - client request to join user room 64bbd18c36800a05d8031bb79ab95e29
+[2013-03-13 17:42:49.456] [INFO] console - New room created by ufowam: 64bbd18c36800a05d8031bb79ab95e29
+[2013-03-13 17:45:30.585] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:45:31.077] [INFO] console - Express server listening on port 80
+[2013-03-13 17:45:31.757] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'vriMvN5h_FIhhqjFtxba'
+[2013-03-13 17:45:31.763] [INFO] console - Client connect.
+[2013-03-13 17:45:36.001] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:45:36.475] [INFO] console - Express server listening on port 80
+[2013-03-13 17:45:37.170] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Lwz4x10f0KzFpHqntywC'
+[2013-03-13 17:45:37.177] [INFO] console - Client connect.
+[2013-03-13 17:45:44.943] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:45:45.407] [INFO] console - Express server listening on port 80
+[2013-03-13 17:45:46.105] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'KHouYePHa6FbF_C-t07v'
+[2013-03-13 17:45:46.111] [INFO] console - Client connect.
+[2013-03-13 17:45:49.308] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:45:49.309] [INFO] console - disconnect detected
+[2013-03-13 17:45:54.216] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'mWNxz39vZCkrPy4lt07w'
+[2013-03-13 17:45:54.339] [INFO] console - Client connect.
+[2013-03-13 17:45:54.436] [INFO] console - client request to join user room 801fe05cd340e5bee491c78b0f4ac545
+[2013-03-13 17:45:54.437] [INFO] console - New room created by ufowam: 801fe05cd340e5bee491c78b0f4ac545
+[2013-03-13 17:47:13.380] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:47:13.854] [INFO] console - Express server listening on port 80
+[2013-03-13 17:47:14.541] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'QsjWtyGprcDrFNVfuKhk'
+[2013-03-13 17:47:14.549] [INFO] console - Client connect.
+[2013-03-13 17:47:43.038] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:47:43.507] [INFO] console - Express server listening on port 80
+[2013-03-13 17:47:44.203] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'i2GY6ydhiIX_P6N7uRw_'
+[2013-03-13 17:47:44.213] [INFO] console - Client connect.
+[2013-03-13 17:47:58.707] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:47:59.180] [INFO] console - Express server listening on port 80
+[2013-03-13 17:47:59.879] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'UeKaJoO5rn2pUH2kuVl0'
+[2013-03-13 17:47:59.885] [INFO] console - Client connect.
+[2013-03-13 17:49:14.448] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:49:14.919] [INFO] console - Express server listening on port 80
+[2013-03-13 17:49:15.607] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'z-58PapUE-BwYMotuoFR'
+[2013-03-13 17:49:15.615] [INFO] console - Client connect.
+[2013-03-13 17:49:22.678] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:49:23.152] [INFO] console - Express server listening on port 80
+[2013-03-13 17:49:23.845] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'UpGne2ZDHmfwznzYuqF3'
+[2013-03-13 17:49:23.851] [INFO] console - Client connect.
+[2013-03-13 17:49:51.007] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:49:51.481] [INFO] console - Express server listening on port 80
+[2013-03-13 17:49:52.172] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'bszK91JWsVr1yzGTuxAf'
+[2013-03-13 17:49:52.180] [INFO] console - Client connect.
+[2013-03-13 17:49:54.356] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:49:54.828] [INFO] console - Express server listening on port 80
+[2013-03-13 17:49:55.526] [INFO] console -    [36minfo  -[39m 'handshake authorized' '1fd6kwcd8XH9EOqpux01'
+[2013-03-13 17:49:55.531] [INFO] console - Client connect.
+[2013-03-13 17:50:03.071] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:50:03.546] [INFO] console - Express server listening on port 80
+[2013-03-13 17:50:04.236] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'QxBg1USuBYUphXhluz9A'
+[2013-03-13 17:50:04.244] [INFO] console - Client connect.
+[2013-03-13 17:50:15.492] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:50:15.965] [INFO] console - Express server listening on port 80
+[2013-03-13 17:50:16.663] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'A8jIe1bHQMWrQHK8u2_E'
+[2013-03-13 17:50:16.669] [INFO] console - Client connect.
+[2013-03-13 17:50:32.560] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:50:33.038] [INFO] console - Express server listening on port 80
+[2013-03-13 17:50:33.728] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'hXD3TpSCptnqOwZqu7Jw'
+[2013-03-13 17:50:33.734] [INFO] console - Client connect.
+[2013-03-13 17:50:39.444] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:50:39.913] [INFO] console - Express server listening on port 80
+[2013-03-13 17:50:40.610] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'lpwY8kHiK0BDdpHpu81U'
+[2013-03-13 17:50:40.616] [INFO] console - Client connect.
+[2013-03-13 17:50:51.111] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:50:51.579] [INFO] console - Express server listening on port 80
+[2013-03-13 17:50:52.276] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'AJPVBk3E2Q6pwcm6u_ro'
+[2013-03-13 17:50:52.285] [INFO] console - Client connect.
+[2013-03-13 17:51:01.146] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:51:01.612] [INFO] console - Express server listening on port 80
+[2013-03-13 17:51:02.311] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'ZvFUxmuxfY0p7irbvCIb'
+[2013-03-13 17:51:02.319] [INFO] console - Client connect.
+[2013-03-13 17:51:08.869] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:51:08.870] [INFO] console - disconnect detected
+[2013-03-13 17:51:13.759] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'ksBs1Q-avcJg0OHKvCIc'
+[2013-03-13 17:51:13.883] [INFO] console - Client connect.
+[2013-03-13 17:51:13.987] [INFO] console - client request to join user room 3641f32ce4e0b6322d3312aabed953c6
+[2013-03-13 17:51:13.989] [INFO] console - New room created by ufowam: 3641f32ce4e0b6322d3312aabed953c6
+[2013-03-13 17:52:50.633] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:52:51.105] [INFO] console - Express server listening on port 80
+[2013-03-13 17:52:51.804] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'nuQg3ebMpe2HIO4Evc3J'
+[2013-03-13 17:52:51.812] [INFO] console - Client connect.

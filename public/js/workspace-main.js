@@ -119,18 +119,32 @@ function changeLanguage(lang){
     }
 }
 
+/*Display a custom error message on the workspace
+  - hide should be true to toggle the automatic
+  fadeout of the message.*/
 function showMessage(message, hide){
     $("#error_alert_msg").html(message);
-    $("#error_alert").fadeIn();
+    $("#error_alert").show();
+    var messageTimeout = null;
 
+    // Timeout for the message's auto fadeout.
     if(hide){
-        setTimeout(
+        messageTimeout = setTimeout(
             function(){
                 $("#error_alert").fadeOut();
             },
             10000
         )
     }
+
+
+    // Handle the close button event.
+    $("#error_alert .close").one('click', function(){
+        $("#error_alert").hide();
+        if(messageTimeout){
+            window.clearTimeout(messageTimeout);
+        }
+    });
 }
 
 function show_loader(message){
