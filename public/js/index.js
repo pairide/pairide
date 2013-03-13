@@ -5,6 +5,9 @@ $(document).ready(function(){
 		if (!data.result){
 			alert("This room already exists.");
 		}
+		else if(data.valid == null){
+			alert("Room name is invalid.");
+		}
 		else{
 			window.location.replace("/workspace/" + data.room);
 		}

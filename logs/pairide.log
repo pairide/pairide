@@ -1,696 +1,132 @@
-
-[2013-03-13 00:48:45.129] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 00:48:45.629] [INFO] console - Express server listening on port 80
-[2013-03-13 00:49:09.551] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'OPqV6HiEbi6ZF2IhFDhK'
-[2013-03-13 00:49:09.906] [INFO] console - Client connect.
-[2013-03-13 00:49:10.099] [INFO] console - client request to join user room sdfdsfsdf
-[2013-03-13 00:49:10.100] [INFO] console - New room created by alexr: sdfdsfsdf
-[2013-03-13 00:49:10.247] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 00:49:12.048] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/
-[2013-03-13 00:49:12.739] [INFO] console - user alexr requested file /as/aa
-[2013-03-13 00:49:12.740] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/aa
-[2013-03-13 00:49:16.906] [INFO] console - Context menu action delete at 
-/home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/
-[2013-03-13 00:49:16.907] [INFO] console - !Path..../home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/
-[2013-03-13 00:49:16.908] [INFO] console - !Filename....aa
-[2013-03-13 00:49:16.908] [INFO] console - !File path...../home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/aa
-[2013-03-13 00:49:16.909] [INFO] console - !Deleting....../home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/aa
-[2013-03-13 00:49:16.909] [INFO] console - /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/as/aa
-[2013-03-13 00:49:16.910] [INFO] console - ___ROOM FILE BEING DELETED___
-[2013-03-13 00:49:16.984] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 00:51:15.407] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 00:51:15.900] [INFO] console - Express server listening on port 80
-[2013-03-13 00:51:25.395] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'yIQmJZmJkDFTEtexFoNP'
-[2013-03-13 00:51:36.456] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Qj1a5TPeQKPmvM3yFoNQ'
-[2013-03-13 00:51:36.779] [INFO] console - Client connect.
-[2013-03-13 00:51:36.869] [INFO] console - client request to join user room asdasdadsa
-[2013-03-13 00:51:36.870] [INFO] console - New room created by alexr: asdasdadsa
-[2013-03-13 00:51:36.919] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 00:52:15.130] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 00:52:16.395] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 00:52:19.326] [INFO] console - Context menu action file at 
-/home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 00:52:19.328] [INFO] console - File to load does not exist: asdasdadsa
-[2013-03-13 00:52:19.408] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 00:52:26.281] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 00:52:26.282] [INFO] console - disconnect detected
-[2013-03-13 00:52:26.282] [INFO] console - deleting user from room asdasdadsa...alexr
-[2013-03-13 00:52:26.283] [INFO] console - deleting room...asdasdadsa
-[2013-03-13 00:52:26.834] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'sAvMJqV1i1p50nu-FoNR'
-[2013-03-13 00:52:26.855] [INFO] console - Client connect.
-[2013-03-13 00:52:30.563] [INFO] console - User requested files associated with another room.
-[2013-03-13 00:52:45.196] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 00:52:45.685] [INFO] console - Express server listening on port 80
-[2013-03-13 00:52:45.928] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'A1sw4p3nwKVsTxniF-IN'
-[2013-03-13 00:52:45.947] [INFO] console - Client connect.
-[2013-03-13 00:52:52.160] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 00:52:52.180] [INFO] console - disconnect detected
-[2013-03-13 00:53:02.644] [INFO] console -    [36minfo  -[39m 'handshake authorized' '9oqLbPPSryIqYDFbF-IO'
-[2013-03-13 00:53:02.922] [INFO] console - Client connect.
-[2013-03-13 00:53:03.018] [INFO] console - client request to join user room sssss
-[2013-03-13 00:53:03.019] [INFO] console - New room created by alexr: sssss
-[2013-03-13 00:53:03.069] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 00:53:05.783] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 00:53:12.628] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 00:53:12.628] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 00:53:22.207] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Tl11rjrfBVB47TU6F-IP'
-[2013-03-13 00:53:22.215] [INFO] console - Client connect.
-[2013-03-13 00:53:32.778] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 00:55:19.018] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 00:55:19.501] [INFO] console - Express server listening on port 80
-[2013-03-13 00:55:20.305] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'BXuA2oMV65Omq9VXGjrr'
-[2013-03-13 00:55:20.312] [INFO] console - Client connect.
-[2013-03-13 00:55:20.324] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'OGiQK9Fm4JwJ1UY5Gjrs'
-[2013-03-13 00:55:20.337] [INFO] console - Client connect.
-[2013-03-13 00:55:23.362] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 00:55:23.364] [INFO] console - disconnect detected
-[2013-03-13 00:55:38.440] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'yKrs5SFMtNNOYsvZGjrt'
-[2013-03-13 00:55:38.718] [INFO] console - Client connect.
-[2013-03-13 00:55:38.861] [INFO] console - client request to join user room dsdfsdfsdfds
-[2013-03-13 00:55:38.861] [INFO] console - New room created by alexr: dsdfsdfsdfds
-[2013-03-13 00:55:38.912] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 00:55:40.966] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 00:55:41.675] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 00:55:41.676] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 00:56:08.596] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:09:19.251] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:09:19.758] [INFO] console - Express server listening on port 80
-[2013-03-13 01:09:19.953] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'FMDupFQezZ8Re3OCJw0T'
-[2013-03-13 01:09:19.960] [INFO] console - Client connect.
-[2013-03-13 01:09:19.972] [INFO] console -    [36minfo  -[39m 'handshake authorized' '0p6yImV_LtdlSYTkJw0U'
-[2013-03-13 01:09:19.981] [INFO] console - Client connect.
-[2013-03-13 01:09:33.306] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:09:33.307] [INFO] console - disconnect detected
-[2013-03-13 01:09:42.315] [INFO] console -    [36minfo  -[39m 'handshake authorized' '8lV7Rim8l0LXugU-Jw0V'
-[2013-03-13 01:09:42.710] [INFO] console - Client connect.
-[2013-03-13 01:09:42.784] [INFO] console - client request to join user room asfasdfasdf
-[2013-03-13 01:09:42.785] [INFO] console - New room created by alexr: asfasdfasdf
-[2013-03-13 01:09:42.847] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:09:43.740] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:09:44.315] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:09:44.316] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:10:16.753] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:10:46.752] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:12:34.357] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:12:34.846] [INFO] console - Express server listening on port 80
-[2013-03-13 01:12:35.045] [INFO] console -    [36minfo  -[39m 'handshake authorized' '7WbQJswuOHzMnZAZKgc2'
-[2013-03-13 01:12:35.051] [INFO] console - Client connect.
-[2013-03-13 01:12:35.140] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Y4JfKRaPBzenztNtKgc3'
-[2013-03-13 01:12:35.191] [INFO] console - Client connect.
-[2013-03-13 01:12:38.284] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:12:38.285] [INFO] console - disconnect detected
-[2013-03-13 01:12:48.677] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'agk8HZ8qK1AYvd9HKgc4'
-[2013-03-13 01:12:49.019] [INFO] console - Client connect.
-[2013-03-13 01:12:49.090] [INFO] console - client request to join user room sdfsdfdsf
-[2013-03-13 01:12:49.090] [INFO] console - New room created by alexr: sdfsdfdsf
-[2013-03-13 01:12:49.157] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:12:50.279] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:12:50.851] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:12:50.852] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:13:24.784] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:13:40.321] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:13:40.322] [INFO] console - disconnect detected
-[2013-03-13 01:13:40.322] [INFO] console - deleting user from room sdfsdfdsf...alexr
-[2013-03-13 01:13:40.323] [INFO] console - deleting room...sdfsdfdsf
-[2013-03-13 01:13:48.894] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'aUGt2cuvtTk0MN-5Kgc5'
-[2013-03-13 01:13:49.256] [INFO] console - Client connect.
-[2013-03-13 01:13:49.291] [INFO] console - client request to join user room dsfdsdfdsf
-[2013-03-13 01:13:49.292] [INFO] console - New room created by alexr: dsfdsdfdsf
-[2013-03-13 01:13:49.366] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:13:51.898] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:13:52.507] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:13:52.507] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:14:19.027] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:16:01.084] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:16:01.594] [INFO] console - Express server listening on port 80
-[2013-03-13 01:16:01.807] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'OmAu03UMjnfdS8aHLS69'
-[2013-03-13 01:16:01.832] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'cOoOCKqm5SL9XEAuLS6-'
-[2013-03-13 01:16:01.834] [INFO] console - Client connect.
-[2013-03-13 01:16:01.849] [INFO] console - Client connect.
-[2013-03-13 01:16:02.643] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:16:02.644] [INFO] console - disconnect detected
-[2013-03-13 01:16:11.350] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'vdhV0jA3KkyM4SGXLS6_'
-[2013-03-13 01:16:11.748] [INFO] console - Client connect.
-[2013-03-13 01:16:11.907] [INFO] console - client request to join user room sgdgsdfgdf
-[2013-03-13 01:16:11.907] [INFO] console - New room created by alexr: sgdgsdfgdf
-[2013-03-13 01:16:11.930] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:16:13.169] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:16:13.718] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:16:13.719] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:16:41.499] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:17:11.499] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:18:03.080] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:18:03.577] [INFO] console - Express server listening on port 80
-[2013-03-13 01:18:03.811] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'vhkYEDjvShiwqI68LwtI'
-[2013-03-13 01:18:03.819] [INFO] console - Client connect.
-[2013-03-13 01:18:03.842] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'gjcxJCZ9zMREuyJ9LwtJ'
-[2013-03-13 01:18:03.864] [INFO] console - Client connect.
-[2013-03-13 01:18:11.493] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:18:11.518] [INFO] console - disconnect detected
-[2013-03-13 01:18:18.054] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'yanHl-7gqLvmrowaLwtK'
-[2013-03-13 01:18:18.380] [INFO] console - Client connect.
-[2013-03-13 01:18:18.428] [INFO] console - client request to join user room asfasdfasdf
-[2013-03-13 01:18:18.428] [INFO] console - New room created by alexr: asfasdfasdf
-[2013-03-13 01:18:18.477] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:18:20.857] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:18:20.858] [INFO] console - disconnect detected
-[2013-03-13 01:18:20.859] [INFO] console - deleting user from room asfasdfasdf...alexr
-[2013-03-13 01:18:20.859] [INFO] console - deleting room...asfasdfasdf
-[2013-03-13 01:18:21.451] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'WKxWt6sdEm5cfbLzLwtL'
-[2013-03-13 01:18:21.465] [INFO] console - Client connect.
-[2013-03-13 01:18:23.320] [INFO] console - User requested files associated with another room.
-[2013-03-13 01:18:36.280] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:18:36.281] [INFO] console - disconnect detected
-[2013-03-13 01:18:37.426] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'EMR5tVAro66_7HbxLwtM'
-[2013-03-13 01:18:37.756] [INFO] console - Client connect.
-[2013-03-13 01:18:37.815] [INFO] console - client request to join user room asfasdfasdf
-[2013-03-13 01:18:37.816] [INFO] console - New room created by alexr: asfasdfasdf
-[2013-03-13 01:18:37.877] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:18:40.466] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:18:41.917] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:18:42.347] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:18:42.348] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:19:07.566] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:19:33.512] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:19:34.013] [INFO] console - Express server listening on port 80
-[2013-03-13 01:19:34.248] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'EZ75IhQ3kCjzZxF3MGyI'
-[2013-03-13 01:19:34.255] [INFO] console - Client connect.
-[2013-03-13 01:19:34.271] [INFO] console -    [36minfo  -[39m 'handshake authorized' '88gEGg-evDlQeZzxMGyJ'
-[2013-03-13 01:19:34.311] [INFO] console - Client connect.
-[2013-03-13 01:19:35.232] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:19:35.233] [INFO] console - disconnect detected
-[2013-03-13 01:19:42.473] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'PqPBX8VpUpPCuaXLMGyK'
-[2013-03-13 01:19:42.785] [INFO] console - Client connect.
-[2013-03-13 01:19:42.844] [INFO] console - client request to join user room sdfsdfdsfsdf
-[2013-03-13 01:19:42.845] [INFO] console - New room created by alexr: sdfsdfdsfsdf
-[2013-03-13 01:19:42.911] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:19:44.284] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:19:44.966] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:19:44.967] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:20:12.601] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:21:14.863] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:21:15.379] [INFO] console - Express server listening on port 80
-[2013-03-13 01:21:15.626] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'f64b-YpR_E2cWfAtMfhv'
-[2013-03-13 01:21:15.635] [INFO] console - Client connect.
-[2013-03-13 01:21:15.663] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'VMT1AByZwQAjJUOpMfhw'
-[2013-03-13 01:21:15.699] [INFO] console - Client connect.
-[2013-03-13 01:21:16.505] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:21:16.506] [INFO] console - disconnect detected
-[2013-03-13 01:21:25.813] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'WIEMKg9sajCJWwV6Mfhx'
-[2013-03-13 01:21:26.270] [INFO] console - Client connect.
-[2013-03-13 01:21:42.737] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:21:43.268] [INFO] console - Express server listening on port 80
-[2013-03-13 01:21:43.423] [INFO] console -    [36minfo  -[39m 'handshake authorized' '7x5IQwG6rSBfiaaUMmVS'
-[2013-03-13 01:21:43.427] [INFO] console - Client connect.
-[2013-03-13 01:21:43.447] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'WY_vcpD3yqXSNftlMmVT'
-[2013-03-13 01:21:43.465] [INFO] console - Client connect.
-[2013-03-13 01:21:48.698] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:21:48.699] [INFO] console - disconnect detected
-[2013-03-13 01:21:57.601] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'j2sMvKBctzqU_B9hMmVU'
-[2013-03-13 01:21:57.941] [INFO] console - Client connect.
-[2013-03-13 01:21:57.972] [INFO] console - client request to join user room sdfdsfdsfdsfa
-[2013-03-13 01:21:57.972] [INFO] console - New room created by alexr: sdfdsfdsfdsfa
-[2013-03-13 01:21:58.022] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:21:59.178] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:21:59.755] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:21:59.756] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:22:27.739] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:28:14.499] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:28:15.031] [INFO] console - Express server listening on port 80
-[2013-03-13 01:28:15.126] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'sAqtm9DD7rORQWAHOF-j'
-[2013-03-13 01:28:15.248] [INFO] console - Client connect.
-[2013-03-13 01:28:16.913] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'wtU9JPAYNPqKx8ZZOF-k'
-[2013-03-13 01:28:16.920] [INFO] console - Client connect.
-[2013-03-13 01:28:17.719] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:28:17.720] [INFO] console - disconnect detected
-[2013-03-13 01:28:26.438] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'bKfqlwCoJfYJEl5oOF-l'
-[2013-03-13 01:28:26.771] [INFO] console - Client connect.
-[2013-03-13 01:28:26.825] [INFO] console - client request to join user room asfasdfads
-[2013-03-13 01:28:26.826] [INFO] console - New room created by alexr: asfasdfads
-[2013-03-13 01:28:26.883] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:28:32.110] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:28:33.243] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:28:33.244] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:30:13.540] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:30:14.038] [INFO] console - Express server listening on port 80
-[2013-03-13 01:30:16.899] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'KFva8cO7Uv8JYe2eOjCl'
-[2013-03-13 01:30:16.904] [INFO] console - Client connect.
-[2013-03-13 01:30:25.836] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'qlXt6qqxmNhTByVFOjCm'
-[2013-03-13 01:30:26.294] [INFO] console - Client connect.
-[2013-03-13 01:30:26.409] [INFO] console - client request to join user room sdfsdfsf
-[2013-03-13 01:30:26.409] [INFO] console - New room created by alexr: sdfsdfsf
-[2013-03-13 01:30:26.513] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:30:27.911] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:30:28.564] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:30:28.564] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:30:55.968] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:31:25.968] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:32:19.021] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:32:19.537] [INFO] console - Express server listening on port 80
-[2013-03-13 01:32:19.592] [INFO] console -    [36minfo  -[39m 'handshake authorized' '_HVyMUFXNq2Uwp48PBrO'
-[2013-03-13 01:32:19.616] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'fPXITAc1h1vCh3fBPBrP'
-[2013-03-13 01:32:19.619] [INFO] console - Client connect.
-[2013-03-13 01:32:19.751] [INFO] console - Client connect.
-[2013-03-13 01:32:20.555] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:32:20.555] [INFO] console - disconnect detected
-[2013-03-13 01:32:29.454] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Z0Eg3i0Agk4EKmeTPBrQ'
-[2013-03-13 01:32:29.815] [INFO] console - Client connect.
-[2013-03-13 01:32:30.004] [INFO] console - client request to join user room jhk
-[2013-03-13 01:32:30.004] [INFO] console - New room created by alexr: jhk
-[2013-03-13 01:32:30.060] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:32:30.933] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:32:31.491] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:32:31.492] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:32:59.591] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:33:10.119] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:33:10.602] [INFO] console - Express server listening on port 80
-[2013-03-13 01:33:11.799] [INFO] console -    [36minfo  -[39m 'handshake authorized' '3IzULs4srMGwtEY6POJo'
-[2013-03-13 01:33:11.806] [INFO] console - Client connect.
-[2013-03-13 01:33:11.852] [INFO] console -    [36minfo  -[39m 'handshake authorized' '3cnwxiXwYpxRXhTwPOJp'
-[2013-03-13 01:33:11.877] [INFO] console - Client connect.
-[2013-03-13 01:33:14.535] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:33:14.536] [INFO] console - disconnect detected
-[2013-03-13 01:33:24.007] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'hOwOqlJRdsePlcAdPOJq'
-[2013-03-13 01:33:24.487] [INFO] console - Client connect.
-[2013-03-13 01:33:24.544] [INFO] console - client request to join user room aaaaaaaaaaaa
-[2013-03-13 01:33:24.545] [INFO] console - New room created by alexr: aaaaaaaaaaaa
-[2013-03-13 01:33:24.570] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:33:25.670] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:33:26.188] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:33:26.189] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:33:54.143] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:34:15.352] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:34:15.870] [INFO] console - Express server listening on port 80
-[2013-03-13 01:34:16.095] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'YlyMTUipMR2HUCwCPeE5'
-[2013-03-13 01:34:16.101] [INFO] console - Client connect.
-[2013-03-13 01:34:16.110] [INFO] console -    [36minfo  -[39m 'handshake authorized' '7G_xlWUcAS5n25EVPeE6'
-[2013-03-13 01:34:16.126] [INFO] console - Client connect.
-[2013-03-13 01:34:17.175] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:34:17.176] [INFO] console - disconnect detected
-[2013-03-13 01:34:31.359] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'wxAS8pe9nOHZCsVaPeE7'
-[2013-03-13 01:34:31.727] [INFO] console - Client connect.
-[2013-03-13 01:34:31.844] [INFO] console - client request to join user room adsasd
-[2013-03-13 01:34:31.845] [INFO] console - New room created by alexr: adsasd
-[2013-03-13 01:34:31.918] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:34:33.149] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:34:33.691] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:34:33.692] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:35:01.497] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:35:19.156] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:35:19.674] [INFO] console - Express server listening on port 80
-[2013-03-13 01:35:19.782] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Vc-ObVODLLSI-UE0Ptp1'
-[2013-03-13 01:35:19.786] [INFO] console -    [36minfo  -[39m 'handshake authorized' 's_13Xub9PKxmiaxRPtp2'
-[2013-03-13 01:35:19.790] [INFO] console - Client connect.
-[2013-03-13 01:35:19.802] [INFO] console - Client connect.
-[2013-03-13 01:35:21.162] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:35:21.181] [INFO] console - disconnect detected
-[2013-03-13 01:36:53.273] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:36:53.775] [INFO] console - Express server listening on port 80
-[2013-03-13 01:36:55.173] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'HwCfDKa6NzfFQ4CQQEoZ'
-[2013-03-13 01:36:55.182] [INFO] console - Client connect.
-[2013-03-13 01:36:56.743] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'MaB2O-Cnrh4E1bRUQEoa'
-[2013-03-13 01:36:57.012] [INFO] console - Client connect.
-[2013-03-13 01:36:57.129] [INFO] console - client request to join user room adsasd
-[2013-03-13 01:36:57.130] [INFO] console - New room created by alexr: adsasd
-[2013-03-13 01:36:57.187] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:36:59.412] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:37:00.258] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:37:00.259] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:37:05.732] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:37:18.718] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:37:18.719] [INFO] console - disconnect detected
-[2013-03-13 01:37:18.719] [INFO] console - deleting user from room adsasd...alexr
-[2013-03-13 01:37:18.719] [INFO] console - deleting room...adsasd
-[2013-03-13 01:37:19.820] [INFO] console -    [36minfo  -[39m 'handshake authorized' '39Fj4dfwY8PmKU9LQEob'
-[2013-03-13 01:37:20.156] [INFO] console - Client connect.
-[2013-03-13 01:37:20.212] [INFO] console - client request to join user room adsasdsdf
-[2013-03-13 01:37:20.212] [INFO] console - New room created by alexr: adsasdsdf
-[2013-03-13 01:37:20.265] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:37:21.327] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:37:21.924] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:37:21.925] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:37:49.951] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:38:19.953] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:38:43.980] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:38:44.490] [INFO] console - Express server listening on port 80
-[2013-03-13 01:38:44.550] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'rexLUG7Ejut_Jee2QfqM'
-[2013-03-13 01:38:44.587] [INFO] console - Client connect.
-[2013-03-13 01:38:44.602] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'f8tYWlW52NB-I8yEQfqN'
-[2013-03-13 01:38:44.631] [INFO] console - Client connect.
-[2013-03-13 01:38:45.459] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:38:45.460] [INFO] console - disconnect detected
-[2013-03-13 01:38:47.105] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'xLcXHwQ-2nCmmAPjQfqO'
-[2013-03-13 01:38:47.451] [INFO] console - Client connect.
-[2013-03-13 01:38:47.518] [INFO] console - client request to join user room adsasdsdf
-[2013-03-13 01:38:47.518] [INFO] console - New room created by alexr: adsasdsdf
-[2013-03-13 01:38:47.573] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:38:48.873] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:38:49.574] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:38:49.574] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:39:17.249] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:39:55.461] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:39:55.462] [INFO] console - disconnect detected
-[2013-03-13 01:39:55.462] [INFO] console - deleting user from room adsasdsdf...alexr
-[2013-03-13 01:39:55.463] [INFO] console - deleting room...adsasdsdf
-[2013-03-13 01:40:24.743] [INFO] console -    [36minfo  -[39m 'handshake authorized' '-N_RzN5CmLo30TS9QfqP'
-[2013-03-13 01:40:24.889] [INFO] console - Client connect.
-[2013-03-13 01:40:31.608] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:40:31.608] [INFO] console - disconnect detected
-[2013-03-13 01:40:44.650] [INFO] console -    [36minfo  -[39m 'handshake authorized' '2f2tfb7UJH4e88TRQfqQ'
-[2013-03-13 01:40:44.900] [INFO] console - Client connect.
-[2013-03-13 01:40:44.980] [INFO] console - client request to join user room sdfsdf
-[2013-03-13 01:40:44.980] [INFO] console - New room created by alexr: sdfsdf
-[2013-03-13 01:40:45.009] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:40:46.659] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:40:47.506] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:40:47.507] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:41:11.678] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:41:11.679] [INFO] console - disconnect detected
-[2013-03-13 01:41:11.679] [INFO] console - deleting user from room sdfsdf...alexr
-[2013-03-13 01:41:11.679] [INFO] console - deleting room...sdfsdf
-[2013-03-13 01:41:25.134] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'ZohceL9cR_vw3pvuQfqR'
-[2013-03-13 01:41:25.286] [INFO] console - Client connect.
-[2013-03-13 01:41:32.890] [INFO] console - client request to join user room test2
-[2013-03-13 01:41:32.891] [INFO] console - New room created by guest_: test2
-[2013-03-13 01:41:32.923] [INFO] console - Files requested at: /home/arod/pairide/users/49b8c2d1785e27ec4d95c59b59b3c5c7/
-[2013-03-13 01:41:34.198] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:41:34.198] [INFO] console - disconnect detected
-[2013-03-13 01:41:34.198] [INFO] console - deleting user from room test2...guest_
-[2013-03-13 01:41:34.199] [INFO] console - deleting room...test2
-[2013-03-13 01:41:44.627] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'ffiiVtllK0cEWvhtQfqS'
-[2013-03-13 01:41:44.767] [INFO] console - Client connect.
-[2013-03-13 01:41:44.806] [INFO] console - client request to join user room dfgdfgdf
-[2013-03-13 01:41:44.807] [INFO] console - New room created by alexr: dfgdfgdf
-[2013-03-13 01:41:44.898] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:41:47.642] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:41:48.966] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:41:48.966] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:42:14.742] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:44:38.470] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:44:38.999] [INFO] console - Express server listening on port 80
-[2013-03-13 01:44:40.898] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'M4xy8iGJxZeIyA64R2NG'
-[2013-03-13 01:44:40.905] [INFO] console - Client connect.
-[2013-03-13 01:44:40.969] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'W_G6WkNgKSsFUtJSR2NH'
-[2013-03-13 01:44:40.976] [INFO] console - Client connect.
-[2013-03-13 01:44:45.697] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:44:45.697] [INFO] console - disconnect detected
-[2013-03-13 01:44:47.095] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'n-0dg1F8x-7KPlNVR2NI'
-[2013-03-13 01:44:47.357] [INFO] console - Client connect.
-[2013-03-13 01:44:47.438] [INFO] console - client request to join user room dfgdfgdf
-[2013-03-13 01:44:47.439] [INFO] console - New room created by alexr: dfgdfgdf
-[2013-03-13 01:44:47.497] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:44:52.822] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:44:53.443] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:44:53.443] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:45:14.043] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:45:14.596] [INFO] console - Express server listening on port 80
-[2013-03-13 01:45:14.606] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'D25MimW59JYSGaNFR-47'
-[2013-03-13 01:45:14.623] [INFO] console - Client connect.
-[2013-03-13 01:45:15.629] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:45:15.630] [INFO] console - disconnect detected
-[2013-03-13 01:45:16.677] [INFO] console -    [36minfo  -[39m 'handshake authorized' '672-t8DWTJFf90EsR-48'
-[2013-03-13 01:45:16.697] [INFO] console - Client connect.
-[2013-03-13 01:45:16.937] [INFO] console -    [36minfo  -[39m 'handshake authorized' '9W1xpF9vhr7sIU2FR-49'
-[2013-03-13 01:45:17.101] [INFO] console - Client connect.
-[2013-03-13 01:45:17.197] [INFO] console - client request to join user room dfgdfgdf
-[2013-03-13 01:45:17.197] [INFO] console - New room created by alexr: dfgdfgdf
-[2013-03-13 01:45:17.256] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:45:20.028] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:45:21.043] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:45:21.044] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:45:34.684] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:45:35.207] [INFO] console - Express server listening on port 80
-[2013-03-13 01:45:35.297] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'AshNRRQ5MVfRiwmPSD7c'
-[2013-03-13 01:45:35.301] [INFO] console - Client connect.
-[2013-03-13 01:45:35.327] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'f66TwgxlDSKdYW8CSD7d'
-[2013-03-13 01:45:35.357] [INFO] console - Client connect.
-[2013-03-13 01:45:36.642] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:45:36.643] [INFO] console - disconnect detected
-[2013-03-13 01:45:37.836] [INFO] console -    [36minfo  -[39m 'handshake authorized' '8GbVdclCuXNI6mkISD7e'
-[2013-03-13 01:45:37.999] [INFO] console - Client connect.
-[2013-03-13 01:45:38.095] [INFO] console - client request to join user room dfgdfgdf
-[2013-03-13 01:45:38.096] [INFO] console - New room created by alexr: dfgdfgdf
-[2013-03-13 01:45:38.146] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:45:39.339] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:45:39.939] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:45:39.940] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:46:07.963] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:47:32.723] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:47:33.247] [INFO] console - Express server listening on port 80
-[2013-03-13 01:47:33.360] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'WEKsNep9xqHLwh5fSgv0'
-[2013-03-13 01:47:33.363] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'IMW3_emwztyRQJNbSgv1'
-[2013-03-13 01:47:33.370] [INFO] console - Client connect.
-[2013-03-13 01:47:33.385] [INFO] console - Client connect.
-[2013-03-13 01:47:41.831] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:47:42.349] [INFO] console - Express server listening on port 80
-[2013-03-13 01:47:42.531] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'YLdm82REkNaWe8ecSi-I'
-[2013-03-13 01:47:42.537] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'ezAr11nSBH0mx6O0Si-J'
-[2013-03-13 01:47:42.547] [INFO] console - Client connect.
-[2013-03-13 01:47:42.580] [INFO] console - Client connect.
-[2013-03-13 01:47:43.133] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:47:43.133] [INFO] console - disconnect detected
-[2013-03-13 01:47:44.427] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'NIM5TABlOnKFFWRNSi-K'
-[2013-03-13 01:47:44.583] [INFO] console - Client connect.
-[2013-03-13 01:47:44.681] [INFO] console - client request to join user room dfgdfgdf
-[2013-03-13 01:47:44.682] [INFO] console - New room created by alexr: dfgdfgdf
-[2013-03-13 01:47:44.729] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:47:46.047] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:47:46.994] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:47:46.995] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:48:14.543] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:48:24.938] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:48:25.469] [INFO] console - Express server listening on port 80
-[2013-03-13 01:48:25.539] [INFO] console -    [36minfo  -[39m 'handshake authorized' '1YoBwPhNzYcZHe0tStfq'
-[2013-03-13 01:48:25.563] [INFO] console - Client connect.
-[2013-03-13 01:48:26.518] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:48:26.519] [INFO] console - disconnect detected
-[2013-03-13 01:48:27.634] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'RWrmu6OwJvHaTo6HStfr'
-[2013-03-13 01:48:27.659] [INFO] console - Client connect.
-[2013-03-13 01:48:27.826] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'bCWxapAeL1jCxwOTStfs'
-[2013-03-13 01:48:27.997] [INFO] console - Client connect.
-[2013-03-13 01:48:28.097] [INFO] console - client request to join user room dfgdfgdf
-[2013-03-13 01:48:28.097] [INFO] console - New room created by alexr: dfgdfgdf
-[2013-03-13 01:48:28.157] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:48:29.239] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:48:29.779] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:48:29.779] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:48:57.946] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:53:57.947] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:55:49.048] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:55:49.584] [INFO] console - Express server listening on port 80
-[2013-03-13 01:55:49.630] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'shUoScGZfXo5NH0iUZ65'
-[2013-03-13 01:55:49.639] [INFO] console - Client connect.
-[2013-03-13 01:55:49.669] [INFO] console -    [36minfo  -[39m 'handshake authorized' '4WyISw18xL1P4NG4UZ66'
-[2013-03-13 01:55:49.725] [INFO] console - Client connect.
-[2013-03-13 01:55:51.823] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:55:51.824] [INFO] console - disconnect detected
-[2013-03-13 01:55:53.044] [INFO] console -    [36minfo  -[39m 'handshake authorized' '7S3iWqPcRaXNYhSsUZ67'
-[2013-03-13 01:55:53.218] [INFO] console - Client connect.
-[2013-03-13 01:55:53.317] [INFO] console - client request to join user room dfgdfgdf
-[2013-03-13 01:55:53.317] [INFO] console - New room created by alexr: dfgdfgdf
-[2013-03-13 01:55:53.359] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:55:54.705] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:55:55.475] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:55:55.476] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:56:23.181] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:56:33.119] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:56:33.650] [INFO] console - Express server listening on port 80
-[2013-03-13 01:56:33.778] [INFO] console -    [36minfo  -[39m 'handshake authorized' '80vHZ6AByfcfLLapUkrf'
-[2013-03-13 01:56:33.789] [INFO] console - Client connect.
-[2013-03-13 01:56:33.795] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Ru1mM-JT-faaYiNnUkrg'
-[2013-03-13 01:56:33.800] [INFO] console - Client connect.
-[2013-03-13 01:56:34.650] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:56:34.651] [INFO] console - disconnect detected
-[2013-03-13 01:56:35.892] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'V0fZyENOGbM1N78_Ukrh'
-[2013-03-13 01:56:36.089] [INFO] console - Client connect.
-[2013-03-13 01:56:36.197] [INFO] console - client request to join user room dfgdfgdf
-[2013-03-13 01:56:36.198] [INFO] console - New room created by alexr: dfgdfgdf
-[2013-03-13 01:56:36.253] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:56:37.540] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:56:38.163] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:56:38.181] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:57:06.035] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:57:41.105] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:58:11.105] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 01:58:25.786] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 01:58:26.299] [INFO] console - Express server listening on port 80
-[2013-03-13 01:58:26.522] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'rFh9ODnd86foAECYVAL7'
-[2013-03-13 01:58:26.527] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'n3LAP-cbT-y88dMaVAL8'
-[2013-03-13 01:58:26.534] [INFO] console - Client connect.
-[2013-03-13 01:58:26.540] [INFO] console - Client connect.
-[2013-03-13 01:58:27.794] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 01:58:27.814] [INFO] console - disconnect detected
-[2013-03-13 01:58:29.142] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'kZ9LeHsbMK-mMMq8VAL9'
-[2013-03-13 01:58:29.303] [INFO] console - Client connect.
-[2013-03-13 01:58:29.399] [INFO] console - client request to join user room dfgdfgdf
-[2013-03-13 01:58:29.420] [INFO] console - New room created by alexr: dfgdfgdf
-[2013-03-13 01:58:29.471] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 01:58:30.975] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 01:58:31.805] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 01:58:31.806] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 02:01:04.490] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 02:01:05.005] [INFO] console - Express server listening on port 80
-[2013-03-13 02:01:07.648] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'uriKIdAF_eIjenn8Vm7q'
-[2013-03-13 02:01:07.789] [INFO] console - Client connect.
-[2013-03-13 02:01:51.457] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 02:01:51.972] [INFO] console - Express server listening on port 80
-[2013-03-13 02:01:52.159] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'XIhz5042WLTbr0TEVyZh'
-[2013-03-13 02:01:52.170] [INFO] console - Client connect.
-[2013-03-13 02:01:53.563] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 02:01:53.584] [INFO] console - disconnect detected
-[2013-03-13 02:01:54.839] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'OUnx9SDajwew7-mgVyZi'
-[2013-03-13 02:01:54.969] [INFO] console - Client connect.
-[2013-03-13 02:02:50.321] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'bWLkbEMMGYPL9VJyVyZj'
-[2013-03-13 02:02:50.327] [INFO] console - Client connect.
-[2013-03-13 02:08:51.271] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 02:08:51.755] [INFO] console - Express server listening on port 80
-[2013-03-13 02:08:58.286] [INFO] console -    [36minfo  -[39m 'handshake authorized' '7qks1nLE2JHLj1HmXY5H'
-[2013-03-13 02:08:58.627] [INFO] console - Client connect.
-[2013-03-13 02:08:58.681] [INFO] console - client request to join user room dfgdfgdf
-[2013-03-13 02:08:58.682] [INFO] console - New room created by alexr: dfgdfgdf
-[2013-03-13 02:08:58.746] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 02:09:00.133] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 02:09:00.660] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 02:09:00.661] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 02:09:04.528] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 02:09:04.529] [INFO] console - disconnect detected
-[2013-03-13 02:09:04.529] [INFO] console - deleting user from room dfgdfgdf...alexr
-[2013-03-13 02:09:04.530] [INFO] console - deleting room...dfgdfgdf
-[2013-03-13 02:09:05.688] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'mnD9Jn31kaie7JLNXY5I'
-[2013-03-13 02:09:06.179] [INFO] console - Client connect.
-[2013-03-13 02:09:06.236] [INFO] console - client request to join user room dfgdfgdf
-[2013-03-13 02:09:06.236] [INFO] console - New room created by alexr: dfgdfgdf
-[2013-03-13 02:09:06.261] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 02:09:07.435] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 02:09:07.987] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 02:09:07.988] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 02:09:15.139] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 02:09:15.141] [INFO] console - disconnect detected
-[2013-03-13 02:09:15.141] [INFO] console - deleting user from room dfgdfgdf...alexr
-[2013-03-13 02:09:15.142] [INFO] console - deleting room...dfgdfgdf
-[2013-03-13 02:09:16.313] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'VTsKkHpzmr_qFa0gXY5J'
-[2013-03-13 02:09:16.719] [INFO] console - Client connect.
-[2013-03-13 02:09:16.930] [INFO] console - client request to join user room dfgdfgdfd
-[2013-03-13 02:09:16.930] [INFO] console - New room created by alexr: dfgdfgdfd
-[2013-03-13 02:09:17.009] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 02:09:20.729] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 02:09:20.730] [INFO] console - disconnect detected
-[2013-03-13 02:09:20.730] [INFO] console - deleting user from room dfgdfgdfd...alexr
-[2013-03-13 02:09:20.731] [INFO] console - deleting room...dfgdfgdfd
-[2013-03-13 02:09:21.305] [INFO] console -    [36minfo  -[39m 'handshake authorized' '-PzC8MZXLf5Sbcf8XY5K'
-[2013-03-13 02:09:21.314] [INFO] console - Client connect.
-[2013-03-13 02:09:25.319] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 02:09:25.319] [INFO] console - disconnect detected
-[2013-03-13 02:09:25.901] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'WS7B9enaP3-ydI4AXY5L'
-[2013-03-13 02:09:25.919] [INFO] console - Client connect.
-[2013-03-13 02:10:24.106] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 02:10:24.107] [INFO] console - disconnect detected
-[2013-03-13 16:09:23.375] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 16:09:25.081] [INFO] console - Express server listening on port 80
-[2013-03-13 16:16:15.928] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'pf_S2M-IilTqYDTEXxav'
-[2013-03-13 16:16:16.111] [INFO] console - Client connect.
-[2013-03-13 16:16:16.242] [INFO] console - client request to join user room dfsgdfgdfg
-[2013-03-13 16:16:16.242] [INFO] console - New room created by alexr: dfsgdfgdfg
-[2013-03-13 16:16:16.295] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 16:16:18.958] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 16:16:19.583] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 16:16:19.584] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:16:34.195] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 16:16:34.196] [INFO] console - disconnect detected
-[2013-03-13 16:16:34.197] [INFO] console - deleting user from room dfsgdfgdfg...alexr
-[2013-03-13 16:16:34.197] [INFO] console - deleting room...dfsgdfgdfg
-[2013-03-13 16:16:38.684] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'jkwX9tX0Z9G81vlyXxaw'
-[2013-03-13 16:16:38.801] [INFO] console - Client connect.
-[2013-03-13 16:16:38.825] [INFO] console - client request to join user room b6cb5a99798da81f5b365f718ee76f45
-[2013-03-13 16:16:38.825] [INFO] console - New room created by alexr: b6cb5a99798da81f5b365f718ee76f45
-[2013-03-13 16:16:50.884] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 16:16:50.885] [INFO] console - disconnect detected
-[2013-03-13 16:16:50.885] [INFO] console - deleting user from room b6cb5a99798da81f5b365f718ee76f45...alexr
-[2013-03-13 16:16:50.886] [INFO] console - deleting room...b6cb5a99798da81f5b365f718ee76f45
-[2013-03-13 16:16:57.101] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'wao0Dpq9F1u5msb3Xxax'
-[2013-03-13 16:16:57.269] [INFO] console - Client connect.
-[2013-03-13 16:16:57.359] [INFO] console - client request to join user room e653a56b44408d956006ed8a5acfa76b
-[2013-03-13 16:16:57.359] [INFO] console - New room created by alexr: e653a56b44408d956006ed8a5acfa76b
-[2013-03-13 16:17:09.298] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 16:17:09.299] [INFO] console - disconnect detected
-[2013-03-13 16:17:09.300] [INFO] console - deleting user from room e653a56b44408d956006ed8a5acfa76b...alexr
-[2013-03-13 16:17:09.300] [INFO] console - deleting room...e653a56b44408d956006ed8a5acfa76b
-[2013-03-13 16:17:10.830] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'knC8U25-tNZCeVauXxay'
-[2013-03-13 16:17:11.001] [INFO] console - Client connect.
-[2013-03-13 16:17:11.018] [INFO] console - client request to join user room 24360467226a61fed6ddac8fc22bce28
-[2013-03-13 16:17:11.018] [INFO] console - New room created by alexr: 24360467226a61fed6ddac8fc22bce28
-[2013-03-13 16:17:16.706] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 16:17:16.706] [INFO] console - disconnect detected
-[2013-03-13 16:17:16.707] [INFO] console - deleting user from room 24360467226a61fed6ddac8fc22bce28...alexr
-[2013-03-13 16:17:16.707] [INFO] console - deleting room...24360467226a61fed6ddac8fc22bce28
-[2013-03-13 16:19:36.225] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'd1muLtq4Sgmfv5wuXxaz'
-[2013-03-13 16:19:36.380] [INFO] console - Client connect.
-[2013-03-13 16:19:36.484] [INFO] console - client request to join user room kcfkfk
-[2013-03-13 16:19:36.485] [INFO] console - New room created by alexr: kcfkfk
-[2013-03-13 16:19:36.534] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 16:19:38.473] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 16:19:39.976] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 16:19:39.978] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:20:06.335] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:20:36.334] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:21:06.326] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:21:36.334] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:23:06.335] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:23:36.357] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:24:36.333] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:29:19.970] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 16:29:20.445] [INFO] console - Express server listening on port 80
-[2013-03-13 16:29:22.033] [INFO] console -    [36minfo  -[39m 'handshake authorized' 's6UKTGIkpTZxWXXGcVjj'
-[2013-03-13 16:29:22.039] [INFO] console - Client connect.
-[2013-03-13 16:29:26.193] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 16:29:26.194] [INFO] console - disconnect detected
-[2013-03-13 16:29:27.371] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'UI_B_bV7LJi95LHDcVjk'
-[2013-03-13 16:29:27.692] [INFO] console - Client connect.
-[2013-03-13 16:29:27.775] [INFO] console - client request to join user room kcfkfk
-[2013-03-13 16:29:27.776] [INFO] console - New room created by alexr: kcfkfk
-[2013-03-13 16:29:27.832] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 16:29:29.293] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 16:30:00.001] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 16:30:00.002] [INFO] console - disconnect detected
-[2013-03-13 16:30:00.002] [INFO] console - deleting user from room kcfkfk...alexr
-[2013-03-13 16:30:00.002] [INFO] console - deleting room...kcfkfk
-[2013-03-13 16:30:00.475] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'h0zkAVY7m9cYDW0ZcVjl'
-[2013-03-13 16:30:00.674] [INFO] console - Client connect.
-[2013-03-13 16:30:00.781] [INFO] console - client request to join user room kcfkfk
-[2013-03-13 16:30:00.781] [INFO] console - New room created by alexr: kcfkfk
-[2013-03-13 16:30:00.835] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 16:30:18.436] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 16:30:20.120] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 16:30:20.121] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:30:30.609] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:30:45.542] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 16:30:46.052] [INFO] console - Express server listening on port 80
-[2013-03-13 16:30:46.245] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'S_gFOX4wNvzC4thxcqcn'
-[2013-03-13 16:30:46.264] [INFO] console - Client connect.
-[2013-03-13 16:30:47.650] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 16:30:47.651] [INFO] console - disconnect detected
-[2013-03-13 16:30:48.808] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'PlcURuEyoR8PT_9tcqco'
-[2013-03-13 16:30:48.991] [INFO] console - Client connect.
-[2013-03-13 16:30:49.083] [INFO] console - client request to join user room kcfkfk
-[2013-03-13 16:30:49.084] [INFO] console - New room created by alexr: kcfkfk
-[2013-03-13 16:30:49.148] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 16:30:50.327] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 16:30:50.911] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 16:30:50.912] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:31:18.957] [INFO] console - File saved: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:31:30.834] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 16:31:31.319] [INFO] console - Express server listening on port 80
-[2013-03-13 16:31:31.500] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'kKhTq9HtfI7hnS5Bc1gS'
-[2013-03-13 16:31:31.506] [INFO] console - Client connect.
-[2013-03-13 16:31:34.005] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
-[2013-03-13 16:31:34.006] [INFO] console - disconnect detected
-[2013-03-13 16:31:35.218] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'fIR7APBMT5r4edJKc1gT'
-[2013-03-13 16:31:35.403] [INFO] console - Client connect.
-[2013-03-13 16:31:35.521] [INFO] console - client request to join user room kcfkfk
-[2013-03-13 16:31:35.522] [INFO] console - New room created by alexr: kcfkfk
-[2013-03-13 16:31:35.576] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/
-[2013-03-13 16:31:36.833] [INFO] console - Files requested at: /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/
-[2013-03-13 16:31:37.432] [INFO] console - user alexr requested file /sdfsdf/aaaaa
-[2013-03-13 16:31:37.433] [INFO] console - check if path exists /home/arod/pairide/users/cf736760062170718e5e97de2a06c308/sdfsdf/aaaaa
-[2013-03-13 16:33:22.799] [INFO] console -    [36minfo  -[39m 'socket.io started'
-[2013-03-13 16:33:23.270] [INFO] console - Express server listening on port 80
+[2013-03-13 16:57:06.429] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 16:57:06.901] [INFO] console - Express server listening on port 80
+[2013-03-13 16:59:47.387] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 16:59:47.853] [INFO] console - Express server listening on port 80
+[2013-03-13 17:00:44.307] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:00:44.779] [INFO] console - Express server listening on port 80
+[2013-03-13 17:00:58.188] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:00:58.652] [INFO] console - Express server listening on port 80
+[2013-03-13 17:01:07.860] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:01:08.328] [INFO] console - Express server listening on port 80
+[2013-03-13 17:01:13.187] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:01:13.658] [INFO] console - Express server listening on port 80
+[2013-03-13 17:01:35.054] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:01:35.524] [INFO] console - Express server listening on port 80
+[2013-03-13 17:01:43.126] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:01:43.613] [INFO] console - Express server listening on port 80
+[2013-03-13 17:01:45.041] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:01:45.509] [INFO] console - Express server listening on port 80
+[2013-03-13 17:02:17.532] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:02:17.997] [INFO] console - Express server listening on port 80
+[2013-03-13 17:02:24.307] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:02:24.774] [INFO] console - Express server listening on port 80
+[2013-03-13 17:03:12.701] [ERROR] console - ReferenceError: validatonRegex is not defined
+    at exports.create (/home/warren/csc494/pairide/routes/room.js:16:21)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at exports.checkAuth (/home/warren/csc494/pairide/middleware/index.js:37:2)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:135:11)
+    at pass (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:142:5)
+    at Router._dispatch (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:170:5)
+    at Object.router (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/proto.js:199:15)
+    at store.get.next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/middleware/session.js:309:9)
+[2013-03-13 17:03:13.744] [ERROR] console - ReferenceError: validatonRegex is not defined
+    at exports.create (/home/warren/csc494/pairide/routes/room.js:16:21)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at exports.checkAuth (/home/warren/csc494/pairide/middleware/index.js:37:2)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:135:11)
+    at pass (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:142:5)
+    at Router._dispatch (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:170:5)
+    at Object.router (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/proto.js:199:15)
+    at store.get.next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/middleware/session.js:309:9)
+[2013-03-13 17:03:14.446] [ERROR] console - ReferenceError: validatonRegex is not defined
+    at exports.create (/home/warren/csc494/pairide/routes/room.js:16:21)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at exports.checkAuth (/home/warren/csc494/pairide/middleware/index.js:37:2)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:135:11)
+    at pass (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:142:5)
+    at Router._dispatch (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:170:5)
+    at Object.router (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/proto.js:199:15)
+    at store.get.next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/middleware/session.js:309:9)
+[2013-03-13 17:03:14.611] [ERROR] console - ReferenceError: validatonRegex is not defined
+    at exports.create (/home/warren/csc494/pairide/routes/room.js:16:21)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at exports.checkAuth (/home/warren/csc494/pairide/middleware/index.js:37:2)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:135:11)
+    at pass (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:142:5)
+    at Router._dispatch (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:170:5)
+    at Object.router (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/proto.js:199:15)
+    at store.get.next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/middleware/session.js:309:9)
+[2013-03-13 17:03:14.705] [ERROR] console - ReferenceError: validatonRegex is not defined
+    at exports.create (/home/warren/csc494/pairide/routes/room.js:16:21)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at exports.checkAuth (/home/warren/csc494/pairide/middleware/index.js:37:2)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:135:11)
+    at pass (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:142:5)
+    at Router._dispatch (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:170:5)
+    at Object.router (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/proto.js:199:15)
+    at store.get.next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/middleware/session.js:309:9)
+[2013-03-13 17:03:15.003] [ERROR] console - ReferenceError: validatonRegex is not defined
+    at exports.create (/home/warren/csc494/pairide/routes/room.js:16:21)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at exports.checkAuth (/home/warren/csc494/pairide/middleware/index.js:37:2)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:135:11)
+    at pass (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:142:5)
+    at Router._dispatch (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:170:5)
+    at Object.router (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/proto.js:199:15)
+    at store.get.next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/middleware/session.js:309:9)
+[2013-03-13 17:03:15.127] [ERROR] console - ReferenceError: validatonRegex is not defined
+    at exports.create (/home/warren/csc494/pairide/routes/room.js:16:21)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at exports.checkAuth (/home/warren/csc494/pairide/middleware/index.js:37:2)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:135:11)
+    at pass (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:142:5)
+    at Router._dispatch (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:170:5)
+    at Object.router (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/proto.js:199:15)
+    at store.get.next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/middleware/session.js:309:9)
+[2013-03-13 17:03:15.233] [ERROR] console - ReferenceError: validatonRegex is not defined
+    at exports.create (/home/warren/csc494/pairide/routes/room.js:16:21)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at exports.checkAuth (/home/warren/csc494/pairide/middleware/index.js:37:2)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:135:11)
+    at pass (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:142:5)
+    at Router._dispatch (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:170:5)
+    at Object.router (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/proto.js:199:15)
+    at store.get.next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/middleware/session.js:309:9)
+[2013-03-13 17:03:16.973] [ERROR] console - ReferenceError: validatonRegex is not defined
+    at exports.create (/home/warren/csc494/pairide/routes/room.js:16:21)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at exports.checkAuth (/home/warren/csc494/pairide/middleware/index.js:37:2)
+    at callbacks (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:135:11)
+    at pass (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:142:5)
+    at Router._dispatch (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:170:5)
+    at Object.router (/home/warren/csc494/pairide/node_modules/express/lib/router/index.js:33:10)
+    at next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/proto.js:199:15)
+    at store.get.next (/home/warren/csc494/pairide/node_modules/express/node_modules/connect/lib/middleware/session.js:309:9)
+[2013-03-13 17:03:46.655] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 17:03:47.119] [INFO] console - Express server listening on port 80
+[2013-03-13 17:04:27.989] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'nbDP98cEx_1focU5kOHf'
+[2013-03-13 17:04:28.146] [INFO] console - Client connect.
+[2013-03-13 17:04:28.265] [INFO] console - client request to join user room lol
+[2013-03-13 17:04:28.266] [INFO] console - New room created by ufowam: lol
+[2013-03-13 17:04:28.308] [INFO] console - Files requested at: /home/warren/csc494/pairide/users/45e36b33f220da7264981fbed66ef127/
+[2013-03-13 17:04:30.429] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 17:04:30.430] [INFO] console - disconnect detected
+[2013-03-13 17:04:30.430] [INFO] console - deleting user from room lol...ufowam
+[2013-03-13 17:04:30.430] [INFO] console - deleting room...lol

@@ -10,11 +10,15 @@ exports.create = function(req, res){
 	if(req.session.user_id && req.body.room_name){
 		// User is logged in and wants to create a custom room.
 
+		// Make sure that room's name is valid and doesn't already exist.
 		var roomExists = req.body.room_name in roomAdmins;
+		var validationRegex = /[a-zA-Z0-9_]+/;
+		var regexResult = validationRegex.exec(req.body.room_name);
 	  	res.send(
 	  		{
 	  			result:!roomExists, 
-	  			room:req.body.room_name
+	  			room:req.body.room_name,
+	  			valid: regexResult
 	  		});
 	  	roomsCreated.push(req.body.room_name);	
 	}else{
