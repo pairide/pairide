@@ -7,6 +7,7 @@ var fileSelected = null;
  */
 var cmRelPath;
 var cmRelName;
+var cmFileType;
 $(document).ready(function(){
 
 	lock_editor("Please select a file.");
@@ -182,6 +183,7 @@ function setupContextMenu(){
 		if ($(e.target).attr('rel')){
 			cmRelPath = $(e.target).attr('rel');
 			cmRelName = $(e.target).html();
+			cmFileType = $(e.target).attr('ftype');
 		}
 		e.preventDefault();
 	});
@@ -199,9 +201,16 @@ function setupContextMenu(){
 				$('#contextMenuModaldelete').modal('show');
 			}
 			else if (key == "rename"){
-				$('#cmRenameLegend').html( "Rename " + cmRelPath);
-				$('#cmInputRename').val(cmRelName);
-				$('#contextMenuModalrename').modal('show');
+				if (cmFileType == "directory"){
+					//TODO support renaming of a directory
+					alert("Renaming directory not yet supported.")
+				}
+				else{
+					$('#cmRenameLegend').html( "Rename " + cmRelPath);
+					$('#cmInputRename').val(cmRelName);
+					$('#contextMenuModalrename').modal('show');					
+				}
+
 			}
 			else if (key == "upload"){
 				alert('This function has not been implemented yet.');

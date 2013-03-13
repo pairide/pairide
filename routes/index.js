@@ -249,14 +249,14 @@ exports.fileConnector = function(req, res){
              
               //check if file is a nested directory
               if (fileStats.isDirectory()){
-                html +=  "<li class=\"directory collapsed context-menu-one\"><a href=\"#\" rel=\"" 
+                html +=  "<li class=\"directory collapsed context-menu-one\"><a ftype=\"directory\" href=\"#\" rel=\"" 
                 + relPath + fileName + "/\">" + fileName + "</a></li>";
               }
               else if (fileStats.isFile()){
                 var re = /(?:\.([^.]+))?$/; //regex for a file ext
                 var ext = re.exec(fileName)[1];
                 //add html tag for a file
-                html += "<li class=\"file ext_" + ext + "\"><a href=\"#\" rel=\"" 
+                html += "<li class=\"file ext_" + ext + "\"><a ftype=\"file\" href=\"#\" rel=\"" 
                 + relPath + fileName + "\">" + fileName + "</a></li>";
               }
             }catch(e){
