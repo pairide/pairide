@@ -51,17 +51,25 @@ $(document).ready(function(){
 
     Range = require("ace/range").Range;
 
-  /*  $("#debug").on("click", function(){
-        var r = new Range(0, 3, 0, 7);
+
+    $("#debug").html("||||||");
+
+    $("#debug").on("click", function(){
         //editor.session.selection.addRange(r);
 
         //editor.addSelectionMarker(r);
-        //editor.getSession().addMarker(r,"wutwut","text", false);
+        //editor.getSession().addMarker(r,"mark","text", false);
         //
         
-        editor.setValue("sup");
-    });*/
 
+        //editor.getSession().addGutterDecoration(1, "mark");
+        //editor.getSession().addGutterDecoration(2, "mark");
+
+        //$("#testr > div").hide();
+        //
+        //
+        
+    });
 });
 
 /* Set up editor space with syntax highlighting,
@@ -85,6 +93,8 @@ function setUpEditor(lang) {
     annotBox.css("position", "relative");
     annotBox.css("left", annotBoxLeft);
     annotBox.css("width", "20px");
+    annotBox.css("height", "100px");
+
     $("#code").append(annotBox);
 
 
