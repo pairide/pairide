@@ -77,6 +77,9 @@ exports.register = function(req, res){
 	if(!data.username){
 		err['user'] = "Username is missing.";
 	}
+	else if(!validUsername(data.username)){
+		err['user'] = "Username is not valid.";
+	}
 
 	if(!data.email){
 		err['email'] = "EMail is missing.";
@@ -393,3 +396,13 @@ exports.reset_password = function(req, res){
 		res.render('notify', {current: false, title: title, type: type, notification: "Malformed input."});
 	}
 };
+
+function validUsername(username){
+	var invalidRegex = /^guest_.*/i;
+
+	if(invalidRegex.exec(username) != null){
+		return false;
+	}
+	
+	return true;
+}
