@@ -48,6 +48,23 @@ div.modal#contextMenuModaldirectory.hide.fade
 					| Choose a name for your new folder
 			button(type='submit')#cmAddDirButton.btn.btn-primary
 				| Save
+div.modal#contextMenuModalrename.hide.fade
+	div.modal-header
+		a(data-dismiss='modal', href='#').close
+			| &times;
+		h3
+			| Project Manager
+	div.modal-body
+		div.well#contextMenuRenameDiv
+			legend#cmRenameLegend
+				| Rename
+			label
+				| New Name
+			input(placeholder='My Folder', type='text', name="name")#cmInputRename
+				span.help-inline
+					| Choose a new name for your file
+			button(type='submit')#cmRenameButton.btn.btn-primary
+				| Save
 div.modal#contextMenuModalfile.hide.fade
 	div.modal-header
 		a(data-dismiss='modal', href='#').close

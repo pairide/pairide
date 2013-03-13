@@ -36,7 +36,6 @@ $(document).ready(function(){
 			}
 			else{
 				load(socket, "express", username);
-				requestWorkspace();
 			}
 		});
 	}

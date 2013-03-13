@@ -1,11 +1,11 @@
 var log4js = require('log4js');
-log4js.configure({
-  appenders: [
-    { type: 'console' },
-    { type: 'file', filename: 'logs/pairide.log', category: 'console' }
-  ],
-  replaceConsole: true,
-});
+// log4js.configure({
+//   appenders: [
+//     { type: 'console' },
+//     { type: 'file', filename: 'logs/pairide.log', category: 'console' }
+//   ],
+//   replaceConsole: true,
+// });
 
 /* Core node module imports */
 var express = require('express'),
