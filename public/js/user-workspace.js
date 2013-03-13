@@ -6,6 +6,7 @@ var fileSelected = null;
  * Relative path to the last item selected in the context menu.
  */
 var cmRelPath;
+var cmRelName;
 $(document).ready(function(){
 
 	lock_editor("Please select a file.");
@@ -180,27 +181,10 @@ function setupContextMenu(){
 	$('#fileTree').on('contextmenu', function(e) {
 		if ($(e.target).attr('rel')){
 			cmRelPath = $(e.target).attr('rel');
+			cmRelName = $(e.target).html();
 		}
 		e.preventDefault();
 	});
-
-	// if (document.addEventListener) {
-	// 	document.addEventListener('contextmenu', function(e) {
-	// 		if (e.target.getAttribute('rel')){
-	// 			cmRelPath = e.target.getAttribute('rel');	
-	// 		} 
-			
-	// 		e.preventDefault();
-	// 	}, false);
-	// } else {
-	// 	document.attachEvent('oncontextmenu', function(e) {
-	// 		if (window.event.srcElement.getAttribute('rel')){
-	// 			cmRelPath = e.target.getAttribute('rel');
-	// 		}
-	// 				alert(window.event.srcElement.getAttribute('rel') + " !!!!!!");
-	// 		window.event.returnValue = false;
-	// 	});
-	// }
 
 	//handling context menu for directories and projects
 	var cmLineSep = "---------";
@@ -214,12 +198,19 @@ function setupContextMenu(){
 				$('#cmDelLegend').html( "Delete " + cmRelPath);
 				$('#contextMenuModaldelete').modal('show');
 			}
+			else if (key == "rename"){
+				$('#cmRenameLegend').html( "Rename " + cmRelPath);
+				$('#cmInputRename').val(cmRelName);
+				$('#contextMenuModalrename').modal('show');
+			}
 			else if (key == "upload"){
 				alert('This function has not been implemented yet.');
 			}
 		},
 		//the list of items on the menu
 		items: {
+			"rename": {name: "Rename File", icon: "edit"},
+			"sep0": cmLineSep,
 			"file": {name: "Create File", icon: "edit"},
 			"sep1": cmLineSep,
 			"upload": {name: "Upload File", icon: "upload"},
@@ -261,13 +252,26 @@ function setupContextMenu(){
 	$('#cmAddFileButton').on('click', function(e){
 		socket.emit('context_menu_clicked',
 			{
-					key: "file",
-					relPath: cmRelPath,
-					user: username,
-					room: roomname,
-					name: $("#cmInputAddFile").val(),
-                    text: editor.getSession().getValue()
-				});
+				key: "file",
+				relPath: cmRelPath,
+				user: username,
+				room: roomname,
+				name: $("#cmInputAddFile").val(),
+	            text: editor.getSession().getValue()
+			});
+	});
+
+	//user renames file
+	$('#cmRenameButton').on('click', function(e){
+		socket.emit('context_menu_clicked',
+			{
+				key: "rename",
+				relPath: cmRelPath,
+				user: username,
+				room: roomname,
+				name: $("#cmInputRename").val(),
+	            text: editor.getSession().getValue()
+			});
 	});
 
 	//listens for a result of a context menu action.
@@ -277,6 +281,10 @@ function setupContextMenu(){
 		}
 	});
 
+	socket.on("file_renamed", function(name){
+		fileSelected = name;
+		alert(name);
+	});
 	socket.on("lock_editor", function(data){
 		fileSelected = null;
 		lock_editor("Please select a file.");
@@ -292,7 +300,7 @@ function handleCMResult(data){
 		requestWorkspace();
 	}
 	else{
-		alert(data.error);
+		alert("Error: " + data.error);
 	}
 }
 

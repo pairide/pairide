@@ -162,12 +162,12 @@ function dragOver(evt) {
 }
 
 function drop(evt) {
-
+    preventDefaultEvent(evt);
     if (!(window.File && window.FileReader && window.FileList)) {
       alert('Your browser does not fully support drag and drop.');
       return;
     } 
-    preventDefaultEvent(evt);
+
     var files = evt.dataTransfer.files;
     // Check if at least one file has been dropped
     if (files.length > 0)

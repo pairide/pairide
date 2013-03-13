@@ -290,9 +290,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
     var directory = process.cwd() + "/users"; 
     var path = unescape(directory + "/" + username + relPath);
 
-    console.log("Context menu action " + data.key 
-      + " at \n" + path 
-      + (data.name? data.name : ""));
+    console.log("Context menu action " + data.key + " at \n" + path);
 
     if (!validatePath(relPath, data.name)){
       sendErrorCM(socket, data, "Name should avoid special characters.");
@@ -314,7 +312,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
           else{
             fs.writeFile(path + data.name, "", function(err) {
               if(err) {
-                sendErrorCM(socket,data,err);
+                sendErrorCM(socket,data, err.errno + " " + err.code);
               } else {
                 saveFile(socket, roomFile[room], data.text);
                 loadFile(path + data.name, room, roomFile, io, data.name);
@@ -326,6 +324,29 @@ exports.menuClicked = function(socket, data, roomDrivers,
         break;
       case 'upload':
         //upload file to directory
+        break;
+      case 'rename':
+        fs.exists(path, function(exists){
+          if (!exists){
+              sendErrorCM(socket,data, "The file you are trying to rename does not exist.");
+          }
+          else{
+            var oldPath = path;
+            var newPath = getNewPath(oldPath, data.name);
+            fs.rename(oldPath, newPath, function(err) {
+              if(err) {
+                sendErrorCM(socket,data, err.errno + " " + err.code);
+              } else {
+
+                if (roomFile[room] == oldPath){
+                  roomFile[room] = newPath;
+                  io.sockets.in(room).emit('file_renamed', data.name);
+                }
+                sendSuccessCM(socket, data);
+              }
+            }); 
+          }
+        });
         break;
       case 'delete':
         //delete entire directory or file
@@ -357,6 +378,15 @@ exports.menuClicked = function(socket, data, roomDrivers,
   }
 }
 
+function getNewPath(oldPath, newName){
+  var i = oldPath.lastIndexOf("/");
+  if (i !== -1){
+    return oldPath.substr(0, i + 1) + newName;
+  } 
+  else{
+    return newName;
+  }
+}
 /*Handle the switch request made by socket*/
 exports.make_switch = function(io, socket, data, roomDrivers, roomUsers){
   var old_driver = socket.store.data.nickname;
