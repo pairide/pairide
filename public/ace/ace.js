@@ -1855,6 +1855,7 @@ var Editor = function(renderer, session) {
 
     this.onScrollTopChange = function() {
         this.renderer.scrollToY(this.session.getScrollTop());
+        $("#annotBox").css("top", "-" +  this.session.getScrollTop() + "px");
     };
     
     this.onScrollLeftChange = function() {
@@ -11592,6 +11593,8 @@ var Gutter = function(parentEl) {
         var decorations = this.session.$decorations;
         var lastLineNumber = 0;
 
+        $("#annotBox").css("height", ((lastRow + 1) * 20) + "px");
+
         while (true) {
             if(i > foldStart) {
                 i = fold.end.row + 1;
@@ -11602,11 +11605,12 @@ var Gutter = function(parentEl) {
                 break;
 
             var annotation = this.$annotations[i] || emptyAnno;
+            lastLineNumber = i + 1;
             html.push(
                 "<div class='ace_gutter-cell ",
                 breakpoints[i] || "", decorations[i] || "", annotation.className,
                 "' style='height:", this.session.getRowLength(i) * config.lineHeight, "px;'>", 
-                lastLineNumber = i + 1
+                lastLineNumber
             );
 
             if (foldWidgets) {

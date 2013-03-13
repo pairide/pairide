@@ -387,6 +387,10 @@ function applyAnnotation(data){
 	var annotation_id = annotationID++;
 
 
+	console.log(range.start.row);
+	console.log(margin_top);
+
+
 	var annot = $("<div/>");
 	annot.attr("id", "an" + annotation_id);
 	annot.attr("class", "annotation");
