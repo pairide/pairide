@@ -23,9 +23,6 @@ $(document).ready(function(){
     $("#languageList li").click(function(e){
         changeLanguage(e.target.text);
     });
-    // $('#code').on('dragover', handleDragOver);
-    // $('#code').on('drop', handleDragOn);
-
 
     var codeDiv = document.getElementById("code")
     // init event handlers for drag and drop
@@ -166,6 +163,10 @@ function dragOver(evt) {
 
 function drop(evt) {
 
+    if (!(window.File && window.FileReader && window.FileList)) {
+      alert('Your browser does not fully support drag and drop.');
+      return;
+    } 
     preventDefaultEvent(evt);
     var files = evt.dataTransfer.files;
     // Check if at least one file has been dropped
@@ -175,6 +176,8 @@ function drop(evt) {
 
 
 function handleFiles(files) {
+    //clear editor for file contents
+    editor.getSession().setValue("");
     var file = files[0];
     var reader = new FileReader();
     // init the reader event handlers
