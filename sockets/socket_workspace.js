@@ -336,15 +336,8 @@ exports.menuClicked = function(socket, data, roomDrivers,
               }
               else{
                 sendSuccessCM(socket, data);
-                if(data.lock){
-                  roomFile[room] = null;
-                  console.log("Delete request: lock: " +  data.lock);
-                  io.sockets.in(socket.store.data.room).emit("lock_editor", {
-                    lock: true,
-                  });
-                }
               }
-            });
+            }, room, roomFile, io);
         }catch(ignore){
         }
         break;
@@ -414,12 +407,20 @@ function sendErrorCM(socket, data, errorMsg){
 function sendSuccessCM(socket, data){
   socket.emit("context_menu_click_result", {key:data.key, result:true});
 }
+
+/*
+ * Return true if string ends with a specific suffix.
+ */
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
 /*
  * Recursively deletes a directory but also works for a single file. 
  * This is very powerful, and the path should be validated extensively
  * before executing it.
  */
-fs.removeRecursive = function(path,cb){
+fs.removeRecursive = function(path,cb, room, roomFile, io){
     var self = this;
 
     fs.stat(path, function(err, stats) {
@@ -432,6 +433,15 @@ fs.removeRecursive = function(path,cb){
           if(err) {
             cb(err,null);
           }else{
+            console.log("!Deleting......" + path);
+            console.log(roomFile[room]);
+            if (path == roomFile[room]){
+              console.log("___ROOM FILE BEING DELETED___");
+                roomFile[room] = null;
+                io.sockets.in(room).emit("lock_editor", {
+                  lock: true,
+                });
+            }
             cb(null,true);
           }
           return;
@@ -473,7 +483,19 @@ fs.removeRecursive = function(path,cb){
               // Not really needed, but just good practice
               // (as strings arn't passed by reference)
               (function(){
-                var filePath = path + '/' + files[i];
+
+                var filePath;
+
+                if (endsWith(path, '/')){
+                  filePath = path + files[i];
+                }
+                else{
+                  filePath = path + '/' + files[i];
+                }
+                
+                console.log("!Path...." + path);
+                console.log("!Filename...." +  files[i]);
+                console.log("!File path....." + filePath);
                 // Add a named function as callback
                 // just to enlighten debugging
                 fs.removeRecursive(filePath,function removeRecursiveCB(err,status){
@@ -484,7 +506,7 @@ fs.removeRecursive = function(path,cb){
                     cb(err,null);
                     return;
                   }
-                });
+                }, room, roomFile, io);
     
               })()
             }

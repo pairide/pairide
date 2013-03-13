@@ -202,6 +202,7 @@ function setupContextMenu(){
 	// }
 
 	//handling context menu for directories and projects
+	var cmLineSep = "---------";
 	$.contextMenu({
 		selector: '.context-menu-one', 
 		callback: function(key, options) {
@@ -219,25 +220,17 @@ function setupContextMenu(){
 		//the list of items on the menu
 		items: {
 			"file": {name: "Create File", icon: "edit"},
-			"sep1": "---------",
+			"sep1": cmLineSep,
 			"upload": {name: "Upload File", icon: "upload"},
-			"sep2": "---------",
+			"sep2": cmLineSep,
 			"directory": {name: "Add directory", icon: "add"},
-			"sep2": "---------",
+			"sep3": cmLineSep,
 			"delete": {name: "Delete", icon: "delete"},
-			"sep5": "---------",
+			"sep4": cmLineSep,
 		}
 	});
 	//user confirms deletion
 	$('#cmDelButtonYes').on('click', function(e){
-
-		var currentFileDeleted = false;
-
-		if(cmRelPath == fileSelected){
-			fileSelected = null;
-			currentFileDeleted = true;
-			lock_editor("Please select a file.");
-		}
 
 		socket.emit('context_menu_clicked',
 			{
@@ -245,7 +238,6 @@ function setupContextMenu(){
 					relPath: cmRelPath,
 					user: username,
 					room: roomname,
-					lock: currentFileDeleted
 				});
 	}); 
 	//user declines deletion
@@ -275,7 +267,6 @@ function setupContextMenu(){
 					name: $("#cmInputAddFile").val(),
                     text: editor.getSession().getValue()
 				});
-
 	});
 
 	//listens for a result of a context menu action.
@@ -286,10 +277,8 @@ function setupContextMenu(){
 	});
 
 	socket.on("lock_editor", function(data){
-		if(!isDriver){
-			fileSelected = null;
-			lock_editor("Please select a file.");
-		}
+		fileSelected = null;
+		lock_editor("Please select a file.");
 	});
 }
 
