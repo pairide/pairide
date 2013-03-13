@@ -390,3 +390,93 @@
 [2013-03-13 17:52:51.105] [INFO] console - Express server listening on port 80
 [2013-03-13 17:52:51.804] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'nuQg3ebMpe2HIO4Evc3J'
 [2013-03-13 17:52:51.812] [INFO] console - Client connect.
+[2013-03-13 18:10:02.360] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-03-13 18:10:02.361] [INFO] console - disconnect detected
+[2013-03-13 18:15:13.415] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:15:13.907] [INFO] console - Express server listening on port 80
+[2013-03-13 18:15:26.195] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:15:26.664] [INFO] console - Express server listening on port 80
+[2013-03-13 18:17:11.844] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:17:12.344] [INFO] console - Express server listening on port 80
+[2013-03-13 18:17:28.192] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:17:28.677] [INFO] console - Express server listening on port 80
+[2013-03-13 18:17:53.541] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:17:54.061] [INFO] console - Express server listening on port 80
+[2013-03-13 18:18:12.986] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:18:13.449] [INFO] console - Express server listening on port 80
+[2013-03-13 18:18:55.946] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:18:56.415] [INFO] console - Express server listening on port 80
+[2013-03-13 18:21:18.054] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:21:18.538] [INFO] console - Express server listening on port 80
+[2013-03-13 18:21:22.491] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:21:22.957] [INFO] console - Express server listening on port 80
+[2013-03-13 18:21:30.667] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:21:31.133] [INFO] console - Express server listening on port 80
+[2013-03-13 18:22:14.488] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:22:14.956] [INFO] console - Express server listening on port 80
+[2013-03-13 18:23:04.344] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:23:04.816] [INFO] console - Express server listening on port 80
+[2013-03-13 18:23:18.276] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:23:18.741] [INFO] console - Express server listening on port 80
+[2013-03-13 18:23:26.534] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:23:27.006] [INFO] console - Express server listening on port 80
+[2013-03-13 18:23:42.815] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:23:43.284] [INFO] console - Express server listening on port 80
+[2013-03-13 18:27:26.942] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:27:27.406] [INFO] console - Express server listening on port 80
+[2013-03-13 18:27:54.933] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:27:55.403] [INFO] console - Express server listening on port 80
+[2013-03-13 18:28:46.214] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:28:46.732] [INFO] console - Express server listening on port 80
+[2013-03-13 18:28:52.149] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:28:52.624] [INFO] console - Express server listening on port 80
+[2013-03-13 18:28:56.490] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:28:56.956] [INFO] console - Express server listening on port 80
+[2013-03-13 18:29:17.463] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:29:17.931] [INFO] console - Express server listening on port 80
+[2013-03-13 18:29:24.252] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:29:24.728] [INFO] console - Express server listening on port 80
+[2013-03-13 18:30:30.738] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:30:31.214] [INFO] console - Express server listening on port 80
+[2013-03-13 18:31:01.055] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:31:01.552] [INFO] console - Express server listening on port 80
+[2013-03-13 18:32:28.876] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:32:29.347] [INFO] console - Express server listening on port 80
+[2013-03-13 18:32:47.584] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:32:48.057] [INFO] console - Express server listening on port 80
+[2013-03-13 18:32:49.711] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:32:50.193] [INFO] console - Express server listening on port 80
+[2013-03-13 18:33:28.580] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:33:29.055] [INFO] console - Express server listening on port 80
+[2013-03-13 18:34:24.784] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:34:25.274] [INFO] console - Express server listening on port 80
+[2013-03-13 18:34:55.725] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:34:56.216] [INFO] console - Express server listening on port 80
+[2013-03-13 18:35:13.973] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:35:14.463] [INFO] console - Express server listening on port 80
+[2013-03-13 18:35:18.019] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:35:18.493] [INFO] console - Express server listening on port 80
+[2013-03-13 18:36:21.747] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:36:22.216] [INFO] console - Express server listening on port 80
+[2013-03-13 18:36:52.895] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:36:53.359] [INFO] console - Express server listening on port 80
+[2013-03-13 18:37:37.119] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:37:37.581] [INFO] console - Express server listening on port 80
+[2013-03-13 18:37:51.032] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:37:51.496] [INFO] console - Express server listening on port 80
+[2013-03-13 18:37:54.681] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:37:55.162] [INFO] console - Express server listening on port 80
+[2013-03-13 18:40:53.392] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:40:53.881] [INFO] console - Express server listening on port 80
+[2013-03-13 18:41:49.909] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:41:50.385] [INFO] console - Express server listening on port 80
+[2013-03-13 18:41:58.467] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:41:58.960] [INFO] console - Express server listening on port 80
+[2013-03-13 18:42:03.051] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:42:03.516] [INFO] console - Express server listening on port 80
+[2013-03-13 18:43:00.958] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:43:01.425] [INFO] console - Express server listening on port 80
+[2013-03-13 18:43:40.349] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:43:40.822] [INFO] console - Express server listening on port 80
+[2013-03-13 18:43:57.892] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-03-13 18:43:58.359] [INFO] console - Express server listening on port 80
