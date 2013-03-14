@@ -50,26 +50,7 @@ $(document).ready(function(){
     })
 
     Range = require("ace/range").Range;
-
-
-    $("#debug").html("||||||");
-
-    $("#debug").on("click", function(){
-        //editor.session.selection.addRange(r);
-
-        //editor.addSelectionMarker(r);
-        //editor.getSession().addMarker(r,"mark","text", false);
-        //
-        
-
-        //editor.getSession().addGutterDecoration(1, "mark");
-        //editor.getSession().addGutterDecoration(2, "mark");
-
-        //$("#testr > div").hide();
-        //
-        //
-        
-    });
+    
 });
 
 /* Set up editor space with syntax highlighting,

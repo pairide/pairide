@@ -63,10 +63,11 @@ $(document).ready(function(){
 	});
 
 	$("#code_overlay")
-		.css("width", $("#code").css("width"))
 		.css("position", "absolute")
+		.css("width", $("#code").css("width"))
 		.css("top", $("#code_area").position().top + "px")
 		.css("left", $("#code").position().left + "px");
+
 
 	setupContextMenu();
 
@@ -348,6 +349,7 @@ function handleCMResult(data){
 }
 
 function lock_editor(message){
+
 	editor.setReadOnly(true);
 	$("#overlay_message").html(message);
 	$("#code_overlay").fadeIn();

@@ -316,7 +316,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
               } else {
                 saveFile(socket, roomFile[room], data.text);
                 loadFile(path + data.name, room, roomFile, io, data.name);
-                sendSuccessCM(socket, data);
+                sendSuccessCM(socket, data, room, io);
               }
             }); 
           }
@@ -342,7 +342,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
                   roomFile[room] = newPath;
                   io.sockets.in(room).emit('file_renamed', data.name);
                 }
-                sendSuccessCM(socket, data);
+                sendSuccessCM(socket, data, room, io);
               }
             }); 
           }
@@ -356,7 +356,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
                 sendErrorCM(socket, data, "Failed to delete.");
               }
               else{
-                sendSuccessCM(socket, data);
+                sendSuccessCM(socket, data, room, io);
               }
             }, room, roomFile, io);
         }catch(ignore){
@@ -370,7 +370,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
             sendErrorCM(socket,data, "Folder already exists, or has invalid name.");
           }
           else{
-            sendSuccessCM(socket, data);
+            sendSuccessCM(socket, data, room, io);
           }
         });
         break;
@@ -378,6 +378,9 @@ exports.menuClicked = function(socket, data, roomDrivers,
   }
 }
 
+/*
+ * Replaces a path to a file with the same path to a new file.
+ */
 function getNewPath(oldPath, newName){
   var i = oldPath.lastIndexOf("/");
   if (i !== -1){
@@ -434,8 +437,9 @@ function sendErrorCM(socket, data, errorMsg){
 /*
  * Notify the socket that the context menu action succeeded.
  */
-function sendSuccessCM(socket, data){
+function sendSuccessCM(socket, data, room, io){
   socket.emit("context_menu_click_result", {key:data.key, result:true});
+  io.sockets.in(room).emit("refresh_files", {});
 }
 
 /*
