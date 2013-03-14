@@ -151,7 +151,6 @@ function requestWorkspace(){
 		room: roomname
 	}, function(file) {
 		//event for when a file is clicked
-
 		if (isDriver){
 
 			socket.emit("get_file", {
@@ -177,8 +176,7 @@ function load_file(file_content){
 
 function setupContextMenu(){
 
-
-	//capture the DOM element that was right clicked
+	//capture the DOM element that was right clicked in the file tree
 	$('#fileTree').on('contextmenu', function(e) {
 		if ($(e.target).attr('rel')){
 			cmRelPath = $(e.target).attr('rel');
@@ -248,81 +246,35 @@ function setupContextMenu(){
 
 	//user submits a new directory
 	$('#cmAddDirButton').on('click', function(e){
-		socket.emit('context_menu_clicked',
-			{
-					key: "directory",
-					relPath: cmRelPath,
-					user: username,
-					room: roomname,
-					name: $("#cmInputAddDir").val()
-				});
+		emitAddDirReq();
 	});
 	$('#contextMenuModaldirectory').keypress(function(e){
 		var code = (e.keyCode ? e.keyCode : e.which);
 		if(code == 13) { //Enter keycode
-			socket.emit('context_menu_clicked',
-			{
-					key: "directory",
-					relPath: cmRelPath,
-					user: username,
-					room: roomname,
-					name: $("#cmInputAddDir").val()
-			});
+			emitAddDirReq();
 		}
 	});
 
 	//user submits a new file
 	$('#cmAddFileButton').on('click', function(e){
-		socket.emit('context_menu_clicked',
-			{
-				key: "file",
-				relPath: cmRelPath,
-				user: username,
-				room: roomname,
-				name: $("#cmInputAddFile").val(),
-	            text: editor.getSession().getValue()
-			});
+		emitAddFileReq();
 	});
 	$('#contextMenuModalfile input').keypress(function(e){
 		var code = (e.keyCode ? e.keyCode : e.which);
 		if(code == 13) { //Enter keycode
-			socket.emit('context_menu_clicked',
-			{
-				key: "file",
-				relPath: cmRelPath,
-				user: username,
-				room: roomname,
-				name: $("#cmInputAddFile").val(),
-	            text: editor.getSession().getValue()
-			});
+			emitAddFileReq();
 		}
 	});
 
 
 	//user renames file
 	$('#cmRenameButton').on('click', function(e){
-		socket.emit('context_menu_clicked',
-			{
-				key: "rename",
-				relPath: cmRelPath,
-				user: username,
-				room: roomname,
-				name: $("#cmInputRename").val(),
-	            text: editor.getSession().getValue()
-			});
+		emitRenameReq();
 	});
 	$('#contextMenuModalrename input').keypress(function(e){
 			 var code = (e.keyCode ? e.keyCode : e.which);
  			if(code == 13) { //Enter keycode
-	   			socket.emit('context_menu_clicked',
-				{
-					key: "rename",
-					relPath: cmRelPath,
-					user: username,
-					room: roomname,
-					name: $("#cmInputRename").val(),
-		            text: editor.getSession().getValue()
-				});
+ 				emitRenameReq();
  			}	
 	});
 
@@ -338,8 +290,7 @@ function setupContextMenu(){
 	});
 
 	socket.on("file_renamed", function(name){
-		fileSelected = name;
-		alert(name);
+		fileSelected = name;ll
 	});
 	socket.on("lock_editor", function(data){
 		fileSelected = null;
@@ -347,6 +298,40 @@ function setupContextMenu(){
 	});
 }
 
+function emitAddDirReq(){
+	socket.emit('context_menu_clicked',
+	{
+			key: "directory",
+			relPath: cmRelPath,
+			user: username,
+			room: roomname,
+			name: $("#cmInputAddDir").val()
+	});
+}
+
+function emitAddFileReq(){
+	socket.emit('context_menu_clicked',
+	{
+		key: "file",
+		relPath: cmRelPath,
+		user: username,
+		room: roomname,
+		name: $("#cmInputAddFile").val(),
+	    text: editor.getSession().getValue()
+	});	
+}
+
+function emitRenameReq(){
+	socket.emit('context_menu_clicked',
+	{
+		key: "rename",
+		relPath: cmRelPath,
+		user: username,
+		room: roomname,
+		name: $("#cmInputRename").val(),
+	    text: editor.getSession().getValue()
+	});
+}
 /*
  * Handles the servers response to a context menu action.
  */

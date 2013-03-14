@@ -56,7 +56,10 @@ if(jQuery) (function($){
 					$.post(o.script, { dir: t, sID: o.sID, room: o.room}, function(data) {
 						$(c).find('.start').html('');
 						$(c).removeClass('wait').append(data);
-						if( o.root == t ) $(c).find('UL:hidden').show(); else $(c).find('UL:hidden').slideDown({ duration: o.expandSpeed, easing: o.expandEasing });
+						if( o.root == t ) $(c).find('UL:hidden').show(); else $(c).find('UL:hidden').slideDown(
+								{ duration: o.expandSpeed, 
+									easing: o.expandEasing 
+								});
 						bindTree(c);
 					});
 				}
