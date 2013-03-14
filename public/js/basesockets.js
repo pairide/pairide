@@ -372,11 +372,13 @@ function addAnnotation(){
 
 	var sel = editor.getSession().selection.getRange();
 	var annot = $("#annot_text").val();
+	var off = annot_offset(sel.end);
 
 	socket.emit("post_annotation", {
 		user: username,
 		range: sel,
 		annot: annot,
+		offset: off
 	});
 
 
@@ -385,19 +387,27 @@ function addAnnotation(){
 	editor.getSession().selection.clearSelection();
 }
 
+function annot_offset(range_end){
+	var lines = editor.getSession().getDocument().getLines(0, range_end.row);
+	var total_off = 0;
+	var num_char;
+
+	for(var i = 0; i < lines.length; i++){
+		num_char = lines[i].length;
+		total_off += parseInt((num_char - 1) / 80);
+	}
+
+	return total_off;
+}
+
 function applyAnnotation(data){
 
 	var range = data.range;
-	var margin_top = parseInt(range.start.row) * 20;
+	var margin_top = (parseInt(range.start.row) + data.offset) * 20;
 	var annot_height = ((range.end.row - range.start.row) + 1) * 20;
 	var annotation_color = data.driver == data.user ? "#8EC21F" : "#C2731F";
 	var annotation_role = data.driver == data.user ? "driver" : "navigator";
 	var annotation_id = annotationID++;
-
-
-	console.log(range.start.row);
-	console.log(margin_top);
-
 
 	var annot = $("<div/>");
 	annot.attr("id", "an" + annotation_id);
@@ -416,7 +426,7 @@ function applyAnnotation(data){
 	annot.popover({
 		content: data.annot,
 		trigger: 'none'
-	})
+	});
 
 	annot.hover(
 		function(){
