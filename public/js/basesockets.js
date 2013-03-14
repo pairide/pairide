@@ -11,6 +11,7 @@ var roomname;
 var currentHighlight;
 var annotationID = 0;
 var annotations = new Object();
+var annotFlag = false;
 var users = {};
 var refreshed = false;
 var autoSaveToggle = false;
@@ -163,6 +164,12 @@ function load(socket, type, username){
 	//Handle switch request
 	$("#switch").click(function(){
 		requestSwitch();
+		return false;
+	});
+
+	$('#anoToggle').click(function(){
+		toggleAnnotations();
+		return false;
 	});
 
 
@@ -367,11 +374,13 @@ function addAnnotation(){
 
 	var sel = editor.getSession().selection.getRange();
 	var annot = $("#annot_text").val();
+	var off = annot_offset(sel.end);
 
 	socket.emit("post_annotation", {
 		user: username,
 		range: sel,
 		annot: annot,
+		offset: off
 	});
 
 
@@ -380,19 +389,27 @@ function addAnnotation(){
 	editor.getSession().selection.clearSelection();
 }
 
+function annot_offset(range_end){
+	var lines = editor.getSession().getDocument().getLines(0, range_end.row);
+	var total_off = 0;
+	var num_char;
+
+	for(var i = 0; i < lines.length; i++){
+		num_char = lines[i].length;
+		total_off += parseInt((num_char - 1) / 80);
+	}
+
+	return total_off;
+}
+
 function applyAnnotation(data){
 
 	var range = data.range;
-	var margin_top = parseInt(range.start.row) * 20;
+	var margin_top = (parseInt(range.start.row) + data.offset) * 20;
 	var annot_height = ((range.end.row - range.start.row) + 1) * 20;
 	var annotation_color = data.driver == data.user ? "#8EC21F" : "#C2731F";
 	var annotation_role = data.driver == data.user ? "driver" : "navigator";
 	var annotation_id = annotationID++;
-
-
-	console.log(range.start.row);
-	console.log(margin_top);
-
 
 	var annot = $("<div/>");
 	annot.attr("id", "an" + annotation_id);
@@ -403,18 +420,25 @@ function applyAnnotation(data){
 
 	$("#annotBox").append(annot);
 
+	data.elem = annot;
+	data.role = annotation_role;
+
 	annotations[annotation_id] = data;
 
 	annot.popover({
-		"trigger": "hover",
 		content: data.annot,
-	})
+		trigger: 'none'
+	});
 
 	annot.hover(
 		function(){
+			annot.popover('show');
 			highlightAnnotation(range, annotation_role);
 		},
 		function(){
+			if(!annotFlag){
+				annot.popover('hide');
+			}
 			destroyHighlightAnnotation();
 		}
 	);
@@ -447,4 +471,37 @@ function purgeAnnotation(data){
 	$("#" + data.target)
 		.popover('destroy')
 		.remove();
+}
+
+/* Activate pop over for all annotations */
+function showAllAnnotations(){
+	for(var annot_id in annotations){
+		var annot = annotations[annot_id];
+		annot.elem.popover('show');
+	}
+
+	annotFlag = true;
+}
+
+/* Deactivate pop over for all annotations */
+function hideAllAnnotations(){
+	for (var annot_id in annotations){
+		var annot = annotations[annot_id];
+		annot.elem.popover('hide');
+	}
+
+	annotFlag = false;
+}
+
+function toggleAnnotations(){
+	if(annotFlag){
+		$('#anoToggle i').removeClass('icon-edit');
+		$('#anoToggle i').addClass('icon-pencil');
+		hideAllAnnotations();
+	}
+	else{
+		$('#anoToggle i').removeClass('icon-pencil');
+		$('#anoToggle i').addClass('icon-edit');
+		showAllAnnotations();
+	}
 }
