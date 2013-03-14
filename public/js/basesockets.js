@@ -164,11 +164,13 @@ function load(socket, type, username){
 	//Handle switch request
 	$("#switch").click(function(){
 		requestSwitch();
+		return false;
 	});
 
 	$('#anoToggle').click(function(){
 		toggleAnnotations();
-	})
+		return false;
+	});
 
 
 	// Handle: A user added an annotation.

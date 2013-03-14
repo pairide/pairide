@@ -22,6 +22,7 @@ $(document).ready(function(){
     //Listener for language change
     $("#languageList li").click(function(e){
         changeLanguage(e.target.text);
+        return false;
     });
 
     var codeDiv = document.getElementById("code")
@@ -39,6 +40,11 @@ $(document).ready(function(){
 
     $("#anoLink").on("click", function(){
         handleAnnotation();
+        return false;
+    });
+
+    $('#driver').on('click', function(){
+        return false;
     });
 
     $("#annotBtn").on("click", function(){
