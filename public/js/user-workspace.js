@@ -72,11 +72,10 @@ $(document).ready(function(){
 	});
 
 	$("#code_overlay")
-		.css("position", "absolute")
 		.css("width", $("#code").css("width"))
+		.css("position", "absolute")
 		.css("top", $("#code_area").position().top + "px")
 		.css("left", $("#code").position().left + "px");
-
 
 	setupContextMenu();
 
@@ -145,8 +144,8 @@ function requestWorkspace(){
 	$('#fileTree').fileTree({
 		root: '/',
 		script: 'fileconnector',
-		expandSpeed: 350,
-		collapseSpeed: 350,
+		expandSpeed: 200,
+		collapseSpeed: 200,
 		multiFolder: false,
 		sID: socket.socket['sessionid'],
 		room: roomname
@@ -238,6 +237,7 @@ function setupContextMenu(){
 					relPath: cmRelPath,
 					user: username,
 					room: roomname,
+					activePath: getActiveFolderPath()
 				});
 	}); 
 	//user declines deletion
@@ -279,6 +279,35 @@ function setupContextMenu(){
  			}	
 	});
 
+	socket.on("refresh_files", function(data){
+		if (data.activePath && isDriver){
+			var obj = $('a[rel="' + data.activePath + '"]');
+			if (obj.length){
+				if (obj.parent().hasClass('collapsed'))
+				{
+					obj.trigger("click");
+				}
+				else{
+					obj.trigger("click").delay(500).trigger("click");	
+				}	
+			}
+			else{
+				alert("could not find obj: " + data.activePath);
+				requestWorkspace();
+			}
+		}
+	});
+	//triggered when the driver clicks a folder in the filebrowser
+	socket.on("file_clicked", function(data){
+		if (!isDriver){
+			var obj = $('a[rel="' + data.activePath + '"]');
+			if (obj.length){
+				obj.trigger("click");
+			}
+		}	
+	});
+
+
 	//listens for a result of a context menu action.
 	socket.on("context_menu_click_result", function(data){
 		if (data.key != "upload"){ //upload currently not implemented
@@ -287,7 +316,7 @@ function setupContextMenu(){
 	});
 
 	socket.on("file_renamed", function(name){
-		fileSelected = name;ll
+		fileSelected = name;
 	});
 	socket.on("lock_editor", function(data){
 		fileSelected = null;
@@ -302,7 +331,8 @@ function emitAddDirReq(){
 			relPath: cmRelPath,
 			user: username,
 			room: roomname,
-			name: $("#cmInputAddDir").val()
+			name: $("#cmInputAddDir").val(),
+			activePath: getActiveFolderPath()
 	});
 }
 
@@ -314,7 +344,8 @@ function emitAddFileReq(){
 		user: username,
 		room: roomname,
 		name: $("#cmInputAddFile").val(),
-	    text: editor.getSession().getValue()
+	    text: editor.getSession().getValue(),
+	    activePath: getActiveFolderPath()
 	});	
 }
 
@@ -326,8 +357,20 @@ function emitRenameReq(){
 		user: username,
 		room: roomname,
 		name: $("#cmInputRename").val(),
-	    text: editor.getSession().getValue()
+	    text: editor.getSession().getValue(),
+	    activePath: getActiveFolderPath()
 	});
+}
+
+function getActiveFolderPath(){
+	var activePath = cmRelPath;
+	if (cmFileType == "file"){
+		var i = cmRelPath.lastIndexOf("/");
+		if (i !== -1){
+			activePath = cmRelPath.substr(0, i + 1); 
+		}
+	}
+	return activePath;
 }
 /*
  * Handles the servers response to a context menu action.
@@ -335,7 +378,6 @@ function emitRenameReq(){
 function handleCMResult(data){
    if (data.result){
 		$('#contextMenuModal' + data.key).modal('hide');
-		requestWorkspace();
 	}
 	else{
 		alert("Error: " + data.error);
@@ -343,7 +385,6 @@ function handleCMResult(data){
 }
 
 function lock_editor(message){
-
 	editor.setReadOnly(true);
 	$("#overlay_message").html(message);
 	$("#code_overlay").fadeIn();

@@ -390,6 +390,16 @@ function getNewPath(oldPath, newName){
     return newName;
   }
 }
+
+exports.fileClick = function(socket, data, roomDrivers, roomUsers, io){
+  var room = data.room;
+  var user = data.user;
+  if (validateDriver(socket, room, user, roomDrivers, roomUsers)){
+    io.sockets.in(room).emit("file_clicked", {
+      activePath: data.filePath
+    });
+  }
+}
 /*Handle the switch request made by socket*/
 exports.make_switch = function(io, socket, data, roomDrivers, roomUsers){
   var old_driver = socket.store.data.nickname;
@@ -439,7 +449,7 @@ function sendErrorCM(socket, data, errorMsg){
  */
 function sendSuccessCM(socket, data, room, io){
   socket.emit("context_menu_click_result", {key:data.key, result:true});
-  io.sockets.in(room).emit("refresh_files", {});
+  io.sockets.in(room).emit("refresh_files", {activePath: data.activePath});
 }
 
 /*
