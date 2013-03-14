@@ -58,6 +58,10 @@ exports.communicate = function(io){
         roomAdmins, roomFile, io);
       });
 
+      socket.on("driver_file_click", function(data){
+        workspace.fileClick(socket, data, roomDrivers, roomUsers, io);
+      });
+
       //relay the message that the editor has changed
       socket.on("editor_changed", function(data){
           var room = socket.store.data.room;

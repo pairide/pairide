@@ -30,6 +30,18 @@
 // This plugin is dual-licensed under the GNU General Public License and the MIT License and
 // is copyright 2008 A Beautiful Site, LLC. 
 //
+
+function sendActivePath(path){
+	//alert(path);
+	if (isDriver){	
+		socket.emit("driver_file_click", 
+			{
+	        	room:roomname, 
+				user:username,
+				filePath:path
+			});
+	}
+}
 if(jQuery) (function($){
 	
 	$.extend($.fn, {
@@ -51,23 +63,31 @@ if(jQuery) (function($){
 			$(this).each( function() {
 				//t is the path, c seems to be a DOM object
 				function showTree(c, t) {
+					sendActivePath(t);
 					$(c).addClass('wait');
 					$(".jqueryFileTree.start").remove();
 					$.post(o.script, { dir: t, sID: o.sID, room: o.room}, function(data) {
 						$(c).find('.start').html('');
 						$(c).removeClass('wait').append(data);
-						if( o.root == t ) $(c).find('UL:hidden').show(); else $(c).find('UL:hidden').slideDown({ duration: o.expandSpeed, easing: o.expandEasing });
-						bindTree(c);
+						if( o.root == t ) $(c).find('UL:hidden').show(); else $(c).find('UL:hidden').slideDown(
+								{ duration: o.expandSpeed, 
+									easing: o.expandEasing 
+								});
+						bindTree(c, t);
 					});
 				}
 				
-				function bindTree(t) {
+				function bindTree(t, c) {
 					$(t).find('LI A').bind(o.folderEvent, function() {
 						if( $(this).parent().hasClass('directory') ) {
 							if( $(this).parent().hasClass('collapsed') ) {
 								// Expand
 								if( !o.multiFolder ) {
-									$(this).parent().parent().find('UL').slideUp({ duration: o.collapseSpeed, easing: o.collapseEasing });
+									$(this).parent().parent().find('UL').slideUp(
+										{ 
+											duration: o.collapseSpeed, 
+											easing: o.collapseEasing 
+										});
 									$(this).parent().parent().find('LI.directory').removeClass('expanded').addClass('collapsed');
 								}
 								$(this).parent().find('UL').remove(); // cleanup
@@ -75,7 +95,12 @@ if(jQuery) (function($){
 								$(this).parent().removeClass('collapsed').addClass('expanded');
 							} else {
 								// Collapse
-								$(this).parent().find('UL').slideUp({ duration: o.collapseSpeed, easing: o.collapseEasing });
+								sendActivePath($(this).attr("rel"));
+								$(this).parent().find('UL').slideUp(
+									{ 
+										duration: o.collapseSpeed, 
+										easing: o.collapseEasing 
+									});
 								$(this).parent().removeClass('expanded').addClass('collapsed');
 							}
 						} else {

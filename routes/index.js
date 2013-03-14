@@ -228,7 +228,6 @@ exports.fileConnector = function(req, res){
     console.log("User requested files associated with another room.");
     return;
   }
-  
   console.log("Files requested at: " + path);
   try {
     //raises an error if the path does not exist
