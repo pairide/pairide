@@ -7,6 +7,7 @@ $(document).ready(function(){
 		/*Get user's name and load the session */
 		$('#nameFormBtn').on("click", function(){
 			set_user();
+			return false;
 		});
 		$('#userModal input').keypress(function(e){
 			 var code = (e.keyCode ? e.keyCode : e.which);
