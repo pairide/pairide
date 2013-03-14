@@ -10781,7 +10781,7 @@ var VirtualRenderer = function(container, theme) {
             size.scrollerHeight = this.scroller.clientHeight;
             this.scrollBar.setHeight(size.scrollerHeight);
 
-            if (this.session) {
+            if (this.sonResizeession) {
                 this.session.setScrollTop(this.getScrollTop());
                 changes = changes | this.CHANGE_FULL;
             }
@@ -10808,6 +10808,12 @@ var VirtualRenderer = function(container, theme) {
         
         if (force)
             delete this.resizing;
+
+
+        $("#code_overlay")
+            .css("width", $("#code").css("width"))
+            .css("top", $("#code_area").position().top + "px")
+            .css("left", $("#code").position().left + "px");
     };
 
     this.onGutterResize = function() {

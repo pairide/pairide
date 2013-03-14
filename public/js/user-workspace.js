@@ -72,10 +72,11 @@ $(document).ready(function(){
 	});
 
 	$("#code_overlay")
-		.css("width", $("#code").css("width"))
 		.css("position", "absolute")
+		.css("width", $("#code").css("width"))
 		.css("top", $("#code_area").position().top + "px")
 		.css("left", $("#code").position().left + "px");
+
 
 	setupContextMenu();
 
@@ -278,10 +279,6 @@ function setupContextMenu(){
  			}	
 	});
 
-	socket.on("refresh_files", function(data){
-		requestWorkspace();
-	});
-
 	//listens for a result of a context menu action.
 	socket.on("context_menu_click_result", function(data){
 		if (data.key != "upload"){ //upload currently not implemented
@@ -338,6 +335,7 @@ function emitRenameReq(){
 function handleCMResult(data){
    if (data.result){
 		$('#contextMenuModal' + data.key).modal('hide');
+		requestWorkspace();
 	}
 	else{
 		alert("Error: " + data.error);
@@ -345,6 +343,7 @@ function handleCMResult(data){
 }
 
 function lock_editor(message){
+
 	editor.setReadOnly(true);
 	$("#overlay_message").html(message);
 	$("#code_overlay").fadeIn();
