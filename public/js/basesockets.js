@@ -14,9 +14,12 @@ var annotations = new Object();
 var users = {};
 var refreshed = false;
 var autoSaveToggle = false;
+var roomType;
 
 //base load function for the workspace
 function load(socket, type, username){
+
+	roomType = type;
 
 	//listen for the server to notify the client if they are
 	//a driver or navigator
@@ -39,7 +42,7 @@ function load(socket, type, username){
 	});
 
 	socket.on("get_driver_state", function(){
-		if(isDriver && fileSelected){
+		if(isDriver &&  (roomType == "express" || fileSelected)){
 			socket.emit("post_driver_state", {
 				content: editor.getSession().getValue(),
 				annotations: annotations,
