@@ -21,18 +21,23 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
     roomUsers[data.room] = {};
     roomFile[data.room] = null;
     roomSockets[data.room] = {};
+    console.log(socket.id);
     roomSockets[data.room][socket.id] = socket;
+
     console.log("New room created by " + data.user + ": " + data.room);
     socket.emit("is_driver",{driver:true, admin: true, name: data.user});
   }
   else{
     var driverID = roomDrivers[data.room];
-    roomSockets[data.room] = socket;
+    roomSockets[data.room][socket.id] = socket;
     socket.emit("is_driver", {
       driver:false, 
       admin:false, 
       name: roomUsers[data.room][driverID]
     });
+      var driverID = roomDrivers[data.room];
+      socket.emit("set_filebrowser_desync", {});
+      roomSockets[data.room][driverID].emit("get_driver_filetree_expansion", {});
   }
   roomUsers[data.room][socket.id] = data.user;
   socket.emit("socket_connected", {});
@@ -93,6 +98,16 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins,
       {username: socket.store.data["nickname"]});
 }
 
+//When a user joins an already existing user workspace; the file browser
+//may have one or more directories expanded. This function syncs the new users
+//file browser with the driver.
+exports.updateFileTree = function(socket, data, roomDrivers, roomUsers, io){
+  var user = data.user;
+  var room = data.room;
+  if (validateDriver(socket, room, user, roomDrivers, roomUsers)){
+    io.sockets.in(room).emit("update_file_expansions", {expansions:data.expansions});
+  }
+}
 exports.get_users = function(socket, data, room_users){
 	var users = new Array();
 

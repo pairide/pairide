@@ -42,6 +42,23 @@ function sendActivePath(path){
 			});
 	}
 }
+var delay = 600;
+//gradually expands directories to match the clients filebrowser
+//with the drivers
+function expand(){
+
+	if (delayedExpansions && delayedExpansions.length){
+		var obj = $('a[rel="' + delayedExpansions[0] + '"]');
+		if (obj.length){
+			obj.trigger("click");
+		}
+		else{
+			alert(delayedExpansions[0]);
+		}
+		delayedExpansions.splice(0, 1);
+	}
+}
+
 if(jQuery) (function($){
 	
 	$.extend($.fn, {
@@ -73,6 +90,7 @@ if(jQuery) (function($){
 								{ duration: o.expandSpeed, 
 									easing: o.expandEasing 
 								});
+						setTimeout('expand()', delay);
 						bindTree(c, t);
 					});
 				}
@@ -96,6 +114,7 @@ if(jQuery) (function($){
 							} else {
 								// Collapse
 								sendActivePath($(this).attr("rel"));
+								setTimeout('expand()', delay);
 								$(this).parent().find('UL').slideUp(
 									{ 
 										duration: o.collapseSpeed, 

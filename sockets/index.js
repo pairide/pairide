@@ -58,10 +58,15 @@ exports.communicate = function(io){
         roomAdmins, roomFile, io);
       });
 
+      //listens for when the driver has clicked a file in the file browser
       socket.on("driver_file_click", function(data){
         workspace.fileClick(socket, data, roomDrivers, roomUsers, io);
       });
 
+      //listens for when the driver sends their current file tree
+      socket.on("send_driver_filetree_expansion", function(data){
+        workspace.updateFileTree(socket, data, roomDrivers, roomUsers, io);
+      });
       //relay the message that the editor has changed
       socket.on("editor_changed", function(data){
           var room = socket.store.data.room;

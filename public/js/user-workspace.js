@@ -8,8 +8,10 @@ var fileSelected = null;
 var cmRelPath;
 var cmRelName;
 var cmFileType;
+var syncedFileBrowser = true;
+var delayedExpansions;
 $(document).ready(function(){
-
+	syncedFileBrowser = false;
 	lock_editor("Please select a file.");
 
 	if(!auth){
@@ -39,8 +41,15 @@ $(document).ready(function(){
 			}
 		});		
 	}
+
 	socket.on("socket_connected", function(data){
 		requestWorkspace();
+	});
+
+	//let the client know that their file browser is currently out of sync
+	//with the driver
+	socket.on("set_filebrowser_desync", function(data){
+		syncedFileBrowser = false;
 	});
 	socket.on("receive_file", function(data){
 
@@ -52,6 +61,24 @@ $(document).ready(function(){
 				fileName: data.fileName, 
 				room: roomname,
 				user: username
+			});
+		}
+	});
+
+	socket.on("update_file_expansions", function(data){
+		if (!isDriver && !syncedFileBrowser){
+			delayedExpansions = data.expansions;
+			syncedFileBrowser = true;
+		}
+	});
+
+
+	socket.on("get_driver_filetree_expansion", function(data){
+		if (isDriver){
+			socket.emit("send_driver_filetree_expansion", {
+				room:roomname,
+				user:username,
+				expansions: getFileTreeExpansion()
 			});
 		}
 	});
@@ -112,6 +139,21 @@ $(document).ready(function(){
 
 });
 
+// //gradually expand the directories
+// function expand(){
+// 	delayedExpansions
+// 	if (delayedExpansions.length){
+// 		var obj = $('a[rel="' + delayedExpansions[0] + '"]');
+// 		if (obj.length){
+// 			obj.trigger("click");
+// 		}
+// 		else{
+// 			alert(delayedExpansions[0]);
+// 		}
+// 		delayedExpansions.splice(0, 1);
+// 		setTimeout("expand()", 500);
+// 	}
+// }	
 //Send a request to the current file.
 function saveFile(){
     socket.emit("save_file", 
@@ -144,7 +186,6 @@ function requestWorkspace(){
 	}, function(file) {
 		//event for when a file is clicked
 		if (isDriver){
-
 			socket.emit("get_file", {
 				user: username, 
 				fileName: file, 
@@ -153,6 +194,20 @@ function requestWorkspace(){
 			});
 		}
 	});	
+}
+
+//Returns a list of expanded directory paths, ordered by ascending 
+//distance from the root.
+function getFileTreeExpansion(){
+	var openFolders = new Array();
+	var root = $('#fileTree').children().children(".expanded");
+	while (root.length){
+		var child = root.children('a');
+		openFolders.push($(child).attr('rel'));
+		root = root.children('ul');
+		root = root.children(".expanded");
+	}
+	return openFolders;
 }
 function setFileSelected(file){
 	if(!fileSelected){
@@ -272,30 +327,27 @@ function setupContextMenu(){
 	});
 
 	socket.on("refresh_files", function(data){
-		if (data.activePath && isDriver){
-			var obj = $('a[rel="' + data.activePath + '"]');
-			if (obj.length){
-				if (obj.parent().hasClass('collapsed'))
-				{
-					obj.trigger("click");
-				}
-				else{
-					obj.trigger("click").delay(500).trigger("click");	
-				}	
-			}
-			else{
-				alert("could not find obj: " + data.activePath);
-				requestWorkspace();
-			}
-		}
+
+		if (!(delayedExpansions && delayedExpansions.length)){
+			//TODO maybe queue the refreshes while delayed expansion
+			//is not finished
+			refreshFiles(data.activePath);	
+		}		
 	});
 	//triggered when the driver clicks a folder in the filebrowser
 	socket.on("file_clicked", function(data){
 		if (!isDriver){
-			var obj = $('a[rel="' + data.activePath + '"]');
-			if (obj.length){
-				obj.trigger("click");
+
+			if (delayedExpansions && delayedExpansions.length){
+				delayedExpansions.push(data.activePath);
 			}
+			else{
+				var obj = $('a[rel="' + data.activePath + '"]');
+				if (obj.length){
+					obj.trigger("click");
+				}
+			}
+
 		}	
 	});
 
@@ -316,6 +368,24 @@ function setupContextMenu(){
 	});
 }
 
+//refresh the GUI at a directory that has had recent changes.
+function refreshFiles(activePath){
+	if (activePath && isDriver){
+		var obj = $('a[rel="' + activePath + '"]');
+		if (obj.length){
+			if (obj.parent().hasClass('collapsed'))
+			{
+				obj.trigger("click");
+			}
+			else{
+				obj.trigger("click").delay(500).trigger("click");	
+			}	
+		}
+		else{
+			requestWorkspace();
+		}
+	}
+}
 function emitAddDirReq(){
 	socket.emit('context_menu_clicked',
 	{
