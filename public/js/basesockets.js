@@ -11,6 +11,7 @@ var roomname;
 var currentHighlight;
 var annotationID = 0;
 var annotations = new Object();
+var annotFlag = false;
 var users = {};
 var refreshed = false;
 var autoSaveToggle = false;
@@ -161,6 +162,10 @@ function load(socket, type, username){
 	$("#switch").click(function(){
 		requestSwitch();
 	});
+
+	$('#anoToggle').click(function(){
+		toggleAnnotations();
+	})
 
 
 	// Handle: A user added an annotation.
@@ -400,18 +405,25 @@ function applyAnnotation(data){
 
 	$("#annotBox").append(annot);
 
+	data.elem = annot;
+	data.role = annotation_role;
+
 	annotations[annotation_id] = data;
 
 	annot.popover({
-		"trigger": "hover",
 		content: data.annot,
+		trigger: 'none'
 	})
 
 	annot.hover(
 		function(){
+			annot.popover('show');
 			highlightAnnotation(range, annotation_role);
 		},
 		function(){
+			if(!annotFlag){
+				annot.popover('hide');
+			}
 			destroyHighlightAnnotation();
 		}
 	);
@@ -444,4 +456,37 @@ function purgeAnnotation(data){
 	$("#" + data.target)
 		.popover('destroy')
 		.remove();
+}
+
+/* Activate pop over for all annotations */
+function showAllAnnotations(){
+	for(var annot_id in annotations){
+		var annot = annotations[annot_id];
+		annot.elem.popover('show');
+	}
+
+	annotFlag = true;
+}
+
+/* Deactivate pop over for all annotations */
+function hideAllAnnotations(){
+	for (var annot_id in annotations){
+		var annot = annotations[annot_id];
+		annot.elem.popover('hide');
+	}
+
+	annotFlag = false;
+}
+
+function toggleAnnotations(){
+	if(annotFlag){
+		$('#anoToggle i').removeClass('icon-edit');
+		$('#anoToggle i').addClass('icon-pencil');
+		hideAllAnnotations();
+	}
+	else{
+		$('#anoToggle i').removeClass('icon-pencil');
+		$('#anoToggle i').addClass('icon-edit');
+		showAllAnnotations();
+	}
 }

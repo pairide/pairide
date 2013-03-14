@@ -15,22 +15,13 @@ $(document).ready(function(){
 	if(!auth){
 		/*Get user's name and load the session */
 		$('#nameFormBtn').on("click", function(){
-			username = "guest_" + $("#username").val();
-
-			//Check if username is not already taken 
-			//before assigning it.
-			$.when(check_username(socket, "workspace", username)).
-				then(function(duplicate){
-					if(duplicate){
-						$("#username").val('');
-						$("#userModal .error").text('Sorry, this name is already taken.');
-					}
-					else{
-						load(socket, "workspace", username);
-						$('#userModal').modal('hide');
-					}
-				});
-			return false;
+			set_user();
+		});
+		$('#userModal input').keypress(function(e){
+			var code = (e.keyCode ? e.keyCode : e.which);
+ 			if(code == 13) { //Enter keycode
+   				set_user();
+ 			}	
 		});
 	}
 	else{
@@ -367,4 +358,24 @@ function unlock_editor(){
 		editor.setReadOnly(false);
 	}
 	$("#code_overlay").fadeOut();
+}
+
+
+function set_user(){
+	username = "guest_" + $("#username").val();
+
+	//Check if username is not already taken 
+	//before assigning it.
+	$.when(check_username(socket, "workspace", username)).
+		then(function(duplicate){
+			if(duplicate){
+				$("#username").val('');
+				$("#userModal .error").text('Sorry, this name is already taken.');
+			}
+			else{
+				load(socket, "workspace", username);
+				$('#userModal').modal('hide');
+			}
+		});
+	return false;
 }
