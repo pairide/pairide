@@ -13,6 +13,8 @@ var languages = {"Python" : "python",
 $(document).ready(function(){
 	setUpEditor(language);
 
+    $(window).bind('beforeunload', function () { return false;} );
+
     //Set up language label and selection
     $("#current_language").html(language);
     for (language  in languages){
