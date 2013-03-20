@@ -52,7 +52,9 @@ $(document).ready(function(){
     });
 
     $(".annotation").live("dblclick", function(e){
-        removeAnnotationSend(e.target.id);
+        var r=confirm("Are you sure you want to delete?");
+        if(r)
+            removeAnnotationSend(e.target.id);
     })
 
     Range = require("ace/range").Range;
