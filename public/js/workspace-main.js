@@ -52,6 +52,12 @@ $(document).ready(function(){
     $("#annotBtn").on("click", function(){
         addAnnotation();
     });
+    $("#annotModal").keypress(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if(code == 13) { //Enter keycode
+            addAnnotation();
+        }   
+    });
 
     $(".annotation").live("dblclick", function(e){
         var r=confirm("Are you sure you want to delete?");
