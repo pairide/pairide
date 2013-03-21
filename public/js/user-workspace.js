@@ -348,10 +348,9 @@ function setupContextMenu(){
 			else{
 				var obj = $('a[rel="' + data.activePath + '"]');
 				if (obj.length){
-					obj.trigger("click");
+					forceClick(obj)
 				}
 			}
-
 		}	
 	});
 
@@ -372,6 +371,9 @@ function setupContextMenu(){
 	});
 }
 
+function forceClick(obj){
+	obj.trigger("click", [true]);
+}
 //refresh the GUI at a directory that has had recent changes.
 function refreshFiles(activePath){
 	if (activePath && isDriver){
@@ -379,10 +381,10 @@ function refreshFiles(activePath){
 		if (obj.length){
 			if (obj.parent().hasClass('collapsed'))
 			{
-				obj.trigger("click");
+				forceClick(obj);
 			}
 			else{
-				obj.trigger("click").delay(500).trigger("click");	
+				obj.trigger("click", [true]).delay(500).trigger("click", [true]);	
 			}	
 		}
 		else{

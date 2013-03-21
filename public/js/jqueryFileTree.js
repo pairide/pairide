@@ -51,7 +51,7 @@ function expand(){
 	if (delayedExpansions && delayedExpansions.length){
 		var obj = $('a[rel="' + delayedExpansions[0] + '"]');
 		if (obj.length){
-			obj.trigger("click", {test:true});
+			forceClick(obj)
 		}
 		else{
 			console.log("Missing file with rel path = " + delayedExpansions[0]);
@@ -102,7 +102,8 @@ if(jQuery) (function($){
 				}
 				
 				function bindTree(t, c) {
-					$(t).find('LI A').bind(o.folderEvent, function(extra) {
+					$(t).find('LI A').bind(o.folderEvent, function(e, byTrigger) {
+						if (byTrigger != true && !isDriver) return
 						if( $(this).parent().hasClass('directory') ) {
 							if( $(this).parent().hasClass('collapsed') ) {
 								// Expand
