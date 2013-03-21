@@ -89,6 +89,10 @@ exports.communicate = function(io){
       socket.on("unlock_navigators", function(data){
         workspace.unlockNavigators(socket, data, roomDrivers, roomUsers, io);
       });
+
+      socket.on("send_request_workspace", function(data){
+        workspace.requestWorkspace(socket, data, roomDrivers, roomUsers, io);
+      })
       socket.on("post_annotation", function(data){
 
         var driverID = roomDrivers[socket.store.data.room];

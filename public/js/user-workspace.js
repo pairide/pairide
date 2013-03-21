@@ -108,7 +108,7 @@ $(document).ready(function(){
 
 		if (data.result){
 			$('#projectCreatorModal').modal('hide');
-			requestWorkspace();
+			sendRequestWorkspace();
 		}
 		else{
 			alert(data.error);
@@ -398,7 +398,9 @@ function setupContextMenu(){
 			}
 		}	
 	});
-
+	socket.on("request_workspace", function(data){
+		requestWorkspace();
+	});
 
 	//listens for a result of a context menu action.
 	socket.on("context_menu_click_result", function(data){
@@ -419,6 +421,19 @@ function setupContextMenu(){
 function forceClick(obj){
 	obj.trigger("click", [true]);
 }
+
+/*
+ * Request that all users in the workspace an update on their file tree.
+ */
+function sendRequestWorkspace(){
+
+	if (isDriver){
+		socket.emit("send_request_workspace", 
+			{room: roomname,
+			user: username
+		});
+	}
+}
 //refresh the GUI at a directory that has had recent changes.
 function refreshFiles(data){
 	action = data.key;
@@ -431,7 +446,7 @@ function refreshFiles(data){
 				obj = obj.parent().parent().parent().children();
 				if (!obj.attr("rel")){
 					//Likely hit the root folder of the users workspace
-					requestWorkspace();
+					sendRequestWorkspace();
 					return;
 				}
 			}		
@@ -444,7 +459,7 @@ function refreshFiles(data){
 			}	
 		}
 		else{
-			requestWorkspace();
+			sendRequestWorkspace();
 		}
 	}
 }
