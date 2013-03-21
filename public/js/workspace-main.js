@@ -13,6 +13,8 @@ var languages = {"Python" : "python",
 $(document).ready(function(){
 	setUpEditor(language);
 
+    $(window).bind('beforeunload', function () { return false;} );
+
     //Set up language label and selection
     $("#current_language").html(language);
     for (language  in languages){
@@ -50,9 +52,17 @@ $(document).ready(function(){
     $("#annotBtn").on("click", function(){
         addAnnotation();
     });
+    $("#annotModal").keypress(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if(code == 13) { //Enter keycode
+            addAnnotation();
+        }   
+    });
 
     $(".annotation").live("dblclick", function(e){
-        removeAnnotationSend(e.target.id);
+        var r=confirm("Are you sure you want to delete?");
+        if(r)
+            removeAnnotationSend(e.target.id);
     })
 
     Range = require("ace/range").Range;

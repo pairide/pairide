@@ -62,6 +62,8 @@ $(document).ready(function(){
 				room: roomname,
 				user: username
 			});
+
+			addConsoleMessage("Loaded new file - " + data.fileName);
 		}
 	});
 
@@ -131,6 +133,7 @@ $(document).ready(function(){
 		if(!data.errmsg){
 			$("#loader_img").hide();
 			$("#loader_msg").html("Saved.");
+			addConsoleMessage("File saved.");
 		}else{
 			showMessage("An error occurred: " + data.errmsg.toString(), true);
 		}
@@ -167,6 +170,7 @@ function saveFile(){
 function autoSave(){
     if (driver && fileSelected && autoSaveToggle){
     	autoSaveToggle = false;
+    	addConsoleMessage("Auto saving...");
         saveFile();
     }
 }
