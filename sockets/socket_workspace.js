@@ -181,6 +181,13 @@ exports.handleSaveRequest = function(socket, data, roomDrivers, roomUsers,
   }
 }
 
+exports.requestWorkspace = function(socket, data, roomDrivers, roomUsers, io){
+  var room = data.room;
+  var username = data.user;
+  if (validateDriver(socket, room, username, roomDrivers, roomUsers)){
+      io.sockets.in(room).emit("request_workspace", { });
+  }
+}
 //notifies the navigators to unlock their overlay
 exports.unlockNavigators = function(socket, data, roomDrivers, roomUsers, io){
   var room = data.room;
