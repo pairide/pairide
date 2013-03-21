@@ -8,7 +8,10 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
   roomAdmins, roomFile, roomSockets){
 
   var roomExistsBefore = "/" + data.room in socket.manager.rooms; 
-  console.log('client request to join user room ' + data.room);
+  console.log('client ' + data.user 
+    + " (with socket id " + socket.id + ') requested to join user room ' 
+    + data.room + "\n");
+
   socket.join(data.room);
   var roomExistsAfter = "/" + data.room in socket.manager.rooms
   socket.set("nickname", data.user);
@@ -24,7 +27,7 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
     console.log(socket.id);
     roomSockets[data.room][socket.id] = socket;
 
-    console.log("New room created by " + data.user + ": " + data.room);
+    console.log("New room created by " + data.user + ": " + data.room + "\n");
     socket.emit("is_driver",{driver:true, admin: true, name: data.user});
   }
   else{
@@ -317,7 +320,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
     var directory = process.cwd() + "/users"; 
     var path = unescape(directory + "/" + username + relPath);
 
-    console.log("Context menu action " + data.key + " at \n" + path);
+    console.log("Context menu action " + data.key + " at " + path + "\n");
 
     if (!validatePath(relPath, data.name)){
       sendErrorCM(socket, data, "Name should avoid special characters.");
@@ -362,9 +365,13 @@ exports.menuClicked = function(socket, data, roomDrivers,
             var newPath = getNewPath(oldPath, data.name);
             fs.rename(oldPath, newPath, function(err) {
               if(err) {
+                console.log("[Error] Failed to rename file from " + oldPath 
+                  + " to " + newPath + "; with error " + err.errno + " " 
+                  + err.code + "\n");
                 sendErrorCM(socket,data, err.errno + " " + err.code);
               } else {
-
+                console.log("File renamed from " + oldPath + " to " 
+                  + newPath + " by " + data.user + " (in room " + room + ")\n")
                 if (roomFile[room] == oldPath){
                   roomFile[room] = newPath;
                   io.sockets.in(room).emit('file_renamed', data.name);
@@ -380,9 +387,13 @@ exports.menuClicked = function(socket, data, roomDrivers,
         try{
             fs.removeRecursive(path,function(err,status){
               if (err){
+                console.log("[Error] Failed to delete " + path + " by " + data.user
+                  + " (in room " + room + ")\n");
                 sendErrorCM(socket, data, "Failed to delete.");
               }
               else{
+                console.log("Deleted " + path + " by " + data.user
+                  + "(in room " + room + ")\n");
                 sendSuccessCM(socket, data, room, io);
               }
             }, room, roomFile, io);
@@ -397,6 +408,8 @@ exports.menuClicked = function(socket, data, roomDrivers,
             sendErrorCM(socket,data, "Folder already exists, or has invalid name.");
           }
           else{
+            console.log("Folder created by " + data.user 
+              + " (in room " + room + ") at path " + path + "\n")
             sendSuccessCM(socket, data, room, io);
           }
         });
