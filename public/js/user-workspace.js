@@ -42,6 +42,7 @@ $(document).ready(function(){
 		});		
 	}
 
+
 	socket.on("socket_connected", function(data){
 		requestWorkspace();
 	});
@@ -104,6 +105,19 @@ $(document).ready(function(){
 		$("#projectCreatorModalInput").val('');
 		$('#projectCreatorModal').modal('show');
 	});
+
+	$('#createProjectForm').on("submit", function(data){
+		var projName = $('#projectCreatorModalInput').val();
+		var sanityReg = /^[a-zA-Z0-9_ -]+$/;;
+		//check for potential path traversal attacks
+		if (!sanityReg.exec(projName)){
+			alert("Project name must not contain any special characters.");
+			$('#projectCreatorModalInput').val("");
+		    return false;
+		  }
+	});
+
+
 	$('#createProjectForm').ajaxForm(function(data) {
 
 		if (data.result){
@@ -244,7 +258,6 @@ function setupContextMenu(){
 					$('#cmInputRename').val(cmRelName);
 					$('#contextMenuModalrename').modal('show');					
 				}
-
 			}
 			else if (key == "upload"){
 				alert('This function has not been implemented yet.');
@@ -267,15 +280,7 @@ function setupContextMenu(){
 	//user confirms deletion
 	$('#cmDelButtonYes').on('click', function(e){
 
-		socket.emit('context_menu_clicked',
-			{
-					key: "delete",
-					relPath: cmRelPath,
-					user: username,
-					room: roomname,
-					activePath: getActiveFolderPath("delete"),
-					deleteDir:(cmFileType == "directory")
-				});
+		emitDeleteReq();
 	}); 
 	//user declines deletion
 	$('#cmDelButtonNo').on('click', function(e){
@@ -292,6 +297,8 @@ function setupContextMenu(){
 			emitAddDirReq();
 		}
 	});
+
+
 
 	//user submits a new file
 	$('#cmAddFileButton').on('click', function(e){
@@ -405,7 +412,41 @@ function refreshFiles(data){
 		}
 	}
 }
+
+function cmNameValidation(id){
+	var name = $(id).val();
+	if (name.length == 0){
+		alert("Name must be at least one character.");
+		return false;
+	}
+	//validate input
+	if (!validatePath(cmRelPath, name)){
+		$(id).val("");
+		alert("Please avoid special characters.");
+		return false;
+	}	
+	return true;
+}
+
+function emitDeleteReq(){
+
+	if (!isDriver) return;
+	action = "delete";
+	socket.emit('context_menu_clicked',
+	{
+			key: action,
+			relPath: cmRelPath,
+			user: username,
+			room: roomname,
+			activePath: getActiveFolderPath(action),
+			deleteDir:(cmFileType == "directory")
+		});
+}
 function emitAddDirReq(){
+
+	var id = "#cmInputAddDir";
+	if (!isDriver || !cmNameValidation(id)) return;
+
 	action = "directory";
 	socket.emit('context_menu_clicked',
 	{
@@ -413,12 +454,37 @@ function emitAddDirReq(){
 			relPath: cmRelPath,
 			user: username,
 			room: roomname,
-			name: $("#cmInputAddDir").val(),
+			name:  $(id).val(),
 			activePath: getActiveFolderPath(action)
 	});
 }
 
+//Validates a relative path for common path traversal attacks.
+function validatePath(relativePath, fileName){
+
+    relativePath = unescape(relativePath);
+    fileName = unescape(fileName);
+
+    var fullPath = relativePath + fileName;
+    //Check for .. in relative path
+    var pathReg1 = /.*\.\..*/; 
+    //Check that the fileName doesn't contain / or \
+    var pathReg2 = /(.*(\/|\\).*)/;
+    //Further validation on the name mostly ensures characters are alphanumeric 
+    var pathReg3 = /^([a-zA-Z0-9_ .]|-)*$/;
+
+    return !(pathReg1.exec(relativePath) 
+          || pathReg2.exec(fileName) 
+          || !pathReg3.exec(fileName)
+          || pathReg1.exec(fullPath));
+}
+
+//Emits a re
 function emitAddFileReq(){
+
+	var id = "#cmInputAddFile";
+	if (!isDriver || !cmNameValidation(id)) return;
+
 	action = "file";
 	socket.emit('context_menu_clicked',
 	{
@@ -426,13 +492,17 @@ function emitAddFileReq(){
 		relPath: cmRelPath,
 		user: username,
 		room: roomname,
-		name: $("#cmInputAddFile").val(),
+		name: $(id).val(),
 	    text: editor.getSession().getValue(),
 	    activePath: getActiveFolderPath(action)
 	});	
 }
 
 function emitRenameReq(){
+
+	var id = "#cmInputRename";
+	if (!isDriver || !cmNameValidation(id)) return;
+
 	action = "rename"
 	socket.emit('context_menu_clicked',
 	{
@@ -440,7 +510,7 @@ function emitRenameReq(){
 		relPath: cmRelPath,
 		user: username,
 		room: roomname,
-		name: $("#cmInputRename").val(),
+		name: $(id).val(),
 	    text: editor.getSession().getValue(),
 	    activePath: getActiveFolderPath(action)
 	});
