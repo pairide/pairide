@@ -142,6 +142,11 @@ $(document).ready(function(){
 
 	$('#fileupload').fileupload({
 		dataType: 'json',
+
+		start:function(e){
+                $("#FileUploadButton").off('click');
+		},
+
 		add: function (e, data) {
 
 			$.each(data.files, function(index, file){
@@ -159,9 +164,11 @@ $(document).ready(function(){
 			
 			$("#FileUploadButton")
 				.on("click", function() {
+
 					data.submit();
 			});
 		},
+
 		done: function (e, data) {
 			data.context
 				.html("<i class='icon-ok icon-white'></i>");
@@ -183,13 +190,11 @@ $(document).ready(function(){
 
 	$("#contextMenuFileUpload").on("hidden", function(){
 
-		$("#fileupload").replaceWith(
-				$("#fileupload").val('').clone(true)
-		);
-
 		$("#FileUploadButton").show();
 		$('ul', "#contextMenuUploadContainer").html("");
 		$("#progress .bar").css("width", "0%");
+
+		//add console message.
 	});
 
 });
@@ -299,15 +304,6 @@ function setupContextMenu(){
 
 			}
 			else if (key == "upload"){
-
-
-				var files = $('input[type="file"]')[0].files;
-for (var i = 0; i < files.length; i++)
-{
-    alert(files[i].name);
-}
-
-
 
 				$("#contextMenuFileUpload").modal('show');
 			}
