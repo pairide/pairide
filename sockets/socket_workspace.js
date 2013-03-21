@@ -138,10 +138,12 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers, roomAdmins,
 
   var room = data.room;
   var user = data.user;
+  console.log("User " + user + " requesting to load file in room " + room + "\n");
   if (validateDriver(socket, room, user, roomDrivers, roomUsers)){
     if (!validatePath(data.fileName, "")){
       //path has probably been manipulated on client side
-      console.log("Path attack: " + data.fileName);
+      console.log("[Attack] Path attack: " + data.fileName 
+        + " by " + user + " in room " + room + "\n");
       return;
     }
 
@@ -149,9 +151,8 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers, roomAdmins,
     var adminID = roomAdmins[room];
     username = md5h(roomUsers[room][adminID]);
     var path = unescape(directory + "/" + username + data.fileName);
-    console.log("check if path exists " + path);
     if (!pathExists(path)){
-      console.log("Can't find file requested: " + path);
+      console.log("[Error] Can't find file to load: " + path);
       return;
     }
 
@@ -195,22 +196,31 @@ function saveFile(socket, path, content){
         fs.writeFile(path, content, function(err) {
           socket.emit("save_response", {errmsg:err});
           if (err){
-            console.log("Failed to save file: " + path);
+            console.log("[Error] Failed to save file: " + path + "\n");
           }
           else{
-            console.log("File saved: " + path);
+            console.log("File saved: " + path + "\n");
           }
         }); 
       }
       else{
         socket.emit("save_response", {errmsg:"File does not exist."});
-        console.log("Could not find file to save: " + path);
+        console.log("[Error] File being saved does not exist with path " + path + "\n");
       }
     });
   }
 }
 //Loads a file to a room.
 function loadFile(socket, path, room, roomFile, fileName){
+
+  if (roomFile[room]){
+      console.log("New File loaded -> " + path + " (was  " 
+          + roomFile[room] + ") in room " + room + "\n")
+  }
+  else{
+      console.log("New File loaded -> " + path + " in room " + room + "\n") 
+  }
+
   roomFile[room] = path;
   fs.exists(path, function(exists){
       if (exists){
@@ -228,11 +238,13 @@ function loadFile(socket, path, room, roomFile, fileName){
               });
           }
           else{
-            console.log("Error reading file! This shouldn't happen.");
+            console.log("[Error] Error reading file during a load (for room " 
+              + room + "); with path  " +  path + "\n");
           }
         });
       }else{
-        console.log("File to load does not exist: " + path);
+        console.log("[Error] File to load does not exist (for room " 
+          + room + "); with path " + path + "\n");
       }
     }); 
 }
@@ -390,6 +402,10 @@ exports.menuClicked = function(socket, data, roomDrivers,
         });
         break;
     }
+  }else{
+    //validation for driver failed
+    sendErrorCM(socket,data, "You don't have privelege to do that; "
+      +" you must be the current driver or admin.");
   }
 }
 

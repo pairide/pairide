@@ -141,22 +141,7 @@ $(document).ready(function(){
 	});
 
 });
-
-// //gradually expand the directories
-// function expand(){
-// 	delayedExpansions
-// 	if (delayedExpansions.length){
-// 		var obj = $('a[rel="' + delayedExpansions[0] + '"]');
-// 		if (obj.length){
-// 			obj.trigger("click");
-// 		}
-// 		else{
-// 			alert(delayedExpansions[0]);
-// 		}
-// 		delayedExpansions.splice(0, 1);
-// 		setTimeout("expand()", 500);
-// 	}
-// }	
+	
 //Send a request to the current file.
 function saveFile(){
     socket.emit("save_file", 
