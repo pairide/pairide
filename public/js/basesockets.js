@@ -20,12 +20,17 @@ var roomType;
 //base load function for the workspace
 function load(socket, type, username){
 
+	addConsoleMessage("Session initated.");
+
 	roomType = type;
 
 	//listen for the server to notify the client if they are
 	//a driver or navigator
 	socket.on('is_driver', function(data){
 		setDriver(data.driver);
+
+		addConsoleMessage("Session driver - " + data.name);
+
 		if (!isDriver){
 			//Some one is already editing when the user joined.
 			//Editor should be updated with the current text.
@@ -59,6 +64,8 @@ function load(socket, type, username){
 			for(var aID in data.annotations){
 				applyAnnotation(data.annotations[aID]);
 			}
+
+			addConsoleMessage("Pre-synced status with driver.");
 
 			unlock_editor();
 		}
@@ -113,7 +120,7 @@ function load(socket, type, username){
 			users[data.user] = elem;
 			elem.addClass('navi');
 			$('#user_list').append(elem);
-
+			addConsoleMessage("New user joined - " + data.user);
 		}
 	});
 
@@ -152,8 +159,10 @@ function load(socket, type, username){
 			if (user == username){
 				users[user].remove();
 				delete users[user];
+				break;
 			}
 		}
+		addConsoleMessage("User left - " + data.username);
 	});
 
 	// Handle event: A user makes a selection.
@@ -183,6 +192,7 @@ function load(socket, type, username){
 		//Do anything that needs to be done to change
 		//user's status
 		$('#switchmodal').modal('hide');
+
 		if(isDriver){
 			setDriver(false);
 			$('#driver').html('Navigator');
@@ -193,6 +203,7 @@ function load(socket, type, username){
 			$('#driver').html('Driver');
 			showMessage('You are now the driver.', true);
 		}
+	
 		driver = data.new_driver;
 		users[data.new_driver]
 			.removeClass('navi')
@@ -200,6 +211,8 @@ function load(socket, type, username){
 		users[data.new_nav]
 			.removeClass('driver')
 			.addClass('navi');
+
+		addConsoleMessage("Switched driver to - " + data.new_driver);
 	});
 
 	socket.on("get_remove_annotation", function(data){
@@ -214,6 +227,7 @@ function load(socket, type, username){
 	socket.on("driver_change_lang", function(data){
 		if(!isDriver){
 			changeLanguage(data.language);
+			addConsoleMessage("Driver changed editor language - " + data.language);
 		}
 	});
 }
@@ -284,12 +298,7 @@ function  check_username(socket, type, username){
 
 
 function handleSelection(range){
-
-	//if(range.isEmpty()){
-		//$("#debug").html(range.toString());
-
 		socket.emit("post_selection", { user: username, range: range });
-	//}
 }
 
 function applySelection(data){
@@ -305,7 +314,7 @@ function applySelection(data){
 		for(var i in editorSession.getMarkers(false)){
 			editorSession.removeMarker(i);
 		}
-		
+
 		editorSession.addMarker(r, "line-style-" + lineStyle, "text", false);
 	}
 	
@@ -351,6 +360,7 @@ switch with */
 function send_switch_request(e){
 	var name = e.target.title;
 	socket.emit('switch_request', {switch_target: name});
+	addConsoleMessage("Switch request sent.");
 	socket.on('switch_failure', function(){
 		alert('switch did not work');
 	})
@@ -423,6 +433,9 @@ function applyAnnotation(data){
 	data.elem = annot;
 	data.role = annotation_role;
 
+	if(username != data.user)
+		addConsoleMessage("User - " + data.user + " applied annotation, on lines " + range.start.row + "-" + range.end.row);
+
 	annotations[annotation_id] = data;
 
 	annot.popover({
@@ -449,7 +462,6 @@ function highlightAnnotation(range, role){
 	var s = range.start;
 	var e = range.end;
 	var r = new Range(s.row, s.column, e.row, e.column);
-	//console.log(range);
 	currentHighlight = editor.getSession().addMarker(r,"line-style-" + role, "text");
 }
 
@@ -497,11 +509,29 @@ function toggleAnnotations(){
 	if(annotFlag){
 		$('#anoToggle i').removeClass('icon-edit');
 		$('#anoToggle i').addClass('icon-pencil');
+		addConsoleMessage("Showing all annotations.");
 		hideAllAnnotations();
 	}
 	else{
 		$('#anoToggle i').removeClass('icon-pencil');
 		$('#anoToggle i').addClass('icon-edit');
+		addConsoleMessage("Hide all annotations");
 		showAllAnnotations();
 	}
+}
+
+function pad(n) { return ("0" + n).slice(-2); }
+
+function addConsoleMessage(message){
+
+	var d = new Date();
+	var timestamp = pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
+
+	var contents = "<span class='console-timestamp'>[" + timestamp + "]:</span> ";
+
+	contents +=  message + "<br/>";
+
+	$("#console").append($('<span>'+contents+'</span>').hide().fadeIn(2000));
+
+	$("#console").scrollTop($("#console")[0].scrollHeight);
 }
