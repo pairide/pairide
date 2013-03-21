@@ -22,9 +22,9 @@ $(document).ready(function(){
 		});
 		$('#userModal input').keypress(function(e){
 			var code = (e.keyCode ? e.keyCode : e.which);
- 			if(code == 13) { //Enter keycode
-   				set_user();
- 			}	
+			if(code == 13) { //Enter keycode
+				set_user();
+			}	
 		});
 	}
 	else{
@@ -128,7 +128,7 @@ $(document).ready(function(){
 		}
 	});
 
-    setInterval(autoSave, autoSaveInterval);
+	setInterval(autoSave, autoSaveInterval);
 	socket.on("save_response", function(data){
 		if(!data.errmsg){
 			$("#loader_img").hide();
@@ -140,24 +140,76 @@ $(document).ready(function(){
 		hide_loader();
 	});
 
+	$('#fileupload').fileupload({
+		dataType: 'json',
+		add: function (e, data) {
+
+			$.each(data.files, function(index, file){
+
+				var done_icon = $("<span/>")
+
+				var li_contents = $("<li>" + file.name + "&nbsp;&nbsp;&nbsp;&nbsp;</li>")
+										.append(done_icon);
+
+				$('ul', "#contextMenuUploadContainer")
+					.append(li_contents);
+
+				data.context = done_icon;
+			});
+			
+			$("#FileUploadButton")
+				.on("click", function() {
+					data.submit();
+			});
+		},
+		done: function (e, data) {
+			data.context
+				.html("<i class='icon-ok icon-white'></i>");
+		},
+
+		progressall: function(e, data) {
+
+			var progress = parseInt(data.loaded / data.total * 100, 10);
+
+			if(progress==100){
+				$("#FileUploadButton").hide();
+			}
+
+			$("#progress .bar")
+				.css("width", progress + "%");
+		}
+	});
+
+
+	$("#contextMenuFileUpload").on("hidden", function(){
+
+		$("#fileupload").replaceWith(
+				$("#fileupload").val('').clone(true)
+		);
+
+		$("#FileUploadButton").show();
+		$('ul', "#contextMenuUploadContainer").html("");
+		$("#progress .bar").css("width", "0%");
+	});
+
 });
 	
 //Send a request to the current file.
 function saveFile(){
-    socket.emit("save_file", 
-        {
-            room:roomname, 
-            user:username,
-            text:editor.getSession().getValue()
-        });
+	socket.emit("save_file", 
+		{
+			room:roomname, 
+			user:username,
+			text:editor.getSession().getValue()
+		});
 }
 //Automatically save the current state of the file periodically.
 function autoSave(){
-    if (driver && fileSelected && autoSaveToggle){
-    	autoSaveToggle = false;
-    	addConsoleMessage("Auto saving...");
-        saveFile();
-    }
+	if (driver && fileSelected && autoSaveToggle){
+		autoSaveToggle = false;
+		addConsoleMessage("Auto saving...");
+		saveFile();
+	}
 }
 /*
  * Make an ajax request for the users files.
@@ -202,7 +254,7 @@ function setFileSelected(file){
 	if(!fileSelected){
 		unlock_editor();
 	}
-    fileSelected = file;
+	fileSelected = file;
 }
 
 function load_file(file_content){
@@ -247,7 +299,17 @@ function setupContextMenu(){
 
 			}
 			else if (key == "upload"){
-				alert('This function has not been implemented yet.');
+
+
+				var files = $('input[type="file"]')[0].files;
+for (var i = 0; i < files.length; i++)
+{
+    alert(files[i].name);
+}
+
+
+
+				$("#contextMenuFileUpload").modal('show');
 			}
 		},
 		//the list of items on the menu
@@ -310,9 +372,9 @@ function setupContextMenu(){
 	});
 	$('#contextMenuModalrename input').keypress(function(e){
 			 var code = (e.keyCode ? e.keyCode : e.which);
- 			if(code == 13) { //Enter keycode
- 				emitRenameReq();
- 			}	
+			if(code == 13) { //Enter keycode
+				emitRenameReq();
+			}	
 	});
 
 	socket.on("refresh_files", function(data){
@@ -397,8 +459,8 @@ function emitAddFileReq(){
 		user: username,
 		room: roomname,
 		name: $("#cmInputAddFile").val(),
-	    text: editor.getSession().getValue(),
-	    activePath: getActiveFolderPath()
+		text: editor.getSession().getValue(),
+		activePath: getActiveFolderPath()
 	});	
 }
 
@@ -410,8 +472,8 @@ function emitRenameReq(){
 		user: username,
 		room: roomname,
 		name: $("#cmInputRename").val(),
-	    text: editor.getSession().getValue(),
-	    activePath: getActiveFolderPath()
+		text: editor.getSession().getValue(),
+		activePath: getActiveFolderPath()
 	});
 }
 

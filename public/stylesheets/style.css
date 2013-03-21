@@ -290,6 +290,10 @@ border-left:none;
   color: rgba(125,125,125, 0.5);
 }
 
+.bar{
+  width: 0%;
+}
+
 /*
 .mark {background: red;}
 
