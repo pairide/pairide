@@ -15,7 +15,8 @@ var express = require('express'),
   MongoStore = require('connect-mongo')(express),
   http = require('http'),
   path = require('path'),
-  md5h = require('MD5');
+  md5h = require('MD5'),
+  upload = require('jquery-file-upload-middleware');
 
 /* Relative node imports */
 var routes = require('./routes'),
@@ -28,6 +29,20 @@ var routes = require('./routes'),
   checkRoom = middleware.checkRoom,
   config = require('./config');
 
+
+
+upload.configure({
+        uploadDir: __dirname + '/public/stylesheets',
+        uploadUrl: '/uploads',
+        imageVersions: {
+            thumbnail: {
+                width: 80,
+                height: 80
+            }
+        }
+    });
+
+
 /*Configuring presets for express framework.*/
 app.configure(function(){
   app.set('port', process.argv[2] | config.DEFAULT_PORT);
@@ -36,6 +51,7 @@ app.configure(function(){
   /**** TODO: Add a favicon *****/
   app.use(express.favicon());
   app.use(express.logger('dev'));
+  app.use('/upload', upload.fileHandler());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));

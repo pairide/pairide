@@ -83,6 +83,33 @@ div.modal#contextMenuModalfile.hide.fade
 			button(type='submit')#cmAddFileButton.btn.btn-primary
 				| Save
 
+div.modal#contextMenuFileUpload.hide.fade
+	.modal-header
+		a(data-dismiss='modal', href='#', data-keyboard="false", data-backdrop="static").close
+			| &times;
+		h3
+			| File Upload
+	.modal-body
+		div.well#contextMenuUploadContainer
+			legend
+				| Create File
+
+			.control-group
+				label.control-label
+					|Files:
+				.controls
+					input(type="file", name="files[]", data-url="/upload", multiple)#fileupload
+			ul
+
+			#progress.progress.progress-success
+				.bar
+
+	.modal-footer
+		a(href="#")#FileUploadButton.btn.btn-primary
+			|Upload
+		a(data-dismiss='modal', href='#').btn
+			|Close
+
 span.projectLabel
 	| Projects 
 div#addProjectButton
