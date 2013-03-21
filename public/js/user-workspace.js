@@ -273,7 +273,8 @@ function setupContextMenu(){
 					relPath: cmRelPath,
 					user: username,
 					room: roomname,
-					activePath: getActiveFolderPath()
+					activePath: getActiveFolderPath("delete"),
+					deleteDir:(cmFileType == "directory")
 				});
 	}); 
 	//user declines deletion
@@ -317,10 +318,11 @@ function setupContextMenu(){
 
 	socket.on("refresh_files", function(data){
 
+		//This clients file browser hasnt caught up with the drivers state yet.
 		if (!(delayedExpansions && delayedExpansions.length)){
 			//TODO maybe queue the refreshes while delayed expansion
 			//is not finished
-			refreshFiles(data.activePath);	
+			refreshFiles(data);	
 		}		
 	});
 	//triggered when the driver clicks a folder in the filebrowser
@@ -360,10 +362,21 @@ function forceClick(obj){
 	obj.trigger("click", [true]);
 }
 //refresh the GUI at a directory that has had recent changes.
-function refreshFiles(activePath){
+function refreshFiles(data){
+	action = data.key;
+	activePath = data.activePath;
 	if (activePath && isDriver){
 		var obj = $('a[rel="' + activePath + '"]');
 		if (obj.length){
+
+			if (action == "delete" && data.deleteDir){
+				obj = obj.parent().parent().parent().children();
+				if (!obj.attr("rel")){
+					//Likely hit the root folder of the users workspace
+					requestWorkspace();
+					return;
+				}
+			}		
 			if (obj.parent().hasClass('collapsed'))
 			{
 				forceClick(obj);
@@ -378,44 +391,47 @@ function refreshFiles(activePath){
 	}
 }
 function emitAddDirReq(){
+	action = "directory";
 	socket.emit('context_menu_clicked',
 	{
-			key: "directory",
+			key: action,
 			relPath: cmRelPath,
 			user: username,
 			room: roomname,
 			name: $("#cmInputAddDir").val(),
-			activePath: getActiveFolderPath()
+			activePath: getActiveFolderPath(action)
 	});
 }
 
 function emitAddFileReq(){
+	action = "file";
 	socket.emit('context_menu_clicked',
 	{
-		key: "file",
+		key: action,
 		relPath: cmRelPath,
 		user: username,
 		room: roomname,
 		name: $("#cmInputAddFile").val(),
 	    text: editor.getSession().getValue(),
-	    activePath: getActiveFolderPath()
+	    activePath: getActiveFolderPath(action)
 	});	
 }
 
 function emitRenameReq(){
+	action = "rename"
 	socket.emit('context_menu_clicked',
 	{
-		key: "rename",
+		key: action,
 		relPath: cmRelPath,
 		user: username,
 		room: roomname,
 		name: $("#cmInputRename").val(),
 	    text: editor.getSession().getValue(),
-	    activePath: getActiveFolderPath()
+	    activePath: getActiveFolderPath(action)
 	});
 }
 
-function getActiveFolderPath(){
+function getActiveFolderPath(key){
 	var activePath = cmRelPath;
 	if (cmFileType == "file"){
 		var i = cmRelPath.lastIndexOf("/");

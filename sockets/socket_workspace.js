@@ -393,7 +393,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
               }
               else{
                 console.log("Deleted " + path + " by " + data.user
-                  + "(in room " + room + ")\n");
+                  + " (in room " + room + ")\n");
                 sendSuccessCM(socket, data, room, io);
               }
             }, room, roomFile, io);
@@ -493,7 +493,23 @@ function sendErrorCM(socket, data, errorMsg){
  */
 function sendSuccessCM(socket, data, room, io){
   socket.emit("context_menu_click_result", {key:data.key, result:true});
-  io.sockets.in(room).emit("refresh_files", {activePath: data.activePath});
+
+  if (data.key == "delete"){
+    io.sockets.in(room).emit("refresh_files", 
+      {
+        key:data.key, 
+        activePath: data.activePath,
+        deleteDir: data.deleteDir
+      });
+  }
+  else{
+      io.sockets.in(room).emit("refresh_files", 
+      {
+        key:data.key, 
+        activePath: data.activePath
+      });
+  }
+  
 }
 
 /*
