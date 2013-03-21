@@ -178,8 +178,8 @@ function requestWorkspace(){
 	$('#fileTree').fileTree({
 		root: '/',
 		script: 'fileconnector',
-		expandSpeed: 200,
-		collapseSpeed: 200,
+		expandSpeed: 250,
+		collapseSpeed: 250,
 		multiFolder: false,
 		sID: socket.socket['sessionid'],
 		room: roomname

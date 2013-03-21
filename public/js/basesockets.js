@@ -85,7 +85,7 @@ function load(socket, type, username){
 	});
 
 	roomname = roomID(type);
-	socket.emit('join_room', { room: roomname, user:username, wtf:"defined"});
+	socket.emit('join_room', { room: roomname, user:username});
 
 	/* set up chat room */
 	socket.emit('get_users', {room: roomname});

@@ -31,6 +31,8 @@
 // is copyright 2008 A Beautiful Site, LLC. 
 //
 
+//Notifies the server that the file or directory located at
+//some path has been clicked.
 function sendActivePath(path){
 	//alert(path);
 	if (isDriver){	
@@ -42,7 +44,6 @@ function sendActivePath(path){
 			});
 	}
 }
-var delay = 600;
 //gradually expands directories to match the clients filebrowser
 //with the drivers
 function expand(){
@@ -50,10 +51,10 @@ function expand(){
 	if (delayedExpansions && delayedExpansions.length){
 		var obj = $('a[rel="' + delayedExpansions[0] + '"]');
 		if (obj.length){
-			obj.trigger("click");
+			obj.trigger("click", {test:true});
 		}
 		else{
-			alert(delayedExpansions[0]);
+			console.log("Missing file with rel path = " + delayedExpansions[0]);
 		}
 		delayedExpansions.splice(0, 1);
 	}
@@ -80,32 +81,37 @@ if(jQuery) (function($){
 			$(this).each( function() {
 				//t is the path, c seems to be a DOM object
 				function showTree(c, t) {
+					//alert(t);
 					sendActivePath(t);
 					$(c).addClass('wait');
 					$(".jqueryFileTree.start").remove();
 					$.post(o.script, { dir: t, sID: o.sID, room: o.room}, function(data) {
 						$(c).find('.start').html('');
 						$(c).removeClass('wait').append(data);
-						if( o.root == t ) $(c).find('UL:hidden').show(); else $(c).find('UL:hidden').slideDown(
-								{ duration: o.expandSpeed, 
-									easing: o.expandEasing 
-								});
-						setTimeout('expand()', delay);
+						if( o.root == t ) {
+							$(c).find('UL:hidden').show(400, expand); 
+						} else{ 
+							$(c).find('UL:hidden').slideDown(
+								o.expandSpeed, 
+								o.expandEasing,
+								expand
+							);
+						}
 						bindTree(c, t);
 					});
 				}
 				
 				function bindTree(t, c) {
-					$(t).find('LI A').bind(o.folderEvent, function() {
+					$(t).find('LI A').bind(o.folderEvent, function(extra) {
 						if( $(this).parent().hasClass('directory') ) {
 							if( $(this).parent().hasClass('collapsed') ) {
 								// Expand
 								if( !o.multiFolder ) {
 									$(this).parent().parent().find('UL').slideUp(
-										{ 
-											duration: o.collapseSpeed, 
-											easing: o.collapseEasing 
-										});
+											o.collapseSpeed, 
+											o.collapseEasing,
+											function(){}
+										);
 									$(this).parent().parent().find('LI.directory').removeClass('expanded').addClass('collapsed');
 								}
 								$(this).parent().find('UL').remove(); // cleanup
@@ -114,12 +120,10 @@ if(jQuery) (function($){
 							} else {
 								// Collapse
 								sendActivePath($(this).attr("rel"));
-								setTimeout('expand()', delay);
-								$(this).parent().find('UL').slideUp(
-									{ 
-										duration: o.collapseSpeed, 
-										easing: o.collapseEasing 
-									});
+								$(this).parent().children('UL').slideUp(
+										o.collapseSpeed, 
+										o.collapseEasing,
+										expand);
 								$(this).parent().removeClass('expanded').addClass('collapsed');
 							}
 						} else {
