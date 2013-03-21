@@ -8,9 +8,15 @@ var fileSelected = null;
 var cmRelPath;
 var cmRelName;
 var cmFileType;
+var cmActionLocks = {}; 
 var syncedFileBrowser = true;
+var createProjLock = false;
 var delayedExpansions;
+
+//the amount of time in ms until the form can be submitted again.
+var formDelay = 1000; 
 $(document).ready(function(){
+
 	syncedFileBrowser = false;
 	lock_editor("Please select a file.");
 
@@ -108,18 +114,24 @@ $(document).ready(function(){
 
 	$('#createProjectForm').on("submit", function(data){
 		var projName = $('#projectCreatorModalInput').val();
-		var sanityReg = /^[a-zA-Z0-9_ -]+$/;;
+
+		if (cmActionLocks['proj']){
+			return false;
+		}
+		var sanityReg = /^[a-zA-Z0-9_ -]+$/;
 		//check for potential path traversal attacks
 		if (!sanityReg.exec(projName)){
 			alert("Project name must not contain any special characters.");
 			$('#projectCreatorModalInput').val("");
+
 		    return false;
 		  }
+		  cmActionLocks['proj'] = true;
 	});
 
 
 	$('#createProjectForm').ajaxForm(function(data) {
-
+		setTimeout('cmActionLocks["proj"] = false', formDelay);
 		if (data.result){
 			$('#projectCreatorModal').modal('hide');
 			sendRequestWorkspace();
@@ -282,6 +294,11 @@ function load_file(file_content){
 
 
 function setupContextMenu(){
+
+	cmActionLocks['delete'] = false;
+	cmActionLocks['directory'] = false;
+	cmActionLocks['rename'] = false;
+	cmActionLocks['file'] = false;
 
 	//capture the DOM element that was right clicked in the file tree
 	$('#fileTree').on('contextmenu', function(e) {
@@ -487,9 +504,11 @@ function cmNameValidation(id){
 }
 
 function emitDeleteReq(){
-
-	if (!isDriver) return;
 	action = "delete";
+	if (!isDriver || cmActionLocks[action]) return;
+	
+
+	cmActionLocks[action] = true;
 	socket.emit('context_menu_clicked',
 	{
 			key: action,
@@ -499,13 +518,13 @@ function emitDeleteReq(){
 			activePath: getActiveFolderPath(action),
 			deleteDir:(cmFileType == "directory")
 		});
-}
+	}
 function emitAddDirReq(){
 
 	var id = "#cmInputAddDir";
-	if (!isDriver || !cmNameValidation(id)) return;
-
-	action = "directory";
+	var action = "directory";
+	if (!isDriver || cmActionLocks[action] || !cmNameValidation(id)) return;
+	cmActionLocks[action] = true;
 	socket.emit('context_menu_clicked',
 	{
 			key: action,
@@ -541,9 +560,10 @@ function validatePath(relativePath, fileName){
 function emitAddFileReq(){
 
 	var id = "#cmInputAddFile";
-	if (!isDriver || !cmNameValidation(id)) return;
+	var action = "file";
+	if (!isDriver || cmActionLocks[action] || !cmNameValidation(id)) return;
+	cmActionLocks[action] = true;
 
-	action = "file";
 	socket.emit('context_menu_clicked',
 	{
 		key: action,
@@ -559,9 +579,11 @@ function emitAddFileReq(){
 function emitRenameReq(){
 
 	var id = "#cmInputRename";
-	if (!isDriver || !cmNameValidation(id)) return;
-
 	action = "rename"
+	if (!isDriver || cmActionLocks[action] || !cmNameValidation(id)) return;
+	cmActionLocks[action] = true;
+
+	
 	socket.emit('context_menu_clicked',
 	{
 		key: action,
@@ -584,10 +606,16 @@ function getActiveFolderPath(key){
 	}
 	return activePath;
 }
+
+function clearLock(key){
+	setTimeout('cmActionLocks["' + key +'"] = false', formDelay);
+}
 /*
  * Handles the servers response to a context menu action.
  */
 function handleCMResult(data){
+
+	clearLock(data.key);
    if (data.result){
 		$('#contextMenuModal' + data.key).modal('hide');
 	}
