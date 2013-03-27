@@ -127,7 +127,12 @@ function load(socket, type, username){
 	//Handle event: user sends a new message
 	$("#chatsend").submit(function(){
 		var message = $("#msg").val();
-		socket.emit('send_message', {user: username, msg: message});
+		socket.emit('send_message', 
+			{
+				user: username, 
+				room:roomname, 
+				msg: message
+			});
 		$("#msg").val("");
 		return false;
 	});

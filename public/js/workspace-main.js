@@ -215,7 +215,8 @@ function handleReaderLoadEnd(evt) {
 }
 
 //Prevent the default behaviour attached to the escape key.
-//For some browsers this will kill all javascript including ajax.
+//For some browsers the escape key will kill all javascript including ajax
+//transports.
 $(document).keypress(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         if(code == 27) { //Escape key

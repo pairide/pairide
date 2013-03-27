@@ -188,6 +188,19 @@ exports.requestWorkspace = function(socket, data, roomDrivers, roomUsers, io){
       io.sockets.in(room).emit("request_workspace", { });
   }
 }
+
+exports.sendMessage = function(socket, data, roomDrivers, roomUsers, io){
+  var room = data.room;
+  var username = data.user;
+  if (validateDriver(socket, room, username, roomDrivers, roomUsers)){
+        io.sockets.in(room).emit('new_message', data);
+  }
+  else{
+    console.log("[Error] User attempting to send chat messages to other rooms");
+  }
+
+
+}
 //notifies the navigators to unlock their overlay
 exports.unlockNavigators = function(socket, data, roomDrivers, roomUsers, io){
   var room = data.room;

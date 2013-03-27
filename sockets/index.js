@@ -50,7 +50,6 @@ exports.communicate = function(io){
       socket.on('join_room', function(data) {
           workspace.join(socket, data, roomDrivers, roomUsers, roomAdmins,
            roomFile, roomSockets);
-          io.sockets.in(socket.store.data.room).emit('new_user', data);
       });
 
       socket.on("context_menu_clicked", function(data){
@@ -78,8 +77,7 @@ exports.communicate = function(io){
 
       //Emit new message to all members in the room
       socket.on('send_message', function(data){
-        io.sockets.in(socket.store.data.room).emit('new_message',
-         data);
+        workspace.sendMessage(socket, data, roomDrivers, roomUsers, io);
       });
 
       socket.on("post_selection", function(data){
@@ -107,7 +105,6 @@ exports.communicate = function(io){
       });
 
       socket.on("post_remove_annotation", function(data){
-        console.log("Remove Annotation: " + data.target)
         io.sockets.in(socket.store.data.room).emit("get_remove_annotation", data);
       });
 
