@@ -8,19 +8,25 @@ exports.roomsCreated = roomsCreated;
 exports.create = function(req, res){
 	var roomAdmins = require('../sockets/index.js').roomAdmins;
 	if(req.session.user_id && req.body.room_name){
+
 		// User is logged in and wants to create a custom room.
 
 		// Make sure that room's name is valid and doesn't already exist.
-		var roomExists = req.body.room_name in roomAdmins;
-		var validationRegex = /[a-zA-Z0-9_]+/;
+	
+		var validationRegex = /[a-zA-Z0-9_ ]+/;
 		var regexResult = validationRegex.exec(req.body.room_name);
+		var escapedRoomName = req.body.room_name.replace(/ /g,"_"); 
+		var roomExists = escapedRoomName in roomAdmins;
 	  	res.send(
 	  		{
 	  			result:!roomExists, 
-	  			room:req.body.room_name,
+	  			room:escapedRoomName,
 	  			valid: regexResult
 	  		});
-	  	roomsCreated.push(req.body.room_name);	
+
+	  	if (!roomExists){
+	  		roomsCreated.push(escapedRoomName);
+	  	}	
 	}else{
 		// User may or may not be logged in.
 		var md5h = require('MD5');

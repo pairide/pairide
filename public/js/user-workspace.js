@@ -515,7 +515,7 @@ function emitDeleteReq(){
 			relPath: cmRelPath,
 			user: username,
 			room: roomname,
-			activePath: getActiveFolderPath(action),
+			activePath: getActiveFolderPath(),
 			deleteDir:(cmFileType == "directory")
 		});
 	}
@@ -532,7 +532,7 @@ function emitAddDirReq(){
 			user: username,
 			room: roomname,
 			name:  $(id).val(),
-			activePath: getActiveFolderPath(action)
+			activePath: getActiveFolderPath()
 	});
 }
 
@@ -556,7 +556,6 @@ function validatePath(relativePath, fileName){
           || pathReg1.exec(fullPath));
 }
 
-//Emits a re
 function emitAddFileReq(){
 
 	var id = "#cmInputAddFile";
@@ -572,7 +571,7 @@ function emitAddFileReq(){
 		room: roomname,
 		name: $(id).val(),
 	    text: editor.getSession().getValue(),
-	    activePath: getActiveFolderPath(action)
+	    activePath: getActiveFolderPath()
 	});	
 }
 
@@ -592,11 +591,13 @@ function emitRenameReq(){
 		room: roomname,
 		name: $(id).val(),
 	    text: editor.getSession().getValue(),
-	    activePath: getActiveFolderPath(action)
+	    activePath: getActiveFolderPath()
 	});
 }
 
-function getActiveFolderPath(key){
+//Return the path to the parent folder that has
+//had changes.
+function getActiveFolderPath(){
 	var activePath = cmRelPath;
 	if (cmFileType == "file"){
 		var i = cmRelPath.lastIndexOf("/");

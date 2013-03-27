@@ -9,7 +9,7 @@ $(document).ready(function(){
 			alert("Room name is invalid.");
 		}
 		else{
-			window.location.replace("/workspace/" + data.room);
+			window.location.replace("/workspace/" + encodeURIComponent(data.room));
 		}
     });
 
