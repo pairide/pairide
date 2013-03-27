@@ -7,8 +7,9 @@
 
     ul#right_nav.nav.nav-pills
         li.dropdown.active
-            a(href="#",data-toggle="dropdown")#current_language.dropdown-toggle Language <b class="caret"></b> </a>
-            ul#languageList.dropdown-menu
+            a(href="#",data-toggle="dropdown", role="button")#current_language.dropdown-toggle 
+                | Language <b class="caret"></b>
+            ul(role="menu", aria-labelledby="dLabel")#languageList.dropdown-menu
         if workspace
             //-li.active
             //-    a(href="#")#compileRun Compile & Run

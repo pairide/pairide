@@ -23,9 +23,11 @@ $(document).ready(function(){
     }
     //Listener for language change
     $("#languageList li").click(function(e){
+        $('#current_language').dropdown('toggle');
         changeLanguage(e.target.text);
         return false;
     });
+
 
     var codeDiv = document.getElementById("code")
     // init event handlers for drag and drop
