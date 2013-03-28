@@ -10,19 +10,27 @@ var languages = {"Python" : "python",
                  "C/C++" : "c_cpp",
                  "SQL" : "sql"};
 
+
 $(document).ready(function(){
 	setUpEditor(language);
 
-    $(window).bind('beforeunload', function () { return false;} );
+    $(window).bind('beforeunload', function () 
+        { 
+            return "You are the admin. Leaving the room will terminate it."
+        ;});
 
     //Set up language label and selection
-    $("#current_language").html(language);
     for (language  in languages){
-        var str_link = "<li><a href='#'>" + language + "</a></li>";
+        var str_link = "<li id=lang_" + languages[language] + "><a href='#'>" + language + "</a></li>";
         $("#languageList").append(str_link);
     }
+    //highlight is set to python by default
+    $("#lang_python a")
+        .append("<i class='icon-ok'></i>");
     //Listener for language change
     $("#languageList li").click(function(e){
+        $("#languageList li a i").remove();
+        $(this).children().append("<i class='icon-ok'></i>");
         $('#current_language').dropdown('toggle');
         changeLanguage(e.target.text);
         return false;
@@ -121,7 +129,6 @@ function setUpEditor(lang) {
 /*Handle language change request by the user*/
 function changeLanguage(lang){
     language = languages[lang];
-    $("#current_language").html(lang);
     editor.getSession().setMode("ace/mode/"+language);
     if(isDriver){
         socket.emit("lang_change", {language: lang});
@@ -215,10 +222,22 @@ function handleReaderLoadEnd(evt) {
 }
 
 //Prevent the default behaviour attached to the escape key.
-//For some browsers this will kill all javascript including ajax.
+//For some browsers the escape key will kill all javascript including ajax
+//transports.
 $(document).keypress(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         if(code == 27) { //Escape key
             preventDefaultEvent(e);
-        }   
+        }
+        //check for TAB + CTRL
+        else if (code == 9 && e.ctrlKey){
+             preventDefaultEvent(e);
+             if (editor.getReadOnly() || !$("#msg").is(":focus")){
+                $("#msg").focus();
+             }
+             else{
+                editor.focus();
+             }
+        }
+
 });
