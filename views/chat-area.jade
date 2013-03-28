@@ -4,7 +4,7 @@ div#chat
 	div#chatmsg.breadcrumb
 		p
 	form#chatsend(action="chat_send", method="POST") 
-		input(name="msg", placeholder="Type message here", type="text")#msg
+		input(name="msg", placeholder="Type message here", type="text", autocomplete="off")#msg
 		button.btn(type="submit").btn-success.btn-small.pull-right Send
 		.clearfix
 

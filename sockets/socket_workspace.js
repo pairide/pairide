@@ -192,7 +192,7 @@ exports.requestWorkspace = function(socket, data, roomDrivers, roomUsers, io){
 exports.sendMessage = function(socket, data, roomUsers, io){
 
   if (!data.msg || data.msg.length == 0) return;
-  
+
   var room = data.room;
   var username = data.user;
   if (validateUser(socket, room, username, roomUsers)){
@@ -275,6 +275,7 @@ function loadFile(socket, path, room, roomFile, fileName){
     }); 
 }
 //Validates a relative path for common path traversal attacks.
+//Return True iff path passes the validation false otherwise.
 function validatePath(relativePath, fileName){
 
     relativePath = unescape(relativePath);
