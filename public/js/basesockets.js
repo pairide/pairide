@@ -243,8 +243,11 @@ function load(socket, type, username){
  * Change the users state to be a driver or a navigator.
  */
 function setDriver(driver){
- 	isDriver = driver;
- 	editor.setReadOnly(!isDriver);
+	isDriver = driver;
+	if (roomType == "express" || fileSelected){
+ 		
+ 		editor.setReadOnly(!isDriver);
+ 	}
 }
 
 /*Set up a socket connection

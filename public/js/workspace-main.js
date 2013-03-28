@@ -10,10 +10,14 @@ var languages = {"Python" : "python",
                  "C/C++" : "c_cpp",
                  "SQL" : "sql"};
 
+
 $(document).ready(function(){
 	setUpEditor(language);
 
-    $(window).bind('beforeunload', function () { return "You are the admin. Leaving the room will terminate it.";} );
+    $(window).bind('beforeunload', function () 
+        { 
+            return "You are the admin. Leaving the room will terminate it."
+        ;});
 
     //Set up language label and selection
     for (language  in languages){
@@ -224,5 +228,16 @@ $(document).keypress(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         if(code == 27) { //Escape key
             preventDefaultEvent(e);
-        }   
+        }
+        //check for TAB + CTRL
+        else if (code == 9 && e.ctrlKey){
+             preventDefaultEvent(e);
+             if (editor.getReadOnly() || !$("#msg").is(":focus")){
+                $("#msg").focus();
+             }
+             else{
+                editor.focus();
+             }
+        }
+
 });
