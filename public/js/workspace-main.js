@@ -13,16 +13,20 @@ var languages = {"Python" : "python",
 $(document).ready(function(){
 	setUpEditor(language);
 
-    $(window).bind('beforeunload', function () { return false;} );
+    $(window).bind('beforeunload', function () { return "You are the admin. Leaving the room will terminate it.";} );
 
     //Set up language label and selection
-    $("#current_language").html(language);
     for (language  in languages){
-        var str_link = "<li><a href='#'>" + language + "</a></li>";
+        var str_link = "<li id=lang_" + languages[language] + "><a href='#'>" + language + "</a></li>";
         $("#languageList").append(str_link);
     }
+    //highlight is set to python by default
+    $("#lang_python a")
+        .append("<i class='icon-ok'></i>");
     //Listener for language change
     $("#languageList li").click(function(e){
+        $("#languageList li a i").remove();
+        $(this).children().append("<i class='icon-ok'></i>");
         $('#current_language').dropdown('toggle');
         changeLanguage(e.target.text);
         return false;
@@ -121,7 +125,6 @@ function setUpEditor(lang) {
 /*Handle language change request by the user*/
 function changeLanguage(lang){
     language = languages[lang];
-    $("#current_language").html(lang);
     editor.getSession().setMode("ace/mode/"+language);
     if(isDriver){
         socket.emit("lang_change", {language: lang});
