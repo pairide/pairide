@@ -145,8 +145,7 @@ $(document).ready(function(){
 		if(isDriver && fileSelected){
 			show_loader("Saving...");
 			saveFile();
-		}
-		else if (fileSelected == null){
+		} else if (fileSelected == null) {
 			showMessage("No file selected.", true);
 		}
 		else{
@@ -177,7 +176,7 @@ $(document).ready(function(){
 
 			$.each(data.files, function(index, file){
 
-				var done_icon = $("<span/>")
+				var done_icon = $("<span/>");
 
 				var li_contents = $("<li>" + file.name + "&nbsp;&nbsp;&nbsp;&nbsp;</li>")
 										.append(done_icon);
@@ -187,7 +186,7 @@ $(document).ready(function(){
 
 				data.context = done_icon;
 			});
-			
+
 			$("#FileUploadButton")
 				.on("click", function() {
 
@@ -196,8 +195,18 @@ $(document).ready(function(){
 		},
 
 		done: function (e, data) {
+			if(data.textStatus == "success"){
+				data.context
+					.html("<i class='icon-ok icon-white'></i>");
+			} else {
+				data.context
+					.html("<i class='icon-warning-sign icon-white'></i>");
+			}
+		},
+
+		fail: function(e, data){
 			data.context
-				.html("<i class='icon-ok icon-white'></i>");
+				.html("<i class='icon-warning-sign icon-white'></i>");
 		},
 
 		progressall: function(e, data) {
@@ -216,11 +225,16 @@ $(document).ready(function(){
 
 	$("#contextMenuFileUpload").on("hidden", function(){
 
+		refreshFiles({
+			key: "upload",
+			activePath: getActiveFolderPath()
+		});
+
 		$("#FileUploadButton").show();
 		$('ul', "#contextMenuUploadContainer").html("");
 		$("#progress .bar").css("width", "0%");
 
-		//add console message.
+		addConsoleMessage("Driver uploaded files to current working directory");
 	});
 
 });
@@ -313,7 +327,7 @@ function setupContextMenu(){
 	//handling context menu for directories and projects
 	var cmLineSep = "---------";
 	$.contextMenu({
-		selector: '.context-menu-one', 
+		selector: '.context-menu-one',
 		callback: function(key, options) {
 			if (key == "directory" || key == "file"){
 				$('#contextMenuModal' + key).modal('show');
@@ -325,16 +339,16 @@ function setupContextMenu(){
 			else if (key == "rename"){
 				if (cmFileType == "directory"){
 					//TODO support renaming of a directory
-					alert("Renaming directory not yet supported.")
+					alert("Renaming directory not yet supported.");
 				}
 				else{
 					$('#cmRenameLegend').html( "Rename " + cmRelPath);
 					$('#cmInputRename').val(cmRelName);
-					$('#contextMenuModalrename').modal('show');					
+					$('#contextMenuModalrename').modal('show');
 				}
 			}
 			else if (key == "upload"){
-
+				$("#fileUploadpath").val(getActiveFolderPath());
 				$("#contextMenuFileUpload").modal('show');
 			}
 		},
