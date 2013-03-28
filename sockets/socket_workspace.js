@@ -189,10 +189,13 @@ exports.requestWorkspace = function(socket, data, roomDrivers, roomUsers, io){
   }
 }
 
-exports.sendMessage = function(socket, data, roomDrivers, roomUsers, io){
+exports.sendMessage = function(socket, data, roomUsers, io){
+
+  if (!data.msg || data.msg.length == 0) return;
+  
   var room = data.room;
   var username = data.user;
-  if (validateDriver(socket, room, username, roomDrivers, roomUsers)){
+  if (validateUser(socket, room, username, roomUsers)){
         io.sockets.in(room).emit('new_message', data);
   }
   else{
