@@ -77,7 +77,7 @@ exports.communicate = function(io){
 
       //Emit new message to all members in the room
       socket.on('send_message', function(data){
-        workspace.sendMessage(socket, data, roomDrivers, roomUsers, io);
+        workspace.sendMessage(socket, data, roomUsers, io);
       });
 
       socket.on("post_selection", function(data){

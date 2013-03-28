@@ -32,7 +32,7 @@ var routes = require('./routes'),
 
 
 upload.configure({
-        uploadDir: __dirname + '/public/stylesheets',
+        uploadDir: "",
         uploadUrl: '/uploads',
         imageVersions: {
             thumbnail: {
@@ -51,9 +51,6 @@ app.configure(function(){
   /**** TODO: Add a favicon *****/
   app.use(express.favicon());
   app.use(express.logger('dev'));
-  app.use('/upload', upload.fileHandler());
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   // Use MongoDB for sessions.
   app.use(express.session({
@@ -62,6 +59,9 @@ app.configure(function(){
       db: "global_sessions"
     })
   }));
+  app.use('/upload', upload.fileHandler());
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });

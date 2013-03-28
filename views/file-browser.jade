@@ -98,7 +98,9 @@ div.modal#contextMenuFileUpload.hide.fade
 				label.control-label
 					|Files:
 				.controls
-					input(type="file", name="files[]", data-url="/upload", multiple)#fileupload
+					form
+						input(type="hidden", name="path", id="fileUploadpath", value="")
+						input(type="file", name="files[]", data-url="/upload", multiple)#fileupload
 			ul
 
 			#progress.progress.progress-success

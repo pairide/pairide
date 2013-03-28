@@ -127,13 +127,15 @@ function load(socket, type, username){
 	//Handle event: user sends a new message
 	$("#chatsend").submit(function(){
 		var message = $("#msg").val();
-		socket.emit('send_message', 
-			{
-				user: username, 
-				room:roomname, 
-				msg: message
-			});
-		$("#msg").val("");
+		if (message.length > 0){
+			socket.emit('send_message', 
+				{
+					user: username, 
+					room:roomname, 
+					msg: message
+				});
+			$("#msg").val("");
+		}
 		return false;
 	});
 	//Handle event: getting a new message from another user
@@ -241,8 +243,11 @@ function load(socket, type, username){
  * Change the users state to be a driver or a navigator.
  */
 function setDriver(driver){
- 	isDriver = driver;
- 	editor.setReadOnly(!isDriver);
+	isDriver = driver;
+	if (roomType == "express" || fileSelected){
+ 		
+ 		editor.setReadOnly(!isDriver);
+ 	}
 }
 
 /*Set up a socket connection

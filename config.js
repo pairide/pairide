@@ -14,3 +14,5 @@ exports.email_pass = "pairitpairit";
 exports.email_from_address = "PairIDE <pairit3@gmail.com>";
 
 exports.DEFAULT_PORT = "80";
+
+exports.app_dir = __dirname;
