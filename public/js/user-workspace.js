@@ -223,6 +223,16 @@ $(document).ready(function(){
 		//add console message.
 	});
 
+
+	/*Handle download requests*/
+	$('#driver').on('click', function(){
+		var dat = {};
+
+		dat.room = roomname;
+		dat.path = "wut";
+		$.fileDownload('/dl', {httpMethod: "POST", data: dat});
+	});
+
 });
 	
 //Send a request to the current file.
@@ -337,6 +347,14 @@ function setupContextMenu(){
 
 				$("#contextMenuFileUpload").modal('show');
 			}
+			else if (key == "download"){
+				var dat = {};
+
+				dat.room = roomname;
+				dat.path = cmRelPath;
+				dat.file = cmRelName;
+				$.fileDownload('/dl/'+cmRelName, {httpMethod: "POST", data: dat});
+			}
 		},
 		//the list of items on the menu
 		items: {
@@ -346,10 +364,12 @@ function setupContextMenu(){
 			"sep1": cmLineSep,
 			"upload": {name: "Upload File", icon: "upload"},
 			"sep2": cmLineSep,
-			"directory": {name: "Add directory", icon: "add"},
+			"download": {name: "Download", icon: "download"},
 			"sep3": cmLineSep,
-			"delete": {name: "Delete", icon: "delete"},
+			"directory": {name: "Add directory", icon: "add"},
 			"sep4": cmLineSep,
+			"delete": {name: "Delete", icon: "delete"},
+			"sep5": cmLineSep,
 		}
 	});
 	//user confirms deletion

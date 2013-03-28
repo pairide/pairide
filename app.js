@@ -101,6 +101,7 @@ app.post('/workspace/new_project', routes.createProject);
 app.post('/contact', routes.processContact);
 app.post('/forgot_password', auth.processForgotPassword);
 app.post('/reset', auth.reset_password);
+app.post(/^\/dl\/.*/, room.download);
 
 
 /* Listen for requests */
@@ -112,3 +113,4 @@ server.listen(app.get('port'), function(){
 io.set('log level', 2);
 // Set up connection and listen/send for events.
 socket_handler.communicate(io)
+
