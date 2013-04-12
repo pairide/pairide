@@ -46,7 +46,7 @@ function set_user(){
       }
       else{
         load(socket, "express", username);
-        $('#userModal').modal('hide');  
+        $('#userModal').modal('hide');
       }
     });
   return false;

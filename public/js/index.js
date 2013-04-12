@@ -1,10 +1,9 @@
 $(document).ready(function(){
-  
-  $('#create_session').ajaxForm(function(data) { 
+  $('#create_session').ajaxForm(function(data) {
     if (!data.result){
       alert("This room already exists.");
     }
-    else if(data.valid == null){
+    else if(data.valid === null){
       alert("Room name is invalid.");
     }
     else{

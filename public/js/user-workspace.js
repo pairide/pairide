@@ -6,12 +6,12 @@ var fileSelected = null;
 var cmRelPath;
 var cmRelName;
 var cmFileType;
-var cmActionLocks = {}; 
+var cmActionLocks = {};
 var syncedFileBrowser = true;
 var createProjLock = false;
 var delayedExpansions;
 //the amount of time in ms until the form can be submitted again.
-var formDelay = 1000; 
+var formDelay = 1000;
 
 $(document).ready(function(){
   syncedFileBrowser = false;
@@ -27,7 +27,7 @@ $(document).ready(function(){
       var code = (e.keyCode ? e.keyCode : e.which);
       if(code == 13) { //Enter keycode
         set_user();
-      } 
+      }
     });
   }
   else{
@@ -42,7 +42,7 @@ $(document).ready(function(){
       else{
         load(socket, "workspace", username);
       }
-    });   
+    });
   }
 
   socket.on("socket_connected", function(data){
@@ -61,7 +61,7 @@ $(document).ready(function(){
       unlock_editor();
       load_file(data.text);
       socket.emit("unlock_navigators", {
-        fileName: data.fileName, 
+        fileName: data.fileName,
         room: roomname,
         user: username
       });
@@ -140,7 +140,7 @@ $(document).ready(function(){
     if(isDriver && fileSelected){
       show_loader("Saving...");
       saveFile();
-    } else if (fileSelected == null) {
+    } else if (fileSelected === null) {
       showMessage("No file selected.", true);
     }
     else{
@@ -236,12 +236,12 @@ $(document).ready(function(){
   });
 
 });
-  
+
 //Send a request to the current file.
 function saveFile(){
-  socket.emit("save_file", 
+  socket.emit("save_file",
     {
-      room:roomname, 
+      room:roomname,
       user:username,
       text:editor.getSession().getValue()
     });
@@ -270,19 +270,19 @@ function requestWorkspace(){
     //event for when a file is clicked
     if (isDriver){
       socket.emit("get_file", {
-        user: username, 
-        fileName: file, 
+        user: username,
+        fileName: file,
         text:editor.getSession().getValue(),
         room:roomname
       });
     }
-  }); 
+  });
 }
 
 //Returns a list of expanded directory paths, ordered by ascending 
 //distance from the root.
 function getFileTreeExpansion(){
-  var openFolders = new Array();
+  var openFolders = [];
   var root = $('#fileTree').children().children(".expanded");
   while (root.length){
     var child = root.children('a');
@@ -369,7 +369,7 @@ function setupContextMenu(){
       "directory": {name: "Add directory", icon: "add"},
       "sep4": cmLineSep,
       "delete": {name: "Delete", icon: "delete"},
-      "sep5": cmLineSep,
+      "sep5": cmLineSep
     }
   });
 
@@ -377,7 +377,7 @@ function setupContextMenu(){
   $('#cmDelButtonYes').on('click', function(e){
 
     emitDeleteReq();
-  }); 
+  });
 
   //user declines deletion
   $('#cmDelButtonNo').on('click', function(e){
@@ -417,7 +417,7 @@ function setupContextMenu(){
        var code = (e.keyCode ? e.keyCode : e.which);
       if(code == 13) { //Enter keycode
         emitRenameReq();
-      } 
+      }
   });
 
   socket.on("refresh_files", function(data){
@@ -425,9 +425,9 @@ function setupContextMenu(){
     if (!(delayedExpansions && delayedExpansions.length)){
       //TODO maybe queue the refreshes while delayed expansion
       //is not finished
-      refreshFiles(data); 
-    }   
-  });
+      refreshFiles(data);
+    }
+      });
 
   //triggered when the driver clicks a folder in the filebrowser
   socket.on("file_clicked", function(data){
@@ -439,10 +439,10 @@ function setupContextMenu(){
       else{
         var obj = $('a[rel="' + data.activePath + '"]');
         if (obj.length){
-          forceClick(obj)
+          forceClick(obj);
         }
       }
-    } 
+    }
   });
 
   socket.on("request_workspace", function(data){
@@ -475,7 +475,7 @@ function forceClick(obj){
  */
 function sendRequestWorkspace(){
   if (isDriver){
-    socket.emit("send_request_workspace", 
+    socket.emit("send_request_workspace",
       {room: roomname,
       user: username
     });
@@ -497,14 +497,14 @@ function refreshFiles(data){
           sendRequestWorkspace();
           return;
         }
-      }   
+      }
       if (obj.parent().hasClass('collapsed'))
       {
         forceClick(obj);
       }
       else{
-        obj.trigger("click", [true]).delay(500).trigger("click", [true]); 
-      } 
+        obj.trigger("click", [true]).delay(500).trigger("click", [true]);
+      }
     }
     else{
       sendRequestWorkspace();
@@ -514,7 +514,7 @@ function refreshFiles(data){
 
 function cmNameValidation(id){
   var name = $(id).val();
-  if (name.length == 0){
+  if (name.length === 0){
     alert("Name must be at least one character.");
     return false;
   }
@@ -523,14 +523,13 @@ function cmNameValidation(id){
     $(id).val("");
     alert("Please avoid special characters.");
     return false;
-  } 
+  }
   return true;
 }
 
 function emitDeleteReq(){
   action = "delete";
   if (!isDriver || cmActionLocks[action]) return;
-  
 
   cmActionLocks[action] = true;
   socket.emit('context_menu_clicked',
@@ -567,16 +566,13 @@ function validatePath(relativePath, fileName){
 
     var fullPath = relativePath + fileName;
     //Check for .. in relative path
-    var pathReg1 = /.*\.\..*/; 
+    var pathReg1 = /.*\.\..*/;
     //Check that the fileName doesn't contain / or \
     var pathReg2 = /(.*(\/|\\).*)/;
     //Further validation on the name mostly ensures characters are alphanumeric 
     var pathReg3 = /^([a-zA-Z0-9_ .]|-)*$/;
 
-    return !(pathReg1.exec(relativePath) 
-          || pathReg2.exec(fileName) 
-          || !pathReg3.exec(fileName)
-          || pathReg1.exec(fullPath));
+    return !(pathReg1.exec(relativePath) || pathReg2.exec(fileName) || !pathReg3.exec(fileName) || pathReg1.exec(fullPath));
 }
 
 function emitAddFileReq(){
@@ -594,12 +590,12 @@ function emitAddFileReq(){
     name: $(id).val(),
       text: editor.getSession().getValue(),
       activePath: getActiveFolderPath()
-  }); 
+  });
 }
 
 function emitRenameReq(){
   var id = "#cmInputRename";
-  action = "rename"
+  action = "rename";
   if (!isDriver || cmActionLocks[action] || !cmNameValidation(id)) return;
   cmActionLocks[action] = true;
 
@@ -622,7 +618,7 @@ function getActiveFolderPath(){
   if (cmFileType == "file"){
     var i = cmRelPath.lastIndexOf("/");
     if (i !== -1){
-      activePath = cmRelPath.substr(0, i + 1); 
+      activePath = cmRelPath.substr(0, i + 1);
     }
   }
   return activePath;

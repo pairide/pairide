@@ -14,13 +14,13 @@ var languages = {"Python " : "python",
 $(document).ready(function(){
   setUpEditor(language);
 
-  $(window).bind('beforeunload', function (){ 
+  $(window).bind('beforeunload', function (){
     return "You are the admin. Leaving the room will terminate it."
   ;});
 
   //Set up language label and selection
-  for (language  in languages){
-    var str_link = "<li id=lang_" + languages[language] + "><a href='#'>" + language + "</a></li>";
+  for (var lang  in languages){
+    var str_link = "<li id=lang_" + languages[lang] + "><a href='#'>" + lang + "</a></li>";
     $("#languageList").append(str_link);
   }
 
@@ -37,7 +37,7 @@ $(document).ready(function(){
     return false;
   });
 
-  var codeDiv = document.getElementById("code")
+  var codeDiv = document.getElementById("code");
   // init event handlers for drag and drop
   codeDiv.addEventListener("dragenter", dragEnter, false);
   codeDiv.addEventListener("dragexit", dragExit, false);
@@ -67,7 +67,7 @@ $(document).ready(function(){
     var code = (e.keyCode ? e.keyCode : e.which);
     if(code == 13) { //Enter keycode
       addAnnotation();
-    }   
+    }
   });
 
   $(".annotation").live("dblclick", function(e){
@@ -77,7 +77,7 @@ $(document).ready(function(){
     }
   });
 
-  Range = require("ace/range").Range;  
+  Range = require("ace/range").Range;
 });
 
 /* Set up editor space with syntax highlighting,
@@ -91,7 +91,7 @@ function setUpEditor(lang) {
   editor.getSession().setUseWrapMode(true);
   editor.getSession().setWrapLimitRange(80, 80);
 
-  var annotBoxLeft = parseInt($(".ace_print-margin").css("left")) +  50 + "px";
+  var annotBoxLeft = parseInt($(".ace_print-margin").css("left"), 10) +  50 + "px";
 
   var annotBox = $("<div/>");
   annotBox.attr("id", "annotBox");
@@ -172,7 +172,7 @@ function drop(evt) {
   if (!(window.File && window.FileReader && window.FileList)) {
     alert('Your browser does not fully support drag and drop.');
     return;
-  } 
+  }
 
   var files = evt.dataTransfer.files;
   // Check if at least one file has been dropped
@@ -215,3 +215,4 @@ $(document).keypress(function(e){
     }
   }
 });
+

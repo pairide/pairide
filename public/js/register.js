@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
-  jQuery.validator.addMethod("validUsername", 
-                              validUsername, 
+  jQuery.validator.addMethod("validUsername",
+                              validUsername,
                               "Username cannot start with the string \"guest_\"");
 
   var validator = $('#registration_form').validate({
@@ -9,15 +9,15 @@ $(document).ready(function(){
     rules: {
       first: "required",
       last: "required",
-      username: { 
+      username: {
         required: true,
         minlength: 4,
         maxlength: 20,
         validUsername: true
       },
-      email: { 
-        required: true, 
-        email: true 
+      email: {
+        required: true,
+        email: true
       },
       pass: {
         required: true,
@@ -33,12 +33,11 @@ $(document).ready(function(){
 
 function validUsername(){
   var username = $("#username input").val();
-  //alert(username);
   var invalidRegex = /^guest_.*/i;
 
-  if(invalidRegex.exec(username) != null){
+  if(invalidRegex.exec(username) !== null){
     return false;
   }
-  
+
   return true;
 }

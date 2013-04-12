@@ -5,12 +5,12 @@
 var host = window.location.hostname;
 var port = 80;
 var url = "http://"+host+":"+port;
-var isDriver; 
+var isDriver;
 var driver;
 var roomname;
 var currentHighlight;
 var annotationID = 0;
-var annotations = new Object();
+var annotations = {};
 var annotFlag = false;
 var users = {};
 var refreshed = false;
@@ -51,7 +51,7 @@ function load(socket, type, username){
     if(isDriver &&  (roomType == "express" || fileSelected)){
       socket.emit("post_driver_state", {
         content: editor.getSession().getValue(),
-        annotations: annotations,
+        annotations: annotations
       });
     }
   });
@@ -84,10 +84,10 @@ function load(socket, type, username){
   editor.getSession().getDocument().on('change', function(e) {
     if (isDriver){
       autoSaveToggle = true;
-      var deltas = new Array();
+      var deltas = [];
       deltas.push(e.data);
       console.log(e.data);
-      socket.emit("editor_changed", {deltas: deltas, });
+      socket.emit("editor_changed", {deltas: deltas});
     }
   });
 
@@ -99,7 +99,7 @@ function load(socket, type, username){
 
   socket.once('send_users', function(data){
     var usernames = data.usernames;
-    for(u in usernames){
+    for(var u in usernames){
       var elem = $(document.createElement('p'));
       elem.text(usernames[u]);
       users[usernames[u]] = elem;
@@ -128,10 +128,10 @@ function load(socket, type, username){
   $("#chatsend").submit(function(){
     var message = $("#msg").val();
     if (message.length > 0){
-      socket.emit('send_message', 
+      socket.emit('send_message',
         {
-          user: username, 
-          room:roomname, 
+          user: username,
+          room:roomname,
           msg: message
         });
       $("#msg").val("");
@@ -152,7 +152,7 @@ function load(socket, type, username){
       $(user_id).addClass('driver');
     }
     else{
-      $(user_id).addClass('navi');  
+      $(user_id).addClass('navi');
     }
 
     $('#chatmsg p').first().append(new_msg);
@@ -162,7 +162,7 @@ function load(socket, type, username){
   //Handle event: a user disconnected from the room
   socket.on('user_disconnect', function(data){
     var username = data.username;
-    for (user in users){
+    for (var user in users){
       if (user == username){
         users[user].remove();
         delete users[user];
@@ -210,7 +210,7 @@ function load(socket, type, username){
       $('#driver').html('Driver');
       showMessage('You are now the driver.', true);
     }
-  
+
     driver = data.new_driver;
     users[data.new_driver]
       .removeClass('navi')
@@ -245,7 +245,6 @@ function load(socket, type, username){
 function setDriver(driver){
   isDriver = driver;
   if(roomType == "express" || fileSelected){
-    
     editor.setReadOnly(!isDriver);
   }
 }
@@ -276,9 +275,9 @@ function roomID(type){
 
 //Send a request to the current file.
 function saveFile(){
-  socket.emit("save_file", 
+  socket.emit("save_file",
     {
-      room:roomname, 
+      room:roomname,
       user:username,
       text:editor.getSession().getValue()
     });
@@ -296,7 +295,7 @@ function  check_username(socket, type, username){
   socket.emit('get_users', {room: rID});
   socket.once('send_users', function(data){
     var users = data.usernames;
-    for(user in users){
+    for(var user in users){
       if(users[user] == username){
         dfd.resolve( true );
       }
@@ -327,7 +326,6 @@ function applySelection(data){
 
     editorSession.addMarker(r, "line-style-" + lineStyle, "text", false);
   }
-  
 }
 
 
@@ -340,7 +338,7 @@ function requestSwitch(){
       //empty modal list before reconstructing list of 
       //connected users
       modal_list.empty();
-      for(user in users){
+      for(var user in users){
         if(user != username){
           var elem = $(document.createElement('li'));
           var a = $(document.createElement('a'));
@@ -348,14 +346,14 @@ function requestSwitch(){
           a.text(user);
           a.click(function(e){
             send_switch_request(e);
-          })
+          });
           elem.append(a);
           modal_list.append(elem);
         }
       }
       $('#switchmodal').modal('show');
     }else{
-      showMessage("You are alone in the room.", true);      
+      showMessage("You are alone in the room.", true);
     }
   }
   else{
@@ -373,7 +371,7 @@ function send_switch_request(e){
   addConsoleMessage("Switch request sent.");
   socket.on('switch_failure', function(){
     alert('switch did not work');
-  })
+  });
 }
 
 function handleAnnotation(){
@@ -385,7 +383,7 @@ function handleAnnotation(){
       $("#annot_text").val("");
       $("#annotModal").modal({show: true, backdrop: false});
 
-    }else{  
+    }else{
       showMessage("No selection found.", true);
     }
 }
@@ -416,16 +414,15 @@ function annot_offset(range_end){
 
   for(var i = 0; i < lines.length; i++){
     num_char = lines[i].length;
-    total_off += parseInt((num_char - 1) / 80);
+    total_off += parseInt((num_char - 1) / 80, 10);
   }
 
   return total_off;
 }
 
 function applyAnnotation(data){
-
   var range = data.range;
-  var margin_top = (parseInt(range.start.row) + data.offset) * 20;
+  var margin_top = (parseInt(range.start.row, 10) + data.offset) * 20;
   var annot_height = ((range.end.row - range.start.row) + 1) * 20;
   var annotation_color = data.driver == data.user ? "#8EC21F" : "#C2731F";
   var annotation_role = data.driver == data.user ? "driver" : "navigator";
@@ -468,7 +465,6 @@ function applyAnnotation(data){
 }
 
 function highlightAnnotation(range, role){
-  
   var s = range.start;
   var e = range.end;
   var r = new Range(s.row, s.column, e.row, e.column);
@@ -484,8 +480,7 @@ function removeAnnotationSend(target){
 }
 
 function purgeAnnotation(data){
-  
-  var target_id = parseInt(data.target.slice(2));
+  var target_id = parseInt(data.target.slice(2), 10);
 
   delete annotations[target_id];
 
@@ -533,7 +528,6 @@ function toggleAnnotations(){
 function pad(n) { return ("0" + n).slice(-2); }
 
 function addConsoleMessage(message){
-
   var d = new Date();
   var timestamp = pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
 
