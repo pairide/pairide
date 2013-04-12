@@ -2,7 +2,6 @@
  * Client connect and post connect event handlers:
  */
 
-
 //Contains the drivers socket id for each room.
 var roomDrivers = {};
 
@@ -29,107 +28,106 @@ exports.roomUsers = roomUsers;
 
 exports.communicate = function(io){
 
-	io.sockets.on('connection', function (socket) {
+  io.sockets.on('connection', function (socket) {
 
-		  console.log("Client connect.");
+    console.log("Client connect.");
 
-      //Handles a socket disconnecting.
-      socket.on("disconnect", function(){
-        console.log("disconnect detected");
-        workspace.disconnect(io, socket, roomDrivers, roomUsers, 
-          roomAdmins, roomFile, roomSockets);
-      });
+    //Handles a socket disconnecting.
+    socket.on("disconnect", function(){
+      console.log("disconnect detected");
+      workspace.disconnect(io, socket, roomDrivers, roomUsers,
+      roomAdmins, roomFile, roomSockets);
+    });
 
-      //Handle request to get members in a room
-      socket.on("get_users", function(data){
-        room_users = roomUsers[data.room];
-        workspace.get_users(socket, data, room_users);
-      });
+    //Handle request to get members in a room
+    socket.on("get_users", function(data){
+      room_users = roomUsers[data.room];
+      workspace.get_users(socket, data, room_users);
+    });
 
-      //socket handler for users requesting to join a room
-      socket.on('join_room', function(data) {
-          workspace.join(socket, data, roomDrivers, roomUsers, roomAdmins,
-           roomFile, roomSockets);
-      });
+    //socket handler for users requesting to join a room
+    socket.on('join_room', function(data) {
+      workspace.join(socket, data, roomDrivers, roomUsers, roomAdmins,
+      roomFile, roomSockets);
+    });
 
-      socket.on("context_menu_clicked", function(data){
-        workspace.menuClicked(socket, data, roomDrivers, roomUsers,
-        roomAdmins, roomFile, io);
-      });
+    socket.on("context_menu_clicked", function(data){
+      workspace.menuClicked(socket, data, roomDrivers, roomUsers,
+      roomAdmins, roomFile, io);
+    });
 
-      //listens for when the driver has clicked a file in the file browser
-      socket.on("driver_file_click", function(data){
-        workspace.fileClick(socket, data, roomDrivers, roomUsers, io);
-      });
+    //listens for when the driver has clicked a file in the file browser
+    socket.on("driver_file_click", function(data){
+      workspace.fileClick(socket, data, roomDrivers, roomUsers, io);
+    });
 
-      //listens for when the driver sends their current file tree
-      socket.on("send_driver_filetree_expansion", function(data){
-        workspace.updateFileTree(socket, data, roomDrivers, roomUsers, io);
-      });
-      //relay the message that the editor has changed
-      socket.on("editor_changed", function(data){
-          var room = socket.store.data.room;
-          if (roomDrivers[room] == socket.id){
-            io.sockets.in(socket.store.data.room).emit('editor_update',
-             data);
-          }
-      });
+    //listens for when the driver sends their current file tree
+    socket.on("send_driver_filetree_expansion", function(data){
+      workspace.updateFileTree(socket, data, roomDrivers, roomUsers, io);
+    });
+    //relay the message that the editor has changed
+    socket.on("editor_changed", function(data){
+      var room = socket.store.data.room;
+      if (roomDrivers[room] == socket.id){
+        io.sockets.in(socket.store.data.room).emit('editor_update', data);
+      }
+    });
 
-      //Emit new message to all members in the room
-      socket.on('send_message', function(data){
-        workspace.sendMessage(socket, data, roomUsers, io);
-      });
+    //Emit new message to all members in the room
+    socket.on('send_message', function(data){
+      workspace.sendMessage(socket, data, roomUsers, io);
+    });
 
-      socket.on("post_selection", function(data){
-        io.sockets.in(socket.store.data.room).emit('get_selection',
-         data);
-      });
-      socket.on("unlock_navigators", function(data){
-        workspace.unlockNavigators(socket, data, roomDrivers, roomUsers, io);
-      });
+    socket.on("post_selection", function(data){
+      io.sockets.in(socket.store.data.room).emit('get_selection', data);
+    });
 
-      socket.on("send_request_workspace", function(data){
-        workspace.requestWorkspace(socket, data, roomDrivers, roomUsers, io);
-      })
-      socket.on("post_annotation", function(data){
+    socket.on("unlock_navigators", function(data){
+      workspace.unlockNavigators(socket, data, roomDrivers, roomUsers, io);
+    });
 
-        var driverID = roomDrivers[socket.store.data.room];
-        data["driver"] = roomUsers[socket.store.data.room][driverID];
-        io.sockets.in(socket.store.data.room).emit('get_annotation', data);
-  	  });
+    socket.on("send_request_workspace", function(data){
+      workspace.requestWorkspace(socket, data, roomDrivers, roomUsers, io);
+    });
 
-      //Handle switch request made by potential driver
-      socket.on("switch_request", function(data){
-        console.log("switch request performed by " + socket.store.data.nickname + " in room " + socket.store.data.room);
-        workspace.make_switch(io, socket, data, roomDrivers, roomUsers);
-      });
+    socket.on("post_annotation", function(data){
+      var driverID = roomDrivers[socket.store.data.room];
+      data["driver"] = roomUsers[socket.store.data.room][driverID];
+      io.sockets.in(socket.store.data.room).emit('get_annotation', data);
+    });
 
-      socket.on("post_remove_annotation", function(data){
-        io.sockets.in(socket.store.data.room).emit("get_remove_annotation", data);
-      });
+    //Handle switch request made by potential driver
+    socket.on("switch_request", function(data){
+      console.log("switch request performed by " + socket.store.data.nickname + " in room " + socket.store.data.room);
+      workspace.make_switch(io, socket, data, roomDrivers, roomUsers);
+    });
 
-      socket.on("post_acquire_current_state", function(){
-        io.sockets.in(socket.store.data.room).emit("get_driver_state");
-      });
+    socket.on("post_remove_annotation", function(data){
+      io.sockets.in(socket.store.data.room).emit("get_remove_annotation", data);
+    });
 
-      socket.on("post_driver_state", function(data){
-        io.sockets.in(socket.store.data.room).emit("get_acquire_current_state", data)
-      });
+    socket.on("post_acquire_current_state", function(){
+      io.sockets.in(socket.store.data.room).emit("get_driver_state");
+    });
 
-      //File requests handlers
-      socket.on('get_file', function(data){
-        workspace.changeFile(socket, data, roomDrivers, roomUsers, 
-          roomAdmins, roomFile);
-      });
+    socket.on("post_driver_state", function(data){
+      io.sockets.in(socket.store.data.room).emit("get_acquire_current_state", data)
+    });
 
-      socket.on('save_file', function(data){
-        workspace.handleSaveRequest(socket, data, roomDrivers, roomUsers,
-         roomFile, roomSockets, io);
-      });
+    //File requests handlers
+    socket.on('get_file', function(data){
+      workspace.changeFile(socket, data, roomDrivers, roomUsers, roomAdmins, 
+        roomFile);
+    });
 
-      //Driver has changed the language mode
-      socket.on("lang_change", function(data){
-        io.sockets.in(socket.store.data.room).emit("driver_change_lang", data);
-      });
+    socket.on('save_file', function(data){
+      workspace.handleSaveRequest(socket, data, roomDrivers, roomUsers,
+       roomFile, roomSockets, io);
+    });
+
+    //Driver has changed the language mode
+    socket.on("lang_change", function(data){
+      io.sockets.in(socket.store.data.room).emit("driver_change_lang", data);
+    });
   });
 };

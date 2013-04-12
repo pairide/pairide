@@ -7,9 +7,9 @@ md5h = require('MD5');
 exports.join = function(socket, data, roomDrivers, roomUsers, 
   roomAdmins, roomFile, roomSockets){
 
-  var roomExistsBefore = "/" + data.room in socket.manager.rooms; 
+  var roomExistsBefore = "/" + data.room in socket.manager.rooms;
   console.log('client ' + data.user 
-    + " (with socket id " + socket.id + ') requested to join user room ' 
+    + " (with socket id " + socket.id + ') requested to join user room '
     + data.room + "\n");
 
   socket.join(data.room);
@@ -17,7 +17,7 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
   socket.set("nickname", data.user);
   socket.set("room", data.room);
 
-    //check if the room was newly created
+  //check if the room was newly created
   if ((!roomExistsBefore && roomExistsAfter) || !roomAdmins[data.room]){
     roomDrivers[data.room] = socket.id;
     roomAdmins[data.room] = socket.id;
@@ -38,22 +38,23 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
       admin:false, 
       name: roomUsers[data.room][driverID]
     });
-      var driverID = roomDrivers[data.room];
-      socket.emit("set_filebrowser_desync", {});
-      roomSockets[data.room][driverID].emit("get_driver_filetree_expansion", {});
+    
+    var driverID = roomDrivers[data.room];
+    socket.emit("set_filebrowser_desync", {});
+    roomSockets[data.room][driverID].emit("get_driver_filetree_expansion", {});
   }
   roomUsers[data.room][socket.id] = data.user;
   socket.emit("socket_connected", {});
-}
+};
 
 //Handles a socket disconnecting. This will do garbage collection
 //if the socket disconnecting is the only socket in the room.
-exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins, 
+exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins,
   roomFile, roomSockets){
     var room = socket.store.data["room"];
     //garbage collect the user mappings for each room
     if (roomUsers[room] && socket.id in roomUsers[room]){
-        console.log("deleting user from room "+ room +"..." 
+        console.log("deleting user from room "+ room +"..."
           + roomUsers[room][socket.id]);
         delete roomUsers[room][socket.id];
     }
@@ -64,7 +65,6 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins,
 
     //check if admin is leaving room
     if (roomAdmins[room] && roomAdmins[room] == socket.id){
-
       console.log("deleting room..." + room);
       delete roomDrivers[room];
       delete roomAdmins[room];
@@ -84,22 +84,11 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins,
       roomDrivers[room] = roomAdmins[room];
       //TODO notify admin he has become the driver
     }
-    // console.log("Post disconnect data");
-    // console.log("Known drivers: ");
-    // console.log(roomDrivers);
-    // console.log("Known rooms & users: ");
-    // console.log(roomUsers);
-    // console.log("room Admins");
-    // console.log(roomAdmins);
-    // console.log("room files");
-    // console.log(roomFile);
-    // console.log("room sockets");
-    // console.log(roomSockets);
 
     //Notify other room members that user left
     io.sockets.in(room).emit('user_disconnect', 
       {username: socket.store.data["nickname"]});
-}
+};
 
 //When a user joins an already existing user workspace; the file browser
 //may have one or more directories expanded. This function syncs the new users
@@ -110,16 +99,17 @@ exports.updateFileTree = function(socket, data, roomDrivers, roomUsers, io){
   if (validateDriver(socket, room, user, roomDrivers, roomUsers)){
     io.sockets.in(room).emit("update_file_expansions", {expansions:data.expansions});
   }
-}
+};
+
 exports.get_users = function(socket, data, room_users){
 	var users = new Array();
 
-	for(user_id in room_users){
+	for(var user_id in room_users){
 		users.push(room_users[user_id]);
 	}
-
 	socket.emit('send_users', {usernames: users});
-}
+};
+
 /*
  * Return true iff the directory path exists.
  */
@@ -168,9 +158,9 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers, roomAdmins,
         saveFile(socket, roomFile[room], data.text);
         loadFile(socket, path, room, roomFile, data.fileName);
     }
-
   }
-}
+};
+
 exports.handleSaveRequest = function(socket, data, roomDrivers, roomUsers,
  roomFile){
   var room = data.room;
@@ -179,7 +169,7 @@ exports.handleSaveRequest = function(socket, data, roomDrivers, roomUsers,
     && roomFile[room]){
       saveFile(socket, roomFile[room], data.text);
   }
-}
+};
 
 exports.requestWorkspace = function(socket, data, roomDrivers, roomUsers, io){
   var room = data.room;
@@ -187,33 +177,32 @@ exports.requestWorkspace = function(socket, data, roomDrivers, roomUsers, io){
   if (validateDriver(socket, room, username, roomDrivers, roomUsers)){
       io.sockets.in(room).emit("request_workspace", { });
   }
-}
+};
 
 exports.sendMessage = function(socket, data, roomUsers, io){
-
   if (!data.msg || data.msg.length == 0) return;
 
   var room = data.room;
   var username = data.user;
   if (validateUser(socket, room, username, roomUsers)){
-        io.sockets.in(room).emit('new_message', data);
+    io.sockets.in(room).emit('new_message', data);
   }
   else{
     console.log("[Error] User attempting to send chat messages to other rooms");
   }
+};
 
-
-}
 //notifies the navigators to unlock their overlay
 exports.unlockNavigators = function(socket, data, roomDrivers, roomUsers, io){
   var room = data.room;
   var username = data.user;
   if (validateDriver(socket, room, username, roomDrivers, roomUsers) 
     && data.fileName){
-      io.sockets.in(room).emit("unlock_navigator", 
+      io.sockets.in(room).emit("unlock_navigator",
         { fileName: data.fileName });
   }
-}
+};
+
 //Save content a file at the given path
 function saveFile(socket, path, content){
   if (path){
@@ -227,7 +216,7 @@ function saveFile(socket, path, content){
           else{
             console.log("File saved: " + path + "\n");
           }
-        }); 
+        });
       }
       else{
         socket.emit("save_response", {errmsg:"File does not exist."});
@@ -236,15 +225,15 @@ function saveFile(socket, path, content){
     });
   }
 }
+
 //Loads a file to a room.
 function loadFile(socket, path, room, roomFile, fileName){
-
   if (roomFile[room]){
-      console.log("New File loaded -> " + path + " (was  " 
+    console.log("New File loaded -> " + path + " (was  " 
           + roomFile[room] + ") in room " + room + "\n")
   }
   else{
-      console.log("New File loaded -> " + path + " in room " + room + "\n") 
+    console.log("New File loaded -> " + path + " in room " + room + "\n") 
   }
 
   roomFile[room] = path;
@@ -252,12 +241,7 @@ function loadFile(socket, path, room, roomFile, fileName){
       if (exists){
         fs.readFile(path, function(err, data) {
           if (!err){
-            // io.sockets.in(room).emit("receive_file", 
-            //   {
-            //     text:unescape(data),
-            //     fileName:fileName
-            //   });
-            socket.emit("receive_file", 
+            socket.emit("receive_file",
               {
                 text:unescape(data),
                 fileName:fileName
@@ -272,8 +256,9 @@ function loadFile(socket, path, room, roomFile, fileName){
         console.log("[Error] File to load does not exist (for room " 
           + room + "); with path " + path + "\n");
       }
-    }); 
+    });
 }
+
 //Validates a relative path for common path traversal attacks.
 //Return True iff path passes the validation false otherwise.
 function validatePath(relativePath, fileName){
@@ -283,22 +268,21 @@ function validatePath(relativePath, fileName){
 
     var fullPath = relativePath + fileName;
     //Check for .. in relative path
-    var pathReg1 = /.*\.\..*/; 
+    var pathReg1 = /.*\.\..*/;
     //Check that the fileName doesn't contain / or \
     var pathReg2 = /(.*(\/|\\).*)/;
     //Further validation on the name mostly ensures characters are alphanumeric 
     var pathReg3 = /^([a-zA-Z0-9_ .]|-)*$/;
 
-    return !(pathReg1.exec(relativePath) 
-          || pathReg2.exec(fileName) 
+    return !(pathReg1.exec(relativePath)
+          || pathReg2.exec(fileName)
           || !pathReg3.exec(fileName)
           || pathReg1.exec(fullPath));
-}
+};
 
 //Validate if the user is a driver for the room.
 function validateDriver(socket, room, username, roomDrivers, roomUsers){
-
-   return validateUser(socket, room, username, roomUsers) 
+   return validateUser(socket, room, username, roomUsers)
           && roomDrivers[room] && roomDrivers[room] == socket.id;
 }
 
@@ -315,11 +299,11 @@ function validateDrivingAdmin(socket, room, username, roomDrivers,
   return validateDriver(socket,room,username,roomDrivers,roomUsers)
       && validateAdmin(socket, room, username, roomAdmins, roomUsers);
 }
+
 //Validate if the user matches our socket information, 
 //and room information. This will prevent spoofing a username
 //on the client side.
 function validateUser(socket, room, username, roomUsers){
-
    return (room 
     && roomUsers[room] && socket.id in roomUsers[room] 
     && roomUsers[room][socket.id] == username
@@ -327,6 +311,7 @@ function validateUser(socket, room, username, roomUsers){
     && socket.store.data.nickname == username
     && socket.store.data.room == room);
 }
+
 /*
  * Handles all the options of the context menu for directories and 
  * projects.
@@ -355,7 +340,6 @@ exports.menuClicked = function(socket, data, roomDrivers,
       sendErrorCM(socket,data, "User folder does not exist.");
       return;
     }
-
 
     switch(data.key){
       //cases correspond to each menu option
@@ -471,7 +455,8 @@ exports.fileClick = function(socket, data, roomDrivers, roomUsers, io){
       activePath: data.filePath
     });
   }
-}
+};
+
 /*Handle the switch request made by socket*/
 exports.make_switch = function(io, socket, data, roomDrivers, roomUsers){
   var old_driver = socket.store.data.nickname;
@@ -480,30 +465,29 @@ exports.make_switch = function(io, socket, data, roomDrivers, roomUsers){
   //socket needs to be in driver mode
   //for switch to be legal
   if(roomDrivers[room] == socket.id){
-
     var room_users = roomUsers[room];
     var success = false;
     for(user_id in room_users){
       if(room_users[user_id] == data.switch_target){
-          roomDrivers[room] = user_id;
-          console.log("driver changed to: " + user_id);
-          success = true;
+        roomDrivers[room] = user_id;
+        console.log("driver changed to: " + user_id);
+        success = true;
       }
     }
 
     if(success){
-        //tell all others that a switch happened
-        io.sockets.in(room).emit('switch_success', 
-        {new_driver: data.switch_target, new_nav: old_driver});
+      //tell all others that a switch happened
+      io.sockets.in(room).emit('switch_success', 
+      {new_driver: data.switch_target, new_nav: old_driver});
     }
     else{
-        socket.emit('switch_failure', {});
+      socket.emit('switch_failure', {});
     }
   }
   else{
     socket.emit('switch_failure', {});
   }
-}
+};
 
 /*
  * Notify the socket that the context menu action failed.
@@ -516,6 +500,7 @@ function sendErrorCM(socket, data, errorMsg){
       error:errorMsg
     });
 }
+
 /*
  * Notify the socket that the context menu action succeeded.
  */
@@ -529,15 +514,13 @@ function sendSuccessCM(socket, data, room, io){
         activePath: data.activePath,
         deleteDir: data.deleteDir
       });
-  }
-  else{
+  }else{
       io.sockets.in(room).emit("refresh_files", 
       {
         key:data.key, 
         activePath: data.activePath
       });
   }
-  
 }
 
 /*
@@ -567,10 +550,10 @@ fs.removeRecursive = function(path,cb, room, roomFile, io){
           }else{
             console.log("Deleting file...." + path);
             if (path == roomFile[room]){
-                roomFile[room] = null;
-                io.sockets.in(room).emit("lock_editor", {
-                  lock: true,
-                });
+              roomFile[room] = null;
+              io.sockets.in(room).emit("lock_editor", {
+                lock: true,
+              });
             }
             cb(null,true);
           }

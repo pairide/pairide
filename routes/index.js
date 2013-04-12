@@ -2,20 +2,17 @@ var fs = require('fs'),
 md5h = require('MD5'),
 Recaptcha = require('recaptcha').Recaptcha,
 roomUsers = require('../sockets/index.js').roomUsers,
-roomAdmins = require('../sockets/index.js').roomAdmins;
-
-var config = require('../config');
+roomAdmins = require('../sockets/index.js').roomAdmins,
+config = require('../config');
 
 /*
  * GET home page.
  */
 exports.index = function(req, res){
-
   var show_modal = false;
   if(req.query.l == '1'){
     show_modal = true;
   }
-  
   res.render('index', { title: 'Home', current : 'Home', show_modal: show_modal });
 };
 
@@ -50,7 +47,6 @@ exports.contact = function(req, res){
 };
 
 exports.forgot_password = function(req, res){
-
   var recaptcha = new Recaptcha(config.PUBLIC_KEY, config.PRIVATE_KEY);
 
   res.locals.captcha = recaptcha.toHTML();
@@ -75,36 +71,32 @@ exports.processContact = function(req, res){
   }
 
   var recaptcha = new Recaptcha(config.PUBLIC_KEY, config.PRIVATE_KEY, data);
-
   recaptcha.verify(function(success, error_code) {
+    if (success) {
+      var mailer = require('../email.js');
+      var config = require('../config.js');
+      var mailOptions = {
+        from: req.body.bugReportEmail,
+        to: config.email_from_address,
+        subject: "Contact Form",
+        text: req.body.bugReportBox + " <-----> " + req.body.bugReportEmail,
+        html: req.body.bugReportBox + "<br/><br/><br/>" + req.body.bugReportEmail
+      };
 
-        if (success) {
-          var mailer = require('../email.js');
-          var config = require('../config.js');
-          var mailOptions = {
-                      from: req.body.bugReportEmail,
-                      to: config.email_from_address,
-                      subject: "Contact Form",
-                      text: req.body.bugReportBox + " <-----> " + req.body.bugReportEmail,
-                      html: req.body.bugReportBox + "<br/><br/><br/>" + req.body.bugReportEmail
-                  };
-                  
-          mailer.transport.sendMail(mailOptions, function(error, response){
-                    
-                    if(error){
-                      console.log(error);
-                    }
-
-                    // Redirect and show user a success message.
-                    var successMessage = "Thank you for contacting us. We'll be in touch if need be."
-                    res.render('notify', {current: false, title: 'Contact - Message Sent', type: "success", notification: successMessage});
-          });
-        } else {
-          res.redirect('/contact?e=2');
+      mailer.transport.sendMail(mailOptions, function(error, response){
+        if(error){
+          console.log(error);
         }
+        // Redirect and show user a success message.
+        var successMessage = "Thank you for contacting us. We'll be in touch if need be.";
+        res.render('notify', {current: false, title: 'Contact - Message Sent', type: "success", notification: successMessage});
+      });
 
-    });
-}
+    } else {
+      res.redirect('/contact?e=2');
+    }
+  });
+};
 
 /*
  * Route the user and render the registration page.
@@ -131,18 +123,18 @@ exports.workspace = function(req, res){
  * Route the user to it's profile page if he is logged in.
  */
 exports.profile = function(req, res){
-  res.render('layout', {title: 'Profile', current: "None"});  
-}
+  res.render('layout', {title: 'Profile', current: "None"});
+};
 
 /*
  * Creates a new project in the users workspace folder.
  */
 exports.createProject = function(req, res){
   //the directory path for all user files
-  var directory = process.cwd() + "/users"; 
+  var directory = process.cwd() + "/users";
 
   //the name of the user requesting files
-  var username; 
+  var username;
   if (req.session && req.session.user_id){
     username = md5h(req.session.user_id);
   }
@@ -156,7 +148,7 @@ exports.createProject = function(req, res){
   if (!sanityReg.exec(req.body.name)){
     res.send(
       {
-        result:false, 
+        result:false,
         error:"Project name must not contain any special characters."
       });
     return;
@@ -178,7 +170,7 @@ exports.createProject = function(req, res){
       }
     });
   }
-}
+};
 
 /*
  * Return true iff the directory path exists.
@@ -200,20 +192,20 @@ function pathExists(path){
  */
 exports.fileConnector = function(req, res){
   //the directory path for all user files
-  var directory = process.cwd() + "/users"; 
+  var directory = process.cwd() + "/users";
   //the name of the user requesting files
-  var username; 
-  var stats
+  var username;
+  var stats;
   //the true path to the files being requested
-  var path; 
+  var path;
   //the relative path from the users folder
-  var relPath
+  var relPath;
 
   var room = req.body.room;
   var sockID = req.body.sID;
 
-  if (room && sockID 
-    && roomUsers[room] && roomAdmins[room] 
+  if (room && sockID
+    && roomUsers[room] && roomAdmins[room]
     && sockID in roomUsers[room]){
     var adminID = roomAdmins[room];
     username = md5h(roomUsers[room][adminID]);
@@ -233,41 +225,41 @@ exports.fileConnector = function(req, res){
     //raises an error if the path does not exist
     stats = fs.lstatSync(path);
     if (stats.isDirectory()) {
-        fs.readdir(path, function (err, files) {
-          if (err) {
-            console.log(err);
-            return;
-          }
-          //html for start of the file list
-          var html = "<ul style=\"display: none;\" class=\"jqueryFileTree\">";
-          for (var i=0; i < files.length; i++){
-            try{
-              var fileName = unescape(files[i]);
-              var filePath = path + fileName;
-              var fileStats = fs.lstatSync(filePath);
-             
-              //check if file is a nested directory
-              if (fileStats.isDirectory()){
-                html +=  "<li class=\"directory collapsed context-menu-one\"><a ftype=\"directory\" href=\"#\" rel=\"" 
-                + relPath + fileName + "/\">" + fileName + "</a></li>";
-              }
-              else if (fileStats.isFile()){
-                var re = /(?:\.([^.]+))?$/; //regex for a file ext
-                var ext = re.exec(fileName)[1];
-                //add html tag for a file
-                html += "<li class=\"file ext_" + ext + "\"><a ftype=\"file\" href=\"#\" rel=\"" 
-                + relPath + fileName + "\">" + fileName + "</a></li>";
-              }
-            }catch(e){
-              console.log(e);
+      fs.readdir(path, function (err, files) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        //html for start of the file list
+        var html = "<ul style=\"display: none;\" class=\"jqueryFileTree\">";
+        for (var i=0; i < files.length; i++){
+          try{
+            var fileName = unescape(files[i]);
+            var filePath = path + fileName;
+            var fileStats = fs.lstatSync(filePath);
+           
+            //check if file is a nested directory
+            if (fileStats.isDirectory()){
+              html +=  "<li class=\"directory collapsed context-menu-one\"><a ftype=\"directory\" href=\"#\" rel=\""
+              + relPath + fileName + "/\">" + fileName + "</a></li>";
             }
+            else if (fileStats.isFile()){
+              var re = /(?:\.([^.]+))?$/; //regex for a file ext
+              var ext = re.exec(fileName)[1];
+              //add html tag for a file
+              html += "<li class=\"file ext_" + ext + "\"><a ftype=\"file\" href=\"#\" rel=\""
+              + relPath + fileName + "\">" + fileName + "</a></li>";
+            }
+          }catch(e){
+            console.log(e);
           }
-        html += "</ul>"; //end file list
-        res.send(html);
-      });
+        }
+      html += "</ul>"; //end file list
+      res.send(html);
+    });
     }
   }
   catch (e) {
     console.log("File directory for user does not exist. This should not happen.");
   }
-}
+};
