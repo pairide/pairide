@@ -4,11 +4,11 @@ var uploadClipBoard = "";
 var Range;
 var annotBoxLeft;
 var currentHighlightedFile = null;
-var languages = {"Python" : "python",
-                 "Javascript" : "javascript",
-                 "Java" : "java",
-                 "C/C++" : "c_cpp",
-                 "SQL" : "sql"};
+var languages = {"Python " : "python",
+                 "Javascript " : "javascript",
+                 "Java " : "java",
+                 "C/C++ " : "c_cpp",
+                 "SQL " : "sql"};
 
 
 $(document).ready(function(){
