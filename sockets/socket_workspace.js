@@ -1,9 +1,17 @@
+/**
+ * This file compliments the main socket file of index.js by 
+ * containing the actual event handlers for the event listeners in 
+ * index.js.
+ */
+
 var fs = require('fs'),
 md5h = require('MD5');
 
-
-//Handles the event of a user joining a room. This will create
-//a room if needed.
+/**
+ * Handles the event of a user joining a room. This will create
+ * a room if needed and populate relevant information into several
+ * models such as room drivers, room admins, room users, etc...
+ */
 exports.join = function(socket, data, roomDrivers, roomUsers, 
   roomAdmins, roomFile, roomSockets){
 
@@ -14,25 +22,32 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
 
   socket.join(data.room);
   var roomExistsAfter = "/" + data.room in socket.manager.rooms
+
+  //Attach some user info to the actual socket object.
   socket.set("nickname", data.user);
   socket.set("room", data.room);
 
   //check if the room was newly created
   if ((!roomExistsBefore && roomExistsAfter) || !roomAdmins[data.room]){
+    //initialize the models for this room
     roomDrivers[data.room] = socket.id;
     roomAdmins[data.room] = socket.id;
     roomUsers[data.room] = {};
     roomFile[data.room] = null;
     roomSockets[data.room] = {};
-    console.log(socket.id);
     roomSockets[data.room][socket.id] = socket;
 
     console.log("New room created by " + data.user + ": " + data.room + "\n");
+    //The room was just created; give driver and admin to the creator.
     socket.emit("is_driver",{driver:true, admin: true, name: data.user});
   }
-  else{
+  else{ //Room Already existed
+    
+    //Update the relevant models.
     var driverID = roomDrivers[data.room];
     roomSockets[data.room][socket.id] = socket;
+
+    //Notify the client that they are a navigator and not the admin.
     socket.emit("is_driver", {
       driver:false, 
       admin:false, 
@@ -40,32 +55,44 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
     });
     
     var driverID = roomDrivers[data.room];
+    //Flag the navigators filetree as not yet synced with the driver.
     socket.emit("set_filebrowser_desync", {});
+    //Request the driver to send the current state of the filetree.
     roomSockets[data.room][driverID].emit("get_driver_filetree_expansion", {});
   }
+
   roomUsers[data.room][socket.id] = data.user;
+  //Notify that connection was successful.
   socket.emit("socket_connected", {});
 };
 
-//Handles a socket disconnecting. This will do garbage collection
-//if the socket disconnecting is the only socket in the room.
+/**
+ * Handles a socket disconnecting from a room. This will do garbage 
+ * collection in cases such as the socket disconnecting being the only 
+ * socket in the room.
+ */
 exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins,
   roomFile, roomSockets){
+
+    //The roomname the socket is disconnecting from.
     var room = socket.store.data["room"];
-    //garbage collect the user mappings for each room
+
+    //Garbage collect the user mappings for the room.
     if (roomUsers[room] && socket.id in roomUsers[room]){
         console.log("deleting user from room "+ room +"..."
           + roomUsers[room][socket.id]);
         delete roomUsers[room][socket.id];
     }
 
+    //Garbage collect the users socket object in the model.
     if (roomSockets[room] && roomSockets[room][socket.id]){
       delete roomSockets[room][socket.id];
     }
 
-    //check if admin is leaving room
+    //Check if its the admin leaving the room.
     if (roomAdmins[room] && roomAdmins[room] == socket.id){
       console.log("deleting room..." + room);
+      //Drop all models related to the room.
       delete roomDrivers[room];
       delete roomAdmins[room];
       delete roomUsers[room];
@@ -87,20 +114,30 @@ exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins,
 
     //Notify other room members that user left
     io.sockets.in(room).emit('user_disconnect', 
-      {username: socket.store.data["nickname"]});
+      {
+        username: socket.store.data["nickname"]
+      });
 };
 
-//When a user joins an already existing user workspace; the file browser
-//may have one or more directories expanded. This function syncs the new users
-//file browser with the driver.
+/**
+ * When a user joins an already existing user workspace; the file browser
+ * may have one or more directories expanded. This function syncs the new users
+ * file browser with the driver.
+ */
 exports.updateFileTree = function(socket, data, roomDrivers, roomUsers, io){
   var user = data.user;
   var room = data.room;
   if (validateDriver(socket, room, user, roomDrivers, roomUsers)){
-    io.sockets.in(room).emit("update_file_expansions", {expansions:data.expansions});
+    io.sockets.in(room).emit("update_file_expansions", 
+      {
+        expansions:data.expansions
+      });
   }
 };
 
+/**
+ * Sends the list of usernames in the room.
+ */
 exports.get_users = function(socket, data, room_users){
 	var users = new Array();
 
@@ -125,16 +162,26 @@ function pathExists(path){
   }
 }
 
-//Handles a request to change file in the workspace
+/**
+ * Handles a request from the driver to change file in the workspace.
+ * This will save the previously selected file (if one exists), 
+ * load the new file and update all user's editors to match
+ * the loaded file.
+ */
 exports.changeFile = function(socket, data, roomDrivers, roomUsers, roomAdmins,
  roomFile){
 
+  //The name of the room that has the file change request.
   var room = data.room;
+  //The name of the user.
   var user = data.user;
   console.log("User " + user + " requesting to load file in room " + room + "\n");
+  
+  //Only the driver can change the current working file.
   if (validateDriver(socket, room, user, roomDrivers, roomUsers)){
+    //Check for path exploits.
     if (!validatePath(data.fileName, "")){
-      //path has probably been manipulated on client side
+      //Path has probably been manipulated on client side.
       console.log("[Attack] Path attack: " + data.fileName 
         + " by " + user + " in room " + room + "\n");
       return;
@@ -142,7 +189,9 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers, roomAdmins,
 
     var directory = process.cwd() + "/users"; 
     var adminID = roomAdmins[room];
+    //Use MD5 to hash the users name to their directory of files.
     username = md5h(roomUsers[room][adminID]);
+    //The full path to the file being loaded.
     var path = unescape(directory + "/" + username + data.fileName);
     if (!pathExists(path)){
       console.log("[Error] Can't find file to load: " + path);
@@ -161,19 +210,29 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers, roomAdmins,
   }
 };
 
+/**
+ * Handles a request to save the current working file for a room.
+ */
 exports.handleSaveRequest = function(socket, data, roomDrivers, roomUsers,
  roomFile){
   var room = data.room;
   var user = data.user;
+  //Only the driver can save.
   if (validateDriver(socket, room, user, roomDrivers, roomUsers)
     && roomFile[room]){
       saveFile(socket, roomFile[room], data.text);
   }
 };
 
+/**
+ * Notifies all navigators of a room to refresh their view of the 
+ * filetree. This is ussually required after the driver has deleted
+ * or created a new project.
+*/
 exports.requestWorkspace = function(socket, data, roomDrivers, roomUsers, io){
   var room = data.room;
   var username = data.user;
+  //only the driver can make this request
   if (validateDriver(socket, room, username, roomDrivers, roomUsers)){
       io.sockets.in(room).emit("request_workspace", { });
   }
