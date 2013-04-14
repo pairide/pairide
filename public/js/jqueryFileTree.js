@@ -1,3 +1,12 @@
+/**
+ * JQuery File Tree handles the client side view of the filetree browser.  
+ * Some changes had to be made here to collaborate with the server.
+ * Specifically, when the driver expands or collapses a folder all navigators
+ * are notified to do the same to synchronize the filetree.
+ */
+
+
+
 // jQuery File Tree Plugin
 //
 // Version 1.01
@@ -31,10 +40,11 @@
 // is copyright 2008 A Beautiful Site, LLC. 
 //
 
-//Notifies the server that the file or directory located at
-//some path has been clicked.
+/**
+ * Notifies the server that the file or directory located at
+ * some path has been clicked.
+ */
 function sendActivePath(path){
-	//alert(path);
 	if (isDriver){	
 		socket.emit("driver_file_click", 
 			{
@@ -44,8 +54,10 @@ function sendActivePath(path){
 			});
 	}
 }
-//gradually expands directories to match the clients filebrowser
-//with the drivers
+/**
+ * Gradually expands directories to match the clients filebrowser
+ * with the drivers.
+ */
 function expand(){
 
 	if (delayedExpansions && delayedExpansions.length){
@@ -81,7 +93,6 @@ if(jQuery) (function($){
 			$(this).each( function() {
 				//t is the path, c seems to be a DOM object
 				function showTree(c, t) {
-					//alert(t);
 					sendActivePath(t);
 					$(c).addClass('wait');
 					$(".jqueryFileTree.start").remove();
