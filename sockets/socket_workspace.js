@@ -1,7 +1,8 @@
 /**
  * This file compliments the main socket file of index.js by 
  * containing the actual event handlers for the event listeners in 
- * index.js.
+ * index.js. These event handlers only apply to the workspace page
+ * (both express and user).
  */
 
 var fs = require('fs'),
@@ -238,11 +239,18 @@ exports.requestWorkspace = function(socket, data, roomDrivers, roomUsers, io){
   }
 };
 
+/**
+ * Relays a new chat message to all users in the room. 
+ */
 exports.sendMessage = function(socket, data, roomUsers, io){
+
+  //Don't accept empty messages.
   if (!data.msg || data.msg.length == 0) return;
 
   var room = data.room;
   var username = data.user;
+  //Validate if the user is actually apart of the room it is trying
+  //to send a message to.
   if (validateUser(socket, room, username, roomUsers)){
     io.sockets.in(room).emit('new_message', data);
   }
@@ -251,10 +259,14 @@ exports.sendMessage = function(socket, data, roomUsers, io){
   }
 };
 
-//notifies the navigators to unlock their overlay
+/**
+ * Notifies the navigators to unlock their overlay. Only the 
+ * driver can make this request.
+ */ 
 exports.unlockNavigators = function(socket, data, roomDrivers, roomUsers, io){
   var room = data.room;
   var username = data.user;
+
   if (validateDriver(socket, room, username, roomDrivers, roomUsers) 
     && data.fileName){
       io.sockets.in(room).emit("unlock_navigator",
@@ -262,8 +274,12 @@ exports.unlockNavigators = function(socket, data, roomDrivers, roomUsers, io){
   }
 };
 
-//Save content a file at the given path
+/**
+ * Saves content to a file at a given path and 
+ * notifies the user of the succcess.
+ */
 function saveFile(socket, path, content){
+
   if (path){
     fs.exists(path, function(exists){
       if (exists){
@@ -285,8 +301,13 @@ function saveFile(socket, path, content){
   }
 }
 
-//Loads a file to a room.
+/**
+ * Changes the current working file for the room and 
+ * updates the drivers editor with the files content.
+ */ 
 function loadFile(socket, path, room, roomFile, fileName){
+
+  //debug messages
   if (roomFile[room]){
     console.log("New File loaded -> " + path + " (was  " 
           + roomFile[room] + ") in room " + room + "\n")
@@ -300,6 +321,7 @@ function loadFile(socket, path, room, roomFile, fileName){
       if (exists){
         fs.readFile(path, function(err, data) {
           if (!err){
+            //send the files content to the driver
             socket.emit("receive_file",
               {
                 text:unescape(data),
@@ -318,8 +340,12 @@ function loadFile(socket, path, room, roomFile, fileName){
     });
 }
 
-//Validates a relative path for common path traversal attacks.
-//Return True iff path passes the validation false otherwise.
+/**
+ * Validates a relative path for common path traversal attacks.
+ * Returns True iff path passes the validation false otherwise.
+ * If the path already contains the filename, leave filename as 
+ * an empty string.
+ */
 function validatePath(relativePath, fileName){
 
     relativePath = unescape(relativePath);
@@ -339,19 +365,26 @@ function validatePath(relativePath, fileName){
           || pathReg1.exec(fullPath));
 };
 
-//Validate if the user is a driver for the room.
+/**
+ * Return true iff the user is a driver for the room.
+ */
 function validateDriver(socket, room, username, roomDrivers, roomUsers){
    return validateUser(socket, room, username, roomUsers)
           && roomDrivers[room] && roomDrivers[room] == socket.id;
 }
 
-//Validate if the user is an admin for the room.
+/**
+ * Return true iff the user is the admin for the room.
+ */
 function validateAdmin(socket, room, username, roomAdmins, roomUsers){
    return validateUser(socket, room, username, roomUsers) 
           && roomAdmins[room] && roomAdmins[room] == socket.id;
 }
 
-//Validate if the user is both an admin and the current driver.
+/**
+ * Return true iff the user is both the admin and the driver of 
+ * the room.
+ */
 function validateDrivingAdmin(socket, room, username, roomDrivers, 
   roomAdmins, roomUsers){
 
@@ -359,9 +392,11 @@ function validateDrivingAdmin(socket, room, username, roomDrivers,
       && validateAdmin(socket, room, username, roomAdmins, roomUsers);
 }
 
-//Validate if the user matches our socket information, 
-//and room information. This will prevent spoofing a username
-//on the client side.
+/**
+ * Return true iff the user matches our models socket information, 
+ * and room information. This will prevent spoofing a username
+ * on the client side.
+ */
 function validateUser(socket, room, username, roomUsers){
    return (room 
     && roomUsers[room] && socket.id in roomUsers[room] 
@@ -372,25 +407,34 @@ function validateUser(socket, room, username, roomUsers){
 }
 
 /*
- * Handles all the options of the context menu for directories and 
- * projects.
+ * Handles all the options of the context menu, that can be executed 
+ * on the filetree by the driver.
  */
 exports.menuClicked = function(socket, data, roomDrivers, 
   roomUsers, roomAdmins, roomFile, io){
 
+  //The name of the room the user is currently in.
   var room = data.room;
+
+  //Only the driver can manipulate the file tree.
   if (validateDriver(socket, room, data.user, 
     roomDrivers, roomUsers)){
 
+    //The admins socket id.
     var adminID = roomAdmins[room];
+    //The admins username, used to locate the folder for the room.
     var username = md5h(roomUsers[room][adminID]);
     var relPath = unescape(data.relPath);
-    var directory = process.cwd() + "/users"; 
-    var activePath = unescape(directory + "/" + username + data.activePath);  
+    var directory = process.cwd() + "/users";
+    //The full path to the active folder where an active folder is
+    //the folder that has changes in one of its files. 
+    var activePath = unescape(directory + "/" + username + data.activePath);
+    //The full path to the file selected on.  
     var path = unescape(directory + "/" + username + relPath);
 
     console.log("Context menu action " + data.key + " at " + path + "\n");
 
+    //check for common path exploits
     if (!validatePath(relPath, data.name) || !validatePath(data.activePath, data.name)){
       sendErrorCM(socket, data, "Name should avoid special characters.");
       return;
@@ -402,7 +446,8 @@ exports.menuClicked = function(socket, data, roomDrivers,
 
     switch(data.key){
       //cases correspond to each menu option
-      case 'file':
+
+      case 'file': //Create a new file
         var fullPath = activePath + data.name;
         console.log(fullPath);
         fs.exists(fullPath, function(exists){
@@ -423,10 +468,11 @@ exports.menuClicked = function(socket, data, roomDrivers,
           }
         });
         break;
-      case 'upload':
-        //upload file to directory
+
+      case 'upload': //Upload file to directory
         break;
-      case 'rename':
+
+      case 'rename': //Rename a file
         fs.exists(path, function(exists){
           if (!exists){
               sendErrorCM(socket,data, "The file you are trying to rename does not exist.");
@@ -453,8 +499,8 @@ exports.menuClicked = function(socket, data, roomDrivers,
           }
         });
         break;
-      case 'delete':
-        //delete entire directory or file
+
+      case 'delete': //Delete entire directory or file
         try{
             fs.removeRecursive(path,function(err,status){
               if (err){
@@ -471,8 +517,8 @@ exports.menuClicked = function(socket, data, roomDrivers,
         }catch(ignore){
         }
         break;
-      case 'directory':
-        //create new directory
+
+      case 'directory': //Create new directory 
         var mode = 0755;
         fs.mkdir(activePath + data.name, mode, function(err){
           if (err) {
@@ -506,6 +552,11 @@ function getNewPath(oldPath, newName){
   }
 }
 
+/**
+ * Notifies all navigators of a room to click a specific file. 
+ * This is used to keep the view of the filetree of the navigators
+ * synchronized with the driver.
+ */
 exports.fileClick = function(socket, data, roomDrivers, roomUsers, io){
   var room = data.room;
   var user = data.user;
@@ -550,13 +601,15 @@ exports.make_switch = function(io, socket, data, roomDrivers, roomUsers){
 
 /*
  * Notify the socket that the context menu action failed.
+ * This is a generic way of sending an error message for
+ * context menu actions.
  */
 function sendErrorCM(socket, data, errorMsg){
   socket.emit("context_menu_click_result", 
     {
-      key:data.key, 
+      key:data.key, //The name of the context menu action.
       result:false, 
-      error:errorMsg
+      error:errorMsg //The reason it failed.
     });
 }
 
@@ -583,7 +636,7 @@ function sendSuccessCM(socket, data, room, io){
 }
 
 /*
- * Return true if string ends with a specific suffix.
+ * Return true iff the string ends with a specific suffix.
  */
 function endsWith(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
