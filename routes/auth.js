@@ -1,5 +1,5 @@
 /*
- * Authentication halders. Handles Login, Registration and Logout actions.
+ * Authentication handlers. Handles Login, Registration and Logout actions.
  */
 var db = require('../database.js'),
 Recaptcha = require('recaptcha').Recaptcha,

@@ -53,5 +53,5 @@ var Users = new mongoose.Schema({
   }
 });
 
-var User = mongoose.model('User', Users)\
+var User = mongoose.model('User', Users);
 exports.users = User;

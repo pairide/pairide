@@ -7,7 +7,7 @@ var md5h = require('MD5');
 var fs = require('fs');
 
 /* 
- * Create a random session and redirect  
+ * Create a session/room and redirect the
  * client to it.
  */
 exports.create = function(req, res){
@@ -17,6 +17,9 @@ exports.create = function(req, res){
     // Make sure that room's name is valid and doesn't already exist
     var validationRegex = /[a-zA-Z0-9_ ]+/;
     var regexResult = validationRegex.exec(req.body.room_name);
+
+    //The roomname will be appended to a URL so replace
+    //spaces with underscores.
     var escapedRoomName = req.body.room_name.replace(/ /g,"_");
     var roomExists = escapedRoomName in roomAdmins;
     res.send({
@@ -29,7 +32,8 @@ exports.create = function(req, res){
       roomsCreated.push(escapedRoomName);
     }
   }else{
-    // User may or may not be logged in.
+    //User may or may not be logged in.
+    //Create an express session.
     var md5h = require('MD5');
     hash = md5h(new Date().getTime());
     roomsCreated.push(hash);

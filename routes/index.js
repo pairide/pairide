@@ -1,3 +1,10 @@
+/**
+* This script handles requests for most of the views. For
+* example when a user is connecting to the contact page, their
+* request is routed through here to obtain the relevant html using
+* a jade template or raw html.
+*/
+
 var fs = require('fs'),
 md5h = require('MD5'),
 Recaptcha = require('recaptcha').Recaptcha,
@@ -6,7 +13,7 @@ roomAdmins = require('../sockets/index.js').roomAdmins,
 config = require('../config');
 
 /*
- * GET home page.
+ * Route the user and render the home page.
  */
 exports.index = function(req, res){
   var show_modal = false;
@@ -127,24 +134,32 @@ exports.profile = function(req, res){
 };
 
 /*
- * Creates a new project in the users workspace folder.
+ * Creates a new project in the users workspace folder and updates the
+ * workspace view.
  */
 exports.createProject = function(req, res){
-  //the directory path for all user files
-  var directory = process.cwd() + "/users";
 
-  //the name of the user requesting files
+  //The directory path to all user files.
+  var directory = process.cwd() + "/users";
+  //The username of the user requesting files.
   var username;
+
+  //validate if the user is signed in
   if (req.session && req.session.user_id){
     username = md5h(req.session.user_id);
   }
   else{
-      res.send({result:false, error:"You must be logged in to do that."});
+      res.send(
+        {
+          result:false, 
+          error:"You must be logged in to do that."
+        });
       return;
   }
-
+  
+  //Regex that only accepts alphanumeric expressions.
   var sanityReg = /^[a-zA-Z0-9_ -]+$/;
-  //check for potential path traversal attacks
+  //Check for potential path traversal attacks or special characters
   if (!sanityReg.exec(req.body.name)){
     res.send(
       {
@@ -153,13 +168,19 @@ exports.createProject = function(req, res){
       });
     return;
   }
+
+  //The full path to the directory to be created.
   var path = directory + "/" + username + "/" + req.body.name;
   try {
     //raises an error if the project does not exist
     stats = fs.lstatSync(path);
-    res.send({result:false, error:"A project with that name already exists."});
+    res.send(
+      {
+        result:false, 
+        error:"A project with that name already exists."
+      });
   }catch (e) {
-    //create the directory for the project
+    //create the directory for the project and notify success or failure
     var mode = 0755;
     fs.mkdir(path, mode, function(err){
       if (err){
@@ -173,7 +194,7 @@ exports.createProject = function(req, res){
 };
 
 /*
- * Return true iff the directory path exists.
+ * Return true iff the path exists.
  */
 function pathExists(path){
   try{
@@ -191,35 +212,45 @@ function pathExists(path){
  * The directory of files is fetched and rendered into html.
  */
 exports.fileConnector = function(req, res){
-  //the directory path for all user files
-  var directory = process.cwd() + "/users";
-  //the name of the user requesting files
-  var username;
-  var stats;
-  //the true path to the files being requested
-  var path;
-  //the relative path from the users folder
-  var relPath;
 
+  //The directory path for all user files
+  var directory = process.cwd() + "/users";
+  //The name of the user requesting files.
+  var username;
+  //A stats object for querying with the fs module.
+  var stats;
+  //The full path to the files being requested.
+  var path;
+  //The relative path from the users folder.
+  var relPath;
+  //The room name where the files are being requested from.
   var room = req.body.room;
+  //The clients unique socket id obtained during
+  //the initial socket connection.
   var sockID = req.body.sID;
 
+  //Validate if the clients socket id matches the list of 
+  //known id's connected to the room.
   if (room && sockID
     && roomUsers[room] && roomAdmins[room]
     && sockID in roomUsers[room]){
+
     var adminID = roomAdmins[room];
     username = md5h(roomUsers[room][adminID]);
     relPath = unescape(req.body.dir);
     path = directory + "/" + username + relPath;
+
+    //Create their user directory if it does not exist.
     if (!pathExists(directory + "/" + username)){
-      //create their user directory if it does not exist
-      fs.mkdir(directory + "/" + username);
+      //This is not asynchronous (ie. will block until finished).
+      fs.mkdirSync(directory + "/" + username);
     }
   }
   else{
     console.log("User requested files associated with another room.");
     return;
   }
+
   console.log("Files requested at: " + path);
   try {
     //raises an error if the path does not exist
@@ -242,7 +273,7 @@ exports.fileConnector = function(req, res){
             if (fileStats.isDirectory()){
               html +=  "<li class=\"directory collapsed context-menu-one\"><a ftype=\"directory\" href=\"#\" rel=\""
               + relPath + fileName + "/\">" + fileName + "</a></li>";
-            }
+            } 
             else if (fileStats.isFile()){
               var re = /(?:\.([^.]+))?$/; //regex for a file ext
               var ext = re.exec(fileName)[1];
@@ -254,12 +285,14 @@ exports.fileConnector = function(req, res){
             console.log(e);
           }
         }
-      html += "</ul>"; //end file list
-      res.send(html);
-    });
+        html += "</ul>"; //end file list
+        res.send(html);
+      });
     }
   }
   catch (e) {
+    //Despite creating the users folder above if it doesn't exist; 
+    //this error may still occur if the mkdir failed.
     console.log("File directory for user does not exist. This should not happen.");
   }
 };

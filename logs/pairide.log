@@ -1,1 +1,112 @@
 
+[2013-04-13 21:02:31.903] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-04-13 21:02:32.432] [INFO] console - Express server listening on port 80
+[2013-04-13 21:03:47.152] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-04-13 21:03:47.681] [INFO] console - Express server listening on port 80
+[2013-04-13 21:04:06.893] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'SdDfK9Wzj9VOPtslEcHQ'
+[2013-04-13 21:04:07.097] [INFO] console - Client connect.
+[2013-04-13 21:04:07.268] [INFO] console - client alexr (with socket id SdDfK9Wzj9VOPtslEcHQ) requested to join user room alex
+
+[2013-04-13 21:04:07.268] [INFO] console - SdDfK9Wzj9VOPtslEcHQ
+[2013-04-13 21:04:07.269] [INFO] console - New room created by alexr: alex
+
+[2013-04-13 21:04:07.378] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-13 21:04:07.378] [INFO] console - File directory for user does not exist. This should not happen.
+[2013-04-13 21:06:07.376] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-13 21:06:07.377] [INFO] console - File directory for user does not exist. This should not happen.
+[2013-04-13 21:06:34.134] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-04-13 21:06:34.671] [INFO] console - Express server listening on port 80
+[2013-04-13 21:06:36.371] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'yNUi3FcRTP7tMLydFE4X'
+[2013-04-13 21:06:36.378] [INFO] console - Client connect.
+[2013-04-13 21:06:57.449] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-04-13 21:06:57.976] [INFO] console - Express server listening on port 80
+[2013-04-13 21:06:59.428] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'GHvl-eKki1AzMCYXFKkq'
+[2013-04-13 21:06:59.441] [INFO] console - Client connect.
+[2013-04-13 21:07:02.686] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-04-13 21:07:02.687] [INFO] console - disconnect detected
+[2013-04-13 21:07:04.048] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Jf_k08UnCM24k3ibFKkr'
+[2013-04-13 21:07:04.223] [INFO] console - Client connect.
+[2013-04-13 21:07:04.339] [INFO] console - client alexr (with socket id Jf_k08UnCM24k3ibFKkr) requested to join user room alex
+
+[2013-04-13 21:07:04.340] [INFO] console - Jf_k08UnCM24k3ibFKkr
+[2013-04-13 21:07:04.340] [INFO] console - New room created by alexr: alex
+
+[2013-04-13 21:07:04.389] [INFO] console - __________
+[2013-04-13 21:07:04.390] [INFO] console - /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308
+[2013-04-13 21:07:04.390] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-13 21:07:04.390] [INFO] console - File directory for user does not exist. This should not happen.
+[2013-04-13 21:08:55.892] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-04-13 21:08:56.454] [INFO] console - Express server listening on port 80
+[2013-04-13 21:09:02.435] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Pm7POdKhK9E2QEgNFnfU'
+[2013-04-13 21:09:02.623] [INFO] console - Client connect.
+[2013-04-13 21:09:02.720] [INFO] console - client alexr (with socket id Pm7POdKhK9E2QEgNFnfU) requested to join user room alex
+
+[2013-04-13 21:09:02.721] [INFO] console - Pm7POdKhK9E2QEgNFnfU
+[2013-04-13 21:09:02.721] [INFO] console - New room created by alexr: alex
+
+[2013-04-13 21:09:02.775] [INFO] console - __________
+[2013-04-13 21:09:02.776] [INFO] console - /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308
+[2013-04-13 21:09:02.776] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-13 21:09:02.777] [INFO] console - File directory for user does not exist. This should not happen.
+[2013-04-13 21:09:02.777] [INFO] console - { [Error: ENOENT, mkdir '/home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308']
+  errno: 34,
+  code: 'ENOENT',
+  path: '/home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308' }
+Error: ENOENT, mkdir '/home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308'
+[2013-04-13 21:10:32.668] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-04-13 21:10:33.198] [INFO] console - Express server listening on port 80
+[2013-04-13 21:10:34.621] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'qSOuTngMPvAEC7aGF_Hc'
+[2013-04-13 21:10:34.629] [INFO] console - Client connect.
+[2013-04-13 21:10:40.353] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-04-13 21:10:40.354] [INFO] console - disconnect detected
+[2013-04-13 21:10:41.681] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'aoZHbgoIHbnR8cTlF_Hd'
+[2013-04-13 21:10:41.917] [INFO] console - Client connect.
+[2013-04-13 21:10:41.992] [INFO] console - client alexr (with socket id aoZHbgoIHbnR8cTlF_Hd) requested to join user room alex
+
+[2013-04-13 21:10:41.993] [INFO] console - aoZHbgoIHbnR8cTlF_Hd
+[2013-04-13 21:10:41.993] [INFO] console - New room created by alexr: alex
+
+[2013-04-13 21:10:42.051] [INFO] console - __________
+[2013-04-13 21:10:42.052] [INFO] console - /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308
+[2013-04-13 21:10:42.056] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-13 21:10:42.056] [INFO] console - File directory for user does not exist. This should not happen.
+[2013-04-13 21:10:42.057] [INFO] console - { [Error: ENOENT, mkdir '/home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/']
+  errno: 34,
+  code: 'ENOENT',
+  path: '/home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/' }
+Error: ENOENT, mkdir '/home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/'
+[2013-04-13 21:12:42.055] [INFO] console - __________
+[2013-04-13 21:12:42.056] [INFO] console - /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308
+[2013-04-13 21:12:42.056] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-13 21:12:42.056] [INFO] console - File directory for user does not exist. This should not happen.
+[2013-04-13 21:12:42.057] [INFO] console - { [Error: ENOENT, mkdir '/home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/']
+  errno: 34,
+  code: 'ENOENT',
+  path: '/home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/' }
+Error: ENOENT, mkdir '/home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/'
+[2013-04-13 21:14:36.729] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-04-13 21:14:37.281] [INFO] console - Express server listening on port 80
+[2013-04-13 21:14:41.823] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'zYJUsvJuMCaHy3ImG6s5'
+[2013-04-13 21:14:42.015] [INFO] console - Client connect.
+[2013-04-13 21:14:42.127] [INFO] console - client alexr (with socket id zYJUsvJuMCaHy3ImG6s5) requested to join user room alex
+
+[2013-04-13 21:14:42.128] [INFO] console - zYJUsvJuMCaHy3ImG6s5
+[2013-04-13 21:14:42.128] [INFO] console - New room created by alexr: alex
+
+[2013-04-13 21:14:42.181] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-13 21:14:45.989] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-13 21:14:50.716] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/
+[2013-04-13 21:14:55.504] [INFO] console - Context menu action file at /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/
+
+[2013-04-13 21:14:55.504] [INFO] console - /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/kdslfjsldkfs
+[2013-04-13 21:14:55.506] [INFO] console - Created new file at /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/kdslfjsldkfs
+[2013-04-13 21:14:55.506] [INFO] console - New File loaded -> /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/kdslfjsldkfs in room alex
+
+[2013-04-13 21:14:55.543] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/
+[2013-04-13 21:14:58.674] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/
+[2013-04-13 21:15:03.789] [INFO] console - Context menu action delete at /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/kdslfjsldkfs
+
+[2013-04-13 21:15:03.790] [INFO] console - Deleting file..../home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/kdslfjsldkfs
+[2013-04-13 21:15:03.791] [INFO] console - Deleted /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/kdslfjsldkfs by alexr (in room alex)
+
+[2013-04-13 21:15:03.821] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/
