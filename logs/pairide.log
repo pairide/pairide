@@ -189,3 +189,26 @@ Error: ENOENT, mkdir '/home/arod/pairide/pairide/users/cf736760062170718e5e97de2
 [2013-04-14 01:21:39.230] [INFO] console - Deleted /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/CDF.desktop by alexr (in room ksjfdsklfsdf)
 
 [2013-04-14 01:21:39.260] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/
+[2013-04-14 01:50:09.649] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-04-14 01:50:10.184] [INFO] console - Express server listening on port 80
+[2013-04-14 01:50:15.138] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'qVRlWjTQK7mCgEtdF_Dx'
+[2013-04-14 01:50:15.328] [INFO] console - Client connect.
+[2013-04-14 01:50:15.455] [INFO] console - client alexr (with socket id qVRlWjTQK7mCgEtdF_Dx) requested to join user room ksjfdsklfsdf
+
+[2013-04-14 01:50:15.455] [INFO] console - New room created by alexr: ksjfdsklfsdf
+
+[2013-04-14 01:50:15.519] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-14 01:50:16.494] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/
+[2013-04-14 01:50:17.190] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/
+[2013-04-14 01:50:18.108] [INFO] console - User alexr requesting to load file in room ksjfdsklfsdf
+
+[2013-04-14 01:50:18.108] [INFO] console - New File loaded -> /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf in room ksjfdsklfsdf
+
+[2013-04-14 01:50:45.262] [INFO] console - File saved: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf
+
+[2013-04-14 01:51:15.260] [INFO] console - File saved: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf
+
+[2013-04-14 01:51:26.824] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-04-14 01:51:26.824] [INFO] console - disconnect detected
+[2013-04-14 01:51:26.825] [INFO] console - deleting user from room ksjfdsklfsdf...alexr
+[2013-04-14 01:51:26.826] [INFO] console - deleting room...ksjfdsklfsdf

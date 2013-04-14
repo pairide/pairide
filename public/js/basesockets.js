@@ -5,8 +5,10 @@
 var host = window.location.hostname;
 var port = 80;
 var url = "http://"+host+":"+port;
+//True iff the this client is the driver.
 var isDriver;
 var driver;
+//The name of the room that the client is in.
 var roomname;
 var currentHighlight;
 var annotationID = 0;
@@ -14,7 +16,9 @@ var annotations = {};
 var annotFlag = false;
 var users = {};
 var refreshed = false;
+//True iff autosave is active.
 var autoSaveToggle = false;
+//The type of room, either "express" or "workspace".
 var roomType;
 
 //base load function for the workspace
@@ -249,13 +253,14 @@ function setDriver(driver){
   }
 }
 
-/*Set up a socket connection
-* for the user */
+/**
+ *Set up a socket connection for the user.
+ */
 function connect(){
   return io.connect(url);
 }
 
-/* Get the room's id */
+/* Get the room's id (the room name). */
 function roomID(type){
   var matchRoomRequest;
   //urls for express sessions and normal sessions 
@@ -273,7 +278,9 @@ function roomID(type){
   }
 }
 
-//Send a request to the current file.
+/**
+ * Send a save request for the current working file.
+ */
 function saveFile(){
   socket.emit("save_file",
     {
@@ -282,8 +289,10 @@ function saveFile(){
       text:editor.getSession().getValue()
     });
 }
-/*Return true if username is available for the roomID,
-false otherwise*/
+/**
+ * Return true if username is available for the roomID,
+ * false otherwise.
+ */
 function  check_username(socket, type, username){
 
   var rID = roomID(type);
