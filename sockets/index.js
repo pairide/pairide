@@ -1,71 +1,85 @@
 /*
- * Client connect and post connect event handlers:
+ * This script setups socket connect and post connect event handlers.
  */
 
-//Contains the drivers socket id for each room.
+//Contains the drivers socket id for each room. 
+//E.g roomDrivers[roomname] -> drivers socket id.
 var roomDrivers = {};
-
-//Contains users of each room and their socket id mappings to their username
-//To get a username roomUsers[roomname][socket id]
+//Contains users of each room and their socket id mappings to their 
+//username. To get a username roomUsers[roomname][socket id].
 var roomUsers = {}; 
-
 //The initial users who created the room.
 //Maps room name to the socket id of the admin.
 var roomAdmins = {};
-
 //Maps room name to the file that room is working on. File is 
 //stored as an absolute path.
 var roomFile = {};
-
 //Maintains a mapping of socket id to socket object.
 //roomSockets[room][id] -> socket object
 var roomSockets = {};
 
 var workspace =  require('./socket_workspace');
 
+//Make the user and admin models public to other server files.
 exports.roomAdmins = roomAdmins;
 exports.roomUsers = roomUsers;
 
+//Defines all event handlers between server and client socket 
+//communication, including connect and disconnect.
 exports.communicate = function(io){
 
+  //Listens for when a client makes a socket connection and
+  //attaches many event handlers.
   io.sockets.on('connection', function (socket) {
 
     console.log("Client connect.");
 
-    //Handles a socket disconnecting.
+    //Handles a socket disconnecting and performs any necessary garbage
+    //collection on our models.
     socket.on("disconnect", function(){
       console.log("disconnect detected");
       workspace.disconnect(io, socket, roomDrivers, roomUsers,
       roomAdmins, roomFile, roomSockets);
     });
 
-    //Handle request to get members in a room
+    //Handle request to get current members in a room.
     socket.on("get_users", function(data){
       room_users = roomUsers[data.room];
       workspace.get_users(socket, data, room_users);
     });
 
-    //socket handler for users requesting to join a room
+    //Socket handler for users requesting to join a room. This will populate
+    //our models with the users relevant information.
     socket.on('join_room', function(data) {
       workspace.join(socket, data, roomDrivers, roomUsers, roomAdmins,
       roomFile, roomSockets);
     });
 
+    //Handles when the client executes a context menu action such as
+    //deleting or creating a file.
     socket.on("context_menu_clicked", function(data){
       workspace.menuClicked(socket, data, roomDrivers, roomUsers,
       roomAdmins, roomFile, io);
     });
 
-    //listens for when the driver has clicked a file in the file browser
+    //Listens for when the driver has left-clicked a file in the file browser.
+    //This is used to keep the navigators filetrees synchronized with the driver by
+    //forcing the same click on their filetree.
     socket.on("driver_file_click", function(data){
       workspace.fileClick(socket, data, roomDrivers, roomUsers, io);
     });
 
-    //listens for when the driver sends their current file tree
+    //Listens for when the driver sends their current file tree in the form
+    //of a sequence of folder expansions. This is required when a new user
+    //joins a room with a filetree that has some folders expanded already and
+    //we want to synchronize the new users filetree.
     socket.on("send_driver_filetree_expansion", function(data){
       workspace.updateFileTree(socket, data, roomDrivers, roomUsers, io);
     });
-    //relay the message that the editor has changed
+
+    //Listens and relays the message that the editor has changed. This 
+    //is used to synchronize all room members editor. The message is ussually
+    //in the form of a delta.
     socket.on("editor_changed", function(data){
       var room = socket.store.data.room;
       if (roomDrivers[room] == socket.id){
@@ -73,7 +87,7 @@ exports.communicate = function(io){
       }
     });
 
-    //Emit new message to all members in the room
+    //Listens and broadcasts a new chat message to all members in the room.
     socket.on('send_message', function(data){
       workspace.sendMessage(socket, data, roomUsers, io);
     });
@@ -82,10 +96,16 @@ exports.communicate = function(io){
       io.sockets.in(socket.store.data.room).emit('get_selection', data);
     });
 
+    //Notifies the navigators of a room to unlock their editor 
+    //(remove the overlay). This may occur when the driver selects a file 
+    //when previously no file was selected.
     socket.on("unlock_navigators", function(data){
       workspace.unlockNavigators(socket, data, roomDrivers, roomUsers, io);
     });
 
+    //On request from the driver, notifies all navigators to request 
+    //a new filetree. This ussually occurs after the driver has 
+    //created or removed an entire project.
     socket.on("send_request_workspace", function(data){
       workspace.requestWorkspace(socket, data, roomDrivers, roomUsers, io);
     });
@@ -96,7 +116,7 @@ exports.communicate = function(io){
       io.sockets.in(socket.store.data.room).emit('get_annotation', data);
     });
 
-    //Handle switch request made by potential driver
+    //Handles when a switch request is made by driver.
     socket.on("switch_request", function(data){
       console.log("switch request performed by " + socket.store.data.nickname + " in room " + socket.store.data.room);
       workspace.make_switch(io, socket, data, roomDrivers, roomUsers);
@@ -114,18 +134,23 @@ exports.communicate = function(io){
       io.sockets.in(socket.store.data.room).emit("get_acquire_current_state", data)
     });
 
-    //File requests handlers
+    //Handles when the driver selects a new file in the filetree and the rooms 
+    //editor needs to reflect the new files contents. This involves saving
+    //the previous file before loading the new file.
     socket.on('get_file', function(data){
       workspace.changeFile(socket, data, roomDrivers, roomUsers, roomAdmins, 
         roomFile);
     });
 
+    //Handles when the driver wants to save the current file
+    //(explicitly or through the auto-save feature).
     socket.on('save_file', function(data){
       workspace.handleSaveRequest(socket, data, roomDrivers, roomUsers,
        roomFile, roomSockets, io);
     });
 
-    //Driver has changed the language mode
+    //Handles when the driver has changed the programming language being
+    //used in the editor by notifying the navigators.
     socket.on("lang_change", function(data){
       io.sockets.in(socket.store.data.room).emit("driver_change_lang", data);
     });
