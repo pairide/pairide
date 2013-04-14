@@ -1,16 +1,38 @@
+/**
+ * This script contains all code specific to a user workspace that
+ * doesn't apply to an express session. For example, code related to 
+ * the filebrowser (since an express session doesn't have files).
+ */
+
+//The socket object that is used for all communication with the server.
 var socket = connect();
+//The name of the user. Those who are not logged in 
+//always start with "guest_".
 var username;
+//The length of an autosave interval in milliseconds.
 var autoSaveInterval = 1000*30;
+//The current working file in the editor.
 var fileSelected = null;
+
 //Relative path to the last item selected in the context menu.
 var cmRelPath;
+//Relative name to the last item selected in the context menu.
 var cmRelName;
+//The filetype of the last item selected in the context menu.
 var cmFileType;
+//A dictionary of locks associated with each context menu action. 
+//This is to prevent the user from accidently requesting an action 
+//multiple times just by clicking more then once and receiving both
+//a success and an error message. If an action is locked all other 
+//attempts are ignored.
 var cmActionLocks = {};
+//True iff the clients filebrowser currently matches the drivers.
 var syncedFileBrowser = true;
-var createProjLock = false;
+//Holds a list of folder expansions when the clients filetree is not
+//yet synced with the drivers.
 var delayedExpansions;
-//the amount of time in ms until the form can be submitted again.
+//The amount of time in ms until the form can be submitted again.
+//Used for locking out context menu actions.
 var formDelay = 1000;
 
 $(document).ready(function(){
@@ -45,16 +67,18 @@ $(document).ready(function(){
     });
   }
 
+  //Request filetree once socket connection is complete.
   socket.on("socket_connected", function(data){
     requestWorkspace();
   });
 
-  //let the client know that their file browser is currently out of sync
-  //with the driver
+  //Lets the client know that their file browser is currently out of sync
+  //with the driver.
   socket.on("set_filebrowser_desync", function(data){
     syncedFileBrowser = false;
   });
 
+  //Listens for when a new file has been loaded.
   socket.on("receive_file", function(data){
     if(isDriver){
       setFileSelected(data.fileName);
@@ -70,6 +94,9 @@ $(document).ready(function(){
     }
   });
 
+  //Recieves an ordered sequence of file expansions from 
+  //the current driver to synchronize this clients
+  //filetree with the driver.
   socket.on("update_file_expansions", function(data){
     if (!isDriver && !syncedFileBrowser){
       delayedExpansions = data.expansions;
@@ -77,7 +104,9 @@ $(document).ready(function(){
     }
   });
 
-
+  //On request sends an ordered sequence of file expansions 
+  //so that a newly joined navigator can synchronize their filetree
+  //to this driver.
   socket.on("get_driver_filetree_expansion", function(data){
     if (isDriver){
       socket.emit("send_driver_filetree_expansion", {
@@ -88,6 +117,7 @@ $(document).ready(function(){
     }
   });
 
+  //On event, removes the overlay currently hiding the editor.
   socket.on("unlock_navigator", function(data){
     if (!isDriver){
       setFileSelected(data.fileName);
@@ -102,40 +132,21 @@ $(document).ready(function(){
     .css("left", $("#code").position().left + "px");
 
   setupContextMenu();
+  initNewProjectButton()
+  setupSave();
+  initUploader();
+  handleDownload();
 
-  $("#addProjectButton").click(function(){
-    $("#projectCreatorModalInput").val('');
-    $('#projectCreatorModal').modal('show');
-  });
-
-  $('#createProjectForm').on("submit", function(data){
-    var projName = $('#projectCreatorModalInput').val();
-
-    if (cmActionLocks['proj']){
-      return false;
-    }
-    var sanityReg = /^[a-zA-Z0-9_ -]+$/;
-    //check for potential path traversal attacks
-    if (!sanityReg.exec(projName)){
-      alert("Project name must not contain any special characters.");
-      $('#projectCreatorModalInput').val("");
-      return false;
-    }
-    cmActionLocks['proj'] = true;
-  });
+});
 
 
-  $('#createProjectForm').ajaxForm(function(data) {
-    setTimeout('cmActionLocks["proj"] = false', formDelay);
-    if (data.result){
-      $('#projectCreatorModal').modal('hide');
-      sendRequestWorkspace();
-    }
-    else{
-      alert(data.error);
-    }
-  });
+/**
+ * Initialize event handlers for saving, 
+ * including autosaving.
+ */
+ function setupSave(){
 
+  //Explicitly saves the current working file.
   $('#saveFile').on("click", function(){
     if(isDriver && fileSelected){
       show_loader("Saving...");
@@ -159,7 +170,64 @@ $(document).ready(function(){
     }
     hide_loader();
   });
+ }
 
+/**
+ * Sets up event handlers for creating a new project.
+ */
+ function initNewProjectButton(){
+
+  //Displays project creation modal.
+  $("#addProjectButton").click(function(){
+    $("#projectCreatorModalInput").val('');
+    $('#projectCreatorModal').modal('show');
+  });
+
+  //Submit new project.
+  $('#createProjectForm').on("submit", function(data){
+    var projName = $('#projectCreatorModalInput').val();
+
+    if (cmActionLocks['proj']){
+      return false;
+    }
+    var sanityReg = /^[a-zA-Z0-9_ -]+$/;
+    //check for potential path traversal attacks
+    if (!sanityReg.exec(projName)){
+      alert("Project name must not contain any special characters.");
+      $('#projectCreatorModalInput').val("");
+      return false;
+    }
+    cmActionLocks['proj'] = true; //lock the project action
+  });
+
+  //Recieve project creation response.
+  $('#createProjectForm').ajaxForm(function(data) {
+    setTimeout('cmActionLocks["proj"] = false', formDelay);
+    if (data.result){
+      $('#projectCreatorModal').modal('hide');
+      sendRequestWorkspace();
+    }
+    else{
+      alert(data.error);
+    }
+  });
+}
+
+/**
+ * Handle download requests.
+ */
+function handleDownload(){
+  $('#driver').on('click', function(){
+    var dat = {};
+    dat.room = roomname;
+    dat.path = "wut";
+    $.fileDownload('/dl', {httpMethod: "POST", data: dat});
+  }); 
+}
+/**
+ * Initializes and configures a file upload object.
+ */
+function initUploader(){
   $('#fileupload').fileupload({
     dataType: 'json',
 
@@ -224,20 +292,11 @@ $(document).ready(function(){
     $("#progress .bar").css("width", "0%");
 
     addConsoleMessage("Driver uploaded files to current working directory");
-  });
-
-
-  /*Handle download requests*/
-  $('#driver').on('click', function(){
-    var dat = {};
-    dat.room = roomname;
-    dat.path = "wut";
-    $.fileDownload('/dl', {httpMethod: "POST", data: dat});
-  });
-
-});
-
-//Send a request to the current file.
+  }); 
+}
+/**
+ * Send a request to save the current file.
+ */
 function saveFile(){
   socket.emit("save_file",
     {
@@ -246,10 +305,16 @@ function saveFile(){
       text:editor.getSession().getValue()
     });
 }
-//Automatically save the current state of the file periodically.
+
+/**
+ * Automatically save the current state of the file 
+ * periodically.
+ */
 function autoSave(){
   if (driver && fileSelected && autoSaveToggle){
-    autoSaveToggle = false;
+    //Turns off autosave; only to be renabled if a
+    //change occurs.
+    autoSaveToggle = false; 
     addConsoleMessage("Auto saving...");
     saveFile();
   }
@@ -258,6 +323,8 @@ function autoSave(){
  * Make an ajax request for the users files.
  */
 function requestWorkspace(){
+
+  //Configure and initialize a filetree object.
   $('#fileTree').fileTree({
     root: '/',
     script: 'fileconnector',
@@ -267,7 +334,7 @@ function requestWorkspace(){
     sID: socket.socket['sessionid'],
     room: roomname
   }, function(file) {
-    //event for when a file is clicked
+    //event for when a file is left-clicked
     if (isDriver){
       socket.emit("get_file", {
         user: username,
@@ -279,8 +346,11 @@ function requestWorkspace(){
   });
 }
 
-//Returns a list of expanded directory paths, ordered by ascending 
-//distance from the root.
+/**
+ * Returns a list of expanded directory paths, ordered by ascending
+ * distance from the root. E.g a nested expanded folder would come
+ * after its parent.
+ */ 
 function getFileTreeExpansion(){
   var openFolders = [];
   var root = $('#fileTree').children().children(".expanded");
@@ -292,6 +362,10 @@ function getFileTreeExpansion(){
   }
   return openFolders;
 }
+
+/**
+ * Set the current working file.
+ */
 function setFileSelected(file){
   if(!fileSelected){
     unlock_editor();
@@ -304,13 +378,18 @@ function load_file(file_content){
 }
 
 
+/**
+ * Initializes the context menu and all of its event handlers. 
+ */
 function setupContextMenu(){
+
+  //By default all cm actions are not locked.
   cmActionLocks['delete'] = false;
   cmActionLocks['directory'] = false;
   cmActionLocks['rename'] = false;
   cmActionLocks['file'] = false;
 
-  //capture the DOM element that was right clicked in the file tree
+  //Capture the DOM element that was right clicked in the filetree.
   $('#fileTree').on('contextmenu', function(e) {
     if ($(e.target).attr('rel')){
       cmRelPath = $(e.target).attr('rel');
@@ -320,11 +399,15 @@ function setupContextMenu(){
     e.preventDefault();
   });
 
-  //handling context menu for directories and projects
   var cmLineSep = "---------";
+  //Configures the context menu object
   $.contextMenu({
     selector: '.context-menu-one',
     callback: function(key, options) {
+
+      //Key is the context menu option. Below handles
+      //what happens when each option is selected.
+
       if (key == "directory" || key == "file"){
         $('#contextMenuModal' + key).modal('show');
       }
@@ -334,7 +417,7 @@ function setupContextMenu(){
       }
       else if (key == "rename"){
         if (cmFileType == "directory"){
-          //TODO support renaming of a directory
+          //TODO: support renaming of a directory
           alert("Renaming directory not yet supported.");
         }
         else{
@@ -349,14 +432,13 @@ function setupContextMenu(){
       }
       else if (key == "download"){
         var dat = {};
-
         dat.room = roomname;
         dat.path = cmRelPath;
         dat.file = cmRelName;
         $.fileDownload('/dl/'+cmRelName, {httpMethod: "POST", data: dat});
       }
     },
-    //the list of items on the menu
+    //The list of actions on the context menu.
     items: {
       "rename": {name: "Rename File", icon: "edit"},
       "sep0": cmLineSep,
@@ -373,18 +455,17 @@ function setupContextMenu(){
     }
   });
 
-  //user confirms deletion
+  //User confirms deletion.
   $('#cmDelButtonYes').on('click', function(e){
-
     emitDeleteReq();
   });
 
-  //user declines deletion
+  //User declines deletion.
   $('#cmDelButtonNo').on('click', function(e){
     $('#contextMenuModaldelete').modal('hide');
   });
 
-  //user submits a new directory
+  //User submits a new directory.
   $('#cmAddDirButton').on('click', function(e){
     emitAddDirReq();
   });
@@ -395,9 +476,7 @@ function setupContextMenu(){
     }
   });
 
-
-
-  //user submits a new file
+  //User submits a new file.
   $('#cmAddFileButton').on('click', function(e){
     emitAddFileReq();
   });
@@ -408,8 +487,7 @@ function setupContextMenu(){
     }
   });
 
-
-  //user renames file
+  //User submits a file rename.
   $('#cmRenameButton').on('click', function(e){
     emitRenameReq();
   });
@@ -420,19 +498,20 @@ function setupContextMenu(){
       }
   });
 
+  //Listens to changes to the filetree and updates the view
+  //accordingly.
   socket.on("refresh_files", function(data){
-    //This clients file browser hasnt caught up with the drivers state yet.
+    //This clients file browser hasn't caught up with the drivers state yet.
     if (!(delayedExpansions && delayedExpansions.length)){
-      //TODO maybe queue the refreshes while delayed expansion
+      //TODO: maybe queue the refreshes while delayed expansion
       //is not finished
       refreshFiles(data);
     }
-      });
+  });
 
   //triggered when the driver clicks a folder in the filebrowser
   socket.on("file_clicked", function(data){
     if (!isDriver){
-
       if (delayedExpansions && delayedExpansions.length){
         delayedExpansions.push(data.activePath);
       }
@@ -445,27 +524,34 @@ function setupContextMenu(){
     }
   });
 
+  //On event, refreshes the view for the filetree
   socket.on("request_workspace", function(data){
     requestWorkspace();
   });
 
-  //listens for a result of a context menu action.
+  //Listens for a result on a context menu action.
   socket.on("context_menu_click_result", function(data){
-    if (data.key != "upload"){ //upload currently not implemented
+    if (data.key != "upload"){
       handleCMResult(data);
     }
   });
 
+  //Listens for updates to the name (because of a rename) of 
+  //the current working file.
   socket.on("file_renamed", function(name){
     fileSelected = name;
   });
 
+  //Locks the editor; this should be moved from this function
   socket.on("lock_editor", function(data){
     fileSelected = null;
     lock_editor("Please select a file.");
   });
 }
 
+/**
+ * Simulates an artificial click on the JQuery object.
+ */
 function forceClick(obj){
   obj.trigger("click", [true]);
 }
@@ -482,10 +568,20 @@ function sendRequestWorkspace(){
   }
 }
 
-//refresh the GUI at a directory that has had recent changes.
+/**
+ * Refreshes the view of the file tree and if possible
+ * only updates the folder that has had changes made to it.
+ * This is used in cases such as a new file being created 
+ * in a folder and the current view of the file tree does
+ * not the display it.
+ */
 function refreshFiles(data){
-  action = data.key;
+
+  //The context menu action that caused the change
+  action = data.key; 
+  //The path to the active folder.
   activePath = data.activePath;
+
   if (activePath && isDriver){
     var obj = $('a[rel="' + activePath + '"]');
     if (obj.length){
@@ -493,16 +589,22 @@ function refreshFiles(data){
       if (action == "delete" && data.deleteDir){
         obj = obj.parent().parent().parent().children();
         if (!obj.attr("rel")){
-          //Likely hit the root folder of the users workspace
+          //Likely hit the root folder of the users workspace;
+          //just refresh the entire workspace.
           sendRequestWorkspace();
           return;
         }
       }
+      //if the active folder is already collapsed
       if (obj.parent().hasClass('collapsed'))
       {
+        //expand the active folder by simulating a click.
         forceClick(obj);
       }
-      else{
+      else{ //the active folder is already expanded
+
+        //Refresh the folder by collapsing it and then expanding it.
+        //This is done by simulating a double click.
         obj.trigger("click", [true]).delay(500).trigger("click", [true]);
       }
     }
@@ -512,6 +614,10 @@ function refreshFiles(data){
   }
 }
 
+/**
+ * Return true iff the input box corresponding to the id
+ * given contains valid text.
+ */
 function cmNameValidation(id){
   var name = $(id).val();
   if (name.length === 0){
@@ -527,11 +633,14 @@ function cmNameValidation(id){
   return true;
 }
 
+/**
+ * Sends a request to delete a file, folder or project.
+ */
 function emitDeleteReq(){
   action = "delete";
   if (!isDriver || cmActionLocks[action]) return;
 
-  cmActionLocks[action] = true;
+  cmActionLocks[action] = true; //lock the action
   socket.emit('context_menu_clicked',
   {
     key: action,
@@ -543,11 +652,14 @@ function emitDeleteReq(){
   });
 }
 
+/**
+ * Sends a request to create a new directory.
+ */
 function emitAddDirReq(){
   var id = "#cmInputAddDir";
   var action = "directory";
   if (!isDriver || cmActionLocks[action] || !cmNameValidation(id)) return;
-  cmActionLocks[action] = true;
+  cmActionLocks[action] = true; //lock the action
   socket.emit('context_menu_clicked',
   {
       key: action,
@@ -559,7 +671,12 @@ function emitAddDirReq(){
   });
 }
 
-//Validates a relative path for common path traversal attacks.
+/**
+ * Validates a relative path for common path traversal attacks.
+ * Returns True iff path passes the validation false otherwise.
+ * If the path already contains the filename, leave filename as 
+ * an empty string.
+ */
 function validatePath(relativePath, fileName){
     relativePath = unescape(relativePath);
     fileName = unescape(fileName);
@@ -575,11 +692,14 @@ function validatePath(relativePath, fileName){
     return !(pathReg1.exec(relativePath) || pathReg2.exec(fileName) || !pathReg3.exec(fileName) || pathReg1.exec(fullPath));
 }
 
+/**
+ * Sends a request to create a file.
+ */
 function emitAddFileReq(){
   var id = "#cmInputAddFile";
   var action = "file";
   if (!isDriver || cmActionLocks[action] || !cmNameValidation(id)) return;
-  cmActionLocks[action] = true;
+  cmActionLocks[action] = true; //lock the action
 
   socket.emit('context_menu_clicked',
   {
@@ -593,12 +713,16 @@ function emitAddFileReq(){
   });
 }
 
+/**
+ * Sends a request to rename a file.
+ */
 function emitRenameReq(){
   var id = "#cmInputRename";
   action = "rename";
-  if (!isDriver || cmActionLocks[action] || !cmNameValidation(id)) return;
-  cmActionLocks[action] = true;
 
+  if (!isDriver || cmActionLocks[action] || !cmNameValidation(id)) return;
+
+  cmActionLocks[action] = true; //lock the action
   socket.emit('context_menu_clicked',
   {
     key: action,
@@ -611,8 +735,12 @@ function emitRenameReq(){
   });
 }
 
-//Return the path to the parent folder that has
-//had changes.
+/**
+ * Return the path to the parent folder that has
+ * had changes. I.e if the path is currently to a
+ * file then the active folder is the parent folder
+ * of that file otherwise it is the directory itself.
+ */
 function getActiveFolderPath(){
   var activePath = cmRelPath;
   if (cmFileType == "file"){
@@ -624,6 +752,9 @@ function getActiveFolderPath(){
   return activePath;
 }
 
+/**
+ * Clears the context menu action's lock after some time.
+ */
 function clearLock(key){
   setTimeout('cmActionLocks["' + key +'"] = false', formDelay);
 }

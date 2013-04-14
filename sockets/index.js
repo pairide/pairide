@@ -1,5 +1,6 @@
 /*
- * This script setups socket connect and post connect event handlers.
+ * This script sets up all socket connect and post connect 
+ * event listeners. 
  */
 
 //Contains the drivers socket id for each room. 
@@ -24,8 +25,10 @@ var workspace =  require('./socket_workspace');
 exports.roomAdmins = roomAdmins;
 exports.roomUsers = roomUsers;
 
-//Defines all event handlers between server and client socket 
-//communication, including connect and disconnect.
+/**
+ * Defines all event handlers between server and client socket 
+ * communication, including connect and disconnect.
+ */
 exports.communicate = function(io){
 
   //Listens for when a client makes a socket connection and

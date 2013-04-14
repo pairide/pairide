@@ -1,5 +1,5 @@
-/* This is client side socket code for both express 
- *and user workspaces. 
+/* This contains client side socket code for both express 
+ * and user workspaces. 
  */
 
 var host = window.location.hostname;

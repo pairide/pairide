@@ -110,3 +110,82 @@ Error: ENOENT, mkdir '/home/arod/pairide/pairide/users/cf736760062170718e5e97de2
 [2013-04-13 21:15:03.791] [INFO] console - Deleted /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/kdslfjsldkfs by alexr (in room alex)
 
 [2013-04-13 21:15:03.821] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/
+[2013-04-14 00:02:00.027] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-04-14 00:02:00.570] [INFO] console - Express server listening on port 80
+[2013-04-14 00:02:09.413] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'k9uGHLba1qumwdGetOrb'
+[2013-04-14 00:02:09.669] [INFO] console - Client connect.
+[2013-04-14 00:02:09.747] [INFO] console - client alexr (with socket id k9uGHLba1qumwdGetOrb) requested to join user room alex
+
+[2013-04-14 00:02:09.747] [INFO] console - New room created by alexr: alex
+
+[2013-04-14 00:02:09.796] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-14 00:02:14.865] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-14 00:02:16.254] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/helloworld/
+[2013-04-14 00:02:17.242] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/ksdjlfdsklf/
+[2013-04-14 00:04:33.757] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-04-14 00:04:34.294] [INFO] console - Express server listening on port 80
+[2013-04-14 00:04:34.624] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'vHFLAAWAxtXWYCqlt0Nd'
+[2013-04-14 00:04:34.653] [INFO] console - Client connect.
+[2013-04-14 00:04:40.011] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-04-14 00:04:40.012] [INFO] console - disconnect detected
+[2013-04-14 01:20:23.315] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-04-14 01:20:23.842] [INFO] console - Express server listening on port 80
+[2013-04-14 01:20:34.954] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Uq2h4VP85lpQgLYt_K8U'
+[2013-04-14 01:20:35.138] [INFO] console - Client connect.
+[2013-04-14 01:20:35.236] [INFO] console - client alexr (with socket id Uq2h4VP85lpQgLYt_K8U) requested to join user room ksjfdsklfsdf
+
+[2013-04-14 01:20:35.236] [INFO] console - New room created by alexr: ksjfdsklfsdf
+
+[2013-04-14 01:20:35.287] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-14 01:20:39.918] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/
+[2013-04-14 01:20:41.883] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/
+[2013-04-14 01:20:50.904] [INFO] console - Context menu action file at /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/
+
+[2013-04-14 01:20:50.905] [INFO] console - /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf
+[2013-04-14 01:20:50.906] [INFO] console - Created new file at /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf
+[2013-04-14 01:20:50.906] [INFO] console - New File loaded -> /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf in room ksjfdsklfsdf
+
+[2013-04-14 01:20:50.942] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/
+[2013-04-14 01:20:52.939] [INFO] console - User alexr requesting to load file in room ksjfdsklfsdf
+
+[2013-04-14 01:20:59.088] [INFO] console - File saved: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf
+
+[2013-04-14 01:21:05.077] [INFO] console - File saved: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf
+
+[2013-04-14 01:21:08.831] [INFO] console - Context menu action file at /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/
+
+[2013-04-14 01:21:08.832] [INFO] console - /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/other
+[2013-04-14 01:21:08.833] [INFO] console - Created new file at /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/other
+[2013-04-14 01:21:08.833] [INFO] console - New File loaded -> /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/other (was  /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf) in room ksjfdsklfsdf
+
+[2013-04-14 01:21:08.835] [INFO] console - File saved: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf
+
+[2013-04-14 01:21:08.878] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/
+[2013-04-14 01:21:11.266] [INFO] console - User alexr requesting to load file in room ksjfdsklfsdf
+
+[2013-04-14 01:21:11.267] [INFO] console - New File loaded -> /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf (was  /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/other) in room ksjfdsklfsdf
+
+[2013-04-14 01:21:11.268] [INFO] console - File saved: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/other
+
+[2013-04-14 01:21:12.091] [INFO] console - User alexr requesting to load file in room ksjfdsklfsdf
+
+[2013-04-14 01:21:12.092] [INFO] console - New File loaded -> /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/other (was  /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf) in room ksjfdsklfsdf
+
+[2013-04-14 01:21:12.093] [INFO] console - File saved: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/sdfkjlsdlkfjdslkf
+
+[2013-04-14 01:21:26.734] [INFO] console - Begin file... 
+[2013-04-14 01:21:31.729] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/
+[2013-04-14 01:21:35.074] [INFO] console - File saved: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/other
+
+[2013-04-14 01:21:35.425] [INFO] console - User alexr requesting to load file in room ksjfdsklfsdf
+
+[2013-04-14 01:21:35.426] [INFO] console - New File loaded -> /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/CDF.desktop (was  /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/other) in room ksjfdsklfsdf
+
+[2013-04-14 01:21:35.427] [INFO] console - File saved: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/other
+
+[2013-04-14 01:21:39.227] [INFO] console - Context menu action delete at /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/CDF.desktop
+
+[2013-04-14 01:21:39.229] [INFO] console - Deleting file..../home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/CDF.desktop
+[2013-04-14 01:21:39.230] [INFO] console - Deleted /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/CDF.desktop by alexr (in room ksjfdsklfsdf)
+
+[2013-04-14 01:21:39.260] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/hello/
