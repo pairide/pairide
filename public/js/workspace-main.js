@@ -1,9 +1,19 @@
+/*
+ * This script has code that is common to both express and user
+ * workspaces. It is different to basesockets.js, in that it does not
+ * contain any socket code. For example, drag and drop is implemented
+ * here because both have this feature.
+ */
+
+//The current selected language to view code with.
 var language = "Python";
+//The Ace editor object.
 var editor;
-var uploadClipBoard = "";
 var Range;
 var annotBoxLeft;
+//The current highlighted file in the filebrowser.
 var currentHighlightedFile = null;
+//A dictionary of supported languages.
 var languages = {"Python " : "python",
                  "Javascript " : "javascript",
                  "Java " : "java",
@@ -149,7 +159,9 @@ function hide_loader(){
   $("#loader").delay(3000).fadeOut();
 }
 
-
+/*
+ * Prevents default behaviour from occuring for an event.
+ */
 function preventDefaultEvent(evt){
   evt.stopPropagation();
   evt.preventDefault();
@@ -157,16 +169,17 @@ function preventDefaultEvent(evt){
 function dragEnter(evt) {
   preventDefaultEvent(evt);
 }
-
 function dragExit(evt) {
   preventDefaultEvent(evt);
 }
-
 function dragOver(evt) {
   preventDefaultEvent(evt);
   evt.dataTransfer.dropEffect = 'copy';
 }
 
+/*
+ * Handles when files are dropped onto the editor.
+ */
 function drop(evt) {
   preventDefaultEvent(evt);
   if (!(window.File && window.FileReader && window.FileList)) {
@@ -180,6 +193,10 @@ function drop(evt) {
     handleFiles(files);
 }
 
+/*
+ * Internal to function drop. Begins the HTML5
+ * reading on the first file in the filelist.
+ */
 function handleFiles(files) {
   //clear editor for file contents
   editor.getSession().setValue("");
@@ -192,7 +209,14 @@ function handleFiles(files) {
   reader.readAsBinaryString(file);
 }
 
+/* 
+ * Internal to function "handleFiles".
+ * Handles when the filereader has finished reading 
+ * the file that had been dragged and dropped. This
+ * pushes the files content onto the editor.
+ */
 function handleReaderLoadEnd(evt) {
+  //update the editor with the files content
   editor.getSession().setValue(evt.target.result);
 }
 
