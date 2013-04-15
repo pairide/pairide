@@ -212,3 +212,22 @@ Error: ENOENT, mkdir '/home/arod/pairide/pairide/users/cf736760062170718e5e97de2
 [2013-04-14 01:51:26.824] [INFO] console - disconnect detected
 [2013-04-14 01:51:26.825] [INFO] console - deleting user from room ksjfdsklfsdf...alexr
 [2013-04-14 01:51:26.826] [INFO] console - deleting room...ksjfdsklfsdf
+[2013-04-15 05:54:32.523] [INFO] console -    [36minfo  -[39m 'socket.io started'
+[2013-04-15 05:54:33.735] [INFO] console - Express server listening on port 80
+[2013-04-15 05:55:25.728] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'TsDgAqGeEGQPgCGwHgnM'
+[2013-04-15 05:55:25.841] [INFO] console - Client connect.
+[2013-04-15 05:55:27.901] [INFO] console - client guest_sdfsdfsdf (with socket id TsDgAqGeEGQPgCGwHgnM) requested to join user room 6a5422df9271e328c96bbaedc40ff067
+
+[2013-04-15 05:55:27.903] [INFO] console - New room created by guest_sdfsdfsdf: 6a5422df9271e328c96bbaedc40ff067
+
+[2013-04-15 05:55:32.309] [INFO] console -    [36minfo  -[39m 'transport end (undefined)'
+[2013-04-15 05:55:32.310] [INFO] console - disconnect detected
+[2013-04-15 05:55:32.310] [INFO] console - deleting user from room 6a5422df9271e328c96bbaedc40ff067...guest_sdfsdfsdf
+[2013-04-15 05:55:32.311] [INFO] console - deleting room...6a5422df9271e328c96bbaedc40ff067
+[2013-04-15 05:55:39.866] [INFO] console -    [36minfo  -[39m 'handshake authorized' 'Z7qkuhx-KDhmWW2AHgnN'
+[2013-04-15 05:55:40.024] [INFO] console - Client connect.
+[2013-04-15 05:55:40.123] [INFO] console - client alexr (with socket id Z7qkuhx-KDhmWW2AHgnN) requested to join user room sdfdsfd
+
+[2013-04-15 05:55:40.124] [INFO] console - New room created by alexr: sdfdsfd
+
+[2013-04-15 05:55:40.166] [INFO] console - Files requested at: /home/arod/pairide/pairide/users/cf736760062170718e5e97de2a06c308/

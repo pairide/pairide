@@ -18,8 +18,8 @@ exports.create = function(req, res){
     var validationRegex = /[a-zA-Z0-9_ ]+/;
     var regexResult = validationRegex.exec(req.body.room_name);
 
-    //The roomname will be appended to a URL so replace
-    //spaces with underscores.
+    // The roomname will be appended to a URL so replace
+    // spaces with underscores.
     var escapedRoomName = req.body.room_name.replace(/ /g,"_");
     var roomExists = escapedRoomName in roomAdmins;
     res.send({
@@ -32,8 +32,8 @@ exports.create = function(req, res){
       roomsCreated.push(escapedRoomName);
     }
   }else{
-    //User may or may not be logged in.
-    //Create an express session.
+    // User may or may not be logged in.
+    // Create an express session.
     var md5h = require('MD5');
     hash = md5h(new Date().getTime());
     roomsCreated.push(hash);
@@ -52,7 +52,7 @@ exports.download = function(req, res) {
     var admin_id = roomAdmins[req.body.room];
     var admin = admin_id? roomUsers[req.body.room][admin_id] : null;
     if(admin){
-      //determine root directory to fetch file from
+      // determine root directory to fetch file from
       var admin_hash = md5h(admin);
       var directory = "users";
       var path = unescape(directory + "/" + admin_hash);
@@ -90,7 +90,7 @@ exports.download = function(req, res) {
           }
         });
       }
-      //get back to original directory
+      // get back to original directory
       process.chdir('../../');
   }else{
     res.statusCode = 500;

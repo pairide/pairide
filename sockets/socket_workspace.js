@@ -24,13 +24,13 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
   socket.join(data.room);
   var roomExistsAfter = "/" + data.room in socket.manager.rooms
 
-  //Attach some user info to the actual socket object.
+  // Attach some user info to the actual socket object.
   socket.set("nickname", data.user);
   socket.set("room", data.room);
 
-  //check if the room was newly created
+  // check if the room was newly created
   if ((!roomExistsBefore && roomExistsAfter) || !roomAdmins[data.room]){
-    //initialize the models for this room
+    // initialize the models for this room
     roomDrivers[data.room] = socket.id;
     roomAdmins[data.room] = socket.id;
     roomUsers[data.room] = {};
@@ -39,16 +39,16 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
     roomSockets[data.room][socket.id] = socket;
 
     console.log("New room created by " + data.user + ": " + data.room + "\n");
-    //The room was just created; give driver and admin to the creator.
+    // The room was just created; give driver and admin to the creator.
     socket.emit("is_driver",{driver:true, admin: true, name: data.user});
   }
-  else{ //Room Already existed
+  else{ // Room Already existed
     
-    //Update the relevant models.
+    // Update the relevant models.
     var driverID = roomDrivers[data.room];
     roomSockets[data.room][socket.id] = socket;
 
-    //Notify the client that they are a navigator and not the admin.
+    // Notify the client that they are a navigator and not the admin.
     socket.emit("is_driver", {
       driver:false, 
       admin:false, 
@@ -56,14 +56,14 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
     });
     
     var driverID = roomDrivers[data.room];
-    //Flag the navigators filetree as not yet synced with the driver.
+    // Flag the navigators filetree as not yet synced with the driver.
     socket.emit("set_filebrowser_desync", {});
-    //Request the driver to send the current state of the filetree.
+    // Request the driver to send the current state of the filetree.
     roomSockets[data.room][driverID].emit("get_driver_filetree_expansion", {});
   }
 
   roomUsers[data.room][socket.id] = data.user;
-  //Notify that connection was successful.
+  // Notify that connection was successful.
   socket.emit("socket_connected", {});
 };
 
@@ -75,45 +75,45 @@ exports.join = function(socket, data, roomDrivers, roomUsers,
 exports.disconnect = function(io, socket, roomDrivers, roomUsers, roomAdmins,
   roomFile, roomSockets){
 
-    //The roomname the socket is disconnecting from.
+    // The roomname the socket is disconnecting from.
     var room = socket.store.data["room"];
 
-    //Garbage collect the user mappings for the room.
+    // Garbage collect the user mappings for the room.
     if (roomUsers[room] && socket.id in roomUsers[room]){
         console.log("deleting user from room "+ room +"..."
           + roomUsers[room][socket.id]);
         delete roomUsers[room][socket.id];
     }
 
-    //Garbage collect the users socket object in the model.
+    // Garbage collect the users socket object in the model.
     if (roomSockets[room] && roomSockets[room][socket.id]){
       delete roomSockets[room][socket.id];
     }
 
-    //Check if its the admin leaving the room.
+    // Check if its the admin leaving the room.
     if (roomAdmins[room] && roomAdmins[room] == socket.id){
       console.log("deleting room..." + room);
-      //Drop all models related to the room.
+      // Drop all models related to the room.
       delete roomDrivers[room];
       delete roomAdmins[room];
       delete roomUsers[room];
       delete roomFile[room];
       delete roomSockets[room];
-      //notify everyone that room doesn't exist anymore
+      // notify everyone that room doesn't exist anymore
       io.sockets.in(room).emit('admin_disconnect', {});
 
-      //remove room from the roomsCreated list
+      // remove room from the roomsCreated list
       var rooms = require('../routes/room.js').roomsCreated;
       var index = rooms.indexOf(room);
       rooms.splice(index, 1);
     }
     else if (roomDrivers[room] && roomDrivers[room] == socket.id){
-      //current driver left; default driver to the admin
+      // current driver left; default driver to the admin
       roomDrivers[room] = roomAdmins[room];
-      //TODO notify admin he has become the driver
+      // TODO notify admin he has become the driver
     }
 
-    //Notify other room members that user left
+    // Notify other room members that user left
     io.sockets.in(room).emit('user_disconnect', 
       {
         username: socket.store.data["nickname"]
@@ -172,17 +172,17 @@ function pathExists(path){
 exports.changeFile = function(socket, data, roomDrivers, roomUsers, roomAdmins,
  roomFile){
 
-  //The name of the room that has the file change request.
+  // The name of the room that has the file change request.
   var room = data.room;
-  //The name of the user.
+  // The name of the user.
   var user = data.user;
   console.log("User " + user + " requesting to load file in room " + room + "\n");
   
-  //Only the driver can change the current working file.
+  // Only the driver can change the current working file.
   if (validateDriver(socket, room, user, roomDrivers, roomUsers)){
-    //Check for path exploits.
+    // Check for path exploits.
     if (!validatePath(data.fileName, "")){
-      //Path has probably been manipulated on client side.
+      // Path has probably been manipulated on client side.
       console.log("[Attack] Path attack: " + data.fileName 
         + " by " + user + " in room " + room + "\n");
       return;
@@ -190,20 +190,20 @@ exports.changeFile = function(socket, data, roomDrivers, roomUsers, roomAdmins,
 
     var directory = process.cwd() + "/users"; 
     var adminID = roomAdmins[room];
-    //Use MD5 to hash the users name to their directory of files.
+    // Use MD5 to hash the users name to their directory of files.
     username = md5h(roomUsers[room][adminID]);
-    //The full path to the file being loaded.
+    // The full path to the file being loaded.
     var path = unescape(directory + "/" + username + data.fileName);
     if (!pathExists(path)){
       console.log("[Error] Can't find file to load: " + path);
       return;
     }
 
-    //no previous file had been selected
+    // no previous file had been selected
     if (roomFile[room] == null){
         loadFile(socket, path, room, roomFile, data.fileName);
     }
-    //previous file must be saved before switching
+    // previous file must be saved before switching
     else if (roomFile[room] != path){
         saveFile(socket, roomFile[room], data.text);
         loadFile(socket, path, room, roomFile, data.fileName);
@@ -218,7 +218,7 @@ exports.handleSaveRequest = function(socket, data, roomDrivers, roomUsers,
  roomFile){
   var room = data.room;
   var user = data.user;
-  //Only the driver can save.
+  // Only the driver can save.
   if (validateDriver(socket, room, user, roomDrivers, roomUsers)
     && roomFile[room]){
       saveFile(socket, roomFile[room], data.text);
@@ -233,7 +233,7 @@ exports.handleSaveRequest = function(socket, data, roomDrivers, roomUsers,
 exports.requestWorkspace = function(socket, data, roomDrivers, roomUsers, io){
   var room = data.room;
   var username = data.user;
-  //only the driver can make this request
+  // only the driver can make this request
   if (validateDriver(socket, room, username, roomDrivers, roomUsers)){
       io.sockets.in(room).emit("request_workspace", { });
   }
@@ -244,13 +244,13 @@ exports.requestWorkspace = function(socket, data, roomDrivers, roomUsers, io){
  */
 exports.sendMessage = function(socket, data, roomUsers, io){
 
-  //Don't accept empty messages.
+  // Don't accept empty messages.
   if (!data.msg || data.msg.length == 0) return;
 
   var room = data.room;
   var username = data.user;
-  //Validate if the user is actually apart of the room it is trying
-  //to send a message to.
+  // Validate if the user is actually apart of the room it is trying
+  // to send a message to.
   if (validateUser(socket, room, username, roomUsers)){
     io.sockets.in(room).emit('new_message', data);
   }
@@ -307,7 +307,7 @@ function saveFile(socket, path, content){
  */ 
 function loadFile(socket, path, room, roomFile, fileName){
 
-  //debug messages
+  // debug messages
   if (roomFile[room]){
     console.log("New File loaded -> " + path + " (was  " 
           + roomFile[room] + ") in room " + room + "\n")
@@ -321,7 +321,7 @@ function loadFile(socket, path, room, roomFile, fileName){
       if (exists){
         fs.readFile(path, function(err, data) {
           if (!err){
-            //send the files content to the driver
+            // send the files content to the driver
             socket.emit("receive_file",
               {
                 text:unescape(data),
@@ -352,11 +352,11 @@ function validatePath(relativePath, fileName){
     fileName = unescape(fileName);
 
     var fullPath = relativePath + fileName;
-    //Check for .. in relative path
+    // Check for .. in relative path
     var pathReg1 = /.*\.\..*/;
-    //Check that the fileName doesn't contain / or \
+    // Check that the fileName doesn't contain / or \
     var pathReg2 = /(.*(\/|\\).*)/;
-    //Further validation on the name mostly ensures characters are alphanumeric 
+    // Further validation on the name mostly ensures characters are alphanumeric 
     var pathReg3 = /^([a-zA-Z0-9_ .]|-)*$/;
 
     return !(pathReg1.exec(relativePath)
@@ -413,28 +413,28 @@ function validateUser(socket, room, username, roomUsers){
 exports.menuClicked = function(socket, data, roomDrivers, 
   roomUsers, roomAdmins, roomFile, io){
 
-  //The name of the room the user is currently in.
+  // The name of the room the user is currently in.
   var room = data.room;
 
-  //Only the driver can manipulate the file tree.
+  // Only the driver can manipulate the file tree.
   if (validateDriver(socket, room, data.user, 
     roomDrivers, roomUsers)){
 
-    //The admins socket id.
+    // The admins socket id.
     var adminID = roomAdmins[room];
-    //The admins username, used to locate the folder for the room.
+    // The admins username, used to locate the folder for the room.
     var username = md5h(roomUsers[room][adminID]);
     var relPath = unescape(data.relPath);
     var directory = process.cwd() + "/users";
-    //The full path to the active folder where an active folder is
-    //the folder that has changes in one of its files. 
+    // The full path to the active folder where an active folder is
+    // the folder that has changes in one of its files. 
     var activePath = unescape(directory + "/" + username + data.activePath);
-    //The full path to the file selected on.  
+    // The full path to the file selected on.  
     var path = unescape(directory + "/" + username + relPath);
 
     console.log("Context menu action " + data.key + " at " + path + "\n");
 
-    //check for common path exploits
+    // check for common path exploits
     if (!validatePath(relPath, data.name) || !validatePath(data.activePath, data.name)){
       sendErrorCM(socket, data, "Name should avoid special characters.");
       return;
@@ -445,9 +445,9 @@ exports.menuClicked = function(socket, data, roomDrivers,
     }
 
     switch(data.key){
-      //cases correspond to each menu option
+      // cases correspond to each menu option
 
-      case 'file': //Create a new file
+      case 'file': // Create a new file
         var fullPath = activePath + data.name;
         console.log(fullPath);
         fs.exists(fullPath, function(exists){
@@ -469,10 +469,10 @@ exports.menuClicked = function(socket, data, roomDrivers,
         });
         break;
 
-      case 'upload': //Upload file to directory
+      case 'upload': // Upload file to directory
         break;
 
-      case 'rename': //Rename a file
+      case 'rename': // Rename a file
         fs.exists(path, function(exists){
           if (!exists){
               sendErrorCM(socket,data, "The file you are trying to rename does not exist.");
@@ -500,7 +500,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
         });
         break;
 
-      case 'delete': //Delete entire directory or file
+      case 'delete': // Delete entire directory or file
         try{
             fs.removeRecursive(path,function(err,status){
               if (err){
@@ -518,7 +518,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
         }
         break;
 
-      case 'directory': //Create new directory 
+      case 'directory': // Create new directory 
         var mode = 0755;
         fs.mkdir(activePath + data.name, mode, function(err){
           if (err) {
@@ -533,7 +533,7 @@ exports.menuClicked = function(socket, data, roomDrivers,
         break;
     }
   }else{
-    //validation for driver failed
+    // validation for driver failed
     sendErrorCM(socket,data, "You don't have privelege to do that; "
       +" you must be the current driver or admin.");
   }
@@ -572,8 +572,8 @@ exports.make_switch = function(io, socket, data, roomDrivers, roomUsers){
   var old_driver = socket.store.data.nickname;
   var room = socket.store.data.room;
 
-  //socket needs to be in driver mode
-  //for switch to be legal
+  // socket needs to be in driver mode
+  // for switch to be legal
   if(roomDrivers[room] == socket.id){
     var room_users = roomUsers[room];
     var success = false;
@@ -586,7 +586,7 @@ exports.make_switch = function(io, socket, data, roomDrivers, roomUsers){
     }
 
     if(success){
-      //tell all others that a switch happened
+      // tell all others that a switch happened
       io.sockets.in(room).emit('switch_success', 
       {new_driver: data.switch_target, new_nav: old_driver});
     }
@@ -607,9 +607,9 @@ exports.make_switch = function(io, socket, data, roomDrivers, roomUsers){
 function sendErrorCM(socket, data, errorMsg){
   socket.emit("context_menu_click_result", 
     {
-      key:data.key, //The name of the context menu action.
+      key:data.key, // The name of the context menu action.
       result:false, 
-      error:errorMsg //The reason it failed.
+      error:errorMsg // The reason it failed.
     });
 }
 

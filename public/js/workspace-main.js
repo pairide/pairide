@@ -5,15 +5,14 @@
  * here because both have this feature.
  */
 
-//The current selected language to view code with.
+// The current selected language to view code with.
 var language = "Python";
-//The Ace editor object.
+// The Ace editor object.
 var editor;
 var Range;
-var annotBoxLeft;
-//The current highlighted file in the filebrowser.
+// The current highlighted file in the filebrowser.
 var currentHighlightedFile = null;
-//A dictionary of supported languages.
+// A dictionary of supported languages.
 var languages = {"Python " : "python",
                  "Javascript " : "javascript",
                  "Java " : "java",
@@ -28,17 +27,17 @@ $(document).ready(function(){
     return "You are the admin. Leaving the room will terminate it."
   ;});
 
-  //Set up language label and selection
+  // Set up language label and selection
   for (var lang  in languages){
     var str_link = "<li id=lang_" + languages[lang] + "><a href='#'>" + lang + "</a></li>";
     $("#languageList").append(str_link);
   }
 
-  //highlight is set to python by default
+  // highlight is set to python by default
   $("#lang_python a")
     .append("<i class='icon-ok'></i>");
 
-  //Listener for language change
+  // Listener for language change
   $("#languageList li").click(function(e){
     $("#languageList li a i").remove();
     $(this).children().append("<i class='icon-ok'></i>");
@@ -216,13 +215,13 @@ function handleFiles(files) {
  * pushes the files content onto the editor.
  */
 function handleReaderLoadEnd(evt) {
-  //update the editor with the files content
+  // update the editor with the files content
   editor.getSession().setValue(evt.target.result);
 }
 
-//Prevent the default behaviour attached to the escape key.
-//For some browsers the escape key will kill all javascript including ajax
-//transports.
+// Prevent the default behaviour attached to the escape key.
+// For some browsers the escape key will kill all javascript including ajax
+// transports.
 $(document).keypress(function(e){
   var code = (e.keyCode ? e.keyCode : e.which);
 

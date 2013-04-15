@@ -139,12 +139,12 @@ exports.profile = function(req, res){
  */
 exports.createProject = function(req, res){
 
-  //The directory path to all user files.
+  // The directory path to all user files.
   var directory = process.cwd() + "/users";
-  //The username of the user requesting files.
+  // The username of the user requesting files.
   var username;
 
-  //validate if the user is signed in
+  // validate if the user is signed in
   if (req.session && req.session.user_id){
     username = md5h(req.session.user_id);
   }
@@ -157,9 +157,9 @@ exports.createProject = function(req, res){
       return;
   }
   
-  //Regex that only accepts alphanumeric expressions.
+  // Regex that only accepts alphanumeric expressions.
   var sanityReg = /^[a-zA-Z0-9_ -]+$/;
-  //Check for potential path traversal attacks or special characters
+  // Check for potential path traversal attacks or special characters
   if (!sanityReg.exec(req.body.name)){
     res.send(
       {
@@ -169,10 +169,10 @@ exports.createProject = function(req, res){
     return;
   }
 
-  //The full path to the directory to be created.
+  // The full path to the directory to be created.
   var path = directory + "/" + username + "/" + req.body.name;
   try {
-    //raises an error if the project does not exist
+    // raises an error if the project does not exist
     stats = fs.lstatSync(path);
     res.send(
       {
@@ -180,7 +180,7 @@ exports.createProject = function(req, res){
         error:"A project with that name already exists."
       });
   }catch (e) {
-    //create the directory for the project and notify success or failure
+    // create the directory for the project and notify success or failure
     var mode = 0755;
     fs.mkdir(path, mode, function(err){
       if (err){
@@ -213,24 +213,24 @@ function pathExists(path){
  */
 exports.fileConnector = function(req, res){
 
-  //The directory path for all user files
+  // The directory path for all user files
   var directory = process.cwd() + "/users";
-  //The name of the user requesting files.
+  // The name of the user requesting files.
   var username;
   //A stats object for querying with the fs module.
   var stats;
   //The full path to the files being requested.
   var path;
-  //The relative path from the users folder.
+  // The relative path from the users folder.
   var relPath;
-  //The room name where the files are being requested from.
+  // The room name where the files are being requested from.
   var room = req.body.room;
-  //The clients unique socket id obtained during
-  //the initial socket connection.
+  // The clients unique socket id obtained during
+  // the initial socket connection.
   var sockID = req.body.sID;
 
-  //Validate if the clients socket id matches the list of 
-  //known id's connected to the room.
+  // Validate if the clients socket id matches the list of 
+  // known id's connected to the room.
   if (room && sockID
     && roomUsers[room] && roomAdmins[room]
     && sockID in roomUsers[room]){
@@ -240,9 +240,9 @@ exports.fileConnector = function(req, res){
     relPath = unescape(req.body.dir);
     path = directory + "/" + username + relPath;
 
-    //Create their user directory if it does not exist.
+    // Create their user directory if it does not exist.
     if (!pathExists(directory + "/" + username)){
-      //This is not asynchronous (ie. will block until finished).
+      // This is not asynchronous (ie. will block until finished).
       fs.mkdirSync(directory + "/" + username);
     }
   }
@@ -253,7 +253,7 @@ exports.fileConnector = function(req, res){
 
   console.log("Files requested at: " + path);
   try {
-    //raises an error if the path does not exist
+    // raises an error if the path does not exist
     stats = fs.lstatSync(path);
     if (stats.isDirectory()) {
       fs.readdir(path, function (err, files) {
@@ -261,7 +261,7 @@ exports.fileConnector = function(req, res){
           console.log(err);
           return;
         }
-        //html for start of the file list
+        // html for start of the file list
         var html = "<ul style=\"display: none;\" class=\"jqueryFileTree\">";
         for (var i=0; i < files.length; i++){
           try{
@@ -269,15 +269,15 @@ exports.fileConnector = function(req, res){
             var filePath = path + fileName;
             var fileStats = fs.lstatSync(filePath);
            
-            //check if file is a nested directory
+            // check if file is a nested directory
             if (fileStats.isDirectory()){
               html +=  "<li class=\"directory collapsed context-menu-one\"><a ftype=\"directory\" href=\"#\" rel=\""
               + relPath + fileName + "/\">" + fileName + "</a></li>";
             } 
             else if (fileStats.isFile()){
-              var re = /(?:\.([^.]+))?$/; //regex for a file ext
+              var re = /(?:\.([^.]+))?$/; // regex for a file ext
               var ext = re.exec(fileName)[1];
-              //add html tag for a file
+              // add html tag for a file
               html += "<li class=\"file ext_" + ext + "\"><a ftype=\"file\" href=\"#\" rel=\""
               + relPath + fileName + "\">" + fileName + "</a></li>";
             }
@@ -285,14 +285,14 @@ exports.fileConnector = function(req, res){
             console.log(e);
           }
         }
-        html += "</ul>"; //end file list
+        html += "</ul>"; // end file list
         res.send(html);
       });
     }
   }
   catch (e) {
-    //Despite creating the users folder above if it doesn't exist; 
-    //this error may still occur if the mkdir failed.
+    // Despite creating the users folder above if it doesn't exist; 
+    // this error may still occur if the mkdir failed.
     console.log("File directory for user does not exist. This should not happen.");
   }
 };
