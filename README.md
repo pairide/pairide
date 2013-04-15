@@ -33,9 +33,9 @@ Installation Instructions:
 
 Instructions below are also specific to a machine running Ubuntu. If your targeted environment doesn't run Ubuntu you will have to satisfy the requirements above (specific to the distribution you are using) and then attempt to run the application.
 
-1) Install npm and git:
+1) Install npm, git and zip:
 
-<code>apt-get install npm git </code>
+<code>apt-get install npm git zip</code>
 
 2) Install the appropriate version of node:
 
