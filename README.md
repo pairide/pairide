@@ -64,7 +64,7 @@ Instructions below are also specific to a machine running Ubuntu. If your target
 * In public/js/basesockets.js
  * Change the “port” parameter as required.
 
-Once installed you may invoke the application, using node app.js
+Once installed you may invoke the application, using <code>node app.js</code>
 
 Credits:
 --------
