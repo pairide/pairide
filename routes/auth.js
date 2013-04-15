@@ -218,6 +218,9 @@ exports.logout = function(req, res){
   res.redirect('/home');
 };
 
+/*
+ * Process a forget password request.
+ */
 exports.processForgotPassword = function(req, res){
   var data = {
     remoteip:  req.connection.remoteAddress,
@@ -229,12 +232,13 @@ exports.processForgotPassword = function(req, res){
     title = "Error",
     notification;
 
+  // Sanitize inputs.
   if(!req.body.email){
     res.redirect('/forgot_password?e=1');
   }
 
+  // Verify the captcha.
   var recaptcha = new Recaptcha(config.PUBLIC_KEY, config.PRIVATE_KEY, data);
-
   recaptcha.verify(function(success, error_code) {
 
     if(success){
@@ -251,6 +255,7 @@ exports.processForgotPassword = function(req, res){
           res.render('notify', {current: false, title: title, type: type, notification: notification});
 
         }else{
+          // Everything looks good, send a reset password email.
           _reset_password(user, req.body.email, res);
         }
       });
@@ -261,6 +266,10 @@ exports.processForgotPassword = function(req, res){
   });
 };
 
+/*
+ * Helper function for generating a reset password email
+ * and processing it.
+ */ 
 function _reset_password(user, email, res){
   var type = "error",
   title = "Error",
@@ -299,6 +308,10 @@ function _reset_password(user, email, res){
   });
 }
 
+/*
+ * Show a reset passowrd form. A user reaches this view once they
+ * click the reset password link through their email.
+ */
 exports.reset_password_form = function(req, res){
   var data = req.query,
   type = "error",
@@ -328,6 +341,10 @@ exports.reset_password_form = function(req, res){
   }
 };
 
+/*
+ * Process a completed reset password request. This function
+ * performs the actual reset.
+ */
 exports.reset_password = function(req, res){
   var data = req.body,
   type = "error",
@@ -347,6 +364,7 @@ exports.reset_password = function(req, res){
           res.render('notify', {current: false, title: title, type: type, notification: notification});
 
         }else{
+          // Reset the password.
           var bcrypt = require('bcrypt'),
           salt = bcrypt.genSaltSync(10),
           hash = bcrypt.hashSync(data.pass, salt);
@@ -370,6 +388,11 @@ exports.reset_password = function(req, res){
   }
 };
 
+/*
+ * Sanitize username for registration. Usernames
+ * cannot have a "guest_" prefix since these are
+ * reserved express sessions.
+ */
 function validUsername(username){
   var invalidRegex = /^guest_.*/i;
 

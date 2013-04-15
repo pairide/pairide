@@ -10,12 +10,17 @@ var isDriver;
 var driver;
 //The name of the room that the client is in.
 var roomname;
+//Current highlight (if any).
 var currentHighlight;
+// Counter for annotations.
 var annotationID = 0;
+// Dictionary of annotations currently active.
 var annotations = {};
 var annotFlag = false;
 // users = {username: elem} where elem is the dom element in the chat refering to the user
 var users = {};
+//True iff the state of the workspace has bene synchronized
+// upon joining a room.
 var refreshed = false;
 //True iff autosave is active.
 var autoSaveToggle = false;
@@ -54,7 +59,11 @@ function load(socket, type, username){
     driver = data.name;
   });
 
+  // Listen for a request asking the driver for the current
+  // status of the workspace.
   socket.on("get_driver_state", function(){
+    // Process only if driver. If the room is not an express session
+    // then a file must be selected; otherwise there is nothing to sync.
     if(isDriver &&  (roomType == "express" || fileSelected)){
       socket.emit("post_driver_state", {
         content: editor.getSession().getValue(),
@@ -63,6 +72,8 @@ function load(socket, type, username){
     }
   });
 
+  // Process the driver sending their current status and apply the
+  // status to the present workspace.
   socket.on("get_acquire_current_state", function(data){
     if(!refreshed){
       refreshed = true;
@@ -233,6 +244,7 @@ function load(socket, type, username){
     addConsoleMessage("Switched driver to - " + data.new_driver);
   });
 
+  // Process annotation deletion.
   socket.on("get_remove_annotation", function(data){
     purgeAnnotation(data);
   });
@@ -321,11 +333,16 @@ function  check_username(socket, type, username){
   return dfd.promise();
 }
 
-
+/*
+ * Process a selection being done on the browser.
+ */
 function handleSelection(range){
     socket.emit("post_selection", { user: username, range: range });
 }
 
+/*
+ * Apply a selection just recieved form a user.
+ */
 function applySelection(data){
 
   if(data.user != username){
@@ -390,6 +407,10 @@ function send_switch_request(e){
   });
 }
 
+/* 
+ * Process an annotation being done on the client.
+ * This shows up a dialog.
+ */
 function handleAnnotation(){
 
     var sel = editor.getSession().selection.getRange();
@@ -404,6 +425,10 @@ function handleAnnotation(){
     }
 }
 
+/*
+ * Add annotation from this client, this would emit
+ * the annotation to all the users (including self).
+ */
 function addAnnotation(){
 
   var sel = editor.getSession().selection.getRange();
@@ -423,6 +448,10 @@ function addAnnotation(){
   editor.getSession().selection.clearSelection();
 }
 
+/*
+ * Compute the lines that have been wrapper so that
+ * annotations are accordingly padded.
+ */
 function annot_offset(range_end){
   var lines = editor.getSession().getDocument().getLines(0, range_end.row);
   var total_off = 0;
@@ -436,6 +465,9 @@ function annot_offset(range_end){
   return total_off;
 }
 
+/*
+ * Add an annotation from the request.
+ */
 function applyAnnotation(data){
   var range = data.range;
   var margin_top = (parseInt(range.start.row, 10) + data.offset) * 20;
@@ -461,16 +493,20 @@ function applyAnnotation(data){
 
   annotations[annotation_id] = data;
 
+  // Set up a listener for the popover.
   annot.popover({
     content: data.annot,
     trigger: 'none'
   });
 
+  // Set up a listener for the hover event.
   annot.hover(
+    // Apply
     function(){
       annot.popover('show');
       highlightAnnotation(range, annotation_role);
     },
+    // Destruct
     function(){
       if(!annotFlag){
         annot.popover('hide');
@@ -480,6 +516,10 @@ function applyAnnotation(data){
   );
 }
 
+/*
+ * Highlight portions of the code that an annotation
+ * represents.
+ */
 function highlightAnnotation(range, role){
   var s = range.start;
   var e = range.end;
@@ -487,14 +527,23 @@ function highlightAnnotation(range, role){
   currentHighlight = editor.getSession().addMarker(r,"line-style-" + role, "text");
 }
 
+/*
+ * Destory an annotation highlight.
+ */
 function destroyHighlightAnnotation(){
   editor.getSession().removeMarker(currentHighlight);
 }
 
+/*
+ * Remove an annotation from the client.
+ */
 function removeAnnotationSend(target){
   socket.emit("post_remove_annotation", {target: target});
 }
 
+/*
+ * Purge an annotation from a request.
+ */
 function purgeAnnotation(data){
   var target_id = parseInt(data.target.slice(2), 10);
 
@@ -545,8 +594,15 @@ function toggleAnnotations(){
   }
 }
 
+/*
+ * Pads integers with a prefix "0" if they are
+ * single digit.
+ */
 function pad(n) { return ("0" + n).slice(-2); }
 
+/*
+ * Add a message to the console.
+ */
 function addConsoleMessage(message){
   var d = new Date();
   var timestamp = pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
