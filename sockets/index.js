@@ -95,6 +95,8 @@ exports.communicate = function(io){
       workspace.sendMessage(socket, data, roomUsers, io);
     });
 
+    // Listen for a selection from any of the users in a room and emit
+    // the selection to all users in the room.
     socket.on("post_selection", function(data){
       io.sockets.in(socket.store.data.room).emit('get_selection', data);
     });
@@ -113,6 +115,9 @@ exports.communicate = function(io){
       workspace.requestWorkspace(socket, data, roomDrivers, roomUsers, io);
     });
 
+    // Listen for a creation of annotation and send the annotation information
+    // to all the clients in the room. Once this event is received by the clients
+    // only then is an annotation applied.
     socket.on("post_annotation", function(data){
       var driverID = roomDrivers[socket.store.data.room];
       data["driver"] = roomUsers[socket.store.data.room][driverID];
@@ -125,14 +130,20 @@ exports.communicate = function(io){
       workspace.make_switch(io, socket, data, roomDrivers, roomUsers);
     });
 
+    // Notify users of an annotation being removed.
     socket.on("post_remove_annotation", function(data){
       io.sockets.in(socket.store.data.room).emit("get_remove_annotation", data);
     });
 
+    // Request the driver for the current state of the editor. This event is used
+    // when a new user joins and wants to synchronize his status with the driver.
     socket.on("post_acquire_current_state", function(){
       io.sockets.in(socket.store.data.room).emit("get_driver_state");
     });
 
+    // Listen for the driver sending the current status and send it to all the users
+    // in a room. This event would *only* be processed by clients who have recently
+    // joined and haven't gotten their state synced.
     socket.on("post_driver_state", function(data){
       io.sockets.in(socket.store.data.room).emit("get_acquire_current_state", data)
     });

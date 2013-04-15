@@ -1,3 +1,5 @@
+/* This contains all scripts needed for the reset password page: create new password*/
+
 $(document).ready(function(){
 
 	$('#resetPasswordForm').validate({
@@ -14,3 +16,4 @@ $(document).ready(function(){
 		}
 	});
 });
+

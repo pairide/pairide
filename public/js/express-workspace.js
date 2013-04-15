@@ -1,10 +1,12 @@
+/* This contains all the code related to express workspaces only */
+
 var socket = connect();
 var username = "";
 
 $(document).ready(function(){
 
   if(!auth){
-    /*Get user's name and load the session */
+    //Get user's name and load the session.
     $('#nameFormBtn').on("click", function(){
       set_user();
       return false;
@@ -51,3 +53,4 @@ function set_user(){
     });
   return false;
 }
+

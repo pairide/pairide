@@ -1,3 +1,5 @@
+/* This contains all scripts needed for the report a bug page. */
+
 $(document).ready(function(){
 
   $('#reportBugForm').validate({
@@ -15,3 +17,4 @@ $(document).ready(function(){
     }
   });
 });
+

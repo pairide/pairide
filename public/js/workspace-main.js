@@ -59,6 +59,7 @@ $(document).ready(function(){
     handleSelection(editor.getSession().selection.getRange());
   });
 
+  // Annotation request.
   $("#anoLink").on("click", function(){
     handleAnnotation();
     return false;
@@ -79,7 +80,7 @@ $(document).ready(function(){
     }
   });
 
-  $(".annotation").live("dblclick", function(e){
+  $(".annotation").on("dblclick", function(e){
     var r=confirm("Are you sure you want to delete?");
     if(r){
       removeAnnotationSend(e.target.id);
@@ -148,12 +149,18 @@ function showMessage(message, hide){
   });
 }
 
+/*
+ * Show a loader message on the top pane.
+ */
 function show_loader(message){
   $("#loader_msg").html(message);
   $("#loader_img").show();
   $("#loader").fadeIn();
 }
 
+/*
+ * Hide the loader message.
+ */
 function hide_loader(){
   $("#loader").delay(3000).fadeOut();
 }

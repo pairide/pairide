@@ -53,6 +53,9 @@ exports.contact = function(req, res){
   res.render('contact', { title: 'Contact', current : 'Contact' });
 };
 
+/*
+ * Route a forget password request.
+ */
 exports.forgot_password = function(req, res){
   var recaptcha = new Recaptcha(config.PUBLIC_KEY, config.PRIVATE_KEY);
 
@@ -66,6 +69,9 @@ exports.forgot_password = function(req, res){
   res.render('forgot_password', {title: "Forgot Password", current: false});
 };
 
+/*
+ * Process a completed contact form request.
+ */
 exports.processContact = function(req, res){
   var data = {
         remoteip:  req.connection.remoteAddress,

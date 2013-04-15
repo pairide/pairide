@@ -11,7 +11,7 @@ margin:0 auto;
 #addProjectButton{
   height:32px;
   width:32px;
-  background-image:url('images/32x32/add.png');
+  background-image:url('images/add.png');
   background-repeat:no-repeat;
   float:right;
 }

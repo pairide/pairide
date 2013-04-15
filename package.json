@@ -1,12 +1,38 @@
 {
   "name": "pairide",
-  "version": "0.0.1",
+  "version": "2.0.0",
+  "author": "PairIDE Team <pairideuoft@gmail.com>",
+  "description": "Collaborative pair-programming web application.",
+  "contributors": [
+    {
+      "name": "Warren Marivel",
+      "email": "ufowam@gmail.com"
+    },
+    {
+      "name": "Surya Nallu",
+      "email": "surya@hakc.net"
+    },
+    {
+      "name": "Alexander Rodrigues",
+      "email": "alexander.j.rodrigues@gmail.com"
+    }
+    ],
   "private": true,
   "scripts": {
     "start": "node app"
   },
+  "license": "MIT",
   "dependencies": {
     "express": "3.0.6",
-    "jade": "*"
+    "jade": "*",
+    "socket.io": "0.9.13",
+    "connect-mongo": "0.3.2",
+    "MD5": "1.0.3",
+    "log4js": "*",
+    "mongoose": "*",
+    "nodemailer": "*",
+    "recaptcha": "*",
+    "bcrypt": "0.7.4",
+    "jquery-file-upload-middleware": "https://github.com/ayrus/jquery-file-upload-middleware/tarball/master"
   }
 }

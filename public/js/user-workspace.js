@@ -125,6 +125,10 @@ $(document).ready(function(){
     }
   });
 
+  // Add a hidden overlay for the code-area which is invoked
+  // when the editor is locked. This computed dynamically
+  // where to place the overlay given where the browser has
+  // placed the code area relatively.
   $("#code_overlay")
     .css("width", $("#code").css("width"))
     .css("position", "absolute")
@@ -235,6 +239,7 @@ function initUploader(){
       $("#FileUploadButton").off('click');
     },
 
+    // After a file has been added to the queue.
     add: function (e, data) {
       $.each(data.files, function(index, file){
 
@@ -248,12 +253,14 @@ function initUploader(){
         data.context = done_icon;
       });
 
+      // Add a listener to upload the data when requested.
       $("#FileUploadButton")
         .on("click", function() {
           data.submit();
       });
     },
 
+    // After a file has been uploaded.
     done: function (e, data) {
       if(data.textStatus == "success"){
         data.context
@@ -264,11 +271,13 @@ function initUploader(){
       }
     },
 
+    // If a file has failed to upload properly.
     fail: function(e, data){
       data.context
         .html("<i class='icon-warning-sign icon-white'></i>");
     },
 
+    // Event for listening into the progress of file uploads.
     progressall: function(e, data) {
       var progress = parseInt(data.loaded / data.total * 100, 10);
 
@@ -281,6 +290,9 @@ function initUploader(){
     }
   });
 
+  // After the upload dialog has been closed, reset the contents
+  // of the upload form, so that it can be later used for new
+  // uploads.
   $("#contextMenuFileUpload").on("hidden", function(){
     refreshFiles({
       key: "upload",
@@ -294,6 +306,7 @@ function initUploader(){
     addConsoleMessage("Driver uploaded files to current working directory");
   }); 
 }
+
 /**
  * Send a request to save the current file.
  */
@@ -319,6 +332,7 @@ function autoSave(){
     saveFile();
   }
 }
+
 /*
  * Make an ajax request for the users files.
  */
@@ -773,12 +787,18 @@ function handleCMResult(data){
   }
 }
 
+/* 
+* Lock the editor 
+*/
 function lock_editor(message){
   editor.setReadOnly(true);
   $("#overlay_message").html(message);
   $("#code_overlay").fadeIn();
 }
 
+/* 
+* Lock the editor 
+*/
 function unlock_editor(){
   if(isDriver){
     editor.setReadOnly(false);
@@ -786,6 +806,10 @@ function unlock_editor(){
   $("#code_overlay").fadeOut();
 }
 
+/* 
+* Give the newly connected user a 
+* username.
+*/
 function set_user(){
   username = "guest_" + $("#username").val();
 
