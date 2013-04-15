@@ -1,3 +1,8 @@
+/* 
+* This contains any scripts needed for the homepage:
+*    - client side validation for the ligin and create_session forms
+*/
+
 $(document).ready(function(){
   $('#create_session').ajaxForm(function(data) {
     if (!data.result){

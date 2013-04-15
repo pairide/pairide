@@ -1,3 +1,5 @@
+/* This contains all scripts required for the registration page */
+
 $(document).ready(function(){
 
   jQuery.validator.addMethod("validUsername",

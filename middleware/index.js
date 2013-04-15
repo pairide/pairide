@@ -30,6 +30,11 @@ exports.checkAuth = function(req, res, next){
   next();
 };
 
+/*
+* When request to a room is received, check if
+* the room has been created through the interface
+* and exists before performing the request
+*/
 exports.checkRoom = function(req, res, next){
   var matchRoomRequest = /.*\/(express|workspace)\/(.+)/;
   var rooms = require('../routes/room.js').roomsCreated;

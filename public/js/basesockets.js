@@ -14,6 +14,7 @@ var currentHighlight;
 var annotationID = 0;
 var annotations = {};
 var annotFlag = false;
+// users = {username: elem} where elem is the dom element in the chat refering to the user
 var users = {};
 var refreshed = false;
 //True iff autosave is active.
@@ -21,7 +22,9 @@ var autoSaveToggle = false;
 //The type of room, either "express" or "workspace".
 var roomType;
 
-//base load function for the workspace
+/*
+* Base initializer function for the workspace
+*/
 function load(socket, type, username){
 
   addConsoleMessage("Session initated.");
@@ -95,10 +98,11 @@ function load(socket, type, username){
     }
   });
 
+  //join the sockets room for that user workspace
   roomname = roomID(type);
   socket.emit('join_room', { room: roomname, user:username});
 
-  /* set up chat room */
+  //set up chat room 
   socket.emit('get_users', {room: roomname});
 
   socket.once('send_users', function(data){
@@ -117,6 +121,8 @@ function load(socket, type, username){
     }
   });
 
+  //Set up DOM to account for the newly connected
+  //user.
   socket.on('new_user', function(data){
     if(data.user != username){
       var elem = $(document.createElement('p'));
@@ -142,6 +148,7 @@ function load(socket, type, username){
     }
     return false;
   });
+
   //Handle event: getting a new message from another user
   socket.on('new_message', function(data){
     var new_msg = document.createElement("p");
@@ -519,6 +526,10 @@ function hideAllAnnotations(){
   annotFlag = false;
 }
 
+/* 
+* Show all annotations if they are hidden,
+* else hide all the annotations
+*/
 function toggleAnnotations(){
   if(annotFlag){
     $('#anoToggle i').removeClass('icon-edit');

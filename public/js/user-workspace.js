@@ -294,6 +294,7 @@ function initUploader(){
     addConsoleMessage("Driver uploaded files to current working directory");
   }); 
 }
+
 /**
  * Send a request to save the current file.
  */
@@ -319,6 +320,7 @@ function autoSave(){
     saveFile();
   }
 }
+
 /*
  * Make an ajax request for the users files.
  */
@@ -773,12 +775,18 @@ function handleCMResult(data){
   }
 }
 
+/* 
+* Lock the editor 
+*/
 function lock_editor(message){
   editor.setReadOnly(true);
   $("#overlay_message").html(message);
   $("#code_overlay").fadeIn();
 }
 
+/* 
+* Lock the editor 
+*/
 function unlock_editor(){
   if(isDriver){
     editor.setReadOnly(false);
@@ -786,6 +794,10 @@ function unlock_editor(){
   $("#code_overlay").fadeOut();
 }
 
+/* 
+* Give the newly connected user a 
+* username.
+*/
 function set_user(){
   username = "guest_" + $("#username").val();
 
