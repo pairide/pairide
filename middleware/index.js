@@ -51,3 +51,4 @@ exports.checkRoom = function(req, res, next){
   }
   res.render('notify', {current: false, title: 'Invalid room', type: "error", notification: "The room you have requested does not exist."});
 };
+

@@ -341,6 +341,7 @@ exports.reset_password_form = function(req, res){
   }
 };
 
+
 /*
  * Process a completed reset password request. This function
  * performs the actual reset.
