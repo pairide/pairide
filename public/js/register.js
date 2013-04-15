@@ -31,6 +31,10 @@ $(document).ready(function(){
   });
 });
 
+/* Sanitize username being registered.
+ * A username cannot have the "guest_" prefix.
+ * These prefixs are reserved for express sessions.
+ */
 function validUsername(){
   var username = $("#username input").val();
   var invalidRegex = /^guest_.*/i;
